@@ -4,7 +4,7 @@
 ---
 
 > **"Pendant la ruée vers l'or, ne cherche pas l'or. Vends les pioches."**
-> — La stratégie fondamentale de Steve Donald Compaore
+> — La stratégie fondamentale de Steeve Donald Compaore
 
 ---
 
@@ -16,7 +16,7 @@ Devenir le premier acteur technologique à contrôler l'intégralité de la cha�
 
 ## 👤 QUI EST STEVE DONALD COMPAORE
 
-**Steve Donald Compaore** est né et a grandi au Burkina Faso. À 20 ans, il est en 3ème année d'informatique à l'Université de Tokat, en Turquie. Il a quitté son pays pour acquérir les outils intellectuels et techniques dont l'Afrique a besoin, avec la ferme intention de revenir les déployer.
+**Steeve Donald Compaore** est né et a grandi au Burkina Faso. À 20 ans, il est en 3ème année d'informatique à l'Université de Tokat, en Turquie. Il a quitté son pays pour acquérir les outils intellectuels et techniques dont l'Afrique a besoin, avec la ferme intention de revenir les déployer.
 
 Il n'est pas un étudiant ordinaire. Il est un futur architecte de la transformation économique africaine.
 
@@ -340,7 +340,7 @@ Burkina Faso d'abord. Chaque ligne de code, chaque franc investi, chaque décisi
 
 | Champ | Valeur |
 |-------|--------|
-| Auteur | Steve Donald Compaore |
+| Auteur | Steeve Donald Compaore |
 | Date de création | Juin 2026 |
 | Dernière mise à jour | Juin 2026 |
 | Statut | Phase 1 — En cours |
