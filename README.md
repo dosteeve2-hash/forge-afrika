@@ -35,7 +35,7 @@ Notre stratégie n'est pas de participer à la ruée. C'est de **devenir la couc
 | **TAAMA** | 🟢 Beta | Traçabilité agricole & ERP industriel — conformité EUDR 2026 | [taama.vercel.app](https://taama.vercel.app) |
 | **CompTrack** | 🟢 Beta | Comptabilité PME SYSCOHADA — simple, mobile, FCFA-natif | [comptrack.vercel.app](https://comptrack.vercel.app) |
 | **BurkinaCollect** | 🟡 En dev | Collecte de données terrain offline-first pour agents de terrain | — |
-| **MIFA Life** | 🟢 Live | E-commerce mode africaine — vêtements & accessoires africains | — |
+| **MIFA Life** | 🚀 En production | E-commerce mode africaine — vêtements & accessoires africains | — |
 
 > Chaque produit est autonome et génère ses propres revenus. Ensemble, ils forment un écosystème intégré : données terrain → production → comptabilité → accès marchés.
 
