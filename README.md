@@ -1,62 +1,90 @@
 <div align="center">
 
-# 🔨 FORGE Afrika
+<img src="https://img.shields.io/badge/FORGE-Afrika-C4572A?style=for-the-badge&logoColor=white&labelColor=070e1f" alt="FORGE Afrika" height="40"/>
 
-### *Forger l'avenir industriel de l'Afrique, un logiciel à la fois.*
+# Construire l'infrastructure logicielle de l'Afrique francophone
 
-[![Status](https://img.shields.io/badge/Phase%201-Logiciels%202024--2028-F0A832?style=for-the-badge)](./ROADMAP.md)
-[![Made in](https://img.shields.io/badge/Made%20in-Burkina%20Faso%20🇧🇫-C4572A?style=for-the-badge)](./VISION.md)
-[![Vision](https://img.shields.io/badge/Horizon-2050-070e1f?style=for-the-badge&labelColor=2dd4ff)](./PROJECT.md)
+[![GitHub Stars](https://img.shields.io/github/stars/dosteeve2-hash/forge-afrika?style=for-the-badge&color=F0A832&labelColor=070e1f)](https://github.com/dosteeve2-hash/forge-afrika/stargazers)
+[![Dernière mise à jour](https://img.shields.io/github/last-commit/dosteeve2-hash/forge-afrika?style=for-the-badge&color=2dd4ff&labelColor=070e1f&label=Mis+%C3%A0+jour)](https://github.com/dosteeve2-hash/forge-afrika/commits/main)
+[![Licence](https://img.shields.io/badge/Licence-MIT-4ade80?style=for-the-badge&labelColor=070e1f)](./LICENSE)
+[![Phase](https://img.shields.io/badge/Phase-Production%202025--2026-F0A832?style=for-the-badge&labelColor=070e1f)](./ROADMAP.md)
+[![Made in](https://img.shields.io/badge/Made%20in-Burkina%20Faso%20%F0%9F%87%A7%F0%9F%87%AB-C4572A?style=for-the-badge&labelColor=070e1f)](./VISION.md)
 
-**[📖 Vision complète](./VISION.md)** · **[🗺️ Roadmap 2024-2050](./ROADMAP.md)** · **[💡 Idées produits](./LOGICIELS/idees-produits.md)**
+**[📖 Vision](./VISION.md)** · **[🗺️ Roadmap](./ROADMAP.md)** · **[💡 Produits](./LOGICIELS/idees-produits.md)** · **[📧 Contact](mailto:docompaore2@gmail.com)**
 
 </div>
 
 ---
 
-## ✨ La conviction fondamentale
+## 🎯 La thèse d'investissement
 
-> *"Ce n'est pas le manque de ressources qui appauvrit l'Afrique. C'est le manque de contrôle sur ce qu'elle fait de ces ressources."*
-> — Steve Donald Compaoré
+> *"Pendant la ruée vers l'or californienne, les vrais gagnants n'étaient pas les chercheurs d'or — c'étaient ceux qui leur vendaient les pioches."*
 
-**FORGE Afrika** est le projet de vie de Steve Donald Compaoré — étudiant burkinabè en informatique à Tokat, Turquie. Ce dépôt est le quartier général stratégique d'une ambition à 20 ans : **devenir le premier acteur à contrôler l'intégralité d'une chaîne de valeur africaine**, du logiciel industriel à la transformation des matières premières.
+**FORGE Afrika** applique cette logique à l'Afrique de 2025 : pendant que 50 millions de PME africaines cherchent leur or — croissance, formalisation, accès aux marchés export — nous leur fournissons les pioches. Ces pioches sont des logiciels : SaaS de comptabilité, de traçabilité agricole, de collecte terrain, pensés pour les réalités du continent.
 
-La stratégie ? Celle de NVIDIA pendant la ruée vers l'IA : **ne pas chercher l'or — vendre les pioches.**
+Le marché du logiciel B2B en Afrique sub-saharienne est encore vierge. Les géants comme SAP ou Odoo sont inaccessibles (coût, complexité, langue). Les PME africaines tiennent leur compta sur cahier, leur production sur Excel, leur traçabilité dans leur tête. **Cela crée une inefficacité systémique de plusieurs dizaines de milliards de dollars — et une opportunité de même ampleur.**
 
----
-
-## 🌍 Le problème
-
-L'Afrique produit **65% du cacao mondial** → capture seulement **3-6%** de la valeur finale du chocolat.  
-Le Burkina Faso est l'un des premiers producteurs de coton → **zéro industrie textile nationale**.  
-La RDC possède **70% des réserves mondiales de cobalt** → ne produit pas une seule batterie Li-ion.
-
-La cause : l'Afrique vend la sueur et rachète la valeur. Elle exporte des matières premières brutes, réimporte des produits finis à 50-200x le prix.
-
-**FORGE Afrika est la réponse systémique à ce problème.**
+Notre stratégie n'est pas de participer à la ruée. C'est de **devenir la couche infrastructure** sur laquelle toute la croissance africaine s'appuie. D'ici 2030, FORGE Afrika vise à être la stack logicielle standard de l'Afrique francophone : la référence incontournable pour toute PME qui veut exister dans l'économie formelle.
 
 ---
 
-## 🗺️ La feuille de route — 4 phases sur 25 ans
+## 💼 Portefeuille de produits
 
-| Phase | Période | Objectif |
-|-------|---------|----------|
-| **⚡ Phase 1 — Les Logiciels** | 2024-2028 | Construire des SaaS industriels pour PME africaines (ERP, traçabilité, gestion d'usine) |
-| **🏭 Phase 2 — L'Industrie** | 2028-2035 | Créer ou racheter une première industrie de transformation au Burkina Faso |
-| **🌾 Phase 3 — Le Primaire** | 2033-2040 | Contrôler les intrants : terres agricoles, coopératives, ressources |
-| **🌐 Phase 4 — L'Empire** | 2040-2050+ | Expansion continentale — 15+ pays, chaîne complète, label "Transformé en Afrique" |
+| Produit | Statut | Description | Accès |
+|---------|:------:|-------------|-------|
+| **TAAMA** | 🟢 Beta | Traçabilité agricole & ERP industriel — conformité EUDR 2026 | [taama.vercel.app](https://taama.vercel.app) |
+| **CompTrack** | 🟢 Beta | Comptabilité PME SYSCOHADA — simple, mobile, FCFA-natif | [comptrack.vercel.app](https://comptrack.vercel.app) |
+| **BurkinaCollect** | 🟡 En dev | Collecte de données terrain offline-first pour agents de terrain | — |
+| **MIFA Life** | 🟢 Live | E-commerce mode africaine — vêtements & accessoires africains | — |
+
+> Chaque produit est autonome et génère ses propres revenus. Ensemble, ils forment un écosystème intégré : données terrain → production → comptabilité → accès marchés.
 
 ---
 
-## 💻 Logiciels en cours de conception (Phase 1)
+## 🗺️ Roadmap 2025–2030+
 
-| Produit | Description | Cible |
-|---------|-------------|-------|
-| **[TAAMA](https://github.com/dosteeve2-hash/taama)** | ERP industriel pour PME de transformation BF | PMEs alimentaires, textiles |
-| **AgroTrack BF** | Gestion de coopératives agricoles, offline-first | Coopératives coton, sésame |
-| **MillTrack** | Suivi de production d'usines de transformation | Minoteries, huileries |
-| **LivestockOS** | Gestion d'élevage mobile (santé, stocks, ventes) | Éleveurs sahéliens |
-| **ValueChain Connect** | Marketplace B2B producteurs ↔ transformateurs | Toute la zone CEDEAO |
+### Phase 1 — Production (2025–2026)
+4 produits SaaS en ligne, premiers clients payants, ARR > 5M FCFA. Validation du modèle sur le marché burkinabè. C'est la phase actuelle : prouver que des PME africaines paient pour du logiciel adapté.
+
+### Phase 2 — Industrie (2027)
+500 PME clientes actives. ARR 50M FCFA (≈ 75 000 €). Recrutement d'une équipe commerciale terrain. Extension aux marchés sénégalais, ivoirien et malien. Les produits passent de beta à production robuste.
+
+### Phase 3 — Monopole (2028–2029)
+Expansion 5 pays francophones. ARR 500M FCFA (≈ 750 000 €). FORGE devient la référence obligatoire pour les PME voulant exporter (certification EUDR, conformité bancaire SYSCOHADA). Lancement d'une offre Enterprise pour les groupes industriels.
+
+### Phase 4 — Infrastructure (2030+)
+FORGE devient **la stack standard** de l'Afrique francophone. Partenariats institutionnels (BCEAO, UEMOA, banques de développement). Les logiciels FORGE sont préinstallés dans les incubateurs et programmes gouvernementaux. Objectif : être à l'Afrique ce que Stripe est au paiement en ligne.
+
+---
+
+## 🔗 Architecture écosystème
+
+```
+BurkinaCollect          TAAMA                CompTrack
+(Collecte terrain)  →  (Production / ERP)  →  (Comptabilité)
+       ↓                      ↓                      ↓
+  Données GPS           Lots certifiés         Bilans SYSCOHADA
+  Géolocalisation       Rendements             Export fiscal
+  Agents terrain        Traçabilité EUDR       Multi-devises FCFA
+                              ↓
+                    FORGE Trade (Phase 2)
+                    (Marketplace export B2B)
+```
+
+Les produits FORGE sont conçus pour s'alimenter mutuellement : les données de collecte terrain de BurkinaCollect entrent dans TAAMA pour la production, et les coûts de production de TAAMA alimentent CompTrack pour la comptabilité. Un seul écosystème intégré, du champ à la facture.
+
+---
+
+## 📊 Chiffres clés du marché
+
+| Indicateur | Valeur |
+|------------|--------|
+| PME en Afrique sub-saharienne sans outils digitaux | ~50 millions |
+| PME burkinabè gérant leur compta sur papier/Excel | > 80 % |
+| Coût ERP classique (Odoo, SAP) pour une PME | 1,5 — 10M FCFA |
+| Taux d'adoption des ERP classiques en Afrique | < 30 % |
+| Valeur marché SaaS B2B Afrique 2030 (estimé) | > 15 Mds USD |
+| Horizon ARR FORGE Afrika 2030 | 500M+ FCFA |
 
 ---
 
@@ -64,59 +92,49 @@ La cause : l'Afrique vend la sueur et rachète la valeur. Elle exporte des mati�
 
 ```
 forge-afrika/
-├── PROJECT.md         → Stratégie globale + analogies NVIDIA/Rockefeller
-├── VISION.md          → Philosophie, analyse chaîne de valeur, leçons historiques
-├── ROADMAP.md         → Timeline 2024-2050, KPIs par phase
+├── README.md              → Ce fichier — vision & portefeuille
+├── PROJECT.md             → Stratégie globale long terme
+├── VISION.md              → Philosophie, analyse chaîne de valeur
+├── ROADMAP.md             → Timeline 2025-2030, KPIs par phase
 ├── LOGICIELS/
-│   ├── idees-produits.md     → Backlog des logiciels à construire
-│   ├── taama-spec-technique.md → Spec technique de TAAMA
-│   └── forja-product-brief.md  → Brief Forja
-├── RECHERCHE/
-│   └── texte-01-le-temps-des-machines.md → Manifeste fondateur (juin 2026)
-└── NOTES/             → Notes de travail (gitignored)
+│   ├── taama-spec.md          → Spec produit TAAMA
+│   ├── comptrack-spec.md      → Spec produit CompTrack
+│   ├── burkinacollect-spec.md → Spec produit BurkinaCollect
+│   └── idees-produits.md      → Backlog des prochains logiciels
+└── RECHERCHE/
+    ├── texte-01-le-temps-des-machines.md → Manifeste fondateur
+    └── synthese-terrain-burkina.md       → Réalités terrain BF
 ```
 
 ---
 
-## 🎯 Logiciels déjà en production
+## 🌟 Les inspirations stratégiques
 
-| Projet | Lien | Description |
-|--------|------|-------------|
-| **TAAMA** | [taama.vercel.app](https://taama.vercel.app) | ERP pour PME industrielles africaines — Phase 1 flagship |
-| **Problem to Project Africa** | [problem-to-projects-africa.vercel.app](https://problem-to-projects-africa.vercel.app) | Transformer idées en projets financables avec l'IA |
-| **African Hybrid Agent** | [burkinacollect.vercel.app](https://burkinacollect.vercel.app) | Agent IA africain sans biais occidental |
-
----
-
-## 🌟 Les inspirations
-
-**Aliko Dangote** — L'intégration verticale. Transformer, pas extraire.  
-**NVIDIA** — Contrôler l'infrastructure. Vendre les pioches, pas chercher l'or.  
-**John D. Rockefeller** — Qui contrôle la chaîne dicte les conditions.  
-**Les Tigres Asiatiques** — 30 ans suffisent pour transformer un pays.
+**Aliko Dangote** — L'intégration verticale. Contrôler toute la chaîne, du producteur au consommateur.
+**NVIDIA** — Vendre l'infrastructure. Celui qui contrôle les outils contrôle la valeur.
+**John D. Rockefeller** — La standardisation. Qui dicte la norme dicte les conditions du marché.
+**Les Tigres Asiatiques** — La vitesse. 25 ans suffisent pour transformer un pays si la stratégie est juste.
 
 ---
 
-## 📜 Textes fondateurs
+## 📬 Contact & Collaboration
 
-- [Le Temps des Machines](./RECHERCHE/texte-01-le-temps-des-machines.md) *(juin 2026)* — La rupture : passer du diagnostic au chantier.
-- [Synthèse terrain Burkina](./RECHERCHE/synthese-terrain-burkina.md) — Réalités industrielles actuelles du Burkina Faso.
+**Steeve Donald Compaoré** — Fondateur, FORGE Afrika
+Étudiant en informatique (L3) · Université de Tokat Gaziosmanpaşa, Turquie 🇹🇷
+Burkinabè de Ouagadougou 🇧🇫
 
----
+📧 [docompaore2@gmail.com](mailto:docompaore2@gmail.com)
+🐙 [github.com/dosteeve2-hash](https://github.com/dosteeve2-hash)
+🌐 [steeve-portfolio-mocha.vercel.app](https://steeve-portfolio-mocha.vercel.app)
 
-## 📄 Auteur
-
-**Steve Donald Compaoré** · Étudiant informatique L3, Université de Tokat Gaziosmanpaşa 🇹🇷  
-Burkinabè de Ouagadougou · Builder · Futur industriel africain
-
-📧 docompaore2@gmail.com · 🌐 [steeve-portfolio-mocha.vercel.app](https://steeve-portfolio-mocha.vercel.app)
+> Pour les investisseurs, partenaires institutionnels ou PME intéressées par un accès early, écrire directement à l'adresse ci-dessus.
 
 ---
 
 <div align="center">
 
-**"Forge ton outil. Forge ta richesse. Forge l'Afrique."**
+*"Ne pas chercher l'or. Forger la pioche."*
 
-*Ce dépôt est une boussole. Quand tu doutes, relis-le. Quand tu es perdu, reviens ici.*
+**FORGE Afrika © 2025-2026 — Steeve Donald Compaoré**
 
 </div>
