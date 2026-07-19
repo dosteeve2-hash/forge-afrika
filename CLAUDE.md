@@ -62,3 +62,38 @@ npm run dev    # Développement
 npm run build  # Build de production (doit être 0 erreurs)
 npm run lint   # Lint ESLint
 ```
+
+## Principes Karpathy
+
+> Andrej Karpathy (ex-Tesla AI / OpenAI) sur comment coder avec l'IA.
+
+### 1. Reflechis avant de coder
+Ne genere pas de code immediatement. Quel est le vrai probleme ? Quelle est la solution la plus simple ?
+
+### 2. Simplicite d'abord
+Le meilleur code est celui qui n'existe pas. Prefere 50 lignes claires a 200 lignes "intelligentes".
+
+### 3. Modifications chirurgicales
+Ne reecris pas ce qui fonctionne. Identifie le changement minimal qui resout le probleme.
+
+### 4. Execution orientee objectif
+Garde l'objectif final en vue. Livre quelque chose qui fonctionne, ameliore ensuite.
+
+## Regles IA -- Securite
+
+### Rate Limiting endpoints IA
+Tout endpoint touchant Anthropic/OpenAI doit avoir un rate limit.
+Max 20 requetes/utilisateur/heure.
+
+### Protection injection de prompt
+Ne jamais concatener l'input utilisateur dans un system prompt.
+Utiliser des delimiteurs XML : <user_input>${userText}</user_input>
+
+### Variables d'environnement
+- .env.local JAMAIS commite (dans .gitignore)
+- SUPABASE_SERVICE_ROLE_KEY : chiffre dans Vercel, jamais dans le code
+
+### Authentification Supabase
+- getUser() TOUJOURS cote serveur
+- getSession() JAMAIS cote serveur
+- Valider l'utilisateur dans chaque Server Action
