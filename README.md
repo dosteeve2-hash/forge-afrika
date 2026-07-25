@@ -13,7 +13,7 @@
 [![Status](https://img.shields.io/badge/Status-Phase%201%20Active-D4AF37?style=for-the-badge&labelColor=0A1628)](.)
 [![Made in](https://img.shields.io/badge/Made%20in-Burkina%20Faso%20🇧🇫-00BCD4?style=for-the-badge&labelColor=0A1628)](./VISION.md)
 
-**[📖 Vision](./VISION.md)** · **[🗺️ Roadmap](./ROADMAP.md)** · **[📋 Project](./PROJECT.md)** · **[🚀 Checklist](./LAUNCH_CHECKLIST.md)** · **[📧 Contact](mailto:docompaore2@gmail.com)**
+**[📖 Vision](./VISION.md)** · **[🗺️ Roadmap](./ROADMAP.md)** · **[📋 Project](./PROJECT.md)** · **[📄 PRD](./PRD.md)** · **[🚀 Checklist](./LAUNCH_CHECKLIST.md)** · **[📧 Contact](mailto:docompaore2@gmail.com)**
 
 </div>
 
