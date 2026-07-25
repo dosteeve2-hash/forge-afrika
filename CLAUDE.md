@@ -1,7 +1,8 @@
 # FORGE Afrika HQ — Instructions Claude
 
 ## Vision
-Plateforme centrale de l'écosystème FORGE Afrika — conglomérat industriel panafricain.
+FORGE Afrika est l'**entreprise mère** (le QG) d'un groupe de filiales technologiques panafricaines.
+Ce site est le centre de commande : il doit refléter la structure holding → filiales, jamais un produit isolé.
 Chaque décision technique doit servir la vision : bâtir quelque chose qui dure 100 ans.
 
 ## Stack
@@ -12,31 +13,34 @@ Chaque décision technique doit servir la vision : bâtir quelque chose qui dure
 - **Montants FCFA** : `new Intl.NumberFormat('fr-FR').format(n) + ' FCFA'`
 - **Recharts** : pattern `mounted` avec `useState` pour éviter les erreurs SSR
 
-## Produits de l'écosystème
-| Produit | Secteur | Statut |
+## Filiales de l'écosystème
+Source de vérité : `lib/constants.ts` → `FILIALES_FORGE`.
+
+| Filiale | Secteur | Statut |
 |---------|---------|--------|
-| TAAMA | Agriculture | Actif |
+| SUGU | Retail | Actif |
 | MIFA Life | E-commerce | Actif |
-| FORJA | Industrie | Actif |
+| TAAMA | Industrie | Actif |
 | CompTrack | Finance | Actif |
-| AgroTrack BF | Agriculture | Actif |
-| MillTrack | Industrie | Actif |
-| LivestockOS | Élevage | Actif |
-| ValueChain Connect | Commerce | Actif |
-| FORGE Afrika HQ | Plateforme | En cours |
+| FORJA | Agriculture | Actif |
+| UEEMT-Tokat | Communauté | Actif |
+| AgroTrack BF | Agriculture | En développement |
+| MillTrack | Industrie | En développement |
+| LivestockOS | Élevage | En développement |
+| ValueChain Connect | Commerce | En développement |
 
 ## Structure du projet
 ```
 app/
-  page.tsx              # Landing page premium
-  ecosystem/page.tsx    # Grille 9 produits + filtres
+  page.tsx              # Landing page QG — hero, filiales, organigramme, vision
+  ecosystem/page.tsx    # Grille des 10 filiales + filtres
   roadmap/page.tsx      # 4 phases + section investisseurs
   (dashboard)/
     layout.tsx
     dashboard/page.tsx  # KPIs + Recharts + sidebar
   auth/login/page.tsx   # Connexion Supabase
 lib/
-  constants.ts          # Données produits, phases, helpers
+  constants.ts          # Données filiales (FILIALES_FORGE), phases, helpers
   supabase/
     client.ts           # Client browser
     server.ts           # Client server (SSR)

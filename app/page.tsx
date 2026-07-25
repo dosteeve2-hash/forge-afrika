@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
-import { PRODUITS_FORGE } from "@/lib/constants";
+import { FILIALES_FORGE } from "@/lib/constants";
 
 /* ─── Particule flottante ─────────────────────────────── */
 function Particle({ x, y, delay, size }: { x: number; y: number; delay: number; size: number }) {
@@ -74,14 +74,95 @@ const PARTICLES = Array.from({ length: 30 }, (_, i) => ({
   size: 3 + Math.random() * 8,
 }));
 
+const NB_SECTEURS = new Set(FILIALES_FORGE.map((f) => f.categorie)).size;
+const NB_ACTIVES = FILIALES_FORGE.filter((f) => f.statut === "Actif").length;
+
 const STATS = [
-  { label: "Produits actifs", target: 9, suffix: "" },
-  { label: "Secteurs industriels", target: 4, suffix: "" },
-  { label: "Pays cibles", target: 3, suffix: "" },
-  { label: "Année de lancement", target: 2026, suffix: "" },
+  { label: "Filiales", target: FILIALES_FORGE.length, suffix: "" },
+  { label: "Secteurs couverts", target: NB_SECTEURS, suffix: "" },
+  { label: "Filiales en production", target: NB_ACTIVES, suffix: "" },
+  { label: "Année de fondation", target: 2026, suffix: "" },
 ];
 
+/* ─── Carte d'écosystème (organigramme radial) ────────── */
+function EcosystemMap() {
+  const total = FILIALES_FORGE.length;
+  const radius = 40;
+
+  return (
+    <div className="relative mx-auto aspect-square w-full max-w-[560px]">
+      <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100">
+        {FILIALES_FORGE.map((f, i) => {
+          const angle = (i / total) * 2 * Math.PI - Math.PI / 2;
+          const x = 50 + radius * Math.cos(angle);
+          const y = 50 + radius * Math.sin(angle);
+          return (
+            <motion.line
+              key={f.slug}
+              x1="50" y1="50" x2={x} y2={y}
+              stroke={f.couleur} strokeWidth="0.35" strokeOpacity="0.4"
+              initial={{ pathLength: 0, opacity: 0 }}
+              whileInView={{ pathLength: 1, opacity: 0.4 }}
+              transition={{ duration: 0.8, delay: i * 0.06 }}
+              viewport={{ once: true }}
+            />
+          );
+        })}
+      </svg>
+
+      {/* Hub central */}
+      <motion.div
+        className="absolute z-10 flex flex-col items-center justify-center rounded-full text-center px-2"
+        style={{
+          left: "50%", top: "50%", transform: "translate(-50%,-50%)",
+          width: "26%", aspectRatio: "1",
+          background: "linear-gradient(135deg, #D4AF37, #F5D76E)",
+          boxShadow: "0 0 60px rgba(212,175,55,0.45)",
+        }}
+        initial={{ scale: 0 }} whileInView={{ scale: 1 }}
+        transition={{ type: "spring" as const, duration: 0.6 }}
+        viewport={{ once: true }}>
+        <span className="font-bold leading-tight" style={{ color: "#0A1628", fontSize: "clamp(0.6rem, 2vw, 0.95rem)" }}>
+          FORGE<br />AFRIKA
+        </span>
+      </motion.div>
+
+      {/* Noeuds filiales */}
+      {FILIALES_FORGE.map((f, i) => {
+        const angle = (i / total) * 2 * Math.PI - Math.PI / 2;
+        const x = 50 + radius * Math.cos(angle);
+        const y = 50 + radius * Math.sin(angle);
+        return (
+          <motion.a
+            key={f.slug}
+            href={f.url !== "#" ? f.url : "/ecosystem"}
+            target={f.url !== "#" ? "_blank" : undefined}
+            rel={f.url !== "#" ? "noopener noreferrer" : undefined}
+            className="absolute flex flex-col items-center gap-1 group"
+            style={{ left: `${x}%`, top: `${y}%`, transform: "translate(-50%,-50%)", width: "68px" }}
+            initial={{ opacity: 0, scale: 0.4 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.3 + i * 0.05, type: "spring" as const }}
+            viewport={{ once: true }}
+            whileHover={{ scale: 1.15 }}>
+            <div className="w-10 h-10 rounded-full flex items-center justify-center text-base transition-shadow"
+              style={{ background: "#0A1628", border: `2px solid ${f.couleur}` }}>
+              {f.icon}
+            </div>
+            <span className="text-[10px] text-center leading-tight text-gray-300 group-hover:text-white transition-colors">
+              {f.nom}
+            </span>
+          </motion.a>
+        );
+      })}
+    </div>
+  );
+}
+
 export default function HomePage() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
   return (
     <main className="min-h-screen" style={{ background: "#0A1628" }}>
       {/* ── NAVIGATION ── */}
@@ -95,7 +176,7 @@ export default function HomePage() {
           <span className="font-bold text-white text-lg">FORGE Afrika</span>
         </div>
         <div className="hidden md:flex items-center gap-8">
-          <Link href="/ecosystem" className="text-sm text-gray-400 hover:text-white transition-colors">Écosystème</Link>
+          <Link href="/ecosystem" className="text-sm text-gray-400 hover:text-white transition-colors">Nos Filiales</Link>
           <Link href="/roadmap" className="text-sm text-gray-400 hover:text-white transition-colors">Roadmap</Link>
           <Link href="/dashboard"
             className="text-sm px-4 py-2 rounded-lg font-medium transition-all"
@@ -109,7 +190,7 @@ export default function HomePage() {
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
         {/* Particules */}
         <div className="absolute inset-0 pointer-events-none">
-          {PARTICLES.map((p) => (
+          {mounted && PARTICLES.map((p) => (
             <Particle key={p.id} x={p.x} y={p.y} delay={p.delay} size={p.size} />
           ))}
         </div>
@@ -124,7 +205,7 @@ export default function HomePage() {
             transition={{ duration: 0.6, type: "spring" as const }}>
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium mb-8"
               style={{ background: "rgba(0,188,212,0.15)", border: "1px solid rgba(0,188,212,0.3)", color: "#00BCD4" }}>
-              🌍 Écosystème Africain
+              🏛️ Entreprise Mère · Groupe Panafricain
             </span>
           </motion.div>
 
@@ -141,7 +222,7 @@ export default function HomePage() {
           <motion.p className="text-xl md:text-2xl text-gray-300 mb-6 max-w-3xl mx-auto"
             initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2, type: "spring" as const }}>
-            Bâtir le premier conglomérat industriel panafricain
+            L'Écosystème des Entreprises Africaines du Futur
           </motion.p>
 
           <motion.blockquote
@@ -149,7 +230,7 @@ export default function HomePage() {
             style={{ borderLeft: "3px solid #D4AF37", paddingLeft: "1.5rem" }}
             initial={{ opacity: 0 }} animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.35 }}>
-            « Je ne veux pas juste réussir, je veux bâtir quelque chose qui dure 100 ans après moi. »
+            « Nous ne construisons pas des outils. Nous forgeons l'Afrique. »
           </motion.blockquote>
 
           <motion.div className="flex flex-col sm:flex-row gap-4 justify-center"
@@ -158,7 +239,7 @@ export default function HomePage() {
             <Link href="/ecosystem"
               className="px-8 py-4 rounded-xl font-semibold text-lg transition-all hover:scale-105"
               style={{ background: "linear-gradient(135deg, #D4AF37, #F5D76E)", color: "#0A1628" }}>
-              Découvrir l'écosystème
+              Découvrir nos filiales
             </Link>
             <Link href="/dashboard"
               className="px-8 py-4 rounded-xl font-semibold text-lg border transition-all hover:scale-105"
@@ -196,21 +277,21 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── PRODUITS ── */}
+      {/* ── NOS FILIALES ── */}
       <section className="py-24 px-4">
         <div className="max-w-6xl mx-auto">
           <motion.div className="text-center mb-16"
             initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, type: "spring" as const }} viewport={{ once: true }}>
-            <h2 className="text-4xl font-bold text-white mb-4">L'Écosystème FORGE</h2>
+            <h2 className="text-4xl font-bold text-white mb-4">Nos Filiales</h2>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-              9 produits interconnectés couvrant l'agriculture, l'industrie, la finance et le commerce.
+              {FILIALES_FORGE.length} entreprises opérationnelles, chacune souveraine sur son secteur, toutes gouvernées depuis le QG.
             </p>
           </motion.div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-            {PRODUITS_FORGE.map((produit, i) => (
-              <motion.div key={produit.slug}
+            {FILIALES_FORGE.map((filiale, i) => (
+              <motion.div key={filiale.slug}
                 className="rounded-xl p-5 border-gold-hover cursor-pointer group relative overflow-hidden"
                 style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)" }}
                 initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
@@ -218,20 +299,20 @@ export default function HomePage() {
                 viewport={{ once: true }}
                 whileHover={{ y: -4, borderColor: "#D4AF37", boxShadow: "0 0 30px rgba(212,175,55,0.12)" }}>
                 {/* Colour accent */}
-                <div className="absolute top-0 left-0 right-0 h-0.5 rounded-t-xl" style={{ background: produit.couleur }} />
-                <div className="text-3xl mb-3">{produit.icon}</div>
+                <div className="absolute top-0 left-0 right-0 h-0.5 rounded-t-xl" style={{ background: filiale.couleur }} />
+                <div className="text-3xl mb-3">{filiale.icon}</div>
                 <div className="flex items-start justify-between mb-2">
-                  <h3 className="font-bold text-white">{produit.nom}</h3>
+                  <h3 className="font-bold text-white">{filiale.nom}</h3>
                   <span className="text-xs px-2 py-0.5 rounded-full ml-2 shrink-0"
                     style={{
-                      background: produit.statut === "Actif" ? "rgba(34,197,94,0.15)" : "rgba(212,175,55,0.15)",
-                      color: produit.statut === "Actif" ? "#22C55E" : "#D4AF37",
+                      background: filiale.statut === "Actif" ? "rgba(34,197,94,0.15)" : "rgba(212,175,55,0.15)",
+                      color: filiale.statut === "Actif" ? "#22C55E" : "#D4AF37",
                     }}>
-                    {produit.statut}
+                    {filiale.statut}
                   </span>
                 </div>
-                <div className="text-xs font-medium mb-3" style={{ color: produit.couleur }}>{produit.categorie}</div>
-                <p className="text-gray-400 text-sm leading-relaxed">{produit.description}</p>
+                <div className="text-xs font-medium mb-3" style={{ color: filiale.couleur }}>{filiale.categorie}</div>
+                <p className="text-gray-400 text-sm leading-relaxed">{filiale.description}</p>
               </motion.div>
             ))}
           </div>
@@ -240,62 +321,98 @@ export default function HomePage() {
             <Link href="/ecosystem"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all hover:scale-105"
               style={{ border: "1px solid rgba(212,175,55,0.4)", color: "#D4AF37" }}>
-              Voir tous les détails →
+              Voir tous les détails et accéder aux filiales →
             </Link>
           </div>
         </div>
       </section>
 
-      {/* ── VISION TIMELINE ── */}
+      {/* ── L'ÉCOSYSTÈME (organigramme) ── */}
       <section className="py-24 px-4" style={{ background: "rgba(255,255,255,0.015)" }}>
+        <div className="max-w-5xl mx-auto">
+          <motion.div className="text-center mb-16"
+            initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, type: "spring" as const }} viewport={{ once: true }}>
+            <h2 className="text-4xl font-bold text-white mb-4">L'Écosystème</h2>
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+              FORGE Afrika au centre. Chaque filiale, une ramification autonome, connectée au QG.
+            </p>
+          </motion.div>
+
+          <EcosystemMap />
+        </div>
+      </section>
+
+      {/* ── NOTRE VISION ── */}
+      <section className="py-24 px-4">
         <div className="max-w-4xl mx-auto">
           <motion.div className="text-center mb-16"
             initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, type: "spring" as const }} viewport={{ once: true }}>
-            <h2 className="text-4xl font-bold text-white mb-4">La Vision FORGE</h2>
-            <p className="text-gray-400 text-lg">De la production locale au monopole continental.</p>
+            <h2 className="text-4xl font-bold text-white mb-4">Notre Vision</h2>
+            <p className="text-gray-400 text-lg">Bâtir le Rockefeller africain, une filiale à la fois.</p>
           </motion.div>
 
-          <div className="relative">
-            <div className="absolute left-8 top-0 bottom-0 w-0.5" style={{ background: "linear-gradient(to bottom, #D4AF37, rgba(212,175,55,0.1))" }} />
-            {[
-              { icon: "🌱", titre: "Production", desc: "Digitaliser les coopératives agricoles et industrielles du Burkina Faso." },
-              { icon: "🚚", titre: "Distribution", desc: "Connecter producteurs, transformateurs et marchés à l'échelle régionale." },
-              { icon: "🏭", titre: "Industrie", desc: "Créer des monopoles sectoriels dans l'agriculture, l'élevage et l'agro-industrie." },
-              { icon: "👑", titre: "Monopole", desc: "Devenir l'infrastructure technologique critique de l'Afrique de l'Ouest." },
-            ].map((phase, i) => (
-              <motion.div key={phase.titre} className="flex items-start gap-6 mb-10"
-                initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: i * 0.15, type: "spring" as const }}
-                viewport={{ once: true }}>
-                <div className="relative z-10 w-16 h-16 rounded-full flex items-center justify-center text-2xl shrink-0"
-                  style={{ background: "rgba(212,175,55,0.15)", border: "2px solid #D4AF37" }}>
-                  {phase.icon}
-                </div>
-                <div className="pt-3">
-                  <h3 className="text-xl font-bold text-white mb-1">{phase.titre}</h3>
-                  <p className="text-gray-400">{phase.desc}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+          <motion.div className="rounded-2xl p-8 md:p-12 space-y-6 text-gray-300 leading-relaxed text-lg"
+            style={{ background: "rgba(212,175,55,0.04)", border: "1px solid rgba(212,175,55,0.15)" }}
+            initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, type: "spring" as const }} viewport={{ once: true }}>
+            <p>
+              L'Afrique n'a pas besoin d'un outil de plus. Elle a besoin d'une <strong style={{ color: "#D4AF37" }}>infrastructure</strong> —
+              des fondations technologiques que ses propres entrepreneurs construisent, possèdent et gouvernent.
+            </p>
+            <p>
+              FORGE Afrika n'est pas une startup. C'est une <strong style={{ color: "#D4AF37" }}>entreprise mère</strong> :
+              chaque filiale résout un problème réel dans un secteur réel — le commerce informel, la mode, l'industrie,
+              la finance, l'agriculture, l'élevage, la communauté. Chacune est autonome. Toutes sont connectées.
+            </p>
+            <p>
+              À la manière des grands conglomérats qui ont bâti les économies occidentales, FORGE Afrika ambitionne
+              de devenir <strong style={{ color: "#D4AF37" }}>l'infrastructure économique critique</strong> de l'Afrique de l'Ouest —
+              puis du continent. Pas en imposant un outil unique, mais en forgeant, filiale après filiale, un
+              écosystème que rien ne pourra déloger.
+            </p>
+            <p className="italic" style={{ color: "#00BCD4" }}>
+              Le Burkina Faso comme point de départ. L'Afrique comme terrain de jeu. Un siècle comme horizon.
+            </p>
+          </motion.div>
         </div>
       </section>
 
       {/* ── FOOTER ── */}
-      <footer className="py-12 px-4 text-center" style={{ borderTop: "1px solid rgba(212,175,55,0.1)" }}>
-        <div className="flex items-center justify-center gap-3 mb-4">
-          <div className="w-10 h-10 rounded-lg flex items-center justify-center font-bold text-xl"
-            style={{ background: "linear-gradient(135deg, #D4AF37, #F5D76E)", color: "#0A1628" }}>
-            F
+      <footer className="py-16 px-4" style={{ borderTop: "1px solid rgba(212,175,55,0.1)" }}>
+        <div className="max-w-6xl mx-auto">
+          <div className="flex flex-col items-center text-center mb-10">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-lg flex items-center justify-center font-bold text-xl"
+                style={{ background: "linear-gradient(135deg, #D4AF37, #F5D76E)", color: "#0A1628" }}>
+                F
+              </div>
+              <span className="font-bold text-white text-lg">FORGE Afrika</span>
+            </div>
+            <p className="text-gray-500 text-sm">© 2026 FORGE Afrika. Bâtir l'Afrique de demain.</p>
           </div>
-          <span className="font-bold text-white text-lg">FORGE Afrika</span>
-        </div>
-        <p className="text-gray-500 text-sm">© 2026 FORGE Afrika. Bâtir l'Afrique de demain.</p>
-        <div className="flex justify-center gap-8 mt-6">
-          <Link href="/ecosystem" className="text-xs text-gray-500 hover:text-gray-300 transition-colors">Écosystème</Link>
-          <Link href="/roadmap" className="text-xs text-gray-500 hover:text-gray-300 transition-colors">Roadmap</Link>
-          <Link href="/dashboard" className="text-xs text-gray-500 hover:text-gray-300 transition-colors">QG</Link>
+
+          <div className="flex flex-wrap justify-center gap-x-8 gap-y-2 mb-10">
+            <Link href="/ecosystem" className="text-xs text-gray-500 hover:text-gray-300 transition-colors">Nos Filiales</Link>
+            <Link href="/roadmap" className="text-xs text-gray-500 hover:text-gray-300 transition-colors">Roadmap</Link>
+            <Link href="/dashboard" className="text-xs text-gray-500 hover:text-gray-300 transition-colors">QG</Link>
+          </div>
+
+          <div className="pt-8" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+            <p className="text-center text-xs text-gray-600 uppercase tracking-wider mb-4">Toutes les filiales</p>
+            <div className="flex flex-wrap justify-center gap-2">
+              {FILIALES_FORGE.map((f) => (
+                <a key={f.slug} href={f.url !== "#" ? f.url : "/ecosystem"}
+                  target={f.url !== "#" ? "_blank" : undefined}
+                  rel={f.url !== "#" ? "noopener noreferrer" : undefined}
+                  className="px-3 py-1.5 rounded-full text-xs font-medium transition-colors"
+                  style={{ background: `${f.couleur}15`, color: f.couleur, border: `1px solid ${f.couleur}30` }}>
+                  {f.icon} {f.nom}
+                </a>
+              ))}
+            </div>
+          </div>
         </div>
       </footer>
     </main>

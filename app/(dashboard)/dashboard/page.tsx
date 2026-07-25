@@ -12,7 +12,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import { PRODUITS_FORGE, formatFCFA } from "@/lib/constants";
+import { FILIALES_FORGE, formatFCFA } from "@/lib/constants";
 
 const CHART_DATA = [
   { mois: "Jan", utilisateurs: 420, ca: 12 },
@@ -37,9 +37,10 @@ const ACTIVITE = [
   { action: "Commande expédiée", produit: "FORJA", time: "il y a 41 min", icon: "⚙️" },
 ];
 
-const totalUsers = PRODUITS_FORGE.reduce((s, p) => s + p.metriques.utilisateurs, 0);
-const totalCA = PRODUITS_FORGE.reduce((s, p) => s + p.metriques.ca, 0);
-const totalTx = PRODUITS_FORGE.reduce((s, p) => s + p.metriques.transactions, 0);
+const totalUsers = FILIALES_FORGE.reduce((s, p) => s + p.metriques.utilisateurs, 0);
+const totalCA = FILIALES_FORGE.reduce((s, p) => s + p.metriques.ca, 0);
+const totalTx = FILIALES_FORGE.reduce((s, p) => s + p.metriques.transactions, 0);
+const totalActives = FILIALES_FORGE.filter((p) => p.statut === "Actif").length;
 
 export default function DashboardPage() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -58,8 +59,8 @@ export default function DashboardPage() {
           </div>
         </div>
         <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
-          <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3 px-2">Produits</div>
-          {PRODUITS_FORGE.map((p) => (
+          <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3 px-2">Filiales</div>
+          {FILIALES_FORGE.map((p) => (
             <a key={p.slug} href={p.url}
               className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-white/5 transition-all group">
               <span>{p.icon}</span>
@@ -101,7 +102,7 @@ export default function DashboardPage() {
           {/* KPIs */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             {[
-              { label: "Produits actifs", value: "8 / 9", icon: "🏛️", color: "#D4AF37" },
+              { label: "Filiales actives", value: `${totalActives} / ${FILIALES_FORGE.length}`, icon: "🏛️", color: "#D4AF37" },
               { label: "Utilisateurs totaux", value: totalUsers.toLocaleString("fr-FR"), icon: "👥", color: "#00BCD4" },
               { label: "Transactions", value: totalTx.toLocaleString("fr-FR"), icon: "📈", color: "#22C55E" },
               { label: "CA Global estimé", value: `${(totalCA / 1000000).toFixed(0)}M FCFA`, icon: "💰", color: "#8B5CF6" },
@@ -199,20 +200,20 @@ export default function DashboardPage() {
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.55, type: "spring" as const }}>
             <div className="px-6 py-4" style={{ background: "rgba(255,255,255,0.03)", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
-              <h2 className="text-white font-semibold">État des Produits</h2>
+              <h2 className="text-white font-semibold">État des Filiales</h2>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
                   <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
-                    {["Produit", "Catégorie", "Utilisateurs", "CA (FCFA)", "Statut"].map((h) => (
+                    {["Filiale", "Catégorie", "Utilisateurs", "CA (FCFA)", "Statut"].map((h) => (
                       <th key={h} className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">{h}</th>
                     ))}
                   </tr>
                 </thead>
                 <tbody>
-                  {PRODUITS_FORGE.map((p, i) => (
-                    <tr key={p.slug} style={{ borderBottom: i < PRODUITS_FORGE.length - 1 ? "1px solid rgba(255,255,255,0.04)" : "none" }}
+                  {FILIALES_FORGE.map((p, i) => (
+                    <tr key={p.slug} style={{ borderBottom: i < FILIALES_FORGE.length - 1 ? "1px solid rgba(255,255,255,0.04)" : "none" }}
                       className="hover:bg-white/[0.02] transition-colors">
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-2">
