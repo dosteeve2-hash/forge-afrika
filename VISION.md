@@ -4,7 +4,7 @@
 
 > *"Ce n'est pas le manque de ressources qui appauvrit l'Afrique.
 > C'est le manque de contrôle sur ce qu'elle fait de ces ressources."*
-> — Steve Donald Compaore
+> — Steeve Donald Compaore
 
 ---
 
@@ -321,5 +321,5 @@ que les machines ne suffisent pas — ce sont des leaders qui révèlent le pote
 ---
 
 *Document rédigé en juin 2026. À réviser annuellement.*
-*Auteur : Steve Donald Compaore — docompaore2@gmail.com*
+*Auteur : Steeve Donald Compaore — docompaore2@gmail.com*
 

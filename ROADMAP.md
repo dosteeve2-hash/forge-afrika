@@ -1,5 +1,5 @@
 # ROADMAP — Timeline Stratégique 2024-2050
-### FORGE Afrika — La feuille de route de Steve Donald Compaore
+### FORGE Afrika — La feuille de route de Steeve Donald Compaore
 
 ---
 
