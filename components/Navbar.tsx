@@ -8,10 +8,10 @@ import { Menu, X } from "lucide-react";
 import Link from "next/link";
 
 const NAV_LINKS = [
-  { label: "Accueil", href: "#hero" },
-  { label: "Projets", href: "#filiales" },
-  { label: "Mission", href: "#mission" },
-  { label: "Contact", href: "#contact" },
+  { label: "Accueil", href: "#hero", scroll: true },
+  { label: "Projets", href: "#filiales", scroll: true },
+  { label: "Mission", href: "#mission", scroll: true },
+  { label: "Contact", href: "/contact", scroll: false },
 ];
 
 export default function Navbar() {
@@ -55,16 +55,26 @@ export default function Navbar() {
       </a>
 
       <div className="hidden md:flex items-center gap-8">
-        {NAV_LINKS.map((link) => (
-          <a
-            key={link.href}
-            href={link.href}
-            onClick={(e) => { e.preventDefault(); handleNavClick(link.href); }}
-            className="text-sm text-gray-400 hover:text-white transition-colors"
-          >
-            {link.label}
-          </a>
-        ))}
+        {NAV_LINKS.map((link) =>
+          link.scroll ? (
+            <a
+              key={link.href}
+              href={link.href}
+              onClick={(e) => { e.preventDefault(); handleNavClick(link.href); }}
+              className="text-sm text-gray-400 hover:text-white transition-colors"
+            >
+              {link.label}
+            </a>
+          ) : (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="text-sm text-gray-400 hover:text-white transition-colors"
+            >
+              {link.label}
+            </Link>
+          )
+        )}
         <Link
           href="/dashboard"
           className="text-sm px-4 py-2 rounded-lg font-medium transition-all hover:scale-105"
@@ -92,16 +102,27 @@ export default function Navbar() {
             className="md:hidden absolute top-full left-0 right-0 flex flex-col gap-1 px-6 py-4"
             style={{ background: "rgba(10,22,40,0.97)", borderBottom: "1px solid rgba(212,175,55,0.15)" }}
           >
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={(e) => { e.preventDefault(); handleNavClick(link.href); }}
-                className="py-3 text-gray-300 hover:text-white transition-colors border-b border-white/5"
-              >
-                {link.label}
-              </a>
-            ))}
+            {NAV_LINKS.map((link) =>
+              link.scroll ? (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={(e) => { e.preventDefault(); handleNavClick(link.href); }}
+                  className="py-3 text-gray-300 hover:text-white transition-colors border-b border-white/5"
+                >
+                  {link.label}
+                </a>
+              ) : (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  className="py-3 text-gray-300 hover:text-white transition-colors border-b border-white/5"
+                >
+                  {link.label}
+                </Link>
+              )
+            )}
             <Link
               href="/dashboard"
               className="mt-3 text-center text-sm px-4 py-3 rounded-lg font-medium"
