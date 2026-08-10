@@ -19,7 +19,7 @@ html {
 body {
   background-color: #0A1628;
   color: #ffffff;
-  font-family: Inter, system-ui, sans-serif;
+  font-family: var(--font-body), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 

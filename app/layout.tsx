@@ -1,5 +1,10 @@
 import type { Metadata } from "next";
+import { Inter, Space_Grotesk } from "next/font/google";
+import SmoothScroll from "@/components/SmoothScroll";
 import "./globals.css";
+
+const inter = Inter({ subsets: ["latin"], variable: "--font-body" });
+const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-display" });
 
 export const metadata: Metadata = {
   title: "FORGE Afrika — L'Entreprise Mère de l'Écosystème Panafricain",
@@ -19,8 +24,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr">
-      <body className="antialiased">{children}</body>
+    <html lang="fr" className={`${inter.variable} ${spaceGrotesk.variable}`}>
+      <body className="antialiased">
+        <SmoothScroll>{children}</SmoothScroll>
+      </body>
     </html>
   );
 }
