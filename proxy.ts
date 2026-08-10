@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server'
 const rateMap = new Map<string, { count: number; reset: number }>()
 const LIMIT = 60, WINDOW = 60_000
 
-export function middleware(req: NextRequest) {
+export function proxy(req: NextRequest) {
   const ip  = req.headers.get('x-forwarded-for')?.split(',')[0].trim() ?? 'unknown'
   const now = Date.now()
   const entry = rateMap.get(ip) ?? { count: 0, reset: now + WINDOW }
