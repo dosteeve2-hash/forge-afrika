@@ -6,12 +6,14 @@ import gsap from "gsap";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
+import ForgeLogoSVG from "@/components/ForgeLogoSVG";
 
 const NAV_LINKS = [
-  { label: "Accueil", href: "#hero", scroll: true },
-  { label: "Projets", href: "#filiales", scroll: true },
-  { label: "Mission", href: "#mission", scroll: true },
-  { label: "Contact", href: "/contact", scroll: false },
+  { label: "Projets",    href: "#filiales",    scroll: true  },
+  { label: "Écosystème", href: "#ecosysteme",  scroll: true  },
+  { label: "Mission",    href: "#mission",     scroll: true  },
+  { label: "Roadmap",    href: "/roadmap",     scroll: false },
+  { label: "Contact",    href: "/contact",     scroll: false },
 ];
 
 export default function Navbar() {
@@ -34,27 +36,26 @@ export default function Navbar() {
   return (
     <nav
       ref={navRef}
-      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-8 py-4"
+      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-8 py-3"
       style={{
-        background: "rgba(10,22,40,0.75)",
-        backdropFilter: "blur(16px)",
-        WebkitBackdropFilter: "blur(16px)",
+        background: "rgba(10,22,40,0.8)",
+        backdropFilter: "blur(20px)",
+        WebkitBackdropFilter: "blur(20px)",
         borderBottom: "1px solid rgba(212,175,55,0.15)",
       }}
     >
-      <a href="#hero" className="flex items-center gap-3" onClick={(e) => { e.preventDefault(); handleNavClick("#hero"); }}>
-        <div
-          className="w-10 h-10 rounded-lg flex items-center justify-center font-bold text-xl"
-          style={{ background: "linear-gradient(135deg, #D4AF37, #F5D76E)", color: "#0A1628" }}
-        >
-          F
+      {/* Logo */}
+      <a href="#hero" className="flex items-center gap-3 group"
+        onClick={(e) => { e.preventDefault(); handleNavClick("#hero"); }}>
+        <ForgeLogoSVG size={38} variant="icon" className="transition-transform group-hover:scale-105" />
+        <div>
+          <div className="font-black text-white text-sm leading-none tracking-wider">FORGE</div>
+          <div className="text-[10px] font-semibold tracking-[0.3em] leading-none" style={{ color: "#D4AF37" }}>AFRIKA</div>
         </div>
-        <span className="font-bold text-white text-lg" style={{ fontFamily: "var(--font-display)" }}>
-          FORGE Afrika
-        </span>
       </a>
 
-      <div className="hidden md:flex items-center gap-8">
+      {/* Desktop nav */}
+      <div className="hidden md:flex items-center gap-6">
         {NAV_LINKS.map((link) =>
           link.scroll ? (
             <a
@@ -77,10 +78,10 @@ export default function Navbar() {
         )}
         <Link
           href="/dashboard"
-          className="text-sm px-4 py-2 rounded-lg font-medium transition-all hover:scale-105"
+          className="text-sm px-4 py-2 rounded-lg font-bold transition-all hover:scale-105"
           style={{ background: "linear-gradient(135deg, #D4AF37, #F5D76E)", color: "#0A1628" }}
         >
-          Accéder au QG
+          ⌘ QG
         </Link>
       </div>
 
@@ -125,7 +126,7 @@ export default function Navbar() {
             )}
             <Link
               href="/dashboard"
-              className="mt-3 text-center text-sm px-4 py-3 rounded-lg font-medium"
+              className="mt-3 text-center text-sm px-4 py-3 rounded-lg font-bold"
               style={{ background: "linear-gradient(135deg, #D4AF37, #F5D76E)", color: "#0A1628" }}
             >
               Accéder au QG

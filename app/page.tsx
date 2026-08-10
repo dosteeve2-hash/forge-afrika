@@ -3,6 +3,7 @@ import CursorGlow from "@/components/CursorGlow";
 import HeroSection from "@/components/HeroSection";
 import FeaturesSection from "@/components/FeaturesSection";
 import FiliaresSection from "@/components/FiliaresSection";
+import EcosystemVisionSection from "@/components/EcosystemVisionSection";
 import MissionSection from "@/components/MissionSection";
 import EcosystemSection from "@/components/EcosystemSection";
 import InvestorSection from "@/components/InvestorSection";
@@ -16,6 +17,7 @@ export default function HomePage() {
       <HeroSection />
       <FeaturesSection />
       <FiliaresSection />
+      <EcosystemVisionSection />
       <MissionSection />
       <EcosystemSection />
       <InvestorSection />
