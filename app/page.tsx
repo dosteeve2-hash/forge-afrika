@@ -1,5 +1,7 @@
 import Navbar from "@/components/Navbar";
+import CursorGlow from "@/components/CursorGlow";
 import HeroSection from "@/components/HeroSection";
+import FeaturesSection from "@/components/FeaturesSection";
 import FiliaresSection from "@/components/FiliaresSection";
 import MissionSection from "@/components/MissionSection";
 import EcosystemSection from "@/components/EcosystemSection";
@@ -7,9 +9,11 @@ import Footer from "@/components/Footer";
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen" style={{ background: "#0A1628" }}>
+    <main className="min-h-screen relative" style={{ background: "#0A1628" }}>
+      <CursorGlow />
       <Navbar />
       <HeroSection />
+      <FeaturesSection />
       <FiliaresSection />
       <MissionSection />
       <EcosystemSection />

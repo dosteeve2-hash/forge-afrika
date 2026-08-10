@@ -5,9 +5,9 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
 import { motion } from "framer-motion";
-import Link from "next/link";
 import { FILIALES_FORGE } from "@/lib/constants";
 import Counter from "./Counter";
+import MagneticButton from "./MagneticButton";
 
 gsap.registerPlugin(SplitText);
 
@@ -148,21 +148,21 @@ export default function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 1.35, type: "spring" as const }}
         >
-          <Link
+          <MagneticButton
             href="#filiales"
             onClick={(e) => { e.preventDefault(); document.querySelector("#filiales")?.scrollIntoView({ behavior: "smooth" }); }}
-            className="px-8 py-4 rounded-xl font-semibold text-lg transition-all hover:scale-105"
+            className="px-8 py-4 rounded-xl font-semibold text-lg inline-block"
             style={{ background: "linear-gradient(135deg, #D4AF37, #F5D76E)", color: "#0A1628" }}
           >
             Découvrir nos filiales
-          </Link>
-          <Link
+          </MagneticButton>
+          <MagneticButton
             href="/dashboard"
-            className="px-8 py-4 rounded-xl font-semibold text-lg border transition-all hover:scale-105"
+            className="px-8 py-4 rounded-xl font-semibold text-lg border inline-block"
             style={{ border: "1px solid rgba(212,175,55,0.4)", color: "#D4AF37", background: "rgba(212,175,55,0.08)" }}
           >
             Accéder au QG →
-          </Link>
+          </MagneticButton>
         </motion.div>
 
         <motion.div
