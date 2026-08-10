@@ -8,17 +8,18 @@ import { motion } from "framer-motion";
 import { FILIALES_FORGE } from "@/lib/constants";
 import Counter from "./Counter";
 import MagneticButton from "./MagneticButton";
+import ForgeLogoSVG from "./ForgeLogoSVG";
 
 gsap.registerPlugin(SplitText);
 
-const NB_SECTEURS = new Set(FILIALES_FORGE.map((f) => f.categorie)).size;
 const NB_ACTIVES = FILIALES_FORGE.filter((f) => f.statut === "Actif").length;
+const CA_CONSOLIDE = FILIALES_FORGE.reduce((s, f) => s + f.metriques.ca, 0);
 
 const STATS = [
   { target: FILIALES_FORGE.length, suffix: "", label: "Filiales du groupe" },
   { target: NB_ACTIVES, suffix: "", label: "En production" },
+  { target: Math.round(CA_CONSOLIDE / 1_000_000), suffix: "M", label: "FCFA de CA consolidé" },
   { target: 8, suffix: "", label: "Pays UEMOA ciblés" },
-  { target: NB_SECTEURS, suffix: "", label: "Secteurs couverts" },
 ];
 
 const PARTICLES = Array.from({ length: 24 }, (_, i) => ({
@@ -98,10 +99,28 @@ export default function HeroSection() {
       />
 
       <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
+        <motion.div
+          className="flex justify-center mb-6"
+          initial={{ opacity: 0, scale: 0.6, rotate: -8 }}
+          animate={{ opacity: 1, scale: 1, rotate: 0 }}
+          transition={{ duration: 0.8, type: "spring" as const }}
+        >
+          <div
+            className="rounded-3xl p-3"
+            style={{
+              background: "rgba(212,175,55,0.08)",
+              border: "1px solid rgba(212,175,55,0.3)",
+              boxShadow: "0 0 60px rgba(212,175,55,0.2)",
+            }}
+          >
+            <ForgeLogoSVG size={72} variant="icon" />
+          </div>
+        </motion.div>
+
         <motion.span
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, type: "spring" as const }}
+          transition={{ duration: 0.6, delay: 0.15, type: "spring" as const }}
           className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium mb-8"
           style={{ background: "rgba(0,188,212,0.15)", border: "1px solid rgba(0,188,212,0.3)", color: "#00BCD4" }}
         >

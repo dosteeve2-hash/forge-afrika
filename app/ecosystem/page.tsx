@@ -5,8 +5,174 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { ArrowUpRight, ArrowRight, ExternalLink, ChevronRight } from "lucide-react";
 import { FILIALES_FORGE, SECTEUR_META, type Secteur } from "@/lib/constants";
+import ForgeLogoSVG from "@/components/ForgeLogoSVG";
 
 const SECTEURS: Secteur[] = ["Primaire", "Secondaire", "Tertiaire", "Social"];
+
+/* ── Angles des secteurs autour du QG (0°=droite, 90°=bas) ─────────────── */
+const SECTEUR_ANGLES: Record<Secteur, number> = {
+  Primaire: -135,
+  Secondaire: -45,
+  Tertiaire: 45,
+  Social: 135,
+};
+
+function polar(angleDeg: number, radiusPct: number) {
+  const rad = (angleDeg * Math.PI) / 180;
+  return { x: 50 + radiusPct * Math.cos(rad), y: 50 + radiusPct * Math.sin(rad) };
+}
+
+/* ── Diagramme SVG : FORGE au centre, 4 secteurs, filiales rayonnantes ── */
+function EcosystemDiagram() {
+  const R_SECTEUR = 27;
+  const R_FILIALE = 46;
+
+  const nodes = SECTEURS.map((secteur) => {
+    const meta = SECTEUR_META[secteur];
+    const angle = SECTEUR_ANGLES[secteur];
+    const secteurPos = polar(angle, R_SECTEUR);
+    const filiales = FILIALES_FORGE.filter((f) => f.secteur === secteur);
+    const span = filiales.length > 1 ? 56 : 0;
+    const filialesPos = filiales.map((f, i) => {
+      const a =
+        filiales.length === 1
+          ? angle
+          : angle - span / 2 + (span / (filiales.length - 1)) * i;
+      return { f, pos: polar(a, R_FILIALE) };
+    });
+    return { secteur, meta, angle, secteurPos, filialesPos };
+  });
+
+  return (
+    <motion.div
+      className="mb-16 rounded-3xl p-6 md:p-10"
+      style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(212,175,55,0.15)" }}
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, type: "spring" as const }}
+      viewport={{ once: true }}
+    >
+      <div className="text-center mb-8">
+        <span
+          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold mb-4"
+          style={{ background: "rgba(212,175,55,0.1)", border: "1px solid rgba(212,175,55,0.2)", color: "#D4AF37" }}
+        >
+          🗺️ Vue d&apos;ensemble
+        </span>
+        <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">Le groupe, en un coup d&apos;œil</h2>
+        <p className="text-gray-400 text-sm max-w-xl mx-auto">
+          FORGE Afrika au centre, quatre secteurs, dix filiales rayonnantes.
+        </p>
+      </div>
+
+      <div className="relative mx-auto" style={{ width: "100%", maxWidth: 640, aspectRatio: "1 / 1" }}>
+        {/* Lignes de connexion */}
+        <svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid meet">
+          {nodes.map(({ secteur, meta, secteurPos, filialesPos }) => (
+            <g key={secteur}>
+              <line
+                x1={50}
+                y1={50}
+                x2={secteurPos.x}
+                y2={secteurPos.y}
+                stroke={meta.color}
+                strokeWidth={0.4}
+                strokeOpacity={0.45}
+              />
+              {filialesPos.map(({ f, pos }) => (
+                <line
+                  key={f.slug}
+                  x1={secteurPos.x}
+                  y1={secteurPos.y}
+                  x2={pos.x}
+                  y2={pos.y}
+                  stroke={f.couleur}
+                  strokeWidth={0.25}
+                  strokeOpacity={0.35}
+                />
+              ))}
+            </g>
+          ))}
+        </svg>
+
+        {/* Nœud central FORGE */}
+        <motion.div
+          className="absolute flex flex-col items-center gap-1.5"
+          style={{ left: "50%", top: "50%", transform: "translate(-50%,-50%)" }}
+          initial={{ opacity: 0, scale: 0.5 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, type: "spring" as const }}
+          viewport={{ once: true }}
+        >
+          <div
+            className="rounded-2xl p-2 flex items-center justify-center"
+            style={{
+              background: "rgba(212,175,55,0.1)",
+              border: "1px solid rgba(212,175,55,0.4)",
+              boxShadow: "0 0 40px rgba(212,175,55,0.25)",
+            }}
+          >
+            <ForgeLogoSVG size={44} variant="icon" />
+          </div>
+          <span className="text-[10px] md:text-xs font-bold text-white">FORGE HQ</span>
+        </motion.div>
+
+        {/* Nœuds secteurs */}
+        {nodes.map(({ secteur, meta, secteurPos, filialesPos }, si) => (
+          <div key={secteur}>
+            <motion.div
+              className="absolute flex flex-col items-center gap-1"
+              style={{ left: `${secteurPos.x}%`, top: `${secteurPos.y}%`, transform: "translate(-50%,-50%)" }}
+              initial={{ opacity: 0, scale: 0.5 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.4, delay: 0.15 + si * 0.08, type: "spring" as const }}
+              viewport={{ once: true }}
+            >
+              <div
+                className="w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center text-lg md:text-xl"
+                style={{ background: `${meta.color}18`, border: `1.5px solid ${meta.color}` }}
+              >
+                {meta.icon}
+              </div>
+              <span
+                className="text-[9px] md:text-[10px] font-semibold whitespace-nowrap"
+                style={{ color: meta.color }}
+              >
+                {secteur}
+              </span>
+            </motion.div>
+
+            {/* Nœuds filiales du secteur */}
+            {filialesPos.map(({ f, pos }, fi) => (
+              <motion.div
+                key={f.slug}
+                className="absolute flex flex-col items-center group"
+                style={{ left: `${pos.x}%`, top: `${pos.y}%`, transform: "translate(-50%,-50%)" }}
+                initial={{ opacity: 0, scale: 0.4 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.35, delay: 0.3 + si * 0.08 + fi * 0.05, type: "spring" as const }}
+                viewport={{ once: true }}
+              >
+                <div
+                  className="w-7 h-7 md:w-9 md:h-9 rounded-full flex items-center justify-center text-sm md:text-base cursor-default transition-transform group-hover:scale-125"
+                  style={{ background: "#0A1628", border: `1.5px solid ${f.couleur}` }}
+                  title={f.nom}
+                >
+                  {f.icon}
+                </div>
+                <span
+                  className="mt-1 text-[7px] md:text-[8px] text-gray-400 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity absolute top-full"
+                >
+                  {f.nom}
+                </span>
+              </motion.div>
+            ))}
+          </div>
+        ))}
+      </div>
+    </motion.div>
+  );
+}
 
 /* ── Flux d'interconnexions entre filiales ─────────────────────────────── */
 const FLUX = [
@@ -304,6 +470,9 @@ export default function EcosystemPage() {
             </div>
           ))}
         </motion.div>
+
+        {/* ── DIAGRAMME VISUEL : FORGE + 4 SECTEURS + FILIALES ─────────────── */}
+        <EcosystemDiagram />
 
         {/* ── FILTRES SECTEUR ────────────────────────────────────────────── */}
         <motion.div
