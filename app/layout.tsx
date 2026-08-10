@@ -16,6 +16,11 @@ export const metadata: Metadata = {
     description: "Le centre de commande de toutes les filiales FORGE Afrika",
     type: "website",
   },
+  icons: {
+    apple: '/apple-touch-icon.png',
+    icon: '/android-chrome-192x192.png',
+  },
+  manifest: '/site.webmanifest',
 };
 
 export default function RootLayout({
