@@ -70,11 +70,11 @@ export const FILIALES_FORGE = [
     slug: "agrotrack-bf",
     categorie: "Agriculture",
     description: "Gestion des collectes et des membres de coopératives au Burkina Faso",
-    statut: "En développement" as const,
+    statut: "Actif" as const,
     couleur: "#10B981",
     icon: "🌾",
-    metriques: { utilisateurs: 0, transactions: 0, ca: 0 },
-    url: "#",
+    metriques: { utilisateurs: 127, transactions: 1840, ca: 10170000 },
+    url: "https://agrotrack-bf.vercel.app",
   },
   {
     nom: "MillTrack",
@@ -96,7 +96,7 @@ export const FILIALES_FORGE = [
     couleur: "#EF4444",
     icon: "🐄",
     metriques: { utilisateurs: 0, transactions: 0, ca: 0 },
-    url: "#",
+    url: "https://livestock-os.vercel.app",
   },
   {
     nom: "ValueChain Connect",
@@ -107,9 +107,9 @@ export const FILIALES_FORGE = [
     couleur: "#3B82F6",
     icon: "🔗",
     metriques: { utilisateurs: 0, transactions: 0, ca: 0 },
-    url: "#",
+    url: "https://valuechain-connect.vercel.app",
   },
-] as const;
+];
 
 export const CATEGORIES = [
   "Tous",

@@ -5,6 +5,7 @@ import FeaturesSection from "@/components/FeaturesSection";
 import FiliaresSection from "@/components/FiliaresSection";
 import MissionSection from "@/components/MissionSection";
 import EcosystemSection from "@/components/EcosystemSection";
+import InvestorSection from "@/components/InvestorSection";
 import Footer from "@/components/Footer";
 
 export default function HomePage() {
@@ -17,6 +18,7 @@ export default function HomePage() {
       <FiliaresSection />
       <MissionSection />
       <EcosystemSection />
+      <InvestorSection />
       <Footer />
     </main>
   );
