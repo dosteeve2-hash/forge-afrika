@@ -20,7 +20,7 @@ const SCORES: Record<string, { sante: number; croissance: number; retention: num
   milltrack:            { sante: 65, croissance: 68, retention: 55, monetisation: 25 },
   livestockos:          { sante: 62, croissance: 70, retention: 52, monetisation: 18 },
   "valuechain-connect": { sante: 40, croissance: 55, retention: 35, monetisation: 10 },
-  indubot:              { sante: 20, croissance: 85, retention: 0,  monetisation: 0  },
+  "indubot-afrika":     { sante: 20, croissance: 85, retention: 0,  monetisation: 0  },
 };
 
 function scoreGlobal(slug: string): number {

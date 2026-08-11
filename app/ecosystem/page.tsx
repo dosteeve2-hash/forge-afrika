@@ -141,7 +141,7 @@ const FLUX = [
   { de: "TAAMA", vers: "FORJA", label: "Produits certifiés à l'export", couleur: "#22C55E" },
   { de: "SUGU", vers: "CompTrack", label: "Transactions boutiques → comptabilité", couleur: "#F97316" },
   { de: "MIFA Life", vers: "CompTrack", label: "Revenus marketplace → SYSCOHADA", couleur: "#F59E0B" },
-  { de: "InduBot Afrika", vers: "TAAMA", label: "Données capteurs robots → QC", couleur: "#F97316" },
+  { de: "Indubot Afrika", vers: "TAAMA", label: "Données capteurs robots → QC", couleur: "#00BCD4" },
 ];
 
 /* ── Filiale card ── */
