@@ -7,7 +7,7 @@ import { FILIALES_FORGE } from "@/lib/constants";
 
 const SOCIALS = [
   { icon: Mail, href: "mailto:docompaore2@gmail.com", label: "Email" },
-  { icon: Github, href: "https://github.com/dosteeve2-hash", label: "GitHub" },
+  { icon: Github, href: "https://github.com/dosteeve2-hash/forge-afrika", label: "Code source sur GitHub" },
   { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
 ];
 
