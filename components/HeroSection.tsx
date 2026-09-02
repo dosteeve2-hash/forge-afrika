@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
@@ -22,20 +22,34 @@ const STATS = [
   { target: 8, suffix: "", label: "Pays UEMOA ciblés" },
 ];
 
+/**
+ * Bruit pseudo-aléatoire déterministe.
+ *
+ * `Math.random()` au niveau module produisait des valeurs DIFFÉRENTES côté
+ * serveur et côté client : d'où le drapeau `mounted` qui retardait l'affichage
+ * des particules après hydratation pour masquer le décalage. Une fonction pure
+ * donne les mêmes valeurs des deux côtés — les particules s'affichent donc
+ * immédiatement, sans état ni effet.
+ */
+function noise(seed: number): number {
+  const value = Math.sin(seed) * 10000;
+  return value - Math.floor(value);
+}
+
 const PARTICLES = Array.from({ length: 24 }, (_, i) => ({
   id: i,
-  x: Math.random() * 100,
-  y: Math.random() * 100,
-  delay: Math.random() * 3,
-  size: 3 + Math.random() * 7,
+  x: noise(i * 1.1) * 100,
+  y: noise(i * 2.3) * 100,
+  delay: noise(i * 3.7) * 3,
+  size: 3 + noise(i * 4.9) * 7,
+  // Calculée une fois : elle était tirée au rendu, donc rejouée à chaque
+  // re-render, ce qui faisait sauter la durée d'animation.
+  duration: 4 + noise(i * 6.1) * 3,
 }));
 
 export default function HeroSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => setMounted(true), []);
 
   useGSAP(() => {
     if (!titleRef.current) return;
@@ -75,8 +89,7 @@ export default function HeroSection() {
 
       {/* Particules dorées */}
       <div className="absolute inset-0 pointer-events-none">
-        {mounted &&
-          PARTICLES.map((p) => (
+        {PARTICLES.map((p) => (
             <motion.div
               key={p.id}
               className="absolute rounded-full"
@@ -88,9 +101,9 @@ export default function HeroSection() {
                 background: "radial-gradient(circle, rgba(212,175,55,0.6) 0%, rgba(212,175,55,0) 70%)",
               }}
               animate={{ y: [0, -30, 0], opacity: [0.3, 0.8, 0.3], scale: [1, 1.2, 1] }}
-              transition={{ duration: 4 + Math.random() * 3, delay: p.delay, repeat: Infinity, ease: "easeInOut" }}
-            />
-          ))}
+              transition={{ duration: p.duration, delay: p.delay, repeat: Infinity, ease: "easeInOut" }}
+          />
+        ))}
       </div>
 
       <div

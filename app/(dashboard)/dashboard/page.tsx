@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import {
@@ -43,8 +42,6 @@ const totalTx = FILIALES_FORGE.reduce((s, p) => s + p.metriques.transactions, 0)
 const totalActives = FILIALES_FORGE.filter((p) => p.statut === "Actif").length;
 
 export default function DashboardPage() {
-  const [sidebarOpen, setSidebarOpen] = useState(true);
-
   return (
     <div className="min-h-screen flex" style={{ background: "#0A1628" }}>
       {/* ── SIDEBAR ── */}
