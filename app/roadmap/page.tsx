@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, CheckCircle2, Circle, Flag, Target, TrendingUp, Users, Zap } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { FILIALES_FORGE, PHASES_ROADMAP, formatFCFA } from "@/lib/constants";
 
 // ─── Calculs live depuis constants ──────────────────────────────────────────
@@ -29,16 +30,9 @@ const PHASE_BG     = [
   "rgba(16,185,129,0.08)",
   "rgba(139,92,246,0.08)",
 ];
-const PHASE_BORDER = [
-  "rgba(212,175,55,0.2)",
-  "rgba(0,188,212,0.2)",
-  "rgba(16,185,129,0.2)",
-  "rgba(139,92,246,0.2)",
-];
-
 // ─── Composants ──────────────────────────────────────────────────────────────
 
-function StatChip({ icon: Icon, value, label, color }: { icon: any; value: string; label: string; color: string }) {
+function StatChip({ icon: Icon, value, label, color }: { icon: LucideIcon; value: string; label: string; color: string }) {
   return (
     <motion.div
       className="rounded-2xl p-5 flex items-start gap-4"
@@ -164,7 +158,7 @@ export default function RoadmapPage() {
                 })}
               </div>
               <div className="flex mt-2">
-                {PHASES_ROADMAP.map((ph, i) => (
+                {PHASES_ROADMAP.map((ph) => (
                   <div key={ph.phase} className="flex-1 text-center">
                     <span className="text-[10px] text-gray-500">Phase {ph.phase}</span>
                   </div>
@@ -194,7 +188,6 @@ export default function RoadmapPage() {
             const isPast    = i + 1 < CURRENT_PHASE;
             const color     = PHASE_COLORS[i];
             const bg        = PHASE_BG[i];
-            const border    = PHASE_BORDER[i];
 
             return (
               <motion.div key={phase.phase}
