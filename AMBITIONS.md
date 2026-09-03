@@ -106,7 +106,7 @@ produit** là-dedans. À fusionner ou à trancher (voir §« Décisions »).
 | Projet | Dépôt | Description | Statut |
 |--------|-------|-------------|--------|
 | **Mifa Life** | `Mifa_Life_shop` (privé) | E-commerce dropshipping Chine/Turquie → Mali. **11 fondateurs**, PRD v2.0, paiements Orange Money/Wave/PayDunya. Steve = Chef de projet technique & Lead Dev | 🟢 Équipe réelle, PRD complet |
-| **Duka Boutique** | `duka-boutique` (privé) | Boutique en ligne | 🟡 Scaffold |
+| **SUGU** | `duka-boutique` (privé) | Gestion de boutique pour les commerçants du secteur informel — filiale « Retail » de l'écosystème, déployée sur `duka.vercel.app` | 🟡 En ligne |
 
 ### A6 — Transmission & communauté
 
@@ -116,6 +116,7 @@ produit** là-dedans. À fusionner ou à trancher (voir §« Décisions »).
 | **UEEMT-Tokat** | `ueemt-tokat` (privé) | Site officiel de l'Union des Élèves et Étudiants Maliens à Tokat | 🟡 Site communautaire |
 | **Le Temps des Machines** | — | Manifeste fondateur (juin 2026) | 🟢 [Texte](./RECHERCHE/texte-01-le-temps-des-machines.md) |
 | **Synthèse terrain Burkina** | — | Recherche de terrain | 🟢 [Note](./RECHERCHE/synthese-terrain-burkina.md) |
+| **Site QG FORGE Afrika** | `forge-afrika` (ce dépôt) | Vitrine holding + écosystème des filiales + dashboard KPI (Next.js 15 · Supabase · Recharts) | 🟢 En ligne |
 
 ### Vitrine, apprentissage, archives
 
@@ -130,6 +131,11 @@ produit** là-dedans. À fusionner ou à trancher (voir §« Décisions »).
 | Tutoriel | `desktop-tutorial` | ⚪️ À supprimer |
 
 **Total : 26 dépôts — 3 produits réellement avancés, ~12 scaffolds, ~8 vitrines ou archives.**
+
+> ℹ️ **Ce dépôt lui-même a changé de nature.** `forge-afrika` n'est plus seulement le QG
+> documentaire : il héberge désormais le **site vitrine de la holding** (Next.js 15, Supabase,
+> dashboard KPI, page écosystème des 10 filiales). Les documents stratégiques et le code du site
+> cohabitent — voir `CLAUDE.md` pour les conventions de chacun.
 
 ---
 
@@ -178,6 +184,20 @@ Geler n'est pas renoncer. C'est refuser de tout perdre en voulant tout tenir.
 | 4 | **ComptTrack** est-il un produit à part, ou un module de TAAMA ? | Un ERP contient déjà la compta ; deux produits = deux ventes à faire |
 | 5 | **Problem to Project Africa** : produit à part entière ou vitrine de compétences ? | Il est très abouti. S'il devient produit, il entre en concurrence de temps avec TAAMA |
 | 6 | Archiver les 5 dépôts vitrine/exercice | Un GitHub lisible est un actif commercial ; 26 dépôts dont 8 morts, non |
+| 7 | **`LOGICIELS/taama-spec.md` vs `taama-spec-technique.md`**, et `docs/*.md` qui redoublent `LOGICIELS/idees-produits.md` | Deux specs pour un produit = deux vérités ; il faut une source unique |
+| 8 | **Les métriques affichées sur le site du QG** (utilisateurs, transactions, CA par filiale) sont-elles réelles ou des placeholders ? | ⚠️ Voir ci-dessous — c'est la décision la plus urgente |
+
+### ⚠️ Sur les chiffres du site vitrine
+
+`lib/constants.ts` affiche publiquement des métriques par filiale (utilisateurs, transactions,
+chiffre d'affaires en FCFA) et des statuts « Actif » / « Beta ». Si ces chiffres sont des
+placeholders de démonstration — ce qui est cohérent avec l'absence de client payant — **ils
+doivent être retirés ou explicitement marqués comme illustratifs avant toute diffusion du site.**
+
+Ce n'est pas un détail cosmétique. Un investisseur, un client ou un partenaire qui découvre que
+des métriques publiques étaient inventées ne revient pas. Sur un marché où tout le monde se
+connaît, la crédibilité ne se refait pas. Un site qui affiche honnêtement « en construction »
+est infiniment plus solide qu'un site qui affiche 420 utilisateurs fictifs.
 
 ---
 
@@ -246,7 +266,7 @@ Le code est déjà en avance sur le marché — c'est le marché qui manque, pas
 
 ## 🗂️ Sources de ce document
 
-- Repo `forge-afrika` : `VISION.md`, `PROJECT.md`, `ROADMAP.md`, `LOGICIELS/`, `CAPITAL/`, `RECHERCHE/`
+- Repo `forge-afrika` : `VISION.md`, `PROJECT.md`, `ROADMAP.md`, `PRD.md`, `LOGICIELS/`, `CAPITAL/`, `RECHERCHE/`, `lib/constants.ts`
 - 26 dépôts GitHub `dosteeve2-hash/*` (métadonnées et descriptions, septembre 2026)
 - Repo `Problem-to-Projects-Africa` : blueprint fondateur, PRD MVP, architecture technique
 - Google Drive : *Product Requirements Document (PRD) v2.0 — Mifa Life* (mars 2026)
