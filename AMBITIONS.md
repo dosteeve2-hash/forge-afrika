@@ -186,6 +186,7 @@ Geler n'est pas renoncer. C'est refuser de tout perdre en voulant tout tenir.
 | 6 | Archiver les 5 dépôts vitrine/exercice | Un GitHub lisible est un actif commercial ; 26 dépôts dont 8 morts, non |
 | 7 | **`LOGICIELS/taama-spec.md` vs `taama-spec-technique.md`**, et `docs/*.md` qui redoublent `LOGICIELS/idees-produits.md` | Deux specs pour un produit = deux vérités ; il faut une source unique |
 | 8 | **Les métriques affichées sur le site du QG** (utilisateurs, transactions, CA par filiale) sont-elles réelles ou des placeholders ? | ⚠️ Voir ci-dessous — c'est la décision la plus urgente |
+| 9 | **Retirer « conformité EUDR » du positionnement de TAAMA** | ⚠️ L'EUDR ne couvre que bovins, cacao, café, huile de palme, soja, caoutchouc et bois — **ni karité, ni sésame, ni anacarde, ni coton**. L'argument se retourne devant un professionnel de la filière. Remplacement proposé dans [le dossier de prospection](./COMMERCIAL/prospection-taama.md) |
 
 ### ⚠️ Sur les chiffres du site vitrine
 
@@ -256,8 +257,10 @@ Quelles que soient les décisions ci-dessus, quatre principes tiennent :
 
 Non pas « les prochaines actions ». **La** prochaine action :
 
-> **Identifier les 10 PME burkinabè qui souffrent le plus du problème que TAAMA résout,
-> et en appeler trois cette semaine.**
+> **Appeler trois transformateurs burkinabè cette semaine.**
+
+Les 10 cibles sont identifiées, avec l'angle d'entrée, le script d'appel, la grille de
+qualification et les objections : **[`COMMERCIAL/prospection-taama.md`](./COMMERCIAL/prospection-taama.md)**.
 
 Pas coder. Pas ouvrir un 27ᵉ dépôt. **Appeler.**
 Le code est déjà en avance sur le marché — c'est le marché qui manque, pas le logiciel.

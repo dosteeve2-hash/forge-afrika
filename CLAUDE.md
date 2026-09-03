@@ -116,6 +116,7 @@ stratégiques comme de la documentation technique.
 | `PROJECT.md` · `VISION.md` · `ROADMAP.md` | Stratégie, philosophie, calendrier 2024-2050 |
 | `LOGICIELS/` | Specs et briefs produits (un fichier par produit) |
 | `CAPITAL/` | Stratégie de financement et d'investissement |
+| `COMMERCIAL/` | Prospection, argumentaires, scripts d'appel |
 | `RECHERCHE/` | Textes fondateurs, notes de terrain |
 
 ### Règles d'écriture stratégique

@@ -73,6 +73,7 @@ FORGE Afrika construit la suite d'outils SaaS qui permettront aux PMEs, coopéra
 | [ROADMAP.md](./ROADMAP.md) | Timeline 2024-2050, KPIs par phase |
 | [LOGICIELS/](./LOGICIELS/) | Specs et briefs produits |
 | [CAPITAL/](./CAPITAL/forge-capital-brief.md) | Club d'investissement « Le Cercle » — stratégie de financement (Phase 2/3) |
+| [COMMERCIAL/](./COMMERCIAL/prospection-taama.md) | Dossier de prospection TAAMA — les 10 premières cibles, script d'appel, grille de qualification |
 | [RECHERCHE/](./RECHERCHE/) | Textes fondateurs et notes de terrain |
 
 ---
