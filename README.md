@@ -8,7 +8,7 @@
 [![Made in](https://img.shields.io/badge/Made%20in-Burkina%20Faso%20🇧🇫-C4572A?style=for-the-badge)](./VISION.md)
 [![Vision](https://img.shields.io/badge/Horizon-2050-070e1f?style=for-the-badge&labelColor=2dd4ff)](./PROJECT.md)
 
-**[📖 Vision complète](./VISION.md)** · **[🗺️ Roadmap 2024-2050](./ROADMAP.md)** · **[💡 Idées produits](./LOGICIELS/idees-produits.md)**
+**[🔥 Ambitions — document maître](./AMBITIONS.md)** · **[📖 Vision complète](./VISION.md)** · **[🗺️ Roadmap 2024-2050](./ROADMAP.md)** · **[💡 Idées produits](./LOGICIELS/idees-produits.md)**
 
 </div>
 
@@ -65,6 +65,8 @@ La cause : l'Afrique vend la sueur et rachète la valeur. Elle exporte des mati�
 
 ```
 forge-afrika/
+├── AMBITIONS.md       → 🔥 Document maître : toutes les ambitions et l'inventaire des projets
+├── CLAUDE.md          → Guide de travail du dépôt
 ├── PROJECT.md         → Stratégie globale + analogies NVIDIA/Rockefeller
 ├── VISION.md          → Philosophie, analyse chaîne de valeur, leçons historiques
 ├── ROADMAP.md         → Timeline 2024-2050, KPIs par phase
