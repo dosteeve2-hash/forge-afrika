@@ -37,7 +37,7 @@ Une minoterie traitant 500 tonnes/mois de maïs burkinabè ne sait généralemen
 ### Gestion des lots
 - Traçabilité complète : fournisseur → stockage → transformation → produit fini → client
 - QR code par lot pour scan en entrepôt
-- Conformité EUDR et certifications export
+- Certifications export (EUDR uniquement si la filière est couverte)
 
 ### Gestion des stocks
 - Inventaire temps réel matières premières et produits finis

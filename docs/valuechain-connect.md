@@ -41,7 +41,7 @@ La chaîne de valeur agricole CEDEAO est fragmentée par un problème d'informat
 
 ### Traçabilité & certifications
 - Attestation d'origine géolocalisée (intégration AgroTrack BF)
-- Documentation certifications : bio, fair-trade, EUDR, SYSCOFA
+- Documentation certifications : bio, fair-trade, SYSCOFA ; EUDR pour les filières couvertes
 - Génération automatique des documents export
 
 ### Logistique & transport

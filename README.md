@@ -46,7 +46,7 @@ FORGE Afrika construit la suite d'outils SaaS qui permettront aux PMEs, coopéra
 
 | Produit | Description | Cible | Statut |
 |---------|-------------|-------|--------|
-| [**TAAMA**](https://github.com/dosteeve2-hash/taama) | ERP industriel + traçabilité agricole (conformité EUDR 2026) | PMEs transformation, coopératives BF | 🟡 Beta |
+| [**TAAMA**](https://github.com/dosteeve2-hash/taama) | ERP industriel + traçabilité agricole (transformation locale obligatoire, certifications export) | PMEs transformation, coopératives BF | 🟡 Beta |
 | [**FORJA**](https://github.com/dosteeve2-hash/forja) | Plateforme SaaS gestion exportations café & cacao | Exportateurs BF | 🟡 Beta |
 | [**MIFA Life**](https://github.com/dosteeve2-hash/Mifa_Life_shop) | Marketplace e-commerce mode & produits africains | Consommateurs CEDEAO | 🟡 Beta |
 | [**CompTrack**](https://github.com/dosteeve2-hash/comptrack) | Comptabilité PME SYSCOHADA — simple, mobile, FCFA-natif | PMEs & artisans | 🟡 Beta |
@@ -142,7 +142,7 @@ Repos produits (même organisation)
 BurkinaCollect / AgroTrack       TAAMA / MillTrack        CompTrack
   (Collecte terrain)         →   (Production / ERP)   →  (Comptabilité)
   Données GPS                    Lots certifiés            Bilans SYSCOHADA
-  Agents terrain                 Traçabilité EUDR          Export fiscal
+  Agents terrain                 Traçabilité export        Export fiscal
   Offline-first                  Rendements                Multi-devises FCFA
                                        ↓
                             ValueChain Connect

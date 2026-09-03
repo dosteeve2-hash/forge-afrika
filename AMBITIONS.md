@@ -186,7 +186,7 @@ Geler n'est pas renoncer. C'est refuser de tout perdre en voulant tout tenir.
 | 6 | Archiver les 5 dépôts vitrine/exercice | Un GitHub lisible est un actif commercial ; 26 dépôts dont 8 morts, non |
 | 7 | **`LOGICIELS/taama-spec.md` vs `taama-spec-technique.md`**, et `docs/*.md` qui redoublent `LOGICIELS/idees-produits.md` | Deux specs pour un produit = deux vérités ; il faut une source unique |
 | 8 | **Les métriques affichées sur le site du QG** (utilisateurs, transactions, CA par filiale) sont-elles réelles ou des placeholders ? | ⚠️ Voir ci-dessous — c'est la décision la plus urgente |
-| 9 | **Retirer « conformité EUDR » du positionnement de TAAMA** | ⚠️ L'EUDR ne couvre que bovins, cacao, café, huile de palme, soja, caoutchouc et bois — **ni karité, ni sésame, ni anacarde, ni coton**. L'argument se retourne devant un professionnel de la filière. Remplacement proposé dans [le dossier de prospection](./COMMERCIAL/prospection-taama.md) |
+| 9 | ~~Retirer « conformité EUDR » du positionnement de TAAMA~~ ✅ **Fait** | L'EUDR ne couvre que bovins, cacao, café, huile de palme, soja, caoutchouc et bois — ni karité, ni sésame, ni anacarde, ni coton. Corrigé dans le README, les deux specs TAAMA, le brief FORJA, les fiches `docs/` et la note de terrain. Argument de remplacement dans [le dossier de prospection](./COMMERCIAL/prospection-taama.md) |
 
 ### ⚠️ Sur les chiffres du site vitrine
 
