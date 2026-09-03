@@ -57,6 +57,7 @@ La cause : l'Afrique vend la sueur et rachète la valeur. Elle exporte des mati�
 | **MillTrack** | Suivi de production d'usines de transformation | Minoteries, huileries |
 | **LivestockOS** | Gestion d'élevage mobile (santé, stocks, ventes) | Éleveurs sahéliens |
 | **ValueChain Connect** | Marketplace B2B producteurs ↔ transformateurs | Toute la zone CEDEAO |
+| **KIBARÉ** | Conseiller d'investissement IA 100 % local — vos données ne sortent jamais | Investisseurs, family offices, PME |
 
 ---
 
@@ -70,7 +71,8 @@ forge-afrika/
 ├── LOGICIELS/
 │   ├── idees-produits.md     → Backlog des logiciels à construire
 │   ├── taama-spec-technique.md → Spec technique de TAAMA
-│   └── forja-product-brief.md  → Brief Forja
+│   ├── forja-product-brief.md  → Brief Forja
+│   └── kibare-spec.md          → Spec KIBARÉ (conseiller IA local)
 ├── RECHERCHE/
 │   └── texte-01-le-temps-des-machines.md → Manifeste fondateur (juin 2026)
 └── NOTES/             → Notes de travail (gitignored)
