@@ -26,6 +26,7 @@ export default function EcosystemPage() {
         </Link>
         <div className="flex items-center gap-6">
           <Link href="/roadmap" className="text-sm text-gray-400 hover:text-white transition-colors">Roadmap</Link>
+          <Link href="/kibare" className="text-sm text-gray-400 hover:text-white transition-colors">KIBARÉ</Link>
           <Link href="/dashboard" className="text-sm px-4 py-2 rounded-lg font-medium"
             style={{ background: "linear-gradient(135deg, #D4AF37, #F5D76E)", color: "#0A1628" }}>QG</Link>
         </div>

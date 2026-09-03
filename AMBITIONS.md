@@ -90,7 +90,7 @@ Légende : 🟢 produit réel · 🟡 scaffold / prototype · 🔵 idée documen
 | **Sahel Commerce AI** | `sahel-commerce-ai` (public) | Assistant IA pour marchands ouest-africains — agent LLM, inventaire, ventes, rapprochement mobile money (FastAPI + Next.js PWA) | 🟡 Prototype |
 | **African Hybrid Agent** | `african-hybrid-agent` (public) | Prototype d'agent hybride africain | 🟡 Prototype |
 | **LLM Africain Agent** | `LLM-africain-agent-AI` (public) | Agent LLM africain | 🟡 Prototype |
-| **KIBARÉ** | — | Conseiller d'investissement IA 100 % local, réseau à sens unique | 🔵 [Spec complète](./LOGICIELS/kibare-spec.md) |
+| **KIBARÉ** | `forge-afrika` → `/kibare` | Conseiller d'investissement IA 100 % local, réseau à sens unique | 🟡 **Prototype fonctionnel** — [spec](./LOGICIELS/kibare-spec.md) · moteur d'analyse et journal d'audit réseau en ligne |
 
 ⚠️ **Trois prototypes d'agents IA sur trois dépôts distincts.** Il y a probablement **un seul
 produit** là-dedans. À fusionner ou à trancher (voir §« Décisions »).

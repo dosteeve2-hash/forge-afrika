@@ -178,6 +178,7 @@ export default function HomePage() {
         <div className="hidden md:flex items-center gap-8">
           <Link href="/ecosystem" className="text-sm text-gray-400 hover:text-white transition-colors">Nos Filiales</Link>
           <Link href="/roadmap" className="text-sm text-gray-400 hover:text-white transition-colors">Roadmap</Link>
+          <Link href="/kibare" className="text-sm text-gray-400 hover:text-white transition-colors">KIBARÉ</Link>
           <Link href="/dashboard"
             className="text-sm px-4 py-2 rounded-lg font-medium transition-all"
             style={{ background: "linear-gradient(135deg, #D4AF37, #F5D76E)", color: "#0A1628" }}>
@@ -396,6 +397,7 @@ export default function HomePage() {
           <div className="flex flex-wrap justify-center gap-x-8 gap-y-2 mb-10">
             <Link href="/ecosystem" className="text-xs text-gray-500 hover:text-gray-300 transition-colors">Nos Filiales</Link>
             <Link href="/roadmap" className="text-xs text-gray-500 hover:text-gray-300 transition-colors">Roadmap</Link>
+            <Link href="/kibare" className="text-xs text-gray-500 hover:text-gray-300 transition-colors">KIBARÉ</Link>
             <Link href="/dashboard" className="text-xs text-gray-500 hover:text-gray-300 transition-colors">QG</Link>
           </div>
 

@@ -9,6 +9,13 @@
 
 ---
 
+> 🟡 **Un prototype fonctionnel existe** : page `/kibare` du site FORGE Afrika.
+> Il implémente le moteur d'analyse (5 personas, grilles chiffrées, consensus) et le
+> journal d'audit réseau réel de la Loi 6. Le LLM local, les données de marché et le
+> journal de décision restent à construire — voir §9, Palier 1.
+
+---
+
 ## 0. En une phrase
 
 **Un conseiller d'investissement IA qui tourne entièrement sur la machine de l'utilisateur,

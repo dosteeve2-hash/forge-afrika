@@ -59,7 +59,7 @@ FORGE Afrika construit la suite d'outils SaaS qui permettront aux PMEs, coopéra
 | [**MillTrack**](./docs/milltrack.md) | Suivi production usines de transformation | Minoteries, huileries, égrenage | 🔵 Conception |
 | [**LivestockOS**](./docs/livestock-os.md) | Gestion d'élevage mobile (santé, stocks, ventes) | Éleveurs sahéliens | 🔵 Conception |
 | [**ValueChain Connect**](./docs/valuechain-connect.md) | Marketplace B2B producteurs ↔ transformateurs | Zone CEDEAO | 🔵 Conception |
-| [**KIBARÉ**](./LOGICIELS/kibare-spec.md) | Conseiller d'investissement IA 100 % local — les données ne sortent jamais de la machine | Investisseurs, family offices, PME | 🔵 Conception |
+| [**KIBARÉ**](./LOGICIELS/kibare-spec.md) | Conseiller d'investissement IA 100 % local — les données ne sortent jamais de la machine · démo sur `/kibare` | Investisseurs, family offices, PME | 🟡 Prototype |
 
 ---
 
