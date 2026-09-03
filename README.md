@@ -73,6 +73,8 @@ forge-afrika/
 │   ├── taama-spec-technique.md → Spec technique de TAAMA
 │   ├── forja-product-brief.md  → Brief Forja
 │   └── kibare-spec.md          → Spec KIBARÉ (conseiller IA local)
+├── CAPITAL/
+│   └── forge-capital-brief.md → Club d'investissement « Le Cercle » (Phase 2/3)
 ├── RECHERCHE/
 │   └── texte-01-le-temps-des-machines.md → Manifeste fondateur (juin 2026)
 └── NOTES/             → Notes de travail (gitignored)
