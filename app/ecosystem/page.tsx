@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import Nav from "@/components/Nav";
 import { FILIALES_FORGE, CATEGORIES } from "@/lib/constants";
 
 export default function EcosystemPage() {
@@ -16,21 +17,7 @@ export default function EcosystemPage() {
 
   return (
     <main className="min-h-screen" style={{ background: "#0A1628" }}>
-      {/* Nav */}
-      <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-4"
-        style={{ background: "rgba(10,22,40,0.9)", backdropFilter: "blur(12px)", borderBottom: "1px solid rgba(212,175,55,0.1)" }}>
-        <Link href="/" className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-lg flex items-center justify-center font-bold"
-            style={{ background: "linear-gradient(135deg, #D4AF37, #F5D76E)", color: "#0A1628" }}>F</div>
-          <span className="font-bold text-white">FORGE Afrika</span>
-        </Link>
-        <div className="flex items-center gap-6">
-          <Link href="/roadmap" className="text-sm text-gray-400 hover:text-white transition-colors">Roadmap</Link>
-          <Link href="/kibare" className="text-sm text-gray-400 hover:text-white transition-colors">KIBARÉ</Link>
-          <Link href="/dashboard" className="text-sm px-4 py-2 rounded-lg font-medium"
-            style={{ background: "linear-gradient(135deg, #D4AF37, #F5D76E)", color: "#0A1628" }}>QG</Link>
-        </div>
-      </nav>
+      <Nav />
 
       <div className="pt-28 pb-20 px-4 max-w-7xl mx-auto">
         {/* Header */}
@@ -92,7 +79,9 @@ export default function EcosystemPage() {
                     </span>
                   </div>
 
-                  <h3 className="text-xl font-bold text-white mb-1">{filiale.nom}</h3>
+                  <Link href={`/ecosystem/${filiale.slug}`}>
+                    <h3 className="text-xl font-bold text-white mb-1 hover:text-[#D4AF37] transition-colors">{filiale.nom}</h3>
+                  </Link>
                   <span className="text-xs font-semibold mb-3 block" style={{ color: filiale.couleur }}>{filiale.categorie}</span>
                   <p className="text-gray-400 text-sm mb-5 leading-relaxed">{filiale.description}</p>
 
@@ -115,18 +104,25 @@ export default function EcosystemPage() {
                     </div>
                   )}
 
-                  {hasSite ? (
-                    <a href={filiale.url} target="_blank" rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl text-sm font-medium transition-all hover:scale-[1.02]"
-                      style={{ background: "rgba(212,175,55,0.1)", color: "#D4AF37", border: "1px solid rgba(212,175,55,0.2)" }}>
-                      Accéder au site ↗
-                    </a>
-                  ) : (
-                    <span className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl text-sm font-medium cursor-not-allowed"
-                      style={{ background: "rgba(255,255,255,0.03)", color: "#6B7280", border: "1px solid rgba(255,255,255,0.08)" }}>
-                      Bientôt disponible
-                    </span>
-                  )}
+                  <div className="flex gap-2">
+                    <Link href={`/ecosystem/${filiale.slug}`}
+                      className="flex-1 flex items-center justify-center py-2.5 rounded-xl text-sm font-medium transition-all hover:scale-[1.02]"
+                      style={{ background: "rgba(255,255,255,0.05)", color: "#E5E7EB", border: "1px solid rgba(255,255,255,0.12)" }}>
+                      La fiche →
+                    </Link>
+                    {hasSite ? (
+                      <a href={filiale.url} target="_blank" rel="noopener noreferrer"
+                        className="flex-1 flex items-center justify-center py-2.5 rounded-xl text-sm font-medium transition-all hover:scale-[1.02]"
+                        style={{ background: "rgba(212,175,55,0.1)", color: "#D4AF37", border: "1px solid rgba(212,175,55,0.2)" }}>
+                        Le site ↗
+                      </a>
+                    ) : (
+                      <span className="flex-1 flex items-center justify-center py-2.5 rounded-xl text-sm font-medium cursor-not-allowed"
+                        style={{ background: "rgba(255,255,255,0.03)", color: "#6B7280", border: "1px solid rgba(255,255,255,0.08)" }}>
+                        Bientôt
+                      </span>
+                    )}
+                  </div>
                 </motion.div>
               );
             })}
