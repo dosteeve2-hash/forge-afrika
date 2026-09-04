@@ -4,6 +4,7 @@ const LIENS = [
   { href: "/ecosystem", label: "Écosystème" },
   { href: "/roadmap", label: "Roadmap" },
   { href: "/kibare", label: "KIBARÉ" },
+  { href: "/contact", label: "Contact" },
 ];
 
 /** Barre de navigation commune à toutes les pages du QG. */

@@ -4,7 +4,7 @@ import { FILIALES_FORGE } from "@/lib/constants";
 const BASE = "https://forge-afrika.vercel.app";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const pages = ["", "/ecosystem", "/roadmap", "/kibare"].map((chemin) => ({
+  const pages = ["", "/ecosystem", "/roadmap", "/kibare", "/contact"].map((chemin) => ({
     url: `${BASE}${chemin}`,
     lastModified: new Date(),
     priority: chemin === "" ? 1 : 0.8,
