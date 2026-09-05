@@ -3,7 +3,7 @@
   "derniere_execution": "2026-09-05",
   "derniere_routine": "amorçage",
   "reportes": [],
-  "prochaine_priorite": "Première exécution réelle : établir la ligne de base. Cloner et scanner les 11 projets tier 1, remplir les champs 'a_confirmer' du registre avec les vraies descriptions lues dans chaque dépôt, et produire le premier état de santé complet dans AUTOMATION/etat/sante.json. Ne pas ouvrir de gros chantier de développement ce jour-là : la carte d'abord, le terrain ensuite.",
+  "prochaine_priorite": "PREMIERE EXECUTION — c'est la Revue Strategique du dimanche 2026-09-06 qui tourne en premier, avant toute session quotidienne. Elle suit le §0 de son playbook : etat des lieux fondateur. Attacher et cloner les 11 projets tier 1, lire leur code reel, remplacer les champs 'a_confirmer' du registre par ce qui est observe, et etablir la ligne de base dans etat/sante.json. Pas de gros chantier de developpement ce jour-la : la carte d'abord, le terrain ensuite. La session du lundi 2026-09-07 attaquera le developpement avec un registre juste.",
   "pr_ouvertes_suivies": [],
-  "notes": "Système installé le 2026-09-05. Aucun scan réel n'a encore été effectué sur les autres dépôts."
+  "notes": "Systeme installe le 2026-09-05 (PR #9). Routines actives : Forge Quotidien (lun-sam 05h00) et Revue Strategique (dimanche 05h00). Aucun scan reel n'a encore ete effectue sur les autres depots."
 }

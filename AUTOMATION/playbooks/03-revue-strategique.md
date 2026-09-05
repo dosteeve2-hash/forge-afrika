@@ -5,6 +5,26 @@
 
 ---
 
+## 0. Cas particulier — la toute première revue
+
+Si `AUTOMATION/rapports/` ne contient encore aucun rapport quotidien, tu es la première
+exécution du système. Il n'y a pas de semaine à évaluer. Alors la revue devient un
+**état des lieux fondateur**, et c'est encore plus utile :
+
+- Attache et clone les 11 projets tier 1, lis leur README et leur code, et remplis les
+  champs `a_confirmer: true` du registre avec ce que tu as réellement observé —
+  pas ce qui était supposé. C'est la carte du terrain, et elle n'existe pas encore.
+- Établis la ligne de base de santé dans `AUTOMATION/etat/sante.json` : c'est ce qui
+  permettra aux sessions suivantes de détecter une **régression** et pas seulement un défaut.
+- Réponds honnêtement, avec des preuves, à la question du §2 : **combien de ces produits
+  ont un utilisateur réel ?**
+- Écris le chantier prioritaire de la semaine dans `etat/rotation.json`.
+
+Saute alors les §3 (bilan de la semaine) et §5 (mise à jour ROADMAP) — tu n'as pas encore
+de quoi les remplir honnêtement. Fais les §1, §2, §4 et §6.
+
+---
+
 ## 1. Relire la boussole
 
 Relis `PROJECT.md`, `VISION.md` et la section de `ROADMAP.md` correspondant à l'année
