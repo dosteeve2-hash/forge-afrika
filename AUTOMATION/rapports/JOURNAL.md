@@ -5,4 +5,4 @@
 
 | Date | Routine | En une ligne | Rapport |
 |---|---|---|---|
-| 2026-09-05 | amorçage | Installation du système d'automatisation : registre de 25 projets, 3 playbooks, rotation hebdomadaire, protocole d'autonomie. | *(ce commit)* |
+| 2026-09-05 | amorçage | Système installé et programmé. Découvert au passage : 3 troncs divergents, branche par défaut gelée depuis 69 jours, et 6 hypothèses du registre confirmées par `lib/constants.ts`. | [rapport](./2026-09-05-amorcage.md) |
