@@ -1,28 +1,51 @@
-# Notes de travail personnelles — annoncées comme non versionnées dans le README
+# deps
+/node_modules
+/.pnp
+.pnp.js
+.yarn/install-state.gz
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# local env files
+.env*.local
+.env.local
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# ─── FORGE — automatisation & notes ──────────────────────────────
+# Notes de travail personnelles (annoncées non versionnées dans le README)
 NOTES/*
 !NOTES/.gitkeep
 
-# Clones temporaires des autres projets, créés par le Forge Quotidien
+# Clones temporaires des autres dépôts, créés par le Forge Quotidien
+/forge-workdir/
 /tmp-forge/
-forge-workdir/
 
-# Secrets — ne doivent JAMAIS être versionnés (cf. CLAUDE.md §4)
+# Secrets — master n'ignorait que .env*.local ; un .env à la racine
+# passait donc au travers. cf. AUTOMATION/playbooks/02-sentinelle-sante.md §C
 .env
-.env.*
-!.env.example
-*.pem
+.env.production
+!.env.production.example
 *.key
-
-# Systèmes et éditeurs
-.DS_Store
-Thumbs.db
-.vscode/
-.idea/
-*.swp
-
-# Dépendances et artefacts de build
-node_modules/
-dist/
-build/
-__pycache__/
-*.log

@@ -98,9 +98,9 @@ impossible et produirait du travail superficiel. D'où la règle :
 | Jour | Développement profond |
 |---|---|
 | Lundi | TAAMA · ComptTrack · Portfolio 2.0 |
-| Mardi | AgroTrack BF · ValueChain Connect · Duka Boutique |
-| Mercredi | MillTrack · Forja · Mifa Life Shop |
-| Jeudi | LivestockOS · InduBot Afrika · Phone Showcase |
+| Mardi | AgroTrack BF · ValueChain Connect · SUGU |
+| Mercredi | MillTrack · FORJA · MIFA Life |
+| Jeudi | LivestockOS · Indubot Afrika · Phone Showcase |
 | Vendredi | BurkinaCollect · African Hybrid Agent · Sahel Commerce AI |
 | Samedi | Problem to Projects Africa · UEEMT Tokat |
 | Dimanche | *revue stratégique — pas de code* |
@@ -145,7 +145,7 @@ Il n'a **rien** à faire pour que ça tourne. Mais quand il veut reprendre la ma
 Ce système a un mandat d'autonomie large. Il tient parce qu'il est **entièrement
 réversible** :
 
-- ✅ Tout passe par une **branche** et une **PR draft**. Jamais de push sur `main`.
+- ✅ Tout passe par une **branche** et une **PR draft**. Jamais de push sur le tronc (`master` pour ce dépôt).
 - ✅ **Aucun merge** sans Steeve. Il garde la décision finale sur chaque ligne.
 - ✅ **Aucune action de production** : pas de déploiement, pas de base de données réelle,
   pas de DNS, pas de dépense.

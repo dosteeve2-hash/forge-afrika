@@ -44,9 +44,9 @@ Rotation nominale :
 | Jour | Projets en développement profond |
 |---|---|
 | Lundi | TAAMA · ComptTrack · Portfolio 2.0 |
-| Mardi | AgroTrack BF · ValueChain Connect · Duka Boutique |
-| Mercredi | MillTrack · Forja · Mifa Life Shop |
-| Jeudi | LivestockOS · InduBot Afrika · Phone Showcase |
+| Mardi | AgroTrack BF · ValueChain Connect · SUGU |
+| Mercredi | MillTrack · FORJA · MIFA Life |
+| Jeudi | LivestockOS · Indubot Afrika · Phone Showcase |
 | Vendredi | BurkinaCollect · African Hybrid Agent · Sahel Commerce AI |
 | Samedi | Problem to Projects Africa · UEEMT Tokat |
 | Dimanche | *(revue stratégique — voir playbook 03)* |

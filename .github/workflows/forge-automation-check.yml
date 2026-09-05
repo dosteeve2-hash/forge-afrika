@@ -6,7 +6,7 @@ name: 🔨 Vérification du système d'automatisation
 
 on:
   push:
-    branches: [main]
+    branches: [master]
     paths: ['AUTOMATION/**', 'CLAUDE.md', '.github/workflows/forge-automation-check.yml']
   pull_request:
     paths: ['AUTOMATION/**', 'CLAUDE.md', '.github/workflows/forge-automation-check.yml']
