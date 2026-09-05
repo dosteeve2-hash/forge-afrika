@@ -64,6 +64,7 @@ La cause : l'Afrique vend la sueur et rachète la valeur. Elle exporte des mati�
 
 ```
 forge-afrika/
+├── CLAUDE.md          → Contexte permanent lu par toute session Claude
 ├── PROJECT.md         → Stratégie globale + analogies NVIDIA/Rockefeller
 ├── VISION.md          → Philosophie, analyse chaîne de valeur, leçons historiques
 ├── ROADMAP.md         → Timeline 2024-2050, KPIs par phase
@@ -73,8 +74,26 @@ forge-afrika/
 │   └── forja-product-brief.md  → Brief Forja
 ├── RECHERCHE/
 │   └── texte-01-le-temps-des-machines.md → Manifeste fondateur (juin 2026)
+├── AUTOMATION/        → 🤖 Le système qui fait avancer les 25 projets chaque matin
+│   ├── registry.json         → Registre de tous les projets + rotation hebdo
+│   ├── playbooks/            → Protocole d'autonomie et déroulés d'exécution
+│   ├── scripts/              → Rotation du jour, scan de santé
+│   ├── etat/ · rapports/     → Mémoire entre les sessions, rapports quotidiens
+│   └── QUESTIONS.md          → Ce que Claude demande — sans jamais s'arrêter
 └── NOTES/             → Notes de travail (gitignored)
 ```
+
+---
+
+## 🤖 L'automatisation quotidienne
+
+Depuis septembre 2026, une routine tourne **tous les matins à 05h00** :
+elle scanne les 25 dépôts, répare ce qui est cassé, développe en profondeur les
+2-3 projets du jour, et laisse un rapport prêt à lire au réveil.
+
+Tout passe par des **PR draft** — rien n'est jamais mergé ni déployé sans décision humaine.
+
+**→ [Mode d'emploi complet](./AUTOMATION/README.md)**
 
 ---
 

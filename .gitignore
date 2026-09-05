@@ -1,0 +1,28 @@
+# Notes de travail personnelles — annoncées comme non versionnées dans le README
+NOTES/*
+!NOTES/.gitkeep
+
+# Clones temporaires des autres projets, créés par le Forge Quotidien
+/tmp-forge/
+forge-workdir/
+
+# Secrets — ne doivent JAMAIS être versionnés (cf. CLAUDE.md §4)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Systèmes et éditeurs
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# Dépendances et artefacts de build
+node_modules/
+dist/
+build/
+__pycache__/
+*.log

@@ -1,0 +1,9 @@
+{
+  "_doc": "Memoire courte entre deux executions. Ecrit en fin de chaque session, lu au debut de la suivante. Voir AUTOMATION/playbooks/00-protocole-forge.md §9.",
+  "derniere_execution": "2026-09-05",
+  "derniere_routine": "amorçage",
+  "reportes": [],
+  "prochaine_priorite": "Première exécution réelle : établir la ligne de base. Cloner et scanner les 11 projets tier 1, remplir les champs 'a_confirmer' du registre avec les vraies descriptions lues dans chaque dépôt, et produire le premier état de santé complet dans AUTOMATION/etat/sante.json. Ne pas ouvrir de gros chantier de développement ce jour-là : la carte d'abord, le terrain ensuite.",
+  "pr_ouvertes_suivies": [],
+  "notes": "Système installé le 2026-09-05. Aucun scan réel n'a encore été effectué sur les autres dépôts."
+}

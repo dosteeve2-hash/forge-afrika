@@ -1,0 +1,105 @@
+name: 🔨 Vérification du système d'automatisation
+
+# Le système d'automatisation pilote 25 dépôts. Un registre invalide ou un script
+# cassé le rendrait silencieusement inopérant — et personne ne s'en apercevrait
+# avant plusieurs jours. Cette CI est le garde-fou.
+
+on:
+  push:
+    branches: [main]
+    paths: ['AUTOMATION/**', 'CLAUDE.md', '.github/workflows/forge-automation-check.yml']
+  pull_request:
+    paths: ['AUTOMATION/**', 'CLAUDE.md', '.github/workflows/forge-automation-check.yml']
+  workflow_dispatch:
+
+jobs:
+  verifier:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Registre — JSON valide
+        run: jq empty AUTOMATION/registry.json
+
+      - name: Registre — champs obligatoires présents
+        run: |
+          manquants=$(jq -r '
+            .projets[]
+            | select((.id? // "") == "" or (.repo? // "") == "" or (.nom? // "") == ""
+                     or (.mission? // "") == "" or (.tier? | type) != "number"
+                     or (.jour? | type) != "number")
+            | .id // .repo // "(entrée sans identifiant)"
+          ' AUTOMATION/registry.json)
+          if [ -n "$manquants" ]; then
+            echo "::error::Entrées incomplètes dans le registre :"; echo "$manquants"; exit 1
+          fi
+          echo "✅ tous les champs obligatoires sont présents"
+
+      - name: Registre — pas de doublon d'identifiant ni de dépôt
+        run: |
+          for champ in id repo; do
+            dbl=$(jq -r ".projets[].$champ" AUTOMATION/registry.json | sort | uniq -d)
+            if [ -n "$dbl" ]; then
+              echo "::error::Doublon sur le champ '$champ' : $dbl"; exit 1
+            fi
+          done
+          echo "✅ aucun doublon"
+
+      - name: Registre — jour de rotation valide (0-7)
+        run: |
+          hors=$(jq -r '.projets[] | select(.jour < 0 or .jour > 7) | .id' AUTOMATION/registry.json)
+          if [ -n "$hors" ]; then echo "::error::jour hors intervalle 0-7 : $hors"; exit 1; fi
+          echo "✅ rotation cohérente"
+
+      - name: Registre — tout projet tier 1 est bien en rotation
+        run: |
+          orphelins=$(jq -r '.projets[] | select(.tier == 1 and .jour == 0) | .id' AUTOMATION/registry.json)
+          if [ -n "$orphelins" ]; then
+            echo "::error::Projet tier 1 jamais travaillé (jour=0) : $orphelins"; exit 1
+          fi
+          echo "✅ tous les projets tier 1 ont un créneau"
+
+      - name: Fichiers d'état — JSON valide
+        run: |
+          jq empty AUTOMATION/etat/rotation.json
+          jq empty AUTOMATION/etat/sante.json
+          echo "✅ fichiers d'état valides"
+
+      - name: Scripts — syntaxe shell
+        run: |
+          for f in AUTOMATION/scripts/*.sh; do bash -n "$f" && echo "✅ $f"; done
+
+      - name: Scripts — exécutables
+        run: |
+          for f in AUTOMATION/scripts/*.sh; do
+            [ -x "$f" ] || { echo "::error::$f n'est pas exécutable (git update-index --chmod=+x)"; exit 1; }
+          done
+          echo "✅ scripts exécutables"
+
+      - name: Scripts — shellcheck
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq shellcheck
+          shellcheck -S warning AUTOMATION/scripts/*.sh
+
+      - name: Rotation — le script tourne pour les 7 jours
+        run: |
+          for j in 1 2 3 4 5 6 7; do
+            ./AUTOMATION/scripts/forge-rotation.sh --jour "$j" >/dev/null \
+              || { echo "::error::forge-rotation.sh échoue pour le jour $j"; exit 1; }
+          done
+          echo "✅ rotation exécutable sur les 7 jours"
+
+      - name: Documentation — les playbooks référencés existent
+        run: |
+          for f in 00-protocole-forge 01-forge-quotidien 02-sentinelle-sante 03-revue-strategique; do
+            [ -f "AUTOMATION/playbooks/$f.md" ] || { echo "::error::playbook manquant : $f.md"; exit 1; }
+          done
+          [ -f CLAUDE.md ] && [ -f AUTOMATION/README.md ] && [ -f AUTOMATION/QUESTIONS.md ]
+          echo "✅ documentation complète"
+
+      - name: Sécurité — aucun secret dans le dépôt
+        run: |
+          if git grep -InE '(AKIA[0-9A-Z]{16}|sk-[A-Za-z0-9]{20,}|ghp_[A-Za-z0-9]{30,}|-----BEGIN (RSA |OPENSSH |EC )?PRIVATE KEY-----)' -- . ; then
+            echo "::error::Secret potentiel détecté dans le dépôt"; exit 1
+          fi
+          echo "✅ aucun secret détecté"
