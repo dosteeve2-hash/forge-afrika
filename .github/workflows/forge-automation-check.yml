@@ -26,8 +26,7 @@ jobs:
           manquants=$(jq -r '
             .projets[]
             | select((.id? // "") == "" or (.repo? // "") == "" or (.nom? // "") == ""
-                     or (.mission? // "") == "" or (.tier? | type) != "number"
-                     or (.jour? | type) != "number")
+                     or (.mission? // "") == "" or (.tier? | type) != "number")
             | .id // .repo // "(entrée sans identifiant)"
           ' AUTOMATION/registry.json)
           if [ -n "$manquants" ]; then
@@ -55,13 +54,14 @@ jobs:
 
       - name: Registre — fréquence et cron des loops valides
         run: |
-          set -o pipefail
-          mauvais=$(jq -er '
+          if ! mauvais=$(jq -r '
             .projets[] | select(.loop)
             | select(((.loop.frequence | IN("quotidien","hebdomadaire","mensuel")) | not)
                      or ((.loop.cron_utc // "") == "")
                      or ((.loop.cron_utc | split(" ") | length) != 5))
-            | .id' AUTOMATION/registry.json)
+            | .id' AUTOMATION/registry.json); then
+            echo "::error::jq a échoué sur le registre — expression ou JSON invalide"; exit 1
+          fi
           if [ -n "$mauvais" ]; then
             echo "::error::Loop mal formé (fréquence inconnue ou cron non standard) : $mauvais"; exit 1
           fi

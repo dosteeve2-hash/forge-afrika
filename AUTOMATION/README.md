@@ -110,7 +110,8 @@ AUTOMATION/
 │
 ├── scripts/
 │   ├── forge-loops.sh           ← le planning des loops
-│   └── forge-scan.sh            ← santé d'un projet / des déploiements
+│   ├── forge-scan.sh            ← santé d'un projet / des déploiements
+│   └── forge-ci-local.sh        ← rejoue les contrôles CI en local avant de pousser
 │
 ├── etat/
 │   ├── projets/<id>.json        ← mémoire d'un loop, d'un jour à l'autre

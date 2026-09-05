@@ -126,6 +126,17 @@ Une PR draft n'est pas une excuse pour du travail bâclé. Avant tout push :
 - Aucun secret, aucun `console.log` de débogage, aucun `TODO` vide laissé derrière toi.
 - Tu as relu ton propre diff en te demandant : *qu'est-ce qui fait échouer ça en CI ?*
 
+Quand tu touches au système d'automatisation lui-même, rejoue ses contrôles avec :
+
+```bash
+./AUTOMATION/scripts/forge-ci-local.sh
+```
+
+Il **extrait et exécute les commandes réelles du workflow**, pas une paraphrase. C'est
+la seule vérification qui vaut : le 2026-09-05, un contrôle CI a cassé parce que les
+vérifications avaient été rejouées à la main avec des expressions récrites, proches mais
+pas identiques. Une condition oubliée, et la CI tombe après le push.
+
 **Mieux vaut un seul commit solide que cinq commits spéculatifs.** Steeve juge la
 qualité, pas le volume.
 
