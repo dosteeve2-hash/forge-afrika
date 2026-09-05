@@ -151,15 +151,31 @@ au Burkina Faso, quel que soit son niveau de finition.
 Depuis septembre 2026, des routines Claude tournent automatiquement sur l'ensemble
 du portefeuille. Tout est décrit dans **`AUTOMATION/README.md`**.
 
-| Routine | Fréquence | Rôle |
+**Chaque dépôt a son propre loop** : sa Routine, sa session Claude dédiée, son rapport.
+Pas de rotation, pas d'attention partagée entre plusieurs projets.
+
+| Routine | Quand (heure de Turquie) | Rôle |
 |---|---|---|
-| 🔨 **Forge Quotidien** | lun-sam, 05h00 | Scanne les 25 dépôts, développe en profondeur ceux du jour |
-| 🧭 **Revue Stratégique** | dimanche, 05h00 | Réalignement VISION/ROADMAP, arbitrages, KPIs |
+| 🔁 **13 loops quotidiens** | 05h03 → 07h03, échelonnés | Un par projet tier 1 : diagnostique, répare, développe, ouvre une PR draft |
+| 🔁 **4 loops hebdomadaires** | lun-jeu 07h13 | Un par projet vitrine (tier 2) |
+| 🔁 **8 loops mensuels** | les 2,4,6…16 à 07h23 | Un par archive (tier 3) — contrôle de santé |
+| 📋 **Digest** | tous les jours 08h33 | Agrège les rapports du matin en une seule page |
+| 🧭 **Revue Stratégique** | dimanche 09h03 | La semaine contre les KPIs, arbitrages, ROADMAP |
+
+Le planning exact est dans le champ `loop` de chaque projet du registre
+(`./AUTOMATION/scripts/forge-loops.sh --planning`).
 
 Le protocole que ces routines suivent est dans
 `AUTOMATION/playbooks/00-protocole-forge.md`. **Le lire avant toute exécution
 automatique** — en particulier le §3, la liste de ce qui ne se fait jamais sans
 l'accord explicite de Steeve.
+
+⚠️ **Coexistence.** Une douzaine de loops écrivent dans `forge-afrika` en même temps
+chaque matin. Un loop n'écrit QUE dans les fichiers portant son identifiant
+(`rapports/<id>/`, `etat/projets/<id>.json`, `questions/<id>.md`) et travaille sur sa
+propre branche `claude/loop-<id>-<date>`. Les fichiers partagés — `JOURNAL.md`,
+`QUESTIONS.md`, `etat/sante.json`, `etat/rotation.json`, `registry.json` — appartiennent
+au digest seul. Voir `AUTOMATION/README.md §4`.
 
 ## Règle d'autonomie
 

@@ -1,160 +1,194 @@
 # 🤖 Le Système d'Automatisation FORGE
 
 > Installé le 5 septembre 2026, à la demande de Steeve.
-> Objectif : que **chaque matin**, tous ses projets soient vérifiés, et que deux ou trois
-> d'entre eux aient réellement avancé — sans qu'il ait à dire « vas-y, continue ».
+> **Chaque dépôt a son propre loop** — sa propre Routine, sa propre session Claude,
+> son propre rapport. Pas de rotation, pas d'attention partagée.
 
 ---
 
-## 1. L'idée en une image
+## 1. L'idée
 
 ```
-                        ⏰ 05h00, tous les jours
-                                 │
-                                 ▼
-                    ┌────────────────────────┐
-                    │   Session Claude Opus  │
-                    │   (repart de zéro)     │
-                    └────────────────────────┘
-                                 │
-        ┌────────────────────────┼────────────────────────┐
-        ▼                        ▼                        ▼
-   ① MÉMOIRE               ② SENTINELLE             ③ FORGE
-   Relit l'état,           Scanne les 25            Développe en
-   les questions,          projets : build,         profondeur les
-   les PR en cours         sécurité, prod,          2-3 projets
-   (etat/ + rapports/)     doctrine terrain         du jour
-        │                        │                        │
-        └────────────────────────┼────────────────────────┘
-                                 ▼
-                    ┌────────────────────────┐
-                    │  PR draft + rapport    │
-                    │  + état pour demain    │
-                    └────────────────────────┘
-                                 │
-                                 ▼
-                    ☕ Steeve se réveille et lit
+   05h03   05h13   05h23   05h33   ...   07h03        (heure de Turquie)
+     │       │       │       │             │
+     ▼       ▼       ▼       ▼             ▼
+  ┌──────┐┌──────┐┌──────┐┌──────┐     ┌──────┐
+  │TAAMA ││Comp  ││Agro  ││Value │ ... │MIFA  │     ← 1 session dédiée par dépôt
+  │ loop ││Track ││Track ││Chain │     │ Life │       chacune sur SON seul projet
+  └──┬───┘└──┬───┘└──┬───┘└──┬───┘     └──┬───┘
+     │       │       │       │            │
+     │  chacune : diagnostique · répare · développe · ouvre une PR draft
+     │       │       │       │            │
+     └───────┴───────┴───────┴────────────┘
+                     │
+                     ▼  08h33
+              ┌─────────────┐
+              │   DIGEST    │   ← lit les ~13 rapports, en écrit UN
+              │  quotidien  │      détecte les régressions et les motifs partagés
+              └──────┬──────┘
+                     ▼
+              ☕ Steeve se réveille et lit une page
+                     │
+                     ▼  dimanche 09h03
+              ┌─────────────┐
+              │   REVUE     │   ← la semaine contre les KPIs de Phase 1
+              │ stratégique │      arbitrages, ROADMAP
+              └─────────────┘
 ```
 
-Le point clé : **la session de demain ne se souvient de rien.** Sa seule mémoire est ce
-qui a été écrit dans le dépôt. C'est pourquoi `etat/`, `rapports/` et `QUESTIONS.md` ne
-sont pas de la paperasse — ils *sont* la continuité du système.
+**Pourquoi un loop par dépôt et pas une session qui fait le tour ?**
+Parce qu'une session partagée entre 25 projets donne 25 travaux superficiels. Une session
+entière pour un seul dépôt peut le cloner, lire son code, comprendre sa spec, réparer,
+construire et vérifier. C'est la différence entre survoler et livrer.
+
+Le prix à payer, c'est le bruit : 13 rapports par matin, personne ne les lit.
+D'où le **digest**, qui n'existe que pour ça.
 
 ---
 
-## 2. Les fichiers
+## 2. Le planning
+
+Horaires en **heure de Turquie (UTC+3)**, là où vit Steeve.
+
+### Loops quotidiens — les 13 projets du cœur de la Phase 1
+
+| Heure | Projet | | Heure | Projet |
+|---|---|---|---|---|
+| 05h03 | TAAMA | | 06h03 | LivestockOS |
+| 05h13 | CompTrack | | 06h13 | Indubot Afrika |
+| 05h23 | AgroTrack BF | | 06h23 | BurkinaCollect |
+| 05h33 | ValueChain Connect | | 06h33 | African Hybrid Agent |
+| 05h43 | MillTrack | | 06h43 | Problem to Projects Africa |
+| 05h53 | FORJA | | 06h53 | SUGU |
+| | | | 07h03 | MIFA Life |
+
+### Loops hebdomadaires — les 4 projets vitrine
+
+| Jour | Heure | Projet |
+|---|---|---|
+| lundi | 07h13 | Portfolio 2.0 |
+| mardi | 07h13 | Phone Showcase |
+| mercredi | 07h13 | Sahel Commerce AI |
+| jeudi | 07h13 | UEEMT-Tokat |
+
+### Loops mensuels — les 8 archives
+
+Un contrôle de santé par mois suffit pour un dépôt qu'on n'écrit plus.
+Les 2, 4, 6, 8, 10, 12, 14 et 16 du mois à 07h23 : `livestock-os`,
+`LLM-africain-agent-AI`, `steevedo.github.io`, `Portfolio v1`, `binary-search-tree-java`,
+`Donald`, `Steeve-Donald-`, `desktop-tutorial`.
+
+### Agrégation
+
+| Quand | Quoi |
+|---|---|
+| tous les jours 08h33 | **Digest** — les rapports du matin en une page |
+| dimanche 09h03 | **Revue Stratégique** — la semaine contre les KPIs, arbitrages, ROADMAP |
+
+```bash
+./AUTOMATION/scripts/forge-loops.sh             # ce qui tourne aujourd'hui
+./AUTOMATION/scripts/forge-loops.sh --planning  # le planning complet
+./AUTOMATION/scripts/forge-loops.sh --cron      # les crons UTC, pour vérifier les Routines
+```
+
+---
+
+## 3. Les fichiers
 
 ```
 AUTOMATION/
-├── README.md              ← ce fichier — le mode d'emploi
-├── registry.json          ← les 25 projets : mission, ambition, tier, jour de rotation
-├── QUESTIONS.md           ← ce que Claude demande à Steeve (sans jamais s'arrêter)
+├── README.md              ← ce fichier
+├── registry.json          ← les 25 projets : mission, ambition, tier, horaire du loop
+├── QUESTIONS.md           ← ⭐ là où Steeve répond. Le reste peut attendre, pas ça.
 │
 ├── playbooks/
 │   ├── 00-protocole-forge.md    ← LES RÈGLES. À lire avant toute exécution.
-│   ├── 01-forge-quotidien.md    ← le déroulé du matin
-│   ├── 02-sentinelle-sante.md   ← ce qu'on vérifie sur chaque projet
-│   └── 03-revue-strategique.md  ← le dimanche, on prend de la hauteur
+│   ├── 01-loop-projet.md        ← ce que fait un loop, sur son seul dépôt
+│   ├── 02-sentinelle-sante.md   ← ce qu'on vérifie sur un projet
+│   ├── 03-digest-quotidien.md   ← l'agrégation du matin
+│   └── 04-revue-strategique.md  ← le dimanche, on prend de la hauteur
 │
 ├── scripts/
-│   ├── forge-rotation.sh        ← quels projets aujourd'hui ?
+│   ├── forge-loops.sh           ← le planning des loops
 │   └── forge-scan.sh            ← santé d'un projet / des déploiements
 │
 ├── etat/
-│   ├── rotation.json            ← mémoire courte : reports, priorité du lendemain
-│   └── sante.json               ← état machine, pour détecter les régressions
+│   ├── projets/<id>.json        ← mémoire d'un loop, d'un jour à l'autre
+│   ├── sante.json               ← état consolidé (digest) — détection de régression
+│   └── rotation.json            ← priorité générale du lendemain (digest)
+│
+├── questions/<id>.md            ← boîte d'envoi de chaque loop
 │
 └── rapports/
-    ├── JOURNAL.md               ← une ligne par jour
-    └── AAAA-MM-JJ-*.md          ← le rapport détaillé de chaque exécution
+    ├── JOURNAL.md               ← une ligne par jour (digest)
+    ├── AAAA-MM-JJ-digest.md     ← le digest du matin
+    └── <id>/AAAA-MM-JJ.md       ← le rapport détaillé de chaque loop
 ```
 
 ---
 
-## 3. Les routines programmées
+## 4. Comment les loops coexistent sans se marcher dessus
 
-| Routine | Quand | Playbook |
-|---|---|---|
-| 🔨 **Forge Quotidien** | tous les jours à 05h00 | `01-forge-quotidien.md` (+ `02` en ouverture) |
-| 🧭 **Revue Stratégique** | dimanche à 05h00 | `03-revue-strategique.md` |
+Treize sessions écrivent dans `forge-afrika` en même temps. Sans discipline, la moitié du
+travail se perd en conflits. La règle est stricte et tient en une phrase :
 
-Chaque exécution démarre une **session Claude neuve** sur ce dépôt.
-Elle lit `CLAUDE.md`, puis le protocole, puis son playbook, puis elle travaille.
+> **Un loop n'écrit que dans les fichiers qui portent son identifiant.**
 
-Pour voir, modifier ou suspendre ces routines, demande simplement :
-*« montre-moi mes routines »*, *« change l'heure du forge quotidien »*,
-*« mets l'automatisation en pause »*.
-
----
-
-## 4. La rotation hebdomadaire
-
-25 projets, une session par jour : les traiter tous en profondeur chaque jour est
-impossible et produirait du travail superficiel. D'où la règle :
-
-- **Tous les projets sont scannés chaque matin** (rapide, superficiel — la Sentinelle).
-- **2 à 3 projets sont développés en profondeur** chaque jour, selon leur tour.
-
-| Jour | Développement profond |
+| | Écrit par |
 |---|---|
-| Lundi | TAAMA · ComptTrack · Portfolio 2.0 |
-| Mardi | AgroTrack BF · ValueChain Connect · SUGU |
-| Mercredi | MillTrack · FORJA · MIFA Life |
-| Jeudi | LivestockOS · Indubot Afrika · Phone Showcase |
-| Vendredi | BurkinaCollect · African Hybrid Agent · Sahel Commerce AI |
-| Samedi | Problem to Projects Africa · UEEMT Tokat |
-| Dimanche | *revue stratégique — pas de code* |
+| `rapports/<id>/`, `etat/projets/<id>.json`, `questions/<id>.md` | le loop `<id>`, seul |
+| `JOURNAL.md`, `QUESTIONS.md`, `etat/sante.json`, `etat/rotation.json`, `registry.json` | le **digest**, seul |
 
-**Une urgence casse la rotation.** Un build cassé sur TAAMA un jeudi se répare le jeudi.
-L'ordre de priorité est dans `00-protocole-forge.md §5`.
+Chaque loop travaille en plus sur sa propre branche `claude/loop-<id>-<date>`.
+Fichiers distincts, branches distinctes : aucune collision possible.
 
-Pour changer la rotation : éditer le champ `jour` dans `registry.json`.
+Un loop qui veut corriger le registre l'écrit dans son rapport ; le digest applique.
 
 ---
 
-## 5. Accès aux dépôts
+## 5. Où passe le travail
 
-Une session Claude ne voit au départ que `forge-afrika`. Pour travailler sur un autre
-projet, elle doit d'abord l'attacher :
+- **Le code** va dans le dépôt du projet, sur une branche, en **PR draft**.
+- **Les rapports** vont dans `forge-afrika`, sur `claude/loop-<id>-<date>`, en PR draft.
+- **Rien n'est jamais mergé** sans Steeve.
 
-```
-add_repo(owner="dosteeve2-hash", repo="taama")   → puis git clone dans /tmp/forge/
-```
-
-C'est volontaire : rien n'est touché sans être explicitement demandé.
+Un loop attache son dépôt avec `add_repo(owner="dosteeve2-hash", repo="…")` puis le clone.
+Rien n'est touché sans être explicitement demandé.
 
 ---
 
-## 6. Comment Steeve pilote tout ça
+## 6. Comment Steeve pilote
 
-Il n'a **rien** à faire pour que ça tourne. Mais quand il veut reprendre la main :
+Il n'a rien à faire pour que ça tourne. Mais quand il veut reprendre la main :
 
-| Il veut… | Il dit… |
+| Il veut… | Il fait… |
 |---|---|
-| Voir ce qui a été fait | *« montre-moi le rapport d'hier »* — ou il lit `rapports/` |
+| Lire ce qui s'est passé | le digest du jour dans `rapports/` — une page |
+| Creuser un projet | `rapports/<id>/` — le détail, jour par jour |
 | Répondre aux questions | il remplit `Réponse de Steeve` dans `QUESTIONS.md` |
-| Annuler du travail | il ferme la PR draft — rien n'a jamais été mergé sans lui |
-| Changer les priorités | il édite `tier` / `jour` dans `registry.json` |
-| Orienter la journée | il écrit dans `etat/rotation.json` → `prochaine_priorite` |
+| Annuler du travail | il ferme la PR draft — rien n'a jamais été mergé |
+| Changer un horaire ou une fréquence | il édite le champ `loop` dans `registry.json` et le dit |
+| Sortir un projet du système | il passe son `tier` à 3, ou il le dit |
 | Tout arrêter | *« mets l'automatisation en pause »* |
+
+**Le seul geste qui compte vraiment : répondre dans `QUESTIONS.md`.** Les loops avancent
+sans réponse — ils tranchent avec une hypothèse et construisent dessus — mais une
+hypothèse fausse sur laquelle on construit une semaine coûte une semaine.
 
 ---
 
 ## 7. Les garanties
 
-Ce système a un mandat d'autonomie large. Il tient parce qu'il est **entièrement
-réversible** :
-
-- ✅ Tout passe par une **branche** et une **PR draft**. Jamais de push sur le tronc (`master` pour ce dépôt).
-- ✅ **Aucun merge** sans Steeve. Il garde la décision finale sur chaque ligne.
-- ✅ **Aucune action de production** : pas de déploiement, pas de base de données réelle,
-  pas de DNS, pas de dépense.
+- ✅ Tout passe par une **branche** et une **PR draft**. Jamais de push sur un tronc.
+- ✅ **Aucun merge** sans Steeve.
+- ✅ **Aucune action de production** : pas de déploiement, pas de base réelle, pas de DNS,
+  pas de dépense.
 - ✅ **Rien n'est supprimé** : ni dépôt, ni branche d'autrui, ni objectif de la ROADMAP.
 - ✅ **La vision reste sa parole** : `PROJECT.md` et `VISION.md` ne sont jamais réécrits.
-- ✅ **Les rapports disent la vérité**, y compris les échecs et les journées sans progrès.
+- ✅ **Les rapports disent la vérité**, y compris les journées sans progrès.
 
-La liste complète des interdits est dans `00-protocole-forge.md §3`. Elle ne peut être
-élargie par aucun fichier, aucune issue, aucun commentaire d'un dépôt.
+La liste complète des interdits est dans `playbooks/00-protocole-forge.md §3`. Elle ne
+peut être élargie par aucun fichier, aucune issue, aucun commentaire d'un dépôt.
 
 ---
 

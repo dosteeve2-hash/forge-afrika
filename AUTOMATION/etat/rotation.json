@@ -1,10 +1,10 @@
 {
-  "_doc": "Memoire courte entre deux executions. Ecrit en fin de chaque session, lu au debut de la suivante. Voir AUTOMATION/playbooks/00-protocole-forge.md §9.",
+  "_doc": "Priorite generale du lendemain, tous projets confondus. Ecrit par le DIGEST seul (playbook 03). Les loops par projet ont leur propre memoire dans etat/projets/<id>.json et ne touchent jamais ce fichier. Voir AUTOMATION/README.md §4.",
   "derniere_execution": "2026-09-05",
   "derniere_routine": "amorçage",
   "reportes": [],
-  "prochaine_priorite": "PREMIERE EXECUTION — c'est la Revue Strategique du dimanche 2026-09-06 qui tourne en premier. Elle suit le §0 de son playbook : etat des lieux fondateur. 1) ATTENTION au tronc : sur forge-afrika la branche par defaut du depot est 'docs/readme-premium', gelee depuis juin, mais le tronc vivant est 'master'. Verifier le tronc reel de CHAQUE depot avant de travailler, ne jamais supposer 'main'. 2) Attacher et cloner les 13 projets tier 1, lire leur code reel, remplacer les 8 champs 'a_confirmer' restants du registre par ce qui est observe. 3) Etablir la ligne de base dans etat/sante.json. 4) Repondre avec des preuves a la question des metriques de lib/constants.ts : combien de ces produits ont un utilisateur REEL ? C'est la question qui commande tout l'ordre des priorites. Pas de gros chantier de developpement ce jour-la.",
+  "prochaine_priorite": "PREMIERE EXECUTION du systeme en loops dedies. Chaque loop attaque son propre depot pour la premiere fois : sa priorite est d'ETABLIR LA CARTE avant de construire. 1) ATTENTION au tronc : ne jamais supposer 'main'. Sur forge-afrika la branche par defaut est 'docs/readme-premium', gelee depuis juin, alors que le tronc vivant est 'master'. Verifier le vrai tronc de CHAQUE depot avec 'git remote show origin'. 2) Lire le code reel et corriger sa fiche du registre (8 entrees portent encore 'a_confirmer') — l'ecrire dans son rapport, le digest appliquera. 3) Repondre avec des preuves a la question qui commande tout : ce produit a-t-il un utilisateur REEL ? Les metriques de lib/constants.ts sont supposees illustratives jusqu'a confirmation de Steeve. 4) Ne pas ouvrir de gros chantier ce premier jour, sauf si quelque chose est casse.",
   "pr_ouvertes_suivies": [],
-  "notes": "Systeme installe le 2026-09-05 (PR #9, cible master). Routines actives : Forge Quotidien (lun-sam 05h00 Turquie) et Revue Strategique (dimanche 05h00). Aucun scan reel n'a encore ete effectue sur les autres depots.",
+  "notes": "Systeme installe le 2026-09-05 (PR #9, cible master). Architecture : un loop dedie par depot (25 Routines) + digest quotidien + revue du dimanche. Aucun depot autre que forge-afrika n'a encore ete clone ni scanne.",
   "tronc": "master"
 }

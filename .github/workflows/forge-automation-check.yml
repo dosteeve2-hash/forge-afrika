@@ -45,19 +45,43 @@ jobs:
           done
           echo "✅ aucun doublon"
 
-      - name: Registre — jour de rotation valide (0-7)
+      - name: Registre — chaque projet a son loop
         run: |
-          hors=$(jq -r '.projets[] | select(.jour < 0 or .jour > 7) | .id' AUTOMATION/registry.json)
-          if [ -n "$hors" ]; then echo "::error::jour hors intervalle 0-7 : $hors"; exit 1; fi
-          echo "✅ rotation cohérente"
-
-      - name: Registre — tout projet tier 1 est bien en rotation
-        run: |
-          orphelins=$(jq -r '.projets[] | select(.tier == 1 and .jour == 0) | .id' AUTOMATION/registry.json)
-          if [ -n "$orphelins" ]; then
-            echo "::error::Projet tier 1 jamais travaillé (jour=0) : $orphelins"; exit 1
+          sans=$(jq -r '.projets[] | select(.loop == null) | .id' AUTOMATION/registry.json)
+          if [ -n "$sans" ]; then
+            echo "::error::Projet sans loop dédié (il ne serait jamais traité) : $sans"; exit 1
           fi
-          echo "✅ tous les projets tier 1 ont un créneau"
+          echo "✅ les $(jq '.projets|length' AUTOMATION/registry.json) projets ont un loop"
+
+      - name: Registre — fréquence et cron des loops valides
+        run: |
+          set -o pipefail
+          mauvais=$(jq -er '
+            .projets[] | select(.loop)
+            | select(((.loop.frequence | IN("quotidien","hebdomadaire","mensuel")) | not)
+                     or ((.loop.cron_utc // "") == "")
+                     or ((.loop.cron_utc | split(" ") | length) != 5))
+            | .id' AUTOMATION/registry.json)
+          if [ -n "$mauvais" ]; then
+            echo "::error::Loop mal formé (fréquence inconnue ou cron non standard) : $mauvais"; exit 1
+          fi
+          echo "✅ fréquences et crons valides"
+
+      - name: Registre — tout projet tier 1 tourne tous les jours
+        run: |
+          mous=$(jq -r '.projets[] | select(.tier == 1 and .loop.frequence != "quotidien") | .id' AUTOMATION/registry.json)
+          if [ -n "$mous" ]; then
+            echo "::error::Projet tier 1 sans loop quotidien : $mous"; exit 1
+          fi
+          echo "✅ tous les tier 1 sont quotidiens"
+
+      - name: Loops — pas deux loops à la même minute
+        run: |
+          collisions=$(jq -r '.projets[] | select(.loop) | "\(.loop.cron_utc)"' AUTOMATION/registry.json | sort | uniq -d)
+          if [ -n "$collisions" ]; then
+            echo "::error::Deux loops démarrent exactement en même temps : $collisions"; exit 1
+          fi
+          echo "✅ loops échelonnés, aucune collision"
 
       - name: Fichiers d'état — JSON valide
         run: |
@@ -81,17 +105,17 @@ jobs:
           sudo apt-get update -qq && sudo apt-get install -y -qq shellcheck
           shellcheck -S warning AUTOMATION/scripts/*.sh
 
-      - name: Rotation — le script tourne pour les 7 jours
+      - name: Planning — le script des loops tourne
         run: |
-          for j in 1 2 3 4 5 6 7; do
-            ./AUTOMATION/scripts/forge-rotation.sh --jour "$j" >/dev/null \
-              || { echo "::error::forge-rotation.sh échoue pour le jour $j"; exit 1; }
-          done
-          echo "✅ rotation exécutable sur les 7 jours"
+          ./AUTOMATION/scripts/forge-loops.sh           >/dev/null || { echo "::error::forge-loops.sh (jour) échoue"; exit 1; }
+          ./AUTOMATION/scripts/forge-loops.sh --planning >/dev/null || { echo "::error::forge-loops.sh --planning échoue"; exit 1; }
+          ./AUTOMATION/scripts/forge-loops.sh --cron     >/dev/null || { echo "::error::forge-loops.sh --cron échoue"; exit 1; }
+          ./AUTOMATION/scripts/forge-loops.sh --json     >/dev/null || { echo "::error::forge-loops.sh --json échoue"; exit 1; }
+          echo "✅ planning des loops exécutable"
 
       - name: Documentation — les playbooks référencés existent
         run: |
-          for f in 00-protocole-forge 01-forge-quotidien 02-sentinelle-sante 03-revue-strategique; do
+          for f in 00-protocole-forge 01-loop-projet 02-sentinelle-sante 03-digest-quotidien 04-revue-strategique; do
             [ -f "AUTOMATION/playbooks/$f.md" ] || { echo "::error::playbook manquant : $f.md"; exit 1; }
           done
           [ -f CLAUDE.md ] && [ -f AUTOMATION/README.md ] && [ -f AUTOMATION/QUESTIONS.md ]

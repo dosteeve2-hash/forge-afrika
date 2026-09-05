@@ -2,314 +2,459 @@
   "version": 1,
   "derniere_maj": "2026-09-05",
   "owner": "dosteeve2-hash",
-  "_doc": "Registre central de TOUS les projets de Steeve. La rotation quotidienne lit ce fichier. 'jour' = jour de la semaine ISO (1=lundi .. 7=dimanche), 0 = hors rotation profonde (scan seulement). 'tier' 1=coeur Phase 1, 2=vitrine/business, 3=archive/apprentissage. 'a_confirmer'=true signifie que la description a ete deduite et doit etre corrigee par le Forge Quotidien apres lecture reelle du repo.",
+  "_doc": "Registre central de TOUS les projets de Steeve. Chaque projet a SON PROPRE loop (une Routine Claude dediee) dont l'horaire est dans le champ 'loop'. Un loop = une session entiere pour un seul depot. 'tier' 1=coeur Phase 1 (quotidien), 2=vitrine/business (hebdomadaire), 3=archive (mensuel). Les horaires sont en UTC ; Steeve est a Tokat (UTC+3). 'a_confirmer'=true : description deduite, a corriger par le loop apres lecture reelle du repo.",
   "projets": [
     {
       "id": "taama",
       "repo": "dosteeve2-hash/taama",
       "nom": "TAAMA",
       "tier": 1,
-      "jour": 1,
       "phase": 1,
       "categorie": "erp-industriel",
       "url": "https://taama.vercel.app",
       "mission": "ERP de traçabilité qualité pour les industries africaines.",
       "ambition": "Devenir l'outil de gestion de reference des PME agroalimentaires et textiles d'Afrique de l'Ouest. C'est la pioche principale.",
-      "spec": "LOGICIELS/taama-spec.md"
+      "spec": "LOGICIELS/taama-spec.md",
+      "loop": {
+        "frequence": "quotidien",
+        "cron_utc": "3 2 * * *",
+        "heure_utc": "02:03",
+        "heure_turquie": "05:03"
+      }
     },
     {
       "id": "comptrack",
       "repo": "dosteeve2-hash/comptrack",
       "nom": "CompTrack",
       "tier": 1,
-      "jour": 1,
       "phase": 1,
       "categorie": "comptabilite",
       "mission": "Comptabilité B2B conforme SYSCOHADA pour les PME africaines.",
       "ambition": "Répondre au Problème 4 de VISION.md : les banques ne financent pas les PME faute de données financières fiables. Des états conformes SYSCOHADA, c'est l'accès au crédit débloqué.",
       "url": "https://comptrack.vercel.app",
-      "spec": "LOGICIELS/comptrack-spec.md"
+      "spec": "LOGICIELS/comptrack-spec.md",
+      "loop": {
+        "frequence": "quotidien",
+        "cron_utc": "13 2 * * *",
+        "heure_utc": "02:13",
+        "heure_turquie": "05:13"
+      }
     },
     {
       "id": "agrotrack-bf",
       "repo": "dosteeve2-hash/agrotrack-bf",
       "nom": "AgroTrack BF",
       "tier": 1,
-      "jour": 2,
       "phase": 1,
       "categorie": "erp-agricole",
       "mission": "Gestion des collectes et des membres de coopératives agricoles au Burkina Faso, offline-first.",
       "ambition": "Premier MVP cible par la ROADMAP 2025. Gestion membres, recoltes, ventes, stocks, paiements, sans internet.",
       "url": "https://agrotrack-bf.vercel.app",
-      "spec": "docs/agrotrack-bf.md"
+      "spec": "docs/agrotrack-bf.md",
+      "loop": {
+        "frequence": "quotidien",
+        "cron_utc": "23 2 * * *",
+        "heure_utc": "02:23",
+        "heure_turquie": "05:23"
+      }
     },
     {
       "id": "valuechain-connect",
       "repo": "dosteeve2-hash/valuechain-connect",
       "nom": "ValueChain Connect",
       "tier": 1,
-      "jour": 2,
       "phase": 1,
       "categorie": "marketplace-b2b",
       "mission": "Marketplace B2B mettant en relation producteurs de matieres premieres et transformateurs.",
       "ambition": "Repondre au Probleme 1 de VISION.md : l'asymetrie d'information qui fait vendre les producteurs a perte. Prix marche temps reel + contrats + logistique. Inspire de FarMart (Inde) et Twiga Foods (Kenya).",
       "url": "https://valuechain-connect.vercel.app",
-      "spec": "docs/valuechain-connect.md"
+      "spec": "docs/valuechain-connect.md",
+      "loop": {
+        "frequence": "quotidien",
+        "cron_utc": "33 2 * * *",
+        "heure_utc": "02:33",
+        "heure_turquie": "05:33"
+      }
     },
     {
       "id": "milltrack",
       "repo": "dosteeve2-hash/milltrack",
       "nom": "MillTrack",
       "tier": 1,
-      "jour": 3,
       "phase": 1,
       "categorie": "mes-production",
       "mission": "Gestion de production pour minoteries et huileries.",
       "ambition": "Repondre au Probleme 3 de VISION.md : la gestion artisanale des usines. Tracabilite lot par lot, tableau de bord rendement/perte. Un ERP simple peut doubler l'efficacite d'une usine.",
       "url": "https://milltrack.vercel.app",
-      "spec": "docs/milltrack.md"
+      "spec": "docs/milltrack.md",
+      "loop": {
+        "frequence": "quotidien",
+        "cron_utc": "43 2 * * *",
+        "heure_utc": "02:43",
+        "heure_turquie": "05:43"
+      }
     },
     {
       "id": "forja",
       "repo": "dosteeve2-hash/forja",
       "nom": "FORJA",
       "tier": 1,
-      "jour": 3,
       "phase": 1,
       "categorie": "filieres-agricoles-export",
       "mission": "Gestion des filières agricoles d'export, de la parcelle au conteneur (café, cacao, karité).",
       "ambition": "Les filières café, cacao et karité perdent 40 % de valeur faute de traçabilité. FORJA ferme ce trou — c'est exactement la thèse de VISION.md §2 appliquée à un produit.",
       "spec": "LOGICIELS/forja-product-brief.md",
-      "url": "https://forja.vercel.app"
+      "url": "https://forja.vercel.app",
+      "loop": {
+        "frequence": "quotidien",
+        "cron_utc": "53 2 * * *",
+        "heure_utc": "02:53",
+        "heure_turquie": "05:53"
+      }
     },
     {
       "id": "livestockos",
       "repo": "dosteeve2-hash/livestockos",
       "nom": "LivestockOS",
       "tier": 1,
-      "jour": 4,
       "phase": 1,
       "categorie": "elevage",
       "mission": "Gestion des troupeaux, santé animale et marchés de bétail.",
       "ambition": "Alerte epidemique geolocalisee + connexion aux acheteurs. Le betail est le capital du Sahel et il est gere sans aucun outil.",
       "url": "https://livestock-os.vercel.app",
-      "spec": "docs/livestock-os.md"
+      "spec": "docs/livestock-os.md",
+      "loop": {
+        "frequence": "quotidien",
+        "cron_utc": "3 3 * * *",
+        "heure_utc": "03:03",
+        "heure_turquie": "06:03"
+      }
     },
     {
       "id": "indubot-afrika",
       "repo": "dosteeve2-hash/indubot-afrika",
       "nom": "Indubot Afrika",
       "tier": 1,
-      "jour": 4,
       "phase": 1,
       "categorie": "automation-industrielle",
       "mission": "Gestion automatique d'industries — production, machines, alertes.",
       "ambition": "Orchestrer robots, bras mécaniques et lignes de production localement. C'est la Phase 2 (l'industrie) préparée dès la Phase 1 par le logiciel.",
-      "url": "https://indubot-afrika.vercel.app"
+      "url": "https://indubot-afrika.vercel.app",
+      "loop": {
+        "frequence": "quotidien",
+        "cron_utc": "13 3 * * *",
+        "heure_utc": "03:13",
+        "heure_turquie": "06:13"
+      }
     },
     {
       "id": "burkinacollect",
       "repo": "dosteeve2-hash/burkinacollect",
       "nom": "BurkinaCollect",
       "tier": 1,
-      "jour": 5,
       "phase": 1,
       "categorie": "collecte-donnees",
       "url": "https://burkinacollect.vercel.app",
       "mission": "Collecte de donnees terrain au Burkina Faso.",
       "ambition": "La donnee terrain est la matiere premiere de tous les autres produits FORGE. Sans elle, les specs sont des hypotheses.",
-      "spec": "LOGICIELS/burkinacollect-spec.md"
+      "spec": "LOGICIELS/burkinacollect-spec.md",
+      "loop": {
+        "frequence": "quotidien",
+        "cron_utc": "23 3 * * *",
+        "heure_utc": "03:23",
+        "heure_turquie": "06:23"
+      }
     },
     {
       "id": "african-hybrid-agent",
       "repo": "dosteeve2-hash/african-hybrid-agent",
       "nom": "African Hybrid Agent",
       "tier": 1,
-      "jour": 5,
       "phase": 1,
       "categorie": "agent-ia",
       "mission": "Agent IA africain concu sans biais occidental.",
-      "ambition": "Souverainete cognitive : un modele qui comprend le contexte, les langues et les realites africaines au lieu de les traduire depuis l'Occident."
+      "ambition": "Souverainete cognitive : un modele qui comprend le contexte, les langues et les realites africaines au lieu de les traduire depuis l'Occident.",
+      "loop": {
+        "frequence": "quotidien",
+        "cron_utc": "33 3 * * *",
+        "heure_utc": "03:33",
+        "heure_turquie": "06:33"
+      }
     },
     {
       "id": "problem-to-projects-africa",
       "repo": "dosteeve2-hash/Problem-to-Projects-Africa",
       "nom": "Problem to Projects Africa",
       "tier": 1,
-      "jour": 6,
       "phase": 1,
       "categorie": "ia-produit",
       "url": "https://problem-to-projects-africa.vercel.app",
       "mission": "Transformer des idees et des problemes africains en projets finançables avec l'IA.",
-      "ambition": "Industrialiser la generation de projets bancables : du probleme terrain au dossier de financement."
+      "ambition": "Industrialiser la generation de projets bancables : du probleme terrain au dossier de financement.",
+      "loop": {
+        "frequence": "quotidien",
+        "cron_utc": "43 3 * * *",
+        "heure_utc": "03:43",
+        "heure_turquie": "06:43"
+      }
     },
     {
       "id": "mon-portfolio-2",
       "repo": "dosteeve2-hash/Mon-Portfolio-2.0",
       "nom": "Portfolio 2.0",
       "tier": 2,
-      "jour": 1,
       "phase": 1,
       "categorie": "vitrine",
       "url": "https://steeve-portfolio-mocha.vercel.app",
       "mission": "Vitrine personnelle de Steeve.",
-      "ambition": "C'est la porte d'entree des contrats et des contacts industriels (KPI Phase 1 : 50+ contacts). Il doit vendre la vision FORGE, pas seulement lister des projets."
+      "ambition": "C'est la porte d'entree des contrats et des contacts industriels (KPI Phase 1 : 50+ contacts). Il doit vendre la vision FORGE, pas seulement lister des projets.",
+      "loop": {
+        "frequence": "hebdomadaire",
+        "jour_semaine": "lundi",
+        "cron_utc": "13 4 * * 1",
+        "heure_utc": "04:13",
+        "heure_turquie": "07:13"
+      }
     },
     {
       "id": "duka-boutique",
       "repo": "dosteeve2-hash/duka-boutique",
       "nom": "SUGU (duka-boutique)",
       "tier": 1,
-      "jour": 2,
       "phase": 1,
       "categorie": "retail",
       "mission": "Gestion de boutique pour les commerçants du secteur informel.",
       "ambition": "80 % des commerçants africains sont dans l'informel, sans caisse ni stock. Les digitaliser en 5 minutes, c'est le premier marché solvable du portefeuille.",
-      "url": "https://duka.vercel.app"
+      "url": "https://duka.vercel.app",
+      "loop": {
+        "frequence": "quotidien",
+        "cron_utc": "53 3 * * *",
+        "heure_utc": "03:53",
+        "heure_turquie": "06:53"
+      }
     },
     {
       "id": "mifa-life-shop",
       "repo": "dosteeve2-hash/Mifa_Life_shop",
       "nom": "MIFA Life",
       "tier": 1,
-      "jour": 3,
       "phase": 1,
       "categorie": "marketplace-mode",
       "mission": "Marketplace mode africaine et artisanat premium.",
       "ambition": "Exporter de la valeur transformée et non de la matière brute — le textile fini plutôt que le coton. C'est la thèse FORGE appliquée au commerce.",
       "url": "https://mifa-life-shop-9k55.vercel.app",
-      "spec": "LOGICIELS/mifa-life-spec.md"
+      "spec": "LOGICIELS/mifa-life-spec.md",
+      "loop": {
+        "frequence": "quotidien",
+        "cron_utc": "3 4 * * *",
+        "heure_utc": "04:03",
+        "heure_turquie": "07:03"
+      }
     },
     {
       "id": "phone-showcase",
       "repo": "dosteeve2-hash/phone-showcase",
       "nom": "Phone Showcase",
       "tier": 2,
-      "jour": 4,
       "phase": 1,
       "categorie": "vitrine",
       "mission": "Vitrine produit / demo front-end.",
       "ambition": "Demonstrateur de savoir-faire UI mobile.",
-      "a_confirmer": true
+      "a_confirmer": true,
+      "loop": {
+        "frequence": "hebdomadaire",
+        "jour_semaine": "mardi",
+        "cron_utc": "13 4 * * 2",
+        "heure_utc": "04:13",
+        "heure_turquie": "07:13"
+      }
     },
     {
       "id": "sahel-commerce-ai",
       "repo": "dosteeve2-hash/sahel-commerce-ai",
       "nom": "Sahel Commerce AI",
       "tier": 2,
-      "jour": 5,
       "phase": 1,
       "categorie": "ia-commerce",
       "mission": "IA appliquee au commerce sahelien.",
       "ambition": "Croisement IA + commerce local : recommandation, prix, stock pour petits commercants.",
-      "a_confirmer": true
+      "a_confirmer": true,
+      "loop": {
+        "frequence": "hebdomadaire",
+        "jour_semaine": "mercredi",
+        "cron_utc": "13 4 * * 3",
+        "heure_utc": "04:13",
+        "heure_turquie": "07:13"
+      }
     },
     {
       "id": "ueemt-tokat",
       "repo": "dosteeve2-hash/ueemt-tokat",
       "nom": "UEEMT-Tokat",
       "tier": 2,
-      "jour": 6,
       "phase": 1,
       "categorie": "communaute",
       "mission": "Plateforme digitale de l'association des étudiants africains à Tokat.",
       "ambition": "La diaspora est un réseau, et le réseau est un KPI de Phase 1 (50+ contacts industriels).",
-      "url": "https://ueemt-tokat.vercel.app"
+      "url": "https://ueemt-tokat.vercel.app",
+      "loop": {
+        "frequence": "hebdomadaire",
+        "jour_semaine": "jeudi",
+        "cron_utc": "13 4 * * 4",
+        "heure_utc": "04:13",
+        "heure_turquie": "07:13"
+      }
     },
     {
       "id": "livestock-os-legacy",
       "repo": "dosteeve2-hash/livestock-os",
       "nom": "livestock-os (doublon presume)",
       "tier": 3,
-      "jour": 0,
       "phase": 1,
       "categorie": "a-arbitrer",
       "mission": "Semble faire doublon avec 'livestockos'.",
       "ambition": "A fusionner ou archiver. Question posee dans AUTOMATION/QUESTIONS.md.",
-      "a_confirmer": true
+      "a_confirmer": true,
+      "loop": {
+        "frequence": "mensuel",
+        "jour_du_mois": 2,
+        "cron_utc": "23 4 2 * *",
+        "heure_utc": "04:23",
+        "heure_turquie": "07:23"
+      }
     },
     {
       "id": "llm-africain-agent-ai",
       "repo": "dosteeve2-hash/LLM-africain-agent-AI",
       "nom": "LLM Africain Agent AI",
       "tier": 3,
-      "jour": 0,
       "phase": 1,
       "categorie": "recherche-ia",
       "mission": "Recherche LLM / agent africain, anterieur a african-hybrid-agent.",
       "ambition": "Verifier s'il s'agit d'un ancetre de african-hybrid-agent : fusionner ou archiver.",
-      "a_confirmer": true
+      "a_confirmer": true,
+      "loop": {
+        "frequence": "mensuel",
+        "jour_du_mois": 4,
+        "cron_utc": "23 4 4 * *",
+        "heure_utc": "04:23",
+        "heure_turquie": "07:23"
+      }
     },
     {
       "id": "steevedo-github-io",
       "repo": "dosteeve2-hash/steevedo.github.io",
       "nom": "steevedo.github.io",
       "tier": 3,
-      "jour": 0,
       "phase": 0,
       "categorie": "site-perso-legacy",
       "mission": "Ancien site personnel GitHub Pages.",
       "ambition": "Rediriger vers le portfolio 2.0 ou archiver.",
-      "a_confirmer": true
+      "a_confirmer": true,
+      "loop": {
+        "frequence": "mensuel",
+        "jour_du_mois": 6,
+        "cron_utc": "23 4 6 * *",
+        "heure_utc": "04:23",
+        "heure_turquie": "07:23"
+      }
     },
     {
       "id": "mon-portfolio-1",
       "repo": "dosteeve2-hash/Mon-Portfolio-",
       "nom": "Portfolio v1",
       "tier": 3,
-      "jour": 0,
       "phase": 0,
       "categorie": "archive",
       "mission": "Ancienne version du portfolio.",
       "ambition": "Archiver.",
-      "a_confirmer": true
+      "a_confirmer": true,
+      "loop": {
+        "frequence": "mensuel",
+        "jour_du_mois": 8,
+        "cron_utc": "23 4 8 * *",
+        "heure_utc": "04:23",
+        "heure_turquie": "07:23"
+      }
     },
     {
       "id": "binary-search-tree-java",
       "repo": "dosteeve2-hash/binary-search-tree-java",
       "nom": "Binary Search Tree (Java)",
       "tier": 3,
-      "jour": 0,
       "phase": 0,
       "categorie": "apprentissage",
       "mission": "Exercice academique : structures de donnees.",
-      "ambition": "Objectif ROADMAP 2024 'algorithmes niveau leetcode medium'. Garder comme trace d'apprentissage."
+      "ambition": "Objectif ROADMAP 2024 'algorithmes niveau leetcode medium'. Garder comme trace d'apprentissage.",
+      "loop": {
+        "frequence": "mensuel",
+        "jour_du_mois": 10,
+        "cron_utc": "23 4 10 * *",
+        "heure_utc": "04:23",
+        "heure_turquie": "07:23"
+      }
     },
     {
       "id": "donald",
       "repo": "dosteeve2-hash/Donald",
       "nom": "Donald",
       "tier": 3,
-      "jour": 0,
       "phase": 0,
       "categorie": "archive",
       "mission": "Depot ancien, contenu a verifier.",
       "ambition": "Archiver ou clarifier.",
-      "a_confirmer": true
+      "a_confirmer": true,
+      "loop": {
+        "frequence": "mensuel",
+        "jour_du_mois": 12,
+        "cron_utc": "23 4 12 * *",
+        "heure_utc": "04:23",
+        "heure_turquie": "07:23"
+      }
     },
     {
       "id": "steeve-donald",
       "repo": "dosteeve2-hash/Steeve-Donald-",
       "nom": "Steeve-Donald-",
       "tier": 3,
-      "jour": 0,
       "phase": 0,
       "categorie": "archive",
       "mission": "Depot ancien, contenu a verifier.",
       "ambition": "Archiver ou clarifier.",
-      "a_confirmer": true
+      "a_confirmer": true,
+      "loop": {
+        "frequence": "mensuel",
+        "jour_du_mois": 14,
+        "cron_utc": "23 4 14 * *",
+        "heure_utc": "04:23",
+        "heure_turquie": "07:23"
+      }
     },
     {
       "id": "desktop-tutorial",
       "repo": "dosteeve2-hash/desktop-tutorial",
       "nom": "desktop-tutorial",
       "tier": 3,
-      "jour": 0,
       "phase": 0,
       "categorie": "archive",
       "mission": "Tutoriel GitHub Desktop.",
-      "ambition": "Archiver."
+      "ambition": "Archiver.",
+      "loop": {
+        "frequence": "mensuel",
+        "jour_du_mois": 16,
+        "cron_utc": "23 4 16 * *",
+        "heure_utc": "04:23",
+        "heure_turquie": "07:23"
+      }
     }
   ],
-  "_source_verite": "Les missions, noms et URLs des filiales viennent de lib/constants.ts (FILIALES_FORGE) sur la branche master — source de verite du site QG. Les metriques qui y figurent (utilisateurs, transactions, CA) n'ont PAS ete reprises ici : leur caractere reel ou illustratif reste a confirmer par Steeve (cf. QUESTIONS.md)."
+  "_source_verite": "Les missions, noms et URLs des filiales viennent de lib/constants.ts (FILIALES_FORGE) sur la branche master — source de verite du site QG. Les metriques qui y figurent (utilisateurs, transactions, CA) n'ont PAS ete reprises ici : leur caractere reel ou illustratif reste a confirmer par Steeve (cf. QUESTIONS.md).",
+  "_planning": {
+    "fuseau_reference": "Europe/Istanbul (UTC+3) — la ou vit Steeve",
+    "loops_quotidiens": "13 projets tier 1, echelonnes de 05h03 a 07h03 heure de Turquie",
+    "loops_hebdomadaires": "4 projets tier 2, 07h13 heure de Turquie",
+    "loops_mensuels": "8 archives tier 3, 07h23 heure de Turquie",
+    "digest_quotidien": "08h33 heure de Turquie (05:33 UTC) — agrege tous les rapports du jour",
+    "revue_strategique": "dimanche 09h03 heure de Turquie (06:03 UTC)"
+  }
 }
