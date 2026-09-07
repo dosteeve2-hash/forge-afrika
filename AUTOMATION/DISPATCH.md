@@ -45,6 +45,39 @@ Il faut que le PC soit allumé **et** que la session CLI y tourne. Une session d
 d'ailleurs l'erreur `computer_unreachable` du 29 août. **Vérifier la connexion avant
 de dispatcher**, sinon la tâche part dans le vide.
 
+## 3 bis. `connected` ment — le vrai battement de cœur est ailleurs
+
+**Constat du 2026-09-07, après deux dispatches sans réponse.**
+
+La session du PC affichait `connection_status: connected`. Elle n'a rien reçu : son
+`updated_at` est resté figé au 6 septembre après deux `fire_trigger`, et aucune branche
+de retour n'est apparue.
+
+Le champ qui dit la vérité est **`worktree_state.<dépôt>.reported_at`** : c'est la
+dernière fois que le CLI sur la machine a réellement parlé au serveur. Ce matin-là il
+valait `07:00` — soit neuf heures avant les dispatches. Le drapeau `connected` était,
+lui, resté allumé.
+
+> **Avant de dispatcher, comparer `reported_at` à l'heure courante.**
+> Au-delà d'une heure ou deux d'écart, considérer la machine comme injoignable et
+> **ne pas tirer** : une tâche envoyée à un pont mort ne produit ni erreur, ni trace,
+> ni résultat. Elle disparaît, et on l'attend.
+
+C'est le pire mode de panne possible : silencieux des deux côtés. Une erreur franche
+aurait coûté dix secondes ; ce silence-là coûte le temps qu'on met à s'en apercevoir.
+
+### Remettre le pont debout
+
+Sur la machine, dans un terminal qui reste ouvert :
+
+```bash
+claude            # la session doit rester attachée, fenêtre ouverte
+```
+
+Le pont vit tant que ce processus vit. Fermer le terminal, mettre le PC en veille ou
+laisser l'écran se verrouiller peut suffire à le rompre — sans que le serveur s'en
+aperçoive tout de suite.
+
 ## 4. La voie de retour : le dépôt, jamais la conversation
 
 Le cerveau ne peut pas lire les réponses de la main : la messagerie inter-sessions ne
