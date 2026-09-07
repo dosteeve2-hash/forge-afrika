@@ -1,0 +1,28 @@
+{
+  "projet": "comptrack",
+  "derniere_execution": "2026-09-07",
+  "verdict": "🔴",
+  "tronc": "feat/comptrack-v1 (branche par defaut) — main diverge, meme date du 2026-08-10",
+  "pr_ouvertes_du_depot": [
+    "20 PR ouvertes, la plus ancienne a 69 jours, AUCUNE fusionnee"
+  ],
+  "mes_pr": [],
+  "sante": {
+    "ci": "aucune sur le tronc — la PR #38 en ajoute une",
+    "lint": "cassé sur le tronc : next lint part en questionnaire interactif faute de config, donc bloque en CI",
+    "tests": "6 echecs sur 72 au tronc ; la PR #38 les repare",
+    "branches": 34
+  },
+  "chantier_en_cours": "",
+  "prochain_chantier": "NE RIEN CONSTRUIRE. 17 des 20 PR ajoutent des pages qui existent deja au tronc. Fusionner d'abord #38 (repare le lint, les tests, ajoute la CI), puis trier les 19 autres. Construire seulement apres.",
+  "dette_connue": [
+    "20 PR ouvertes, 0 fusionnee, la plus ancienne du 2026-06-29.",
+    "17 d'entre elles ajoutent des pages deja presentes au tronc — verifie branche par branche.",
+    "5 paires de doublons : /fournisseurs (#7,#17), /clients (#6,#15), /depenses (#8,#18), /previsions (#21,#36), /factures (#16,#22).",
+    "Deux troncs divergents (main et feat/comptrack-v1) ; 11 PR ciblent main, le mauvais.",
+    "Le tronc s'appelle feat/comptrack-v1 — un nom de branche de feature pour un tronc invite a l'erreur.",
+    "34 branches distantes."
+  ],
+  "incident": "",
+  "lecon": "Troisieme depot du jour ou le blocage est decisionnel et non technique. TAAMA 5 PR, AgroTrack BF 2 PR, CompTrack 20 PR. Le code ne manque pas, les fusions manquent."
+}
