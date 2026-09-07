@@ -2,11 +2,13 @@
   "_doc": "Priorite generale du lendemain, tous projets confondus. Ecrit par le DIGEST seul (playbook 03). Les loops par projet ont leur propre memoire dans etat/projets/<id>.json et ne touchent jamais ce fichier. Voir AUTOMATION/README.md §4.",
   "derniere_execution": "2026-09-07",
   "derniere_routine": "forge quotidien (session vivante)",
-  "reportes": [
-    "agrotrack-bf"
-  ],
-  "prochaine_priorite": "AGROTRACK BF, reporte du 2026-09-07. AVANT TOUT : lister TOUTES les PR ouvertes du depot (list_pull_requests state=open), pas seulement les siennes. Le 2026-09-07 une matinee entiere a ete perdue sur TAAMA a refaire le travail d'une PR ouverte depuis cinq jours, verte et plus complete. La regle est desormais en tete de l'etape 0 du playbook 01 — la suivre. Une PR verte qui attend n'est pas un obstacle : c'est du travail deja fait, et le signaler a Steeve vaut mieux que de le refaire. Sur TAAMA : ne rien construire tant que #35 n'est pas fusionnee. RAPPEL : les 6 questions de QUESTIONS.md restent sans reponse de Steeve.",
+  "reportes": [],
+  "prochaine_priorite": "AGROTRACK BF, deuxieme passage : le schema Supabase (membres, parcelles, collectes, paiements), puis UNE page branchee de bout en bout pour prouver la chaine. La persistance locale seulement apres. BLOQUE sur Q1 de questions/agrotrack-bf.md ; hypothese retenue : on construit. AVANT TOUT, sur tout depot : lister TOUTES les PR ouvertes (list_pull_requests state=open), pas seulement les siennes — la matinee du 2026-09-07 a ete perdue faute de l'avoir fait. Sur TAAMA : ne rien construire tant que #35 n'est pas fusionnee.",
   "pr_ouvertes_suivies": [],
   "notes": "Architecture en vigueur depuis le 2026-09-06 : une routine quotidienne reveille la session vivante (les loops en sessions separees ne peuvent pas attacher de depot — parametre 'connectors' indisponible pour l'organisation). 24 loops restent desactives. Un a deux projets par jour.",
-  "tronc": "master"
+  "tronc": "master",
+  "projets_traites_le_2026_09_07": [
+    "taama (doublon, PR fermee)",
+    "agrotrack-bf (PR #17)"
+  ]
 }
