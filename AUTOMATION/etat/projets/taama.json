@@ -1,0 +1,16 @@
+{
+  "projet": "taama",
+  "derniere_execution": "2026-09-07",
+  "verdict": "🟡",
+  "tronc": "main",
+  "pr_ouvertes": ["dosteeve2-hash/taama#36"],
+  "chantier_en_cours": "",
+  "prochain_chantier": "Corriger les 4 erreurs de lint applicatives (memoization React Compiler, setState dans un effet x2, apostrophe non echappee), puis repasser le lint en bloquant dans .github/workflows/ci.yml.",
+  "dette_connue": [
+    "Aucun .env.example alors que le projet utilise Supabase et Sentry.",
+    "Aucune trace d'offline-first sur un produit destine au terrain africain — manquement a la doctrine, chantier d'architecture.",
+    "Tests dependants du temps : dates d'expiration en dur dans le jeu de donnees, assertions sur 'expire < 30 jours'. A geler avec vi.setSystemTime.",
+    "15+ branches feat/* non fusionnees qui divergent depuis aout."
+  ],
+  "mesure": { "tests_avant": 110, "tests_apres": 169, "lint_erreurs_avant": 9, "lint_erreurs_apres": 4 }
+}
