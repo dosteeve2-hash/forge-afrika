@@ -54,6 +54,28 @@ grep -A5 -i "<id>\|<nom du projet>" AUTOMATION/QUESTIONS.md          # réponses
 **Si Steeve a répondu à une de tes questions, c'est ta priorité absolue du jour.**
 Applique sa décision, même si cela veut dire défaire une hypothèse précédente.
 
+### ⚠️ Lis TOUTES les PR ouvertes du dépôt cible, pas seulement les tiennes
+
+**C'est l'étape la plus vite bâclée, et elle coûte des journées entières.**
+Le 2026-09-07, une session a passé sa matinée à réparer les tests de TAAMA et à lui
+ajouter une CI. Le travail était bon. Il était aussi **déjà fait**, dans une PR ouverte
+depuis cinq jours, verte, plus complète — elle corrigeait en plus les quatre erreurs de
+lint que la session avait jugées trop risquées. Toute la matinée est partie à la poubelle
+parce que personne n'avait regardé la liste des PR ouvertes.
+
+```
+list_pull_requests(owner, repo, state="open")   # TOUTES, pas les tiennes
+```
+
+Pour chacune, avant de décider quoi que ce soit : que touche-t-elle ? Est-elle verte ?
+Attend-elle simplement une fusion ?
+
+- **Une PR verte qui attend depuis des jours n'est pas un obstacle : c'est le travail
+  déjà fait.** Le signaler à Steeve vaut mieux que de le refaire.
+- Si ton chantier du jour recoupe une PR ouverte, **change de chantier** ou reprends la
+  sienne. Ne construis jamais un doublon.
+- Une PR ancienne et rouge, en revanche, est un vrai chantier : reprends-la.
+
 Vérifie ensuite tes PR encore ouvertes — sur ton dépôt cible **et** sur `forge-afrika`.
 Une PR draft rouge ou en conflit se reprend **avant** d'ouvrir un nouveau chantier.
 Une PR qui traîne rouge une semaine est un échec du système.

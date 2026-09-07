@@ -5,7 +5,7 @@
   "reportes": [
     "agrotrack-bf"
   ],
-  "prochaine_priorite": "AGROTRACK BF, reporte du 2026-09-07 : le premier MVP vise par la ROADMAP, et le test le plus dur de la doctrine offline-first (une cooperative sahelienne n'a pas de reseau stable). Meme methode que sur TAAMA : identifier le vrai tronc, installer, lancer build/tests/lint, chercher ce qui est casse AVANT de vouloir ajouter. Sur TAAMA cette methode a revele qu'un fichier de tests entier etait mort depuis des semaines — c'est ce genre de chose qu'on cherche. Si TAAMA revient en priorite : corriger ses 4 erreurs de lint applicatives puis repasser le lint en bloquant dans sa CI. RAPPEL : les 6 questions de QUESTIONS.md restent sans reponse de Steeve ; les hypotheses tiennent.",
+  "prochaine_priorite": "AGROTRACK BF, reporte du 2026-09-07. AVANT TOUT : lister TOUTES les PR ouvertes du depot (list_pull_requests state=open), pas seulement les siennes. Le 2026-09-07 une matinee entiere a ete perdue sur TAAMA a refaire le travail d'une PR ouverte depuis cinq jours, verte et plus complete. La regle est desormais en tete de l'etape 0 du playbook 01 — la suivre. Une PR verte qui attend n'est pas un obstacle : c'est du travail deja fait, et le signaler a Steeve vaut mieux que de le refaire. Sur TAAMA : ne rien construire tant que #35 n'est pas fusionnee. RAPPEL : les 6 questions de QUESTIONS.md restent sans reponse de Steeve.",
   "pr_ouvertes_suivies": [],
   "notes": "Architecture en vigueur depuis le 2026-09-06 : une routine quotidienne reveille la session vivante (les loops en sessions separees ne peuvent pas attacher de depot — parametre 'connectors' indisponible pour l'organisation). 24 loops restent desactives. Un a deux projets par jour.",
   "tronc": "master"

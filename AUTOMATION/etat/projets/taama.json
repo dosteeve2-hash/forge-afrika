@@ -1,16 +1,23 @@
 {
   "projet": "taama",
   "derniere_execution": "2026-09-07",
-  "verdict": "🟡",
+  "verdict": "🟠",
   "tronc": "main",
-  "pr_ouvertes": ["dosteeve2-hash/taama#36"],
-  "chantier_en_cours": "",
-  "prochain_chantier": "Corriger les 4 erreurs de lint applicatives (memoization React Compiler, setState dans un effet x2, apostrophe non echappee), puis repasser le lint en bloquant dans .github/workflows/ci.yml.",
-  "dette_connue": [
-    "Aucun .env.example alors que le projet utilise Supabase et Sentry.",
-    "Aucune trace d'offline-first sur un produit destine au terrain africain — manquement a la doctrine, chantier d'architecture.",
-    "Tests dependants du temps : dates d'expiration en dur dans le jeu de donnees, assertions sur 'expire < 30 jours'. A geler avec vi.setSystemTime.",
-    "15+ branches feat/* non fusionnees qui divergent depuis aout."
+  "pr_ouvertes_du_depot": [
+    "#35 (verte, prete, non-draft, ouverte le 2026-09-02)",
+    "#26",
+    "#18",
+    "#17"
   ],
-  "mesure": { "tests_avant": 110, "tests_apres": 169, "lint_erreurs_avant": 9, "lint_erreurs_apres": 4 }
+  "mes_pr": [],
+  "chantier_en_cours": "",
+  "prochain_chantier": "NE RIEN CONSTRUIRE tant que la PR #35 n'est pas fusionnee : elle repare la suite de tests et ajoute la CI, tout chantier partirait d'une base perimee. Apres sa fusion : geler le temps dans les tests dependants des dates (vi.setSystemTime).",
+  "dette_connue": [
+    "5 PR ouvertes en attente de fusion, dont #35 verte depuis le 2026-09-02. Le blocage de TAAMA est decisionnel, pas technique.",
+    "Aucun .env.example alors que le projet utilise Supabase et Sentry.",
+    "Aucune trace d'offline-first sur un produit destine au terrain africain.",
+    "Tests dependants du temps : dates d'expiration en dur, assertions sur 'expire < 30 jours'. Ni #35 ni #36 ne le traitent.",
+    "15+ branches feat/* non fusionnees depuis aout."
+  ],
+  "incident": "PR #36 ouverte puis fermee le meme jour : doublon de #35, non detecte faute d'avoir liste les PR ouvertes du depot avant de commencer. Regle ajoutee au playbook 01, etape 0."
 }
