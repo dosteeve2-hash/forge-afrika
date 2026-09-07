@@ -1,0 +1,29 @@
+{
+  "projet": "livestockos",
+  "derniere_execution": "2026-09-07",
+  "verdict": "🟡",
+  "tronc": "main (11 aout). ATTENTION : la branche par defaut est feat/animaux-rapports (1er aout), sans tests.",
+  "pr_ouvertes_du_depot": [
+    "#8 responsive mobile (11 aout)",
+    "#9 CI+lint+tests (2 sept, draft)",
+    "#10 la mienne"
+  ],
+  "mes_pr": [
+    "#10 — repare les 17 tests en echec sur main + accents francais + accessibilite. 133/133 verts."
+  ],
+  "sante": {
+    "ci": "AUCUNE sur main — la PR #9 en ajoute une",
+    "tests": "133/133 apres ma PR (17 echecs avant)",
+    "lint": "32 erreurs preexistantes, non traitees",
+    "build": "0 erreur, 14 routes",
+    "tsc": "propre"
+  },
+  "prochain_chantier": "Fusionner #10, puis #9 (sa CI aura enfin une base saine), puis relire #8. ATTENTION : la branche de #9 ne contient AUCUNE des 5 suites de main — fusionnee seule, sa CI virerait rouge au premier tour.",
+  "dette_connue": [
+    "Branche par defaut feat/animaux-rapports != tronc main. Troisieme depot du jour dans ce cas.",
+    "32 erreurs de lint sur main, preexistantes.",
+    "components/AlertesSanitaires.tsx orphelin : plus aucun import depuis la refonte du dashboard.",
+    "Aucune persistance : toutes les pages sont des maquettes en useState local, aucun Supabase."
+  ],
+  "lecon": "Les accents supprimes dans l'interface ne sont pas une coquille de test : c'est du mauvais francais affiche a l'utilisateur, et la doctrine met le francais en premier. Deux tests redeviennent verts en corrigeant le produit, pas le test."
+}
