@@ -231,7 +231,12 @@ Fichier `burkinacollect-collectes.csv` trouvé dans les téléchargements — do
 
 ## 💡 OPPORTUNITÉS IDENTIFIÉES POUR FORJA
 
-1. **Deadline EUDR décembre 2026** → urgence de traçabilité pour les exportateurs de karité, sésame, cacao → fenêtre commerciale courte mais forte
+1. ~~**Deadline EUDR décembre 2026** → urgence de traçabilité pour les exportateurs de karité, sésame, cacao~~
+   ⚠️ **Corrigé (sept. 2026) :** l'EUDR ne couvre que bovins, cacao, café, huile de palme, soja,
+   caoutchouc et bois. Le cacao l'est ; **le karité et le sésame ne le sont pas.** La vraie fenêtre
+   commerciale burkinabè est ailleurs : la suspension de l'exportation des amandes de karité brutes
+   (sept. 2024) et de la noix de cajou brute (avril 2025), qui force des négociants à devenir
+   transformateurs. Voir [`COMMERCIAL/prospection-taama.md`](../COMMERCIAL/prospection-taama.md)
 2. **État burkinabè industrialise activement** → opportunité de contrat avec entités étatiques (SOFATO, MINOFA, SOSUCO)
 3. **Or "conflict-free"** → marché de traçabilité minière à terme
 4. **Élevage non digitalisé** → LivestockOS répond à un besoin massif non couvert

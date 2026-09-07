@@ -4,13 +4,31 @@
 
 ---
 
+> ### ⚠️ Note de cadrage — septembre 2026
+>
+> Le positionnement « conformité EUDR » a été retiré de cette spec après vérification.
+> **L'EUDR ne couvre que sept matières premières** — bovins, cacao, café, huile de palme, soja,
+> caoutchouc et bois — donc **ni le karité, ni le sésame, ni l'anacarde, ni le coton**, c'est-à-dire
+> aucune des filières visées ici. L'argument se retourne devant un professionnel de la filière.
+>
+> **Le déclencheur commercial réel** est burkinabè : la suspension de l'exportation des amandes de
+> karité brutes (septembre 2024) et de la noix de cajou brute (avril 2025). Des négociants qui
+> réexpédiaient de la matière brute sont désormais contraints de transformer sur place, sans en
+> avoir les outils. Voir [`COMMERCIAL/prospection-taama.md`](../COMMERCIAL/prospection-taama.md).
+>
+> L'EUDR reste vendable, mais aux filières **bovine** (cuirs, peaux, viande — 3ᵉ produit
+> d'exportation du pays) et **bois**, avec échéance au 30 décembre 2026 pour les moyennes et
+> grandes entreprises.
+
+---
+
 ## 1. Vue d'ensemble du produit
 
 **TAAMA** (en Mooré : "le voyage, la progression") est un SaaS industriel B2B offline-first conçu pour les PME de transformation agroalimentaire et industrielle au Burkina Faso et en Afrique de l'Ouest.
 
 ### Problème résolu
 1. **Production aveugle** — 63% des PME africaines gèrent la production manuellement
-2. **Traçabilité absente** — bloque les exports (EUDR 2026, GlobalG.A.P.)
+2. **Traçabilité absente** — bloque les exports certifiés (GlobalG.A.P., bio, fair trade ; EUDR pour les seules filières bovine et bois — voir la note de cadrage ci-dessous)
 3. **ERP inaccessibles** — Odoo coûte 1,5–10M FCFA avec 70% d'échec d'adoption
 4. **Rendements jamais mesurés** — millions de FCFA de pertes invisibles
 5. **Pas de reporting** — empêche l'accès au crédit bancaire
@@ -206,7 +224,7 @@ CREATE TABLE batch_outputs (
 
 ### 3.11 Table `lot_numbers`
 ```sql
--- Numéros de lot pour la traçabilité export (EUDR, GlobalG.A.P.)
+-- Numeros de lot pour la tracabilite export (GlobalG.A.P., bio, fair trade ; EUDR si filiere concernee)
 CREATE TABLE lot_numbers (
   id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   organization_id UUID NOT NULL REFERENCES organizations(id) ON DELETE CASCADE,
@@ -270,7 +288,7 @@ CREATE TABLE alerts (
 - [ ] Alertes stock bas automatiques
 - [ ] Historique des mouvements
 
-### 4.5 Traçabilité (conformité EUDR/export)
+### 4.5 Traçabilité (conformité export)
 - [ ] Attribution numéros de lot aux batches
 - [ ] Lien lot → fournisseur → région d'origine
 - [ ] Rapport de traçabilité PDF exportable
@@ -308,7 +326,7 @@ CREATE TABLE alerts (
 ### Phase 3 — Intelligence + Export (Mois 7–12)
 **Objectif : Différenciation premium**
 - Prédiction de rendement (ML simple sur historique)
-- Module conformité EUDR automatisé
+- Module conformité export automatisé (format EUDR pour les filières bovine et bois)
 - Rapport bankable structuré (format accepté BCEAO / SGBB)
 - Multi-devises (FCFA / EUR / USD)
 - API publique pour intégration ERP tiers

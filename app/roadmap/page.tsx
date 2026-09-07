@@ -1,30 +1,14 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Nav from "@/components/Nav";
 import { PHASES_ROADMAP } from "@/lib/constants";
 
 export default function RoadmapPage() {
-  const [email, setEmail] = useState("");
-  const [submitted, setSubmitted] = useState(false);
-
   return (
     <main className="min-h-screen" style={{ background: "#0A1628" }}>
-      {/* Nav */}
-      <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-4"
-        style={{ background: "rgba(10,22,40,0.9)", backdropFilter: "blur(12px)", borderBottom: "1px solid rgba(212,175,55,0.1)" }}>
-        <Link href="/" className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-lg flex items-center justify-center font-bold"
-            style={{ background: "linear-gradient(135deg, #D4AF37, #F5D76E)", color: "#0A1628" }}>F</div>
-          <span className="font-bold text-white">FORGE Afrika</span>
-        </Link>
-        <div className="flex items-center gap-6">
-          <Link href="/ecosystem" className="text-sm text-gray-400 hover:text-white transition-colors">Écosystème</Link>
-          <Link href="/dashboard" className="text-sm px-4 py-2 rounded-lg font-medium"
-            style={{ background: "linear-gradient(135deg, #D4AF37, #F5D76E)", color: "#0A1628" }}>QG</Link>
-        </div>
-      </nav>
+      <Nav />
 
       <div className="pt-28 pb-24 px-4 max-w-5xl mx-auto">
         {/* Header */}
@@ -104,26 +88,18 @@ export default function RoadmapPage() {
             d'un conglomérat industriel panafricain.
           </p>
 
-          {submitted ? (
-            <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl"
-              style={{ background: "rgba(34,197,94,0.15)", border: "1px solid rgba(34,197,94,0.3)", color: "#22C55E" }}>
-              ✓ Votre intérêt a été enregistré. Nous vous contacterons.
-            </motion.div>
-          ) : (
-            <form onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }}
-              className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-              <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)}
-                placeholder="votre@email.com"
-                className="flex-1 px-4 py-3 rounded-xl text-white text-sm outline-none"
-                style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)" }} />
-              <button type="submit"
-                className="px-6 py-3 rounded-xl font-semibold text-sm whitespace-nowrap"
-                style={{ background: "linear-gradient(135deg, #D4AF37, #F5D76E)", color: "#0A1628" }}>
-                Manifester son intérêt
-              </button>
-            </form>
-          )}
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <Link href="/contact"
+              className="px-6 py-3 rounded-xl font-semibold text-sm"
+              style={{ background: "linear-gradient(135deg, #D4AF37, #F5D76E)", color: "#0A1628" }}>
+              Nous écrire
+            </Link>
+            <Link href="/ecosystem"
+              className="px-6 py-3 rounded-xl font-semibold text-sm text-gray-300 hover:text-white transition-colors"
+              style={{ border: "1px solid rgba(255,255,255,0.15)" }}>
+              Voir les filiales
+            </Link>
+          </div>
         </motion.div>
       </div>
     </main>

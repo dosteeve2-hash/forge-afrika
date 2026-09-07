@@ -101,3 +101,41 @@ Utiliser des delimiteurs XML : <user_input>${userText}</user_input>
 - getUser() TOUJOURS cote serveur
 - getSession() JAMAIS cote serveur
 - Valider l'utilisateur dans chaque Server Action
+
+---
+
+## Le volet stratégique du dépôt
+
+Ce dépôt porte **deux choses** : le site du QG (code ci-dessus) **et** les documents
+stratégiques de FORGE Afrika. Les deux vivent ensemble — ne pas traiter les `.md`
+stratégiques comme de la documentation technique.
+
+| Fichier | Rôle |
+|---------|------|
+| `AMBITIONS.md` | **Document maître** — les 6 ambitions, l'inventaire complet des projets et leur statut réel, les décisions à trancher. Commencer par là |
+| `PROJECT.md` · `VISION.md` · `ROADMAP.md` | Stratégie, philosophie, calendrier 2024-2050 |
+| `LOGICIELS/` | Specs et briefs produits (un fichier par produit) |
+| `CAPITAL/` | Stratégie de financement et d'investissement |
+| `COMMERCIAL/` | Prospection, argumentaires, scripts d'appel |
+| `RECHERCHE/` | Textes fondateurs, notes de terrain |
+
+### Règles d'écriture stratégique
+
+1. **Tout s'écrit en français.** Ton direct, factuel, sans flatterie — Steve demande des avis
+   francs, les donner.
+2. **La règle d'or : un produit à la fois.** Avant de proposer une idée nouvelle, la situer face
+   à TAAMA. Si elle disperse, le dire.
+3. **Ne jamais gonfler un statut.** Un scaffold est un scaffold ; un produit l'est quand
+   quelqu'un le paie.
+4. **Vérifier avant d'affirmer.** Réglementation, chiffres de marché, état de l'art : chercher,
+   sourcer, dater.
+5. **Signaler le juridique.** Tout ce qui touche à l'argent d'autrui, à la collecte d'épargne ou
+   à l'investissement relève du CREPMF (UEMOA) ou de la BCEAO.
+6. **Contraintes africaines non négociables** dans toute spec produit : offline-first,
+   mobile-first, Android entrée de gamme, mobile money, multilinguisme, légèreté.
+
+### Nouvelle spec produit
+
+`LOGICIELS/<nom>-spec.md` avec : problème résolu · solution · contraintes africaines · stack ·
+marché cible · modèle de revenus · concurrents · risques · roadmap MVP · avis franc sur la
+priorisation. Puis mettre à jour `LOGICIELS/idees-produits.md`, `README.md` et `AMBITIONS.md`.

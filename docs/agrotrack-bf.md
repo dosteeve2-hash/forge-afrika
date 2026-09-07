@@ -48,7 +48,7 @@ Les coopératives coton, sésame et karité du Burkina perdent de l'argent à ch
 - Rapport financier saison en un clic
 
 ### Certifications & export
-- Génération automatique des rapports de traçabilité (EUDR, bio, fair-trade)
+- Génération automatique des rapports de traçabilité (bio, fair-trade ; EUDR pour les filières couvertes)
 - Export CSV/PDF pour les acheteurs et bailleurs
 
 ---

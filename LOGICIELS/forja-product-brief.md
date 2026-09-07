@@ -55,8 +55,13 @@ Sans traçabilité documentée, aucune certification ne peut être vérifiée ni
 **Ce que ça coûte :**
 - Contrats export perdus faute de preuves documentaires lors des audits
 - Recertifications impossibles sans historique structuré des lots
-- L'EUDR (EU Deforestation Regulation, en vigueur décembre 2026) va s'étendre à de nouveaux
-  produits — les PME BF sans système de traçabilité seront exclues du marché européen
+- L'EUDR (EU Deforestation Regulation) s'applique à partir du 30 décembre 2026 pour les moyennes
+  et grandes entreprises, et du 30 décembre 2027 pour les micro et petits opérateurs primaires.
+  ⚠️ Il ne couvre aujourd'hui que sept matières premières — bovins, cacao, café, huile de palme,
+  soja, caoutchouc, bois — **donc ni le karité, ni le sésame, ni l'anacarde, ni le coton**.
+  La liste des produits est en cours de révision par la Commission : une extension est possible,
+  elle n'est pas acquise. Pour les filières burkinabè, la contrainte réelle vient des acheteurs
+  et des certifications (GlobalG.A.P., bio, fair trade), pas de l'EUDR
 - OLVEA et quelques grands acteurs ont des systèmes maison. Les PME, non.
 
 **Comment ils font aujourd'hui :** Reconstitution manuelle des données à chaque audit

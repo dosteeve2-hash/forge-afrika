@@ -231,6 +231,57 @@ Raison de plus pour commencer maintenant.
 
 ---
 
+## PRODUIT 7 — KIBARÉ
+### Conseiller d'investissement IA 100 % local (souveraineté des données financières)
+
+---
+
+**Statut :** 🔵 Vision — Priorité #7 (2027) — [spec complète](./kibare-spec.md)
+
+**Problème résolu :**
+Un LLM est le meilleur mentor d'investissement jamais accessible à un particulier — il a lu
+Graham, Buffett, Munger, Lynch, Dalio, les lettres de Berkshire, les 10-K, l'analyse technique.
+Mais pour être utile, il faut lui confier son portefeuille réel : lignes, montants, pertes.
+Et personne ne veut envoyer ça dans le cloud d'une entreprise étrangère.
+Résultat : l'investisseur s'auto-censure, pose des questions génériques, obtient des réponses
+génériques. **Un marché entier bloqué par un problème d'architecture, pas de modèle.**
+
+**Solution proposée :**
+Un logiciel installable qui tourne entièrement sur la machine de l'utilisateur :
+- LLM local (Ollama), portefeuille en base chiffrée, aucun compte, aucun cloud
+- Réseau à sens unique : il lit Internet, il n'en fait rien sortir (proxy allowlist + audit visible)
+- Téléchargement en bloc de l'univers boursier → même la liste de ses tickers ne fuit pas
+- Aucun identifiant bancaire, aucune exécution d'ordre — jamais
+- Analyse du portefeuille par 5 personas d'investisseurs, en débat contradictoire
+- Analyse fondamentale + technique, news, et journal de décision auto-noté à 3 mois
+
+**Différenciation :**
+Toutes les briques sont open source et matures (Ollama, OpenBB, MCP, RAG local).
+Personne ne vend le produit fini avec une **garantie de confiance vérifiable par l'utilisateur**
+(couper le Wi-Fi et ça marche ; lancer Wireshark et le journal d'audit correspond).
+La valeur n'est pas dans le code — elle est dans l'assemblage, la preuve et la pédagogie.
+
+**Angle africain :**
+Aucun acteur mondial ne couvre sérieusement la BRVM, les obligations d'État UEMOA et la macro
+sahélienne. KIBARÉ + corpus BRVM = position défendable sur un marché que personne ne veut servir.
+
+**Marché cible :**
+- Investisseurs particuliers avertis (Europe, US, diaspora africaine) — 149-249 € licence
+- Family offices et gérants privés (interdiction déontologique d'exposer les positions) — 3-15k €/an
+- PME et cabinets comptables : même logique appliquée aux comptes de l'entreprise
+- Institutions financières africaines : souveraineté des données
+
+**⚠️ Cadre légal :** vendre un outil d'aide à la décision ≠ gérer l'argent d'autrui.
+La gestion pour compte de tiers exige un agrément (CREPMF en zone UEMOA, AMF en France).
+Les deux projets doivent rester hermétiquement séparés.
+
+**Recommandation :** ne pas lancer avant les premiers clients payants de TAAMA.
+En revanche, construire le Palier 1 **pour soi-même** (~3 semaines) : on se forme à
+l'investissement, on maîtrise la stack IA locale réutilisable dans IndustrIA, et on valide
+le concept sur le seul utilisateur qui compte au début.
+
+---
+
 ## 📊 RÉCAPITULATIF & PRIORISATION
 
 | # | Produit | Priorité | Complexité | Revenu potentiel/an | À démarrer |
@@ -241,6 +292,7 @@ Raison de plus pour commencer maintenant.
 | 4 | ValueChain Connect | ⭐⭐ | Haute (marketplace) | 100k+ USD | 2026-2027 |
 | 5 | TransportRural | ⭐ | Haute (réseau) | 50k+ USD | 2027-2028 |
 | 6 | IndustrIA | ⭐ | Très haute (IA) | 500k+ USD | 2028+ |
+| 7 | KIBARÉ | ⭐ | Haute (IA locale) | 100k+ USD | 2027 (proto perso possible avant) |
 
 **Règle d'or :** Un produit à la fois. AgroTrack d'abord. Tout le reste attendra.
 La dispersion est l'ennemi de l'entrepreneur solo en phase 1.

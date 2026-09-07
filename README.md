@@ -13,7 +13,7 @@
 [![Status](https://img.shields.io/badge/Status-Phase%201%20Active-D4AF37?style=for-the-badge&labelColor=0A1628)](.)
 [![Made in](https://img.shields.io/badge/Made%20in-Burkina%20Faso%20🇧🇫-00BCD4?style=for-the-badge&labelColor=0A1628)](./VISION.md)
 
-**[📖 Vision](./VISION.md)** · **[🗺️ Roadmap](./ROADMAP.md)** · **[📋 Project](./PROJECT.md)** · **[📄 PRD](./PRD.md)** · **[🚀 Checklist](./LAUNCH_CHECKLIST.md)** · **[📧 Contact](mailto:docompaore2@gmail.com)**
+**[🔥 Ambitions](./AMBITIONS.md)** · **[📖 Vision](./VISION.md)** · **[🗺️ Roadmap](./ROADMAP.md)** · **[📋 Project](./PROJECT.md)** · **[📄 PRD](./PRD.md)** · **[🚀 Checklist](./LAUNCH_CHECKLIST.md)** · **[📧 Contact](mailto:docompaore2@gmail.com)**
 
 </div>
 
@@ -46,7 +46,7 @@ FORGE Afrika construit la suite d'outils SaaS qui permettront aux PMEs, coopéra
 
 | Produit | Description | Cible | Statut |
 |---------|-------------|-------|--------|
-| [**TAAMA**](https://github.com/dosteeve2-hash/taama) | ERP industriel + traçabilité agricole (conformité EUDR 2026) | PMEs transformation, coopératives BF | 🟡 Beta |
+| [**TAAMA**](https://github.com/dosteeve2-hash/taama) | ERP industriel + traçabilité agricole (transformation locale obligatoire, certifications export) | PMEs transformation, coopératives BF | 🟡 Beta |
 | [**FORJA**](https://github.com/dosteeve2-hash/forja) | Plateforme SaaS gestion exportations café & cacao | Exportateurs BF | 🟡 Beta |
 | [**MIFA Life**](https://github.com/dosteeve2-hash/Mifa_Life_shop) | Marketplace e-commerce mode & produits africains | Consommateurs CEDEAO | 🟡 Beta |
 | [**CompTrack**](https://github.com/dosteeve2-hash/comptrack) | Comptabilité PME SYSCOHADA — simple, mobile, FCFA-natif | PMEs & artisans | 🟡 Beta |
@@ -59,6 +59,22 @@ FORGE Afrika construit la suite d'outils SaaS qui permettront aux PMEs, coopéra
 | [**MillTrack**](./docs/milltrack.md) | Suivi production usines de transformation | Minoteries, huileries, égrenage | 🔵 Conception |
 | [**LivestockOS**](./docs/livestock-os.md) | Gestion d'élevage mobile (santé, stocks, ventes) | Éleveurs sahéliens | 🔵 Conception |
 | [**ValueChain Connect**](./docs/valuechain-connect.md) | Marketplace B2B producteurs ↔ transformateurs | Zone CEDEAO | 🔵 Conception |
+| [**KIBARÉ**](./LOGICIELS/kibare-spec.md) | Conseiller d'investissement IA 100 % local — les données ne sortent jamais de la machine · démo sur `/kibare` | Investisseurs, family offices, PME | 🟡 Prototype |
+
+---
+
+## 📚 Documents stratégiques
+
+| Document | Contenu |
+|----------|---------|
+| [**AMBITIONS.md**](./AMBITIONS.md) | 🔥 **Document maître** — les 6 ambitions, l'inventaire complet des projets et leur statut réel, les décisions à trancher |
+| [VISION.md](./VISION.md) | Philosophie, analyse de la chaîne de valeur, leçons historiques |
+| [PROJECT.md](./PROJECT.md) | Stratégie globale, les 4 phases, analogies NVIDIA / Dangote / Rockefeller |
+| [ROADMAP.md](./ROADMAP.md) | Timeline 2024-2050, KPIs par phase |
+| [LOGICIELS/](./LOGICIELS/) | Specs et briefs produits |
+| [CAPITAL/](./CAPITAL/forge-capital-brief.md) | Club d'investissement « Le Cercle » — stratégie de financement (Phase 2/3) |
+| [COMMERCIAL/](./COMMERCIAL/prospection-taama.md) | Dossier de prospection TAAMA — les 10 premières cibles, script d'appel, grille de qualification |
+| [RECHERCHE/](./RECHERCHE/) | Textes fondateurs et notes de terrain |
 
 ---
 
@@ -126,7 +142,7 @@ Repos produits (même organisation)
 BurkinaCollect / AgroTrack       TAAMA / MillTrack        CompTrack
   (Collecte terrain)         →   (Production / ERP)   →  (Comptabilité)
   Données GPS                    Lots certifiés            Bilans SYSCOHADA
-  Agents terrain                 Traçabilité EUDR          Export fiscal
+  Agents terrain                 Traçabilité export        Export fiscal
   Offline-first                  Rendements                Multi-devises FCFA
                                        ↓
                             ValueChain Connect

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
+import Nav from "@/components/Nav";
 import { FILIALES_FORGE } from "@/lib/constants";
 
 /* ─── Particule flottante ─────────────────────────────── */
@@ -165,26 +166,7 @@ export default function HomePage() {
 
   return (
     <main className="min-h-screen" style={{ background: "#0A1628" }}>
-      {/* ── NAVIGATION ── */}
-      <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-4"
-        style={{ background: "rgba(10,22,40,0.85)", backdropFilter: "blur(12px)", borderBottom: "1px solid rgba(212,175,55,0.15)" }}>
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-lg flex items-center justify-center font-bold text-xl"
-            style={{ background: "linear-gradient(135deg, #D4AF37, #F5D76E)", color: "#0A1628" }}>
-            F
-          </div>
-          <span className="font-bold text-white text-lg">FORGE Afrika</span>
-        </div>
-        <div className="hidden md:flex items-center gap-8">
-          <Link href="/ecosystem" className="text-sm text-gray-400 hover:text-white transition-colors">Nos Filiales</Link>
-          <Link href="/roadmap" className="text-sm text-gray-400 hover:text-white transition-colors">Roadmap</Link>
-          <Link href="/dashboard"
-            className="text-sm px-4 py-2 rounded-lg font-medium transition-all"
-            style={{ background: "linear-gradient(135deg, #D4AF37, #F5D76E)", color: "#0A1628" }}>
-            Accéder au QG
-          </Link>
-        </div>
-      </nav>
+      <Nav />
 
       {/* ── HERO ── */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
@@ -396,6 +378,8 @@ export default function HomePage() {
           <div className="flex flex-wrap justify-center gap-x-8 gap-y-2 mb-10">
             <Link href="/ecosystem" className="text-xs text-gray-500 hover:text-gray-300 transition-colors">Nos Filiales</Link>
             <Link href="/roadmap" className="text-xs text-gray-500 hover:text-gray-300 transition-colors">Roadmap</Link>
+            <Link href="/kibare" className="text-xs text-gray-500 hover:text-gray-300 transition-colors">KIBARÉ</Link>
+            <Link href="/contact" className="text-xs text-gray-500 hover:text-gray-300 transition-colors">Contact</Link>
             <Link href="/dashboard" className="text-xs text-gray-500 hover:text-gray-300 transition-colors">QG</Link>
           </div>
 

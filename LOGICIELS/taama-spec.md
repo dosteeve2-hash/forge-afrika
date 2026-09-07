@@ -4,6 +4,24 @@
 
 ---
 
+> ### ⚠️ Note de cadrage — septembre 2026
+>
+> Le positionnement « conformité EUDR » a été retiré de cette spec après vérification.
+> **L'EUDR ne couvre que sept matières premières** — bovins, cacao, café, huile de palme, soja,
+> caoutchouc et bois — donc **ni le karité, ni le sésame, ni l'anacarde, ni le coton**, c'est-à-dire
+> aucune des filières visées ici. L'argument se retourne devant un professionnel de la filière.
+>
+> **Le déclencheur commercial réel** est burkinabè : la suspension de l'exportation des amandes de
+> karité brutes (septembre 2024) et de la noix de cajou brute (avril 2025). Des négociants qui
+> réexpédiaient de la matière brute sont désormais contraints de transformer sur place, sans en
+> avoir les outils. Voir [`COMMERCIAL/prospection-taama.md`](../COMMERCIAL/prospection-taama.md).
+>
+> L'EUDR reste vendable, mais aux filières **bovine** (cuirs, peaux, viande — 3ᵉ produit
+> d'exportation du pays) et **bois**, avec échéance au 30 décembre 2026 pour les moyennes et
+> grandes entreprises.
+
+---
+
 ## 1. Contexte & Problème
 
 **TAAMA** (en Mooré : *le voyage, la progression*) est un SaaS industriel B2B conçu pour les PME de transformation agroalimentaire et industrielle au Burkina Faso et en Afrique de l'Ouest.
@@ -13,7 +31,7 @@
 | # | Problème | Impact estimé |
 |---|----------|---------------|
 | P1 | **Production aveugle** — 63 % des PME africaines gèrent manuellement | Écarts stock moyens : 22 % |
-| P2 | **Traçabilité absente** — bloque l'accès à l'export certifié (EUDR 2026) | Contrats export perdus |
+| P2 | **Traçabilité absente** — bloque l'accès à l'export certifié (GlobalG.A.P., bio, fair trade) | Contrats export perdus |
 | P3 | **ERP inaccessibles** — Odoo = 1,5–10 M FCFA, taux d'échec adoption ~70 % | Cash gaspillé |
 | P4 | **Rendements jamais mesurés** — pertes post-transformation 30–40 % | Millions FCFA invisibles |
 | P5 | **Reporting impossible** — les banques refusent faute de données fiables | Financement bloqué |
@@ -74,7 +92,7 @@ Deploy    : Vercel (app) + Supabase (backend)
 | **Batch Tracking** | Création lot, saisie intrants/extrants, calcul rendement auto | P0 |
 | **Inventaire** | Stocks temps réel par site, alertes seuil bas, historique mouvements | P0 |
 | **Tableau de bord** | KPIs production, graphique 30 jours, santé stock, alertes actives | P0 |
-| **Traçabilité export** | Lots → fournisseur → région, certification PDF, export CSV EUDR | P1 |
+| **Traçabilité export** | Lots → fournisseur → région, certification PDF, export CSV | P1 |
 | **Rapports** | Rapport mensuel PDF, bilan matières, export banquier | P1 |
 | **Fournisseurs** | Catalogue fournisseurs, scoring qualité, géolocalisation | P2 |
 | **Offline sync** | PWA installable, IndexedDB + Service Worker, notifications push | P2 |
@@ -129,7 +147,7 @@ Exemple : LOT-2026-042 (42e lot de l'année 2026 pour ce site)
 ```
 
 - Généré côté serveur via une fonction Supabase (pas de collision possible en multi-tenant)
-- Lié au numéro de certification EUDR/Bio pour la traçabilité export
+- Lié au numéro de certification (bio, fair trade, EUDR si filière concernée) pour la traçabilité export
 
 ---
 
@@ -164,7 +182,7 @@ Exemple : LOT-2026-042 (42e lot de l'année 2026 pour ce site)
 - **Row Level Security** PostgreSQL : chaque requête filtrée par `organization_id`
 - **JWT Supabase Auth** : tokens 1h + refresh sécurisé côté serveur
 - **Données en transit** : HTTPS forcé (TLS 1.3 minimum)
-- **Conformité EUDR 2026** : traçabilité lot-to-source exportable au format attendu
+- **Traçabilité lot-to-source** exportable au format attendu par les acheteurs et certificateurs (dont EUDR pour les filières bovine et bois)
 - **OHADA / SYSCOHADA** : rapports financiers compatibles norme comptable CEDEAO
 
 ---
@@ -175,7 +193,7 @@ Exemple : LOT-2026-042 (42e lot de l'année 2026 pour ce site)
 |-----------|----------|-------|
 | **MVP Core** | Auth + Dashboard + Batch tracking + Inventaire | M1–M3 |
 | **First Client** | 2–3 PME pilotes à Ouagadougou | M3 |
-| **Traçabilité** | Module export EUDR + rapport PDF | M4–M5 |
+| **Traçabilité** | Module export certifications + rapport PDF | M4–M5 |
 | **PWA Offline** | Service Worker + IndexedDB sync | M6 |
 | **ARR 1M FCFA** | 7+ clients payants | M8–M10 |
 
