@@ -136,3 +136,34 @@ production ajoutées au registre :
 SUGU et MIFA Life, déclarées « Actif » sur le site, sont passées en **tier 1**.
 
 _Rien à faire de ton côté — c'est ici pour trace._
+
+---
+
+## Q7. Un loop doit-il construire quand le dépôt a déjà 5 PR en attente ?
+
+**Posée le** 2026-09-07 · **Statut** : en attente
+
+Recensement du jour : **52 PR ouvertes** sur les dépôts joignables, dont **37 sur TAAMA et
+CompTrack seuls**, les plus anciennes du 29 juin — soixante-dix jours. Aucune fusionnée.
+
+Sur CompTrack, 17 des 20 PR ouvertes ajoutent des pages **qui existent déjà dans le tronc**.
+Elles ont été reconstruites plus tard, autrement. C'est le coût direct de la pile : chaque
+session repart d'un doute sur ce qui existe déjà.
+
+Le registre fait tourner 13 loops quotidiens qui **construisent**. À ce rythme, ils
+ajoutent à la pile au lieu de la réduire.
+
+**Proposition — le mode triage.** Tant qu'un dépôt dépasse **5 PR ouvertes**, son loop ne
+construit rien : il lit les PR ouvertes, détecte les doublons et les périmées, produit une
+recommandation de tri. Il ne repasse en construction qu'une fois la pile redescendue.
+
+| | Pour | Contre |
+|---|---|---|
+| **A. Mode triage** (proposé) | arrête l'accumulation, rend les dépôts lisibles | plus aucune fonctionnalité neuve sur TAAMA et CompTrack pendant un moment |
+| **B. Continuer à construire** | l'élan est là | on écrit une 21ᵉ PR sur un dépôt qui en a 20 |
+| **C. Seuil plus haut (15 ?)** | compromis | ne change rien à court terme : TAAMA et CompTrack dépassent déjà |
+
+**Hypothèse retenue : A**, seuil à 5. C'est une modification du protocole, donc elle
+attend ton accord — je ne l'ai pas appliquée.
+
+**Réponse de Steeve :** _(en attente)_

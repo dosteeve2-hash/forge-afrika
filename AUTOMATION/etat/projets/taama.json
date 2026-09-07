@@ -4,20 +4,21 @@
   "verdict": "🟠",
   "tronc": "main",
   "pr_ouvertes_du_depot": [
-    "#35 (verte, prete, non-draft, ouverte le 2026-09-02)",
-    "#26",
-    "#18",
-    "#17"
+    "18 PR ouvertes (verifie par l'API le 2026-09-07) : #35 #26 #18 #17 #16 #15 #14 #13 #12 #11 #10 #9 #8 #7 #6 #5 #4 #3",
+    "La plus ancienne : #3, du 2026-06-29 — 70 jours",
+    "#35 est verte, non-draft, prete depuis le 2026-09-02"
   ],
   "mes_pr": [],
   "chantier_en_cours": "",
-  "prochain_chantier": "NE RIEN CONSTRUIRE tant que la PR #35 n'est pas fusionnee : elle repare la suite de tests et ajoute la CI, tout chantier partirait d'une base perimee. Apres sa fusion : geler le temps dans les tests dependants des dates (vi.setSystemTime).",
+  "prochain_chantier": "MODE TRIAGE, pas construction. 18 PR ouvertes : lire, detecter doublons et perimees, recommander. Fusionner #35 d'abord — elle debloque la verification automatique. Ne rien construire tant que la pile n'est pas redescendue.",
   "dette_connue": [
-    "5 PR ouvertes en attente de fusion, dont #35 verte depuis le 2026-09-02. Le blocage de TAAMA est decisionnel, pas technique.",
+    "18 PR ouvertes, 0 fusionnee, la plus ancienne du 2026-06-29. Le blocage est decisionnel.",
+    "#35 verte et prete depuis le 2026-09-02 : elle repare 59 tests morts et ajoute la CI.",
     "Aucun .env.example alors que le projet utilise Supabase et Sentry.",
     "Aucune trace d'offline-first sur un produit destine au terrain africain.",
-    "Tests dependants du temps : dates d'expiration en dur, assertions sur 'expire < 30 jours'. Ni #35 ni #36 ne le traitent.",
-    "15+ branches feat/* non fusionnees depuis aout."
+    "Tests dependants du temps : dates d'expiration en dur.",
+    "25 branches distantes."
   ],
-  "incident": "PR #36 ouverte puis fermee le meme jour : doublon de #35, non detecte faute d'avoir liste les PR ouvertes du depot avant de commencer. Regle ajoutee au playbook 01, etape 0."
+  "incident": "PR #36 ouverte puis fermee le meme jour : doublon de #35, non detecte faute d'avoir liste les PR ouvertes du depot avant de commencer. Regle ajoutee au playbook 01, etape 0.",
+  "correction_2026_09_07": "Ce fichier annoncait 5 PR ouvertes. C'etait FAUX : il y en a 18. L'erreur venait d'une liste partielle prise pour complete. Detectee par recoupement avec un comptage des refs refs/pull/*/merge, puis confirmee par l'API."
 }
