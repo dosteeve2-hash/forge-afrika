@@ -1,0 +1,39 @@
+{
+  "projet": "agrotrack-bf",
+  "derniere_execution": "2026-09-07",
+  "verdict": "🟡",
+  "tronc": "master",
+  "pr_ouvertes_du_depot": [
+    "#15 (ouverte le 2026-08-11, 27 jours d'attente, corrections UX)",
+    "#17 (la mienne, draft, mobile)"
+  ],
+  "mes_pr": [
+    "#17 — tableau de bord utilisable sur telephone, 133 tests verts"
+  ],
+  "sante": {
+    "ci": "presente et bloquante (lint + tests + build)",
+    "tests": "133 verts",
+    "lint": "propre",
+    "build": "0 erreur, 23 routes",
+    "env_example": true,
+    "secrets_versionnes": false,
+    "auth": "getUser() cote serveur + redirect dans le layout — conforme"
+  },
+  "doctrine": {
+    "fcfa": "✅ 16 fichiers",
+    "mobile": "✅ repare le 2026-09-07 (PR #17)",
+    "offline_first": "❌ absente — aucun service worker, IndexedDB, file de synchro ni localStorage",
+    "i18n": "❌ aucune structure",
+    "cout_quasi_nul": "✅ tiers gratuits"
+  },
+  "chantier_en_cours": "PR #17 en attente de fusion",
+  "prochain_chantier": "Le schema Supabase : membres, parcelles, collectes, paiements. Puis UNE page branchee de bout en bout (collectes) pour prouver la chaine avant de la repliquer. La persistance locale seulement apres — on ne rend pas offline-first des donnees qui n'existent pas. BLOQUE sur la reponse a Q1 de questions/agrotrack-bf.md ; hypothese retenue : on y va.",
+  "dette_connue": [
+    "ECART PRINCIPAL : aucune donnee. Supabase ne sert qu'a l'authentification, les 16 pages affichent des constantes MOCK. Rien n'est enregistre.",
+    "ECART PRINCIPAL : 'offline-first' est promis dans la description du depot et les metadonnees de l'app, et n'existe nulle part dans le code.",
+    "4 composants orphelins importes par rien : CollectesClient, ParcelleTable, MembresClient, DashboardClient.",
+    "tsconfig.tsbuildinfo versionne — artefact de compilation, devrait etre dans .gitignore.",
+    "PR #15 en attente depuis le 2026-08-11.",
+    "Aucune structure i18n alors que la doctrine prevoit moore et dioula des l'architecture."
+  ]
+}
