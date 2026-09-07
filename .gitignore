@@ -49,3 +49,7 @@ NOTES/*
 .env.production
 !.env.production.example
 *.key
+
+# Journaux de l atelier : volumineux et regenerables. Les JSON et la
+# synthese, eux, sont le resultat et restent versionnes.
+AUTOMATION/machine/atelier/**/*.log
