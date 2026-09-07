@@ -10,7 +10,7 @@
   ],
   "mes_pr": [
     "#17 — tableau de bord utilisable sur telephone, 133 tests verts",
-    "#18 — schema des donnees + page Membres branchee, 129 tests verts. AUCUNE base creee."
+    "#18 — schema des donnees + pages Membres ET Parcelles branchees, 135 tests verts. AUCUNE base creee."
   ],
   "sante": {
     "ci": "presente et bloquante (lint + tests + build)",
@@ -29,14 +29,15 @@
     "cout_quasi_nul": "✅ tiers gratuits"
   },
   "chantier_en_cours": "PR #17 et #18 en attente de fusion",
-  "prochain_chantier": "BLOQUE sur une decision de Steeve : appliquer la migration sur une base de developpement (action de production, protocole §3.6). Une fois le modele valide : brancher Parcelles puis Collectes, et SEULEMENT ensuite la synchro hors ligne. On ne rend pas offline-first des donnees qui n'existent pas encore.",
+  "prochain_chantier": "BLOQUE sur une decision de Steeve : appliquer la migration sur une base de developpement (action de production, protocole §3.6). La Phase 1 du PRD est couverte cote donnees (membres + parcelles). Ensuite : Collectes, puis SEULEMENT apres la synchro hors ligne (Phase 2). On ne rend pas offline-first des donnees qui n'existent pas encore.",
   "dette_connue": [
-    "Les 15 autres pages sont toujours en MOCK. Une seule page est branchee.",
+    "14 pages sur 16 sont toujours en MOCK. Membres et Parcelles sont branchees.",
     "Le SQL de la PR #18 est relu mais jamais execute : aucune preuve d'execution tant qu'une base n'existe pas.",
-    "Aucun test d'integration possible sans base. Seule agregerParcelles est couverte.",
-    "3 composants orphelins restants (ParcelleTable, DashboardClient, CollectesClient). MembresClient portait en fait le bon modele de donnees — je l'avais range a tort avec le code mort sans le lire.",
+    "Aucun test d'integration possible sans base.",
+    "2 composants orphelins restants (DashboardClient, CollectesClient). MembresClient et ParcelleTable portaient en fait le bon modele de donnees.",
     "tsconfig.tsbuildinfo versionne — artefact de compilation.",
     "PR #15 en attente depuis le 2026-08-11.",
     "Aucune structure i18n."
-  ]
+  ],
+  "lecon": "Un composant client qui importe un module tirant next/headers casse le build, et les tests ne le voient pas : jsdom tolere l'import. npm test vert n'autorise pas a sauter npm run build."
 }

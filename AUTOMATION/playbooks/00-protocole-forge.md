@@ -137,6 +137,23 @@ la seule vérification qui vaut : le 2026-09-05, un contrôle CI a cassé parce 
 vérifications avaient été rejouées à la main avec des expressions récrites, proches mais
 pas identiques. Une condition oubliée, et la CI tombe après le push.
 
+### ⚠️ Des tests verts n'autorisent jamais à sauter le build
+
+**Ils ne testent pas la même chose.**
+
+Le 2026-09-07 sur AgroTrack BF, un composant client importait une fonction depuis un
+module qui tire `next/headers`. Les 129 tests passaient — jsdom tolère l'import. Le
+build, lui, refusait : `next/headers` n'a rien à faire dans un bundle navigateur.
+
+Le piège est vicieux parce qu'il récompense la précipitation : la suite est verte, on
+se croit couvert, et la CI tombe après le push. Pire, j'avais anticipé ce risque en
+écrivant le code, puis je me suis convaincu qu'il ne se posait pas — *parce que le test
+précédent passait*. Un test qui passe ne prouve rien sur ce que le bundler accepte.
+
+La règle est donc sans exception : **lint, tests ET build avant chaque push.** Les trois,
+dans cet ordre, à chaque fois. Le build est le seul des trois qui voit la frontière
+client/serveur.
+
 **Mieux vaut un seul commit solide que cinq commits spéculatifs.** Steeve juge la
 qualité, pas le volume.
 
