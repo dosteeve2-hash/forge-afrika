@@ -3,7 +3,7 @@
   "derniere_execution": "2026-09-08",
   "derniere_routine": "forge quotidien — triage FORJA (session vivante)",
   "reportes": [],
-  "prochaine_priorite": "Problem to Projects Africa, puis SUGU (duka-boutique) et MIFA Life — les trois tier 1 jamais traites. REGLES ACQUISES le 2026-09-08, a appliquer AVANT tout : (1) lister TOUTES les PR ouvertes du depot ; (2) regarder LA DATE DU DERNIER COMMIT DU TRONC — tronc qui avance sans ses PR (FORJA, MillTrack) => elles pourrissent, FERMER ; tronc arrete (African Hybrid Agent) => elles restent bonnes, FUSIONNER ; (3) verifier que le tronc est VERT avant de brancher ; (4) regarder ce que contient reellement la branche par defaut — BurkinaCollect en avait DEUX fichiers pendant que son README annoncait six fonctionnalites.",
+  "prochaine_priorite": "SUGU (duka-boutique) puis MIFA Life (Mifa_Life_shop) — les deux derniers tier 1 jamais traites, non attaches a la session (add_repo necessaire). REGLES ACQUISES le 2026-09-08, a appliquer AVANT tout sur un depot : (1) lister TOUTES les PR ouvertes ; (2) regarder la DATE du dernier commit du tronc — tronc qui avance sans ses PR => FERMER, tronc arrete => FUSIONNER ; (3) verifier que le tronc est VERT avant de brancher ; (4) regarder ce que la branche par defaut contient REELLEMENT (BurkinaCollect : 2 fichiers) ; (5) verifier s'il existe PLUSIEURS troncs et s'ils ont un ancetre commun (Problem to Projects Africa : aucun).",
   "pr_ouvertes_suivies": [],
   "notes": "Architecture en vigueur depuis le 2026-09-06 : une routine quotidienne reveille la session vivante (les loops en sessions separees ne peuvent pas attacher de depot — parametre 'connectors' indisponible pour l'organisation). 24 loops restent desactives. Un a deux projets par jour. 2026-09-08 : premier passage en mode triage (hypothese Q7, non validee) sur FORJA — 12 PR ouvertes, seuil 5.",
   "tronc": "master",
@@ -17,6 +17,15 @@
     "forja (TRIAGE)",
     "milltrack (PR #13)",
     "african-hybrid-agent (TRIAGE)",
-    "burkinacollect (TRIAGE)"
-  ]
+    "burkinacollect (TRIAGE)",
+    "problem-to-projects-africa (TRIAGE)"
+  ],
+  "serie_du_2_septembre": {
+    "_doc": "Le meme correctif 'repare le lint + les tests + ajoute la CI' a ete ecrit le 2 septembre sur cinq depots. UNE seule fusion.",
+    "milltrack#12": "FUSIONNEE — tronc vert",
+    "forja#27": "ouverte — tronc rouge depuis un mois",
+    "african-hybrid-agent#7": "ouverte — tronc fige depuis 73 jours",
+    "burkinacollect#4": "EN BROUILLON — contient toute l'application du depot",
+    "problem-to-projects-africa#10": "ouverte — tsc echoue sans elle"
+  }
 }

@@ -269,3 +269,52 @@ promesse publique d'un projet est ta parole, pas la mienne — même limite que 
    probablement la seule raison pour laquelle personne ne l'a regardée.
 
 **Réponse de Steeve :** _(en attente)_
+
+---
+
+## Q13 — Problem to Projects Africa : `main` ou `master` ? (2026-09-08)
+
+```
+$ git merge-base origin/main origin/master
+→ aucun ancêtre commun
+```
+
+Le dépôt contient **deux applications sans un seul commit en commun**. Ce ne sont pas deux
+versions d'un même produit qui ont divergé — ce sont deux implémentations séparées de la même
+idée, dans le même dépôt. Git ne peut pas les réconcilier : il n'y a rien à quoi se rattacher.
+
+| | `main` (par défaut) | `master` |
+|---|---|---|
+| Commits · fichiers | 32 · 105 | 7 · 80 |
+| Dernier commit | 25 juillet | 13 juillet |
+| Parcours | `intake` → `modes` → `results` / `results-enhanced` → `roadmap/[id]` → `project/[id]`, + `explore`, `profile`, `signup` | `start` → `problem` → `skills` → `idea` → `results/[id]`, + `about`, `how-it-works` |
+| API | `analyze-project`, `recommend`, `sync` | `generate`, `save-project` |
+| En propre | `docs/` — Blueprint, PRD MVP, architecture technique | **`CLAUDE.md`**, `AGENTS.md`, charte SDC dark premium, **logo officiel** |
+
+`dashboard`, `login` et `auth/callback` existent des deux côtés, écrits deux fois.
+
+**Et les deux PR ouvertes visent des troncs différents** : la #10 vise `main`, la #9 vise
+`master`. Autrement dit, le travail continue en parallèle sur les deux, et chaque jour qui passe
+rend l'abandon de l'une plus coûteux.
+
+| | Pour | Contre |
+|---|---|---|
+| **A. `main` est le produit** | c'est la branche par défaut, la plus avancée (32 commits contre 7), elle porte le Blueprint et le PRD, et sa PR #10 est vérifiée verte | on perd la charte SDC et le logo officiel — **récupérables : 3 fichiers à copier** |
+| **B. `master` est le produit** | il porte la charte visuelle finalisée, le logo, et le `CLAUDE.md` que `main` n'a pas | 7 commits contre 32, arrêté depuis le 13 juillet, et il faudrait re-cibler la branche par défaut |
+| **C. Les garder tous les deux** | rien à trancher tout de suite | c'est la situation actuelle : deux apps, deux PR, deux troncs, et personne ne sait laquelle livrer |
+
+**Hypothèse retenue : A.** `main` est la branche par défaut et la plus construite ; ce que
+`master` a en propre tient en trois fichiers (`CLAUDE.md`, `AGENTS.md`,
+`public/brand/logo-ppa.svg`) qui se copient à la main.
+
+**Je n'ai rien fait** : ni fermé la #9, ni re-ciblé quoi que ce soit, ni touché à `master`. Et
+je n'ai **rien construit** sur `main` non plus — développer avant que tu tranches, c'est risquer
+de développer l'application qui sera abandonnée.
+
+⚠️ **Indépendamment de Q13** : sur `main`, `npx tsc --noEmit` **échoue**, il y a **91
+avertissements** de lint, **deux `@ts-nocheck`** — dont un sur le moteur de recommandation, le
+cœur du produit — et un fichier de tests que rien ne peut exécuter (aucun script `test` dans
+`package.json`). Aucune CI ne l'a jamais signalé. La **PR #10** corrige tout : vérifiée ici,
+lint 0 problème, `tsc` passe, 30/30 tests, build 18 routes.
+
+**Réponse de Steeve :** _(en attente)_

@@ -1,0 +1,43 @@
+{
+  "projet": "problem-to-projects-africa",
+  "derniere_execution": "2026-09-08",
+  "verdict": "🔴 deux applications sans ancetre commun dans le meme depot",
+  "tronc": "main (branche par defaut), 32 commits, dernier 94d1962 du 25 juillet",
+  "constat_central": "git merge-base origin/main origin/master ne renvoie AUCUN ancetre commun. Ce ne sont pas deux versions divergentes d'une meme application : ce sont deux applications differentes construites separement dans le meme depot. Aucune fusion git n'est possible. Et les deux PR ouvertes visent des troncs differents — #10 vise main, #9 vise master.",
+  "deux_troncs": {
+    "main": "32 commits, 25 juillet, 105 fichiers. Parcours intake -> modes -> results / results-enhanced -> roadmap/[id] -> project/[id], plus explore, profile, signup. API analyze-project, recommend, sync. A en propre : docs/ (Blueprint, PRD MVP, architecture technique), .env.example.",
+    "master": "7 commits, 13 juillet, 80 fichiers. Parcours start -> start/problem -> start/skills -> start/idea -> results/[id], plus about, how-it-works. API generate, save-project. A en propre : CLAUDE.md, AGENTS.md, charte SDC dark premium, logo officiel public/brand/logo-ppa.svg.",
+    "communs_ecrits_deux_fois": "dashboard, login, auth/callback"
+  },
+  "sante_de_main": {
+    "build": "passe, 18 routes",
+    "lint": "0 erreur, 91 AVERTISSEMENTS",
+    "tsc": "ECHOUE — src/__tests__/components.test.tsx reference it/expect sans runner ni types installes",
+    "ci": "AUCUNE (pas de dossier .github)",
+    "ts_nocheck": "DEUX : src/lib/recommendation/enhanced-engine.ts (le moteur de recommandation, coeur du produit) et src/components/intake/differentiated-intake-forms.tsx",
+    "tests": "un fichier de tests existe mais package.json n'a AUCUN script test — il ne compile pas et ne s'execute pas. Apparence de couverture sans couverture."
+  },
+  "verification_pr_10": {
+    "lint_main_seul": "0 erreur, 91 avertissements",
+    "lint_avec_10": "0 probleme",
+    "tsc_main_seul": "echoue",
+    "tsc_avec_10": "passe",
+    "tests_avec_10": "30 / 30, 2 fichiers (rien a lancer avant)",
+    "build_avec_10": "passe, 18 routes",
+    "conclusion": "fusionnable en l'etat, base = HEAD de main"
+  },
+  "pr_ouvertes_du_depot": [
+    "#10 (2 sept) supprime les 2 @ts-nocheck et les 31 any, fait tourner les tests, ajoute la CI — vise MAIN, verifiee verte",
+    "#9 (10 aout) palette FORGE v3 — vise MASTER, donc suspendue a Q13"
+  ],
+  "mes_pr": [],
+  "prochain_chantier": "RIEN CONSTRUIRE tant que Q13 n'est pas tranchee : developper sur main avant de savoir si main est le produit, c'est risquer de developper l'application qui sera abandonnee. Une fois tranchee : fusionner la #10 (si main), fermer la #9, et recuperer de master les trois fichiers qui n'existent nulle part ailleurs — CLAUDE.md, AGENTS.md, public/brand/logo-ppa.svg — AVANT toute archive. Ne jamais supprimer master (protocole §3 regle 4).",
+  "dette_connue": [
+    "91 avertissements de lint sur main.",
+    "Deux @ts-nocheck, dont un sur le moteur de recommandation.",
+    "Un fichier de tests qui ne compile ni ne s'execute.",
+    "Aucune CI.",
+    "main n'a pas de CLAUDE.md — il est sur master."
+  ],
+  "lecon": "Cinquieme depot de la serie du 2 septembre : MillTrack #12 (fusionnee), FORJA #27, African Hybrid Agent #7, BurkinaCollect #4 (brouillon), et celui-ci #10. Meme correctif ecrit le meme jour sur cinq depots, UNE seule fusion. Et une nouvelle categorie de divergence : jusqu'ici les troncs divergents partageaient une histoire ; ici il n'y en a aucune, donc aucune reconciliation automatique n'est possible."
+}
