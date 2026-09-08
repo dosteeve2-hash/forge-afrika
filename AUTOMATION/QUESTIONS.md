@@ -202,3 +202,34 @@ répare exactement cela — je l'ai vérifiée moi-même : lint 0 erreur, 148/14
 Elle se fusionne sans rien décider d'autre.
 
 **Réponse de Steeve :** _(en attente)_
+
+---
+
+## Q11 — African Hybrid Agent est-il déployé avec une clé d'API ? (2026-09-08)
+
+Sur `main`, l'endpoint `/api/chat` n'a **ni limite de débit ni authentification**. Et
+`src/lib/llm/generate.ts` route vers **Anthropic ou OpenAI** dès que `ANTHROPIC_API_KEY` ou
+`OPENAI_API_KEY` est défini — à défaut il tombe sur Ollama en local, qui ne coûte rien.
+
+Le dépôt est **public**. Donc : si une instance de cette application tourne quelque part avec une
+clé renseignée, n'importe qui peut boucler sur `/api/chat` et facturer cette clé.
+
+**Je n'ai pas vérifié si c'est le cas, et je ne le ferai pas** : lire les variables
+d'environnement d'un déploiement est une action de production, exclue par
+`00-protocole-forge.md §3`. Le README ne mentionne aucune URL de production pour ce dépôt-ci
+(il en cite pour BurkinaCollect et Problem to Projects Africa).
+
+| | Situation | Ce qu'il faut faire |
+|---|---|---|
+| **A** | Pas déployé, ou déployé sans clé (Ollama seul) | Aucune urgence. Fusionner la #7 quand même : la limite doit exister avant le premier déploiement, pas après. |
+| **B** | Déployé avec `ANTHROPIC_API_KEY` ou `OPENAI_API_KEY` | **Urgent.** Retirer la clé du déploiement *maintenant*, puis fusionner la #7 avant de la remettre. |
+
+**Hypothèse retenue : A**, parce que rien dans le dépôt n'atteste d'un déploiement de ce projet.
+Mais c'est une hypothèse, pas une vérification — et si c'est B, elle coûte de l'argent chaque
+jour où elle reste fausse.
+
+Dans les deux cas la conclusion est la même : **la PR #7 borne cette dépense et attend depuis le
+2 septembre.** Elle mérite d'être reprise sans son dossier `coverage/` (39 124 lignes ajoutées
+pour ~240 utiles) puis fusionnée.
+
+**Réponse de Steeve :** _(en attente)_
