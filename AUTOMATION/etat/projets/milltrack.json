@@ -1,0 +1,29 @@
+{
+  "projet": "milltrack",
+  "derniere_execution": "2026-09-08",
+  "verdict": "🟢",
+  "tronc": "master — sain : lint 0, 124 tests, build 13 routes, CI presente",
+  "pr_ouvertes_du_depot": [
+    "#3 (30 juil) quality improvements — error.tsx et loading.tsx DEJA sur le tronc, ne reste qu'un LOVABLE_PROTOCOL.md",
+    "#2 (18 juil) sprint14 fournisseurs+parametres — contient entierement la #1",
+    "#1 (13 juil) auth complete v2 — sous-ensemble strict de la #2",
+    "#13 la mienne"
+  ],
+  "mes_pr": [
+    "#13 — tableau de bord utilisable sur telephone : tiroir sous 768px, 3 tableaux defilants, 9 grilles KPI en auto-fit. 22 tests ajoutes."
+  ],
+  "sante": {
+    "ci": "presente depuis la PR #12 fusionnee le 2 septembre",
+    "tests": "146 apres ma PR (124 avant)",
+    "lint": "0 erreur, 0 avertissement",
+    "build": "passe, 13 routes"
+  },
+  "note_portefeuille": "MillTrack a FUSIONNE le 2 septembre la PR #12 (repare tests + lint + ajoute la CI). FORJA a la meme PR (#27) toujours ouverte. Meme correctif, deux destins : l'un a un tronc vert, l'autre un tronc rouge. C'est la demonstration la plus nette que le goulot est la fusion.",
+  "prochain_chantier": "Les PR #1 et #2 apportent l'AUTHENTIFICATION, que le tronc n'a pas du tout (MillTrack se visite sans compte). Vrai manque, mais a reecrire sur l'arborescence actuelle : elles ecrivent dans (dashboard)/dashboard/ et ajoutent un middleware.ts alors que le tronc est passe a proxy.ts. Fermer la #3 (contenu deja au tronc) et la #1 (sous-ensemble de la #2).",
+  "dette_connue": [
+    "rapports/page.tsx : liste rendue en grille de 5 colonnes au lieu d'un <table> — meme defaut mobile, demande une restructuration.",
+    "Aucune donnee reelle : tout est MOCK_*. Ni base, ni authentification.",
+    "pr_body.md traine a la racine du depot."
+  ],
+  "lecon": "Une regle de lint m'a fait ecrire MOINS de code. useEffect(() => setOuvert(false), [pathname]) est refuse par react-hooks/set-state-in-effect ; memoriser le chemin d'ouverture (ouvertSur === pathname) supprime l'effet entier. Et mon test sur aria-current avait tort, pas le composant : un tiroir en aria-hidden sort de l'arbre d'accessibilite, donc ses liens ne doivent PAS etre comptes."
+}

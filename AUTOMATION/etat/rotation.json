@@ -3,7 +3,7 @@
   "derniere_execution": "2026-09-08",
   "derniere_routine": "forge quotidien — triage FORJA (session vivante)",
   "reportes": [],
-  "prochaine_priorite": "MillTrack (3 PR ouvertes, sous le seuil : construction autorisee) puis African Hybrid Agent (6 PR : triage). AVANT TOUT sur n'importe quel depot : lister TOUTES les PR ouvertes, puis verifier si le TRONC est vert avant de brancher — FORJA a montre qu'un tronc peut etre rouge depuis un mois sans que personne ne le sache, faute de CI. A signaler a Steeve, par ordre : (1) fusionner forja#27, le tronc est casse sans elle ; (2) BurkinaCollect est public avec une branche par defaut a 2 fichiers ; (3) Q10 sur l'avenir de l'export de cafe chez FORJA.",
+  "prochaine_priorite": "African Hybrid Agent (6 PR : au-dessus du seuil, donc TRIAGE) puis BurkinaCollect. AVANT TOUT sur n'importe quel depot : (1) lister TOUTES les PR ouvertes, (2) verifier que le TRONC est vert AVANT de brancher — FORJA a montre qu'un tronc peut etre rouge un mois sans que personne le sache, MillTrack a montre ce que change une CI fusionnee. A signaler a Steeve, par ordre : fusionner forja#27 (le tronc est casse sans elle) ; BurkinaCollect est public avec une branche par defaut a 2 fichiers ; Q10 sur l'export de cafe chez FORJA.",
   "pr_ouvertes_suivies": [],
   "notes": "Architecture en vigueur depuis le 2026-09-06 : une routine quotidienne reveille la session vivante (les loops en sessions separees ne peuvent pas attacher de depot — parametre 'connectors' indisponible pour l'organisation). 24 loops restent desactives. Un a deux projets par jour. 2026-09-08 : premier passage en mode triage (hypothese Q7, non validee) sur FORJA — 12 PR ouvertes, seuil 5.",
   "tronc": "master",
@@ -14,6 +14,7 @@
   "projets_traites_le_2026_09_08": [
     "valuechain-connect (PR #9)",
     "indubot-afrika (PR #3)",
-    "forja (TRIAGE — rien construit)"
+    "forja (TRIAGE — rien construit)",
+    "milltrack (PR #13)"
   ]
 }
