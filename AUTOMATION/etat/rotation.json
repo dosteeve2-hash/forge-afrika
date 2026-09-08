@@ -3,7 +3,7 @@
   "derniere_execution": "2026-09-08",
   "derniere_routine": "forge quotidien — triage FORJA (session vivante)",
   "reportes": [],
-  "prochaine_priorite": "MIFA Life (Mifa_Life_shop) — dernier tier 1 jamais traite, non attache (add_repo necessaire). MOTIF A CHERCHER PARTOUT, trouve deux fois le 2026-09-08 (BurkinaCollect, SUGU) : un catch VIDE autour d'une ecriture. Une ecriture qui echoue pendant que l'interface dit que tout va bien, c'est une perte de donnees silencieuse — le pire defaut possible pour des produits offline-first. Chercher : grep -n 'catch' autour de setItem / save / persist. REGLES ACQUISES : (1) lister TOUTES les PR ouvertes ; (2) regarder la DATE du dernier commit du tronc ; (3) verifier que le tronc est VERT avant de brancher ; (4) regarder ce que la branche par defaut contient REELLEMENT ; (5) verifier s'il y a PLUSIEURS troncs et s'ils ont un ancetre commun ; (6) ne pas confondre technique et intention — compter les breakpoints Tailwind a failli me faire accuser SUGU a tort, son responsive est en media queries CSS.",
+  "prochaine_priorite": "TOUS LES TIER 1 SONT DESORMAIS TRAITES. Restent TAAMA (18 PR) et CompTrack (20 PR), les deux plus grosses piles, traitees le 2026-09-07 mais jamais en mode triage systematique — c'est la prochaine cible naturelle. Puis les tier 2 (Portfolio 2.0, Phone Showcase, Sahel Commerce AI, UEEMT-Tokat), jamais traites, non attaches. REGLES ACQUISES le 2026-09-08, a appliquer AVANT tout : (1) lister TOUTES les PR ouvertes ; (2) regarder la DATE du dernier commit du tronc — tronc qui avance => FERMER les PR, tronc arrete => les FUSIONNER ; (3) verifier que le tronc est VERT avant de brancher — et d'abord qu'il S'INSTALLE (npm ci, pas npm install) ; (4) regarder ce que la branche par defaut contient REELLEMENT ; (5) verifier s'il y a PLUSIEURS troncs et s'ils ont un ancetre commun ; (6) ne pas confondre technique et intention (SUGU fait son responsive en media queries, pas en Tailwind) ; (7) verifier ce qu'un workflow FAIT, pas qu'il existe — celui de MIFA Life est le modele Azure de GitHub, rouge depuis toujours ; (8) chercher les catch VIDES autour d'une ecriture (BurkinaCollect et SUGU, le meme jour) ; (9) chercher les CHAINES de PR imbriquees avec git merge-base --is-ancestor — MIFA Life en avait une de NEUF.",
   "pr_ouvertes_suivies": [],
   "notes": "Architecture en vigueur depuis le 2026-09-06 : une routine quotidienne reveille la session vivante (les loops en sessions separees ne peuvent pas attacher de depot — parametre 'connectors' indisponible pour l'organisation). 24 loops restent desactives. Un a deux projets par jour. 2026-09-08 : premier passage en mode triage (hypothese Q7, non validee) sur FORJA — 12 PR ouvertes, seuil 5.",
   "tronc": "master",
@@ -19,7 +19,8 @@
     "african-hybrid-agent (TRIAGE)",
     "burkinacollect (TRIAGE)",
     "problem-to-projects-africa (TRIAGE)",
-    "duka-boutique/SUGU (PR #12)"
+    "duka-boutique/SUGU (PR #12)",
+    "mifa-life-shop (TRIAGE)"
   ],
   "serie_du_2_septembre": {
     "_doc": "Le meme correctif 'repare le lint + les tests + ajoute la CI' a ete ecrit le 2 septembre sur cinq depots. UNE seule fusion.",
@@ -28,6 +29,7 @@
     "african-hybrid-agent#7": "ouverte — tronc fige depuis 73 jours",
     "burkinacollect#4": "EN BROUILLON — contient toute l'application du depot",
     "problem-to-projects-africa#10": "ouverte — tsc echoue sans elle",
-    "duka-boutique#11": "ouverte — 0 test executable sans elle"
+    "duka-boutique#11": "ouverte — 0 test executable sans elle",
+    "mifa_life_shop#46": "ouverte — le depot ne s'installe meme pas sans elle (npm ci echoue)"
   }
 }

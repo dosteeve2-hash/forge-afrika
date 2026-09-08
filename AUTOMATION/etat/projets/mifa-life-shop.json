@@ -1,0 +1,42 @@
+{
+  "projet": "mifa-life-shop",
+  "nom": "MIFA Life",
+  "derniere_execution": "2026-09-08",
+  "mode": "TRIAGE (22 PR ouvertes)",
+  "verdict": "🔴 le tronc ne s'installe pas",
+  "tronc": "main, dernier commit f3991a8 du 10 aout, 38 pages, 30 branches",
+  "constat_central": "npm ci ECHOUE sur main : package-lock.json est desynchronise de package.json (webpack, @testing-library/dom, aria-query et 8 autres manquants). Aucune CI ne peut installer le depot. Et le seul workflow present, azure-webapps-node.yml, est le MODELE fourni par GitHub laisse tel quel — son en-tete contient encore la notice d'installation, aucun secret AZURE_WEBAPP_PUBLISH_PROFILE n'existe, et il se declenche on:push:main. Il echoue donc a chaque push. Le depot a l'apparence d'une CI sans en avoir aucune, et c'est ce qui a laisse le verrou diverger sans que personne ne le voie. Il n'y a par ailleurs aucun deploiement Azure : vercel.json et netlify.toml sont a la racine.",
+  "verification_pr_46": {
+    "npm_ci_main_seul": "ECHOUE",
+    "npm_ci_avec_46": "passe, 623 paquets",
+    "lint_avec_46": "0 erreur, 65 avertissements",
+    "tests_avec_46": "90 / 90, 4 fichiers",
+    "build_avec_46": "passe, 38 pages",
+    "conclusion": "a fusionner AVANT tout le reste — tant que le depot ne s'installe pas, aucune des 21 autres PR ne peut etre validee"
+  },
+  "chaine_juin_juillet": {
+    "_doc": "Verifie avec git merge-base --is-ancestor : chaque branche contient STRICTEMENT la precedente. Seule la pointe #21 compte.",
+    "ordre": ["#13 shop-skeleton-loading", "#14 improvements-0629", "#15 testimonials-newsletter", "#16 collections-page", "#17 posthog-analytics", "#18 product-detail", "#19 cart-panier", "#20 checkout-confirmation", "#21 compte-utilisateur"],
+    "retard": "25 commits",
+    "obsolescence": "Le tronc a refait ce terrain autrement : src/app/panier/page.tsx que la #19 ajoute EXISTE DEJA, et le commit f046674 du 8 aout (pages panier/checkout/vendeurs refacto + 76 tests) l'a reecrit avec des tests.",
+    "encore_neuf_dans_la_pointe": ["collections/", "compte/", "commande-confirmee/", "produit/[id]/", "lib/products.ts", "integration PostHog"]
+  },
+  "absorbees_par_le_tronc": {
+    "#32 feat/maintenance-infra": "10 fichiers ajoutes, 10 deja au tronc, dont 9 IDENTIQUES au caractere pres. Le seul ecart, vitest.config.ts, est PLUS ANCIEN sur la branche.",
+    "#31 feat/sprint15-admin-commandes-produits": "2 ajoutes, 2 deja au tronc",
+    "#12 chief-of-staff-ia-setup": "ajoute CLAUDE.md, deja au tronc, 35 commits de retard"
+  },
+  "doublon_strict": "#29 et #28 partagent la MEME branche feat/suivi-commandes-sprint13 : la #29 vise main, la #28 vise feat/glass-light-redesign. Meme motif que #2/#3 chez FORJA.",
+  "autres": {
+    "#46": "le correctif, verifie vert, 0 de retard",
+    "#45": "kit d'interface anime, 34 fichiers neufs, 0 de retard, mais EN BROUILLON donc invisible",
+    "#35": "ui-improvements, 13 de retard, encore applicable ; ajoute un LOVABLE_PROTOCOL.md hors sujet",
+    "#30": "sprint14-vendeur-tracking, 17 de retard ; le tronc a deja seller-dashboard et track — a confronter",
+    "#24": "feat/commandes ajoute src/app/commandes/page.tsx QUI EXISTE DEJA",
+    "#23 #22": "avis et wishlist, 25 de retard ; la #22 MODIFIE la page wishlist du tronc, elle reste pertinente sur le fond",
+    "#3": "juin, brouillon, 36 commits de retard — la plus ancienne PR ouverte du portefeuille"
+  },
+  "dette_du_tronc": "38 pages dont plusieurs paires quasi identiques : cart ET panier, commandes ET orders, catalogue ET shop ET essentials, profil ET account ET dashboard. Trace probable du meme phenomene — plusieurs sessions qui recreent la meme page faute de fusion.",
+  "prochain_chantier": "RIEN CONSTRUIRE tant que la #46 n'est pas fusionnee : le depot ne s'installe pas, donc rien ne peut valider un ajout. Ordre : #46, puis fermer #32 #31 #12 (deja au tronc) et #28 (doublon), puis ne garder que #21 de la chaine.",
+  "lecon": "Un workflow GitHub Actions qui existe n'est pas une CI. Celui de MIFA Life est le modele Azure fourni par GitHub, jamais configure, declenche a chaque push sur main : il echoue depuis toujours. Le depot avait l'apparence d'une verification et n'en avait aucune — d'ou un package-lock.json desynchronise que personne n'a vu. Verifier ce qu'un workflow FAIT, pas qu'il existe."
+}
