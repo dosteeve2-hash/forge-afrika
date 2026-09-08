@@ -1,14 +1,18 @@
 {
   "_doc": "Priorite generale du lendemain, tous projets confondus. Ecrit par le DIGEST seul (playbook 03). Les loops par projet ont leur propre memoire dans etat/projets/<id>.json et ne touchent jamais ce fichier. Voir AUTOMATION/README.md §4.",
-  "derniere_execution": "2026-09-07",
+  "derniere_execution": "2026-09-08",
   "derniere_routine": "forge quotidien (session vivante)",
   "reportes": [],
-  "prochaine_priorite": "AGROTRACK BF, deuxieme passage : le schema Supabase (membres, parcelles, collectes, paiements), puis UNE page branchee de bout en bout pour prouver la chaine. La persistance locale seulement apres. BLOQUE sur Q1 de questions/agrotrack-bf.md ; hypothese retenue : on construit. AVANT TOUT, sur tout depot : lister TOUTES les PR ouvertes (list_pull_requests state=open), pas seulement les siennes — la matinee du 2026-09-07 a ete perdue faute de l'avoir fait. Sur TAAMA : ne rien construire tant que #35 n'est pas fusionnee.",
+  "prochaine_priorite": "FORJA — jamais traite, 12 PR ouvertes, donc MODE TRIAGE sous l'hypothese de Q7 : lire les 12 PR, detecter doublons et perimees, recommander. NE RIEN CONSTRUIRE. Ensuite MillTrack (3 PR) ou African Hybrid Agent (6). AVANT TOUT sur n'importe quel depot : lister TOUTES les PR ouvertes. Signaler a Steeve que BurkinaCollect est public avec une branche par defaut a 2 fichiers.",
   "pr_ouvertes_suivies": [],
   "notes": "Architecture en vigueur depuis le 2026-09-06 : une routine quotidienne reveille la session vivante (les loops en sessions separees ne peuvent pas attacher de depot — parametre 'connectors' indisponible pour l'organisation). 24 loops restent desactives. Un a deux projets par jour.",
   "tronc": "master",
   "projets_traites_le_2026_09_07": [
     "taama (doublon, PR fermee)",
     "agrotrack-bf (PR #17)"
+  ],
+  "projets_traites_le_2026_09_08": [
+    "valuechain-connect (PR #9)",
+    "indubot-afrika (PR #3)"
   ]
 }

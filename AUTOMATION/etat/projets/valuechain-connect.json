@@ -1,0 +1,27 @@
+{
+  "projet": "valuechain-connect",
+  "derniere_execution": "2026-09-08",
+  "verdict": "🟢",
+  "tronc": "master (2026-09-02 — son correctif CI/lint a ete FUSIONNE, seul du portefeuille)",
+  "pr_ouvertes_du_depot": [
+    "#1 (18 juillet) — ajoute /produits et /livraisons, qui existent DEJA au tronc",
+    "#9 la mienne"
+  ],
+  "mes_pr": [
+    "#9 — lib/fcfa.ts, 12 tests (le depot n'en avait aucun), CI etendue aux tests"
+  ],
+  "sante": {
+    "ci": "presente, etendue de lint+build a lint+tests+build",
+    "tests": "12 (aucun avant)",
+    "lint": "propre",
+    "build": "0 erreur, 19 routes",
+    "tsc": "propre"
+  },
+  "prochain_chantier": "Trancher la PR #1 (probablement perimee). Puis la persistance : tout est en MOCK_*.",
+  "dette_connue": [
+    "PR #1 ajoute deux pages qui existent deja au tronc — non fermee, a trancher.",
+    "Aucune persistance : toutes les pages affichent des constantes MOCK_*.",
+    "/livraisons affiche des montants en EUROS sur une place de marche ouest-africaine — question produit."
+  ],
+  "lecon": "Number('12,5') vaut NaN. Sur un produit francophone, la virgule decimale n'est pas un cas limite : c'est le cas nominal."
+}
