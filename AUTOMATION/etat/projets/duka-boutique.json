@@ -1,0 +1,37 @@
+{
+  "projet": "duka-boutique",
+  "nom": "SUGU",
+  "derniere_execution": "2026-09-08",
+  "verdict": "🟠 tronc qui compile, mais aucun test n'a jamais tourne + perte de donnees silencieuse (corrigee par ma PR #12)",
+  "tronc": "master, dernier commit c10e0e7 du 10 aout",
+  "pr_ouvertes_du_depot": [
+    "#11 (2 sept) rend la suite executable 0 -> 64, repare le lint, ajoute la CI — verifiee verte par moi",
+    "#1 (30 juil) POS avancees — 13 commits de retard, et AlertesStock.tsx existe DEJA au tronc depuis la PR #10 fusionnee le 2 aout",
+    "#12 la mienne"
+  ],
+  "mes_pr": [
+    "#12 — une vente non enregistree ne s'affiche plus comme enregistree. EMPILEE sur la #11 (base claude/ci-lint-and-tests), pas sur master."
+  ],
+  "sante": {
+    "build": "passe, 18 routes",
+    "lint": "0 erreur, 32 avertissements (inchange par ma PR)",
+    "tests_master": "Test Files 2 failed — Tests NO TESTS. Aucun vitest.config.ts : ni l'alias @ ni jsdom ne sont resolus, les deux suites echouent au CHARGEMENT.",
+    "tests_avec_11_et_12": "80 (64 avec la #11 seule)",
+    "ci": "aucune sur master ; la #11 l'apporte"
+  },
+  "defaut_corrige": {
+    "fichier": "lib/storage.ts",
+    "nature": "Perte silencieuse de ventes.",
+    "mecanique": "L'ecriture localStorage etait dans un try/catch dont le catch etait vide, et `next` etait renvoye quand meme. Sur refus d'ecriture (quota depasse, navigation privee), l'ecran affiche la vente comme enregistree alors qu'elle ne l'est pas.",
+    "doctrine": "VISION.md §4 nomme le stockage plein comme un cas NOMINAL. Aucun serveur derriere : ce qui n'est pas ecrit est perdu.",
+    "correctif": "lib/persistance.ts — ecrireLocal() retourne l'echec, distingue quota (codes 22 et 1014 + nom) de indisponible ; registre d'echecs ; banniere role=alert dans AppShell ; ecriture sortie de l'updater de setValue."
+  },
+  "hypothese_fausse_verifiee": "J'ai compte 0 breakpoint Tailwind partout et ai failli conclure que SUGU n'etait pas utilisable sur telephone. FAUX : le responsive est en media queries CSS dans globals.css — tiroir sous 768px, BottomNav avec bouton central Caisse, grilles repliees, caisse a 2 colonnes sous 480px. C'est le depot le mieux pense pour le mobile du portefeuille. Compter les `md:` mesure une technique, pas une intention.",
+  "prochain_chantier": "Trancher la PR #1 (13 commits de retard, apport principal deja au tronc). Ensuite : SUGU n'a aucune CI tant que la #11 n'est pas fusionnee.",
+  "dette_connue": [
+    "usePersistedBoutique replie sur la cle `sugu_none_<entite>` si aucune boutique n'est active. AppShell empeche ce cas aujourd'hui ; corriger demanderait de changer la signature. Signale, pas touche.",
+    "32 avertissements de lint (surtout <img> au lieu de next/image).",
+    "middleware.ts alors que Next 15.5 est en place — a surveiller au passage a Next 16 (forja et milltrack sont deja passes a proxy.ts)."
+  ],
+  "lecon": "Deuxieme depot du jour avec le MEME defaut : une ecriture qui echoue et une interface qui dit que tout va bien. BurkinaCollect perdait les soumissions terrain epuisees, SUGU perd les ventes quand le disque est plein. Deux produits, deux sessions differentes, la meme faute. C'est un motif a chercher systematiquement : partout ou un catch est vide autour d'une ecriture."
+}
