@@ -1,0 +1,41 @@
+{
+  "projet": "forja",
+  "derniere_execution": "2026-09-08",
+  "mode": "TRIAGE (hypothese Q7 — 12 PR ouvertes, seuil 5 depasse)",
+  "verdict": "🔴 tronc casse",
+  "tronc": "master, dernier commit 5abfc3c du 2026-08-10",
+  "constat_central": "Le tronc de FORJA est ROUGE : 12 erreurs de lint et 5 tests en echec sur __tests__/ClientsPage.test.tsx. Le depot n'a AUCUN dossier .github, donc aucune CI : rien ne l'a jamais signale.",
+  "pr_ouvertes_du_depot": [
+    "#27 (2 sept) repare 5 tests + 12 lint + ajoute la CI — VIVANTE, base = HEAD de master",
+    "#12 (18 juil) maintenance infra — PERIMEE, contenu deja sur master",
+    "#10 (18 juil) stats + partenaires — PERIMEE, master a mieux depuis le 10 aout",
+    "#9 #8 #7 #6 #5 #4 #3 #2 #1 (juillet) — architecture export de cafe abandonnee par master"
+  ],
+  "mes_pr": [],
+  "verification_pr_27": {
+    "lint_master_seul": "12 erreurs, 18 avertissements",
+    "lint_avec_27": "0 erreur, 20 avertissements",
+    "tests_master_seul": "5 echecs / 148",
+    "tests_avec_27": "148 / 148",
+    "build_avec_27": "passe, 16 routes",
+    "conclusion": "fusionnable en l'etat, et prioritaire"
+  },
+  "triage": {
+    "fusionner": ["#27"],
+    "fermer_sans_perte": ["#10 perimee", "#12 perimee", "#2 doublon strict de #3 (meme HEAD f3d513b)"],
+    "decision_produit_de_steeve": ["#1", "#3", "#4", "#5", "#6", "#7", "#8", "#9"],
+    "imbrications": "#1 ⊂ #2 ≡ #3 · #4 ⊂ #5 · #6 ⊂ #7 ⊂ #8 ⊂ #9 — seules les pointes #3 #5 #9 comptent"
+  },
+  "incompatibilites_des_pr_de_juillet": [
+    "Arborescence : les PR ecrivent dans src/app/dashboard/, le tronc dans src/app/(dashboard)/ — deux tableaux de bord coexisteraient.",
+    "Migrations : les PR sautent de 001 a 004, les 002 et 003 n'existent nulle part. La suite SQL ne se rejouerait pas.",
+    "Convention : la #3 ajoute src/middleware.ts, le tronc est passe a proxy.ts le 10 aout (Next.js 16)."
+  ],
+  "prochain_chantier": "RIEN CONSTRUIRE tant que la #27 n'est pas fusionnee : toute nouvelle branche partirait d'un tronc rouge. Une fois fusionnee, FORJA redescend a 11 PR — toujours au-dessus du seuil, donc encore en triage jusqu'a ce que Steeve tranche Q10.",
+  "dette_connue": [
+    "Aucune CI sur master (c'est precisement ce que la #27 apporte).",
+    "20 avertissements de lint restants : <img> au lieu de next/image sur les 3 sections de la landing, variables inutilisees.",
+    "sprint14.bat / sprint14.ps1 / sprint14_pr.bat / run_build_push.bat : scripts Windows jetables versionnes, dont un deja sur le tronc."
+  ],
+  "lecon": "Un depot sans CI dont le tronc est rouge depuis un mois pendant que 12 PR attendent : le goulot est en aval, pas en amont. Sur 12 PR ouvertes, 11 ne doivent PAS etre fusionnees. Le vrai chiffre du portefeuille n'est pas '69 PR a fusionner' mais 'une poignee a fusionner, une longue trainee a fermer'."
+}

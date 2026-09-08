@@ -167,3 +167,38 @@ recommandation de tri. Il ne repasse en construction qu'une fois la pile redesce
 attend ton accord — je ne l'ai pas appliquée.
 
 **Réponse de Steeve :** _(en attente)_
+
+---
+
+## Q10 — FORJA fait-il encore de l'export de café ? (2026-09-08)
+
+FORJA a douze PR ouvertes. Neuf d'entre elles (#1 à #9, toutes de juillet) construisent un
+produit d'**export de café** : `lots`, `exportations`, `acheteurs`, `finances`, `contrats`,
+avec les migrations `004_lots` → `008_finances`.
+
+Le tronc, lui, a continué sans elles jusqu'au 10 août et il est aujourd'hui **autre chose** :
+un ERP PME + tontine — `clients`, `commandes`, `devis`, `produits`, `qualite`, `planning`,
+`rapports`, `statistiques`, `partenaires`, plus une section `tontine/`. Une seule migration :
+`001_waitlist.sql`.
+
+Ce ne sont pas deux versions du même produit, ce sont deux produits. Elles écrivent même dans
+deux arborescences différentes (`src/app/dashboard/` contre `src/app/(dashboard)/`), donc les
+fusionner produirait deux tableaux de bord dans la même application.
+
+| | Pour | Contre |
+|---|---|---|
+| **A. L'export de café est abandonné** — fermer les 9 PR | le dépôt redevient lisible, le tronc fait autorité | trois semaines de travail de juillet parties à la poubelle |
+| **B. Il revient** — les réécrire sur l'arborescence actuelle | le domaine export est la promesse d'origine de FORJA | c'est un chantier neuf, pas une fusion : les PR se ferment quand même |
+| **C. Les deux domaines cohabitent** | rien n'est perdu | deux tableaux de bord, deux barres latérales, une suite de migrations trouée (002 et 003 manquent) — c'est le pire des trois |
+
+**Hypothèse retenue : A.** Le tronc a raison — c'est lui qui a bougé en août, pendant que ces
+branches dormaient. Je n'ai **rien fermé** : fermer neuf PR est irréversible pour toi, et la
+question est produit, pas technique. En attendant ta réponse, je considère simplement qu'aucune
+de ces neuf PR ne sera fusionnée en l'état, et je ne construis rien dans ce domaine.
+
+⚠️ **Indépendamment de Q10, une action est urgente et sans risque** : le tronc de FORJA est
+**rouge** (12 erreurs de lint, 5 tests en échec) et le dépôt n'a **aucune CI**. La PR **#27**
+répare exactement cela — je l'ai vérifiée moi-même : lint 0 erreur, 148/148 tests, build OK.
+Elle se fusionne sans rien décider d'autre.
+
+**Réponse de Steeve :** _(en attente)_
