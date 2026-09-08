@@ -233,3 +233,39 @@ Dans les deux cas la conclusion est la même : **la PR #7 borne cette dépense e
 pour ~240 utiles) puis fusionnée.
 
 **Réponse de Steeve :** _(en attente)_
+
+---
+
+## Q12 — Le README de BurkinaCollect décrit un produit qui n'existe pas (2026-09-08)
+
+Le dépôt est **public**. Sa branche par défaut contient **deux fichiers** : `README.md` et
+`hooks/useOfflineSync.ts`. Pas de `package.json`, pas d'application.
+
+Ce README présente pourtant un produit fini — badges Next.js 16 / React 19 / TypeScript /
+Tailwind, un lien « 🌍 Voir le site live » vers `burkinacollect.vercel.app`, et six
+fonctionnalités : dashboard opérationnel, form builder, sync queue offline, gestion des agents,
+carte des zones, dashboard superviseur. **Aucune des six n'existe dans aucune branche.** La plus
+avancée (PR #4) a deux routes : `/` et `/about`.
+
+Ce n'est pas une question technique, c'est une question de parole publique — donc la tienne.
+
+| | Quoi | Effet |
+|---|---|---|
+| **A. Corriger le README** | décrire ce qui existe, et déplacer les six fonctionnalités dans une section « feuille de route » | le dépôt redevient honnête tout de suite ; la promesse reste lisible, mais datée |
+| **B. Construire ce que le README annonce** | six fonctionnalités à écrire | c'est un vrai chantier, pas une correction ; entre-temps le décalage reste public |
+| **C. Rendre le dépôt privé le temps de rattraper** | | tu perds la vitrine, qui est peut-être ce à quoi elle sert |
+
+**Hypothèse retenue : A**, puis B au rythme des loops. **Je n'ai rien modifié** : réécrire la
+promesse publique d'un projet est ta parole, pas la mienne — même limite que `PROJECT.md` et
+`VISION.md` (`00-protocole-forge.md §3`, règle 10).
+
+⚠️ **Indépendamment de Q12, deux choses sont urgentes et sans ambiguïté :**
+
+1. Le seul code de `main`, `useOfflineSync.ts`, **perd des soumissions terrain en silence** — un
+   item qui épuise ses `MAX_RETRIES` est effacé de `localStorage` sans avoir été envoyé et sans
+   trace. Pour un outil de collecte offline-first, c'est le pire défaut possible.
+2. La **PR #4** corrige exactement cela, publie l'application et ajoute une CI. Je l'ai vérifiée :
+   lint 0, 6/6 tests, build 3 routes. **Elle est en brouillon depuis le 2 septembre** — c'est
+   probablement la seule raison pour laquelle personne ne l'a regardée.
+
+**Réponse de Steeve :** _(en attente)_
