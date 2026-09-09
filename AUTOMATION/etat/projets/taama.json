@@ -1,8 +1,8 @@
 {
   "projet": "taama",
-  "derniere_execution": "2026-09-07",
-  "verdict": "🟠",
-  "tronc": "main",
+  "derniere_execution": "2026-09-09",
+  "verdict": "🔴 le tronc est un commit ORPHELIN — 17 PR sur 18 sont infusionnables par construction",
+  "tronc": "main = UN SEUL commit, 3f8318d du 10 aout, SANS PARENT. L'historique de juin-juillet (TAAMA v1.0, 66ca73d) n'est plus sur le tronc.",
   "pr_ouvertes_du_depot": [
     "18 PR ouvertes (verifie par l'API le 2026-09-07) : #35 #26 #18 #17 #16 #15 #14 #13 #12 #11 #10 #9 #8 #7 #6 #5 #4 #3",
     "La plus ancienne : #3, du 2026-06-29 — 70 jours",
@@ -10,7 +10,7 @@
   ],
   "mes_pr": [],
   "chantier_en_cours": "",
-  "prochain_chantier": "MODE TRIAGE, pas construction. 18 PR ouvertes : lire, detecter doublons et perimees, recommander. Fusionner #35 d'abord — elle debloque la verification automatique. Ne rien construire tant que la pile n'est pas redescendue.",
+  "prochain_chantier": "Fusionner la #35. Puis, si Steeve repond oui a Q14, extraire /pricing /demo /contact /tarifs de la #10 et /blog de la #12 sur une branche partant de main — par EXTRACTION de fichiers, jamais par fusion : sans ancetre commun aucune fusion n'est possible.",
   "dette_connue": [
     "18 PR ouvertes, 0 fusionnee, la plus ancienne du 2026-06-29. Le blocage est decisionnel.",
     "#35 verte et prete depuis le 2026-09-02 : elle repare 59 tests morts et ajoute la CI.",
@@ -20,5 +20,49 @@
     "25 branches distantes."
   ],
   "incident": "PR #36 ouverte puis fermee le meme jour : doublon de #35, non detecte faute d'avoir liste les PR ouvertes du depot avant de commencer. Regle ajoutee au playbook 01, etape 0.",
-  "correction_2026_09_07": "Ce fichier annoncait 5 PR ouvertes. C'etait FAUX : il y en a 18. L'erreur venait d'une liste partielle prise pour complete. Detectee par recoupement avec un comptage des refs refs/pull/*/merge, puis confirmee par l'API."
+  "correction_2026_09_07": "Ce fichier annoncait 5 PR ouvertes. C'etait FAUX : il y en a 18. L'erreur venait d'une liste partielle prise pour complete. Detectee par recoupement avec un comptage des refs refs/pull/*/merge, puis confirmee par l'API.",
+  "mode": "TRIAGE (18 PR ouvertes)",
+  "constat_central": "git merge-base origin/main origin/<branche> ne renvoie RIEN pour 17 des 18 PR. Ce ne sont pas des PR en retard : git n'a rien a quoi les rattacher. Seule la #35 descend de 3f8318d. Deuxieme depot a histoires disjointes apres Problem to Projects Africa — mais ici c'est UN tronc contre DIX-SEPT PR.",
+  "ce_que_le_remplacement_a_garde": "Le tableau de bord, ENRICHI : main a toutes les pages de l'ancienne histoire plus analytics, certifications, commandes, fournisseurs, parcelles, rapports, tracabilite. Et en plus complet — inventaire/page.tsx fait 591 lignes sur main contre 29 avant.",
+  "ce_que_le_remplacement_a_perdu": "TOUT le site public. main n'a que src/app/page.tsx. Les pages /pricing /demo /contact /tarifs /blog n'existent NULLE PART ailleurs que dans les PR orphelines.",
+  "chaine_des_pages_publiques": "#4 pricing-page ⊂ #5 demo-page ⊂ #6 contact-page ⊂ #9 tarifs-deploy ⊂ #10 contact-leads. #12 blog est une branche separee.",
+  "tri": {
+    "fusionner": [
+      "#35 — seule PR rattachee au tronc, verifiee verte"
+    ],
+    "recuperer_avant_de_fermer": [
+      "#10 contact-leads (/pricing /demo /contact /tarifs)",
+      "#12 blog (/blog)"
+    ],
+    "fermer_chaine_intermediaire": [
+      "#3",
+      "#4",
+      "#5",
+      "#6",
+      "#7",
+      "#8",
+      "#9"
+    ],
+    "fermer_tableau_de_bord_deja_au_tronc": [
+      "#11",
+      "#13",
+      "#14",
+      "#15",
+      "#16",
+      "#17",
+      "#18",
+      "#26"
+    ],
+    "total": "15 fermables sans rien perdre, 2 a sauver, 1 a fusionner"
+  },
+  "verification_pr_35": {
+    "lint_main_seul": "9 erreurs, 13 avertissements",
+    "lint_avec_35": "0 erreur, 13 avertissements",
+    "tests_main_seul": "1 SUITE ENTIERE bloquee au chargement (__tests__/InventairePage.test.tsx), 110 tests",
+    "tests_avec_35": "169 / 169, 10 suites",
+    "build_avec_35": "passe, 20 routes",
+    "ci": "aucune sur main ; la #35 l'apporte"
+  },
+  "mon_erreur_du_2026_09_07": "J'ai traite TAAMA le 7 septembre, corrige mon compte de PR (5 -> 18) et ferme un doublon — mais je n'ai PAS vu que le tronc etait un commit orphelin, donc que les PR que je comptais etaient inertes. J'ai compte une pile sans verifier qu'elle tenait debout. La regle n°5 du 8 septembre est arrivee un jour trop tard pour TAAMA.",
+  "lecon": "Compter les PR ouvertes ne dit rien de leur fusionnabilite. Un tronc peut avoir ete remplace par un commit orphelin, et toutes les PR qui le visent deviennent alors decoratives. Et l'inverse du reflexe est vrai aussi : j'ai failli conclure que les 17 etaient redondantes parce que le tableau de bord etait sauve — c'aurait fait perdre le site public entier, qui n'existe que la."
 }

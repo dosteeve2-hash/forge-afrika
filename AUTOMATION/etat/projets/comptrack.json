@@ -1,8 +1,8 @@
 {
   "projet": "comptrack",
-  "derniere_execution": "2026-09-07",
-  "verdict": "🔴",
-  "tronc": "feat/comptrack-v1 (branche par defaut) — main diverge, meme date du 2026-08-10",
+  "derniere_execution": "2026-09-09",
+  "verdict": "🔴 17 PR sur 21 visent une branche qui n'est pas le tronc",
+  "tronc": "feat/comptrack-v1 (BRANCHE PAR DEFAUT), 24 pages dont (auth)/connexion, (auth)/inscription, bilan, contrats, declarations, employes, paie, tresorerie",
   "pr_ouvertes_du_depot": [
     "20 PR ouvertes, la plus ancienne a 69 jours, AUCUNE fusionnee"
   ],
@@ -14,7 +14,7 @@
     "branches": 34
   },
   "chantier_en_cours": "",
-  "prochain_chantier": "NE RIEN CONSTRUIRE. 17 des 20 PR ajoutent des pages qui existent deja au tronc. Fusionner d'abord #38 (repare le lint, les tests, ajoute la CI), puis trier les 19 autres. Construire seulement apres.",
+  "prochain_chantier": "Fusionner la #38. Puis Q15 : trancher entre feat/comptrack-v1 et main, et faire de la reponse la branche par defaut. Puis fermer #23 et #22. Ne relire les 14 restantes qu'apres.",
   "dette_connue": [
     "20 PR ouvertes, 0 fusionnee, la plus ancienne du 2026-06-29.",
     "17 d'entre elles ajoutent des pages deja presentes au tronc — verifie branche par branche.",
@@ -24,5 +24,30 @@
     "34 branches distantes."
   ],
   "incident": "",
-  "lecon": "Troisieme depot du jour ou le blocage est decisionnel et non technique. TAAMA 5 PR, AgroTrack BF 2 PR, CompTrack 20 PR. Le code ne manque pas, les fusions manquent."
+  "lecon": "Comparer une PR au mauvais tronc donne un resultat faux avec l'apparence de la rigueur. Ici 17 PR visaient main alors que la branche par defaut est feat/comptrack-v1 — mon triage du 7 septembre les avait comptees sans le voir. Et un sparse checkout herite peut faire croire qu'un depot est casse alors que git dit 'working tree clean'.",
+  "mode": "TRIAGE (21 PR ouvertes — la plus grosse pile du portefeuille)",
+  "autre_tronc": "main — 20 pages, dont catalogue, vente-rapide, budget, mais AUCUNE page d'authentification. Diverge de v1 le 27 juin (ddf6add) : main +36 commits, v1 +12.",
+  "constat_central": "4 PR visent feat/comptrack-v1 (#38 #36 #30 #8), 17 visent main. Les fusionner mettrait du code sur une branche que le produit n'utilise pas. Aucune ne peut aboutir tant que la question du tronc n'est pas tranchee (Q15).",
+  "erreur_de_methode_corrigee": "Mes premieres mesures disaient build casse / aucun test / aucun lint. FAUX : le clone local herite d'une session precedente etait en SPARSE CHECKOUT a 16% — app/, components/, lib/, __tests__/ absents du disque. Et `git status` affichait 'working tree clean'. Tout a ete remesure apres `git sparse-checkout disable`. Lecon : verifier son propre environnement avant d'accuser le depot.",
+  "sante_du_vrai_tronc": {
+    "build": "passe, 29 pages",
+    "tests": "6 echecs / 72, 2 suites en echec",
+    "lint": "NE DEMARRE PAS — aucun eslint.config.mjs, et package.json appelle encore `next lint`. Ce n'est pas du lint sale, c'est PAS DE LINT.",
+    "ci": "aucune"
+  },
+  "verification_pr_38": {
+    "tests_tronc_seul": "6 echecs / 72",
+    "tests_avec_38": "72 / 72, 3 suites",
+    "lint_tronc_seul": "ne demarre pas",
+    "lint_avec_38": "0 erreur, 4 avertissements",
+    "build_avec_38": "passe, 29 pages",
+    "base": "feat/comptrack-v1 — la bonne branche",
+    "conclusion": "seule des 21 PR a la fois sur la bonne branche et verifiee verte. A fusionner d'abord."
+  },
+  "absorbees_par_le_vrai_tronc": {
+    "#23 maintenance-infra": "64 fichiers ajoutes, 64 DEJA sur v1 — a fermer",
+    "#22 sprint15-factures-rapports": "19 ajoutes, 19 DEJA sur v1 — a fermer",
+    "#21 previsions-sprint13": "21 ajoutes, 20 deja sur v1"
+  },
+  "prudence": "Pour les PR de juin-juillet (#12 #11 #10 #9 #7 #6 #5 #4), le diff contre v1 melange leur travail propre et la divergence des deux troncs : leurs chiffres d'ajout ne sont pas exploitables tels quels. Les relire APRES avoir tranche Q15, pas avant."
 }

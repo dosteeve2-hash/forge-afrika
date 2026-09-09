@@ -318,3 +318,74 @@ cœur du produit — et un fichier de tests que rien ne peut exécuter (aucun sc
 lint 0 problème, `tsc` passe, 30/30 tests, build 18 routes.
 
 **Réponse de Steeve :** _(en attente)_
+
+---
+
+## Q14 — TAAMA : le site public doit-il revenir ? (2026-09-09)
+
+Le tronc de TAAMA est **un commit orphelin**. `main` ne contient qu'un seul commit, `3f8318d` du
+10 août, et il n'a pas de parent : l'historique de juin-juillet a été remplacé, pas continué.
+
+Ce remplacement a **gardé le tableau de bord et l'a enrichi** — `main` a toutes les pages de
+l'ancienne histoire plus sept nouvelles, et en plus complet (`inventaire/page.tsx` : 591 lignes
+contre 29).
+
+Mais il a **perdu tout le site public**. `main` n'a que `src/app/page.tsx`. Ces cinq pages
+n'existent nulle part ailleurs que dans des PR devenues infusionnables :
+
+| Page | Où elle survit |
+|---|---|
+| `/pricing`, `/demo`, `/contact`, `/tarifs` | PR **#10** (`feat/contact-leads`) |
+| `/blog` | PR **#12** (`feat/blog`) |
+
+| | Quoi | Conséquence |
+|---|---|---|
+| **A. Oui, les restaurer** | extraire les fichiers de #10 et #12 sur une branche partant de `main` | TAAMA retrouve une vitrine — tarifs, démo, contact : c'est par là qu'arrivent les prospects d'un SaaS B2B |
+| **B. Non, elles étaient périmées** | fermer #10 et #12 avec les autres | le site se limite à sa page d'accueil ; à réécrire un jour de zéro |
+| **C. Les réécrire plutôt que les restaurer** | | plus coûteux, mais le contenu de juin ne reflète peut-être plus l'offre |
+
+**Hypothèse retenue : A.** Une page `/tarifs` et une page `/demo` sont l'entrée d'un tunnel de
+vente B2B ; les perdre par accident de branche n'est pas une décision produit, c'est un dégât
+collatéral. **Je n'ai rien extrait ni fermé** — récupérer suppose de savoir si tu veux ces pages,
+et fermer quinze PR est irréversible pour toi.
+
+⚠️ **Indépendamment de Q14** : sur `main`, `npx eslint` donne **9 erreurs**, une **suite de tests
+entière** ne se charge pas (`__tests__/InventairePage.test.tsx` — les 110 tests « au vert »
+masquaient ce trou), et il n'y a **aucune CI**. La **PR #35** corrige tout : vérifiée ici,
+0 erreur de lint, **169/169** tests, build 20 routes.
+
+**Réponse de Steeve :** _(en attente)_
+
+---
+
+## Q15 — CompTrack : `feat/comptrack-v1` ou `main` ? (2026-09-09)
+
+CompTrack a deux troncs, divergés le 27 juin (`ddf6add`) et avancés séparément jusqu'au 10 août.
+
+| | `feat/comptrack-v1` ← **branche par défaut** | `main` |
+|---|---|---|
+| Commits depuis la divergence | 12 | 36 |
+| Pages | **24** | 20 |
+| En propre | `(auth)/connexion`, `(auth)/inscription`, `bilan`, `contrats`, `declarations`, `employes`, `paie`, `tresorerie` | `catalogue`, `vente-rapide`, `budget` |
+| Authentification | oui | **aucune** |
+
+Et surtout : **17 des 21 PR ouvertes visent `main`**, qui n'est pas la branche par défaut. Seules
+#38, #36, #30 et #8 visent `v1`. Dix-sept PR pointent donc vers une branche que le produit
+n'utilise pas — les fusionner mettrait du code là où personne ne le livre.
+
+| | Pour | Contre |
+|---|---|---|
+| **A. `feat/comptrack-v1` est le tronc** | c'est déjà la branche par défaut ; elle porte l'authentification, la paie, les déclarations et le bilan — le cœur d'un SaaS de comptabilité SYSCOHADA | il faut re-cibler ou fermer 17 PR |
+| **B. `main` est le tronc** | 36 commits contre 12, et `catalogue` / `vente-rapide` suggèrent une direction plus large | pas d'authentification du tout ; il faudrait changer la branche par défaut et perdre paie/déclarations/bilan |
+| **C. Fusionner les deux** | rien n'est perdu | 36 et 12 commits divergents sur les mêmes fichiers : la réconciliation est un chantier à part entière |
+
+**Hypothèse retenue : A.** C'est la branche par défaut, et un logiciel de comptabilité sans
+connexion utilisateur n'est pas livrable. **Je n'ai rien re-ciblé ni fermé** : re-cibler 17 PR et
+changer une branche par défaut sont deux gestes qui t'appartiennent.
+
+⚠️ **Indépendamment de Q15** : sur `feat/comptrack-v1`, `npx eslint` **ne démarre même pas** —
+il n'y a aucun `eslint.config.mjs`, et `package.json` appelle encore `next lint`. Six tests sont
+en échec sur 72, et il n'y a aucune CI. La **PR #38** corrige tout, sur la bonne branche :
+vérifiée ici, **72/72** tests, ESLint fonctionne (0 erreur), build 29 pages.
+
+**Réponse de Steeve :** _(en attente)_

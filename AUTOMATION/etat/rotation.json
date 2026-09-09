@@ -1,9 +1,9 @@
 {
   "_doc": "Priorite generale du lendemain, tous projets confondus. Ecrit par le DIGEST seul (playbook 03). Les loops par projet ont leur propre memoire dans etat/projets/<id>.json et ne touchent jamais ce fichier. Voir AUTOMATION/README.md §4.",
-  "derniere_execution": "2026-09-08",
-  "derniere_routine": "forge quotidien — triage FORJA (session vivante)",
+  "derniere_execution": "2026-09-09",
+  "derniere_routine": "forge quotidien — triage TAAMA + CompTrack",
   "reportes": [],
-  "prochaine_priorite": "TOUS LES TIER 1 SONT DESORMAIS TRAITES. Restent TAAMA (18 PR) et CompTrack (20 PR), les deux plus grosses piles, traitees le 2026-09-07 mais jamais en mode triage systematique — c'est la prochaine cible naturelle. Puis les tier 2 (Portfolio 2.0, Phone Showcase, Sahel Commerce AI, UEEMT-Tokat), jamais traites, non attaches. REGLES ACQUISES le 2026-09-08, a appliquer AVANT tout : (1) lister TOUTES les PR ouvertes ; (2) regarder la DATE du dernier commit du tronc — tronc qui avance => FERMER les PR, tronc arrete => les FUSIONNER ; (3) verifier que le tronc est VERT avant de brancher — et d'abord qu'il S'INSTALLE (npm ci, pas npm install) ; (4) regarder ce que la branche par defaut contient REELLEMENT ; (5) verifier s'il y a PLUSIEURS troncs et s'ils ont un ancetre commun ; (6) ne pas confondre technique et intention (SUGU fait son responsive en media queries, pas en Tailwind) ; (7) verifier ce qu'un workflow FAIT, pas qu'il existe — celui de MIFA Life est le modele Azure de GitHub, rouge depuis toujours ; (8) chercher les catch VIDES autour d'une ecriture (BurkinaCollect et SUGU, le meme jour) ; (9) chercher les CHAINES de PR imbriquees avec git merge-base --is-ancestor — MIFA Life en avait une de NEUF.",
+  "prochaine_priorite": "Les tier 2, jamais traites et non attaches (add_repo necessaire) : Portfolio 2.0 (Mon-Portfolio-2.0), Phone Showcase, Sahel Commerce AI, UEEMT-Tokat. Puis les tier 3 en controle de sante seulement. TOUS les tier 1 sont traites (9 le 2026-09-08, TAAMA et CompTrack le 2026-09-09). REGLE 10, acquise le 2026-09-09 : VERIFIER SON PROPRE ENVIRONNEMENT avant d'accuser un depot — le clone de comptrack etait en sparse checkout a 16% et `git status` affichait 'working tree clean', ce qui m'a fait mesurer 'build casse, aucun test, aucun lint' sur un depot qui build tres bien. Faire `git sparse-checkout disable` et compter les fichiers avant toute mesure sur un clone herite.",
   "pr_ouvertes_suivies": [],
   "notes": "Architecture en vigueur depuis le 2026-09-06 : une routine quotidienne reveille la session vivante (les loops en sessions separees ne peuvent pas attacher de depot — parametre 'connectors' indisponible pour l'organisation). 24 loops restent desactives. Un a deux projets par jour. 2026-09-08 : premier passage en mode triage (hypothese Q7, non validee) sur FORJA — 12 PR ouvertes, seuil 5.",
   "tronc": "master",
@@ -30,6 +30,25 @@
     "burkinacollect#4": "EN BROUILLON — contient toute l'application du depot",
     "problem-to-projects-africa#10": "ouverte — tsc echoue sans elle",
     "duka-boutique#11": "ouverte — 0 test executable sans elle",
-    "mifa_life_shop#46": "ouverte — le depot ne s'installe meme pas sans elle (npm ci echoue)"
-  }
+    "mifa_life_shop#46": "ouverte — le depot ne s'installe meme pas sans elle (npm ci echoue)",
+    "taama#35": "ouverte — une suite de tests entiere bloquee sans elle",
+    "comptrack#38": "ouverte — eslint ne demarre meme pas sans elle"
+  },
+  "projets_traites_le_2026_09_09": [
+    "taama (TRIAGE)",
+    "comptrack (TRIAGE)"
+  ],
+  "regles_de_triage": [
+    "1. Lister TOUTES les PR ouvertes du depot, pas seulement les miennes.",
+    "2. Regarder la DATE du dernier commit du tronc : tronc qui avance sans ses PR => FERMER ; tronc arrete => FUSIONNER.",
+    "3. Verifier que le tronc est VERT, et d'abord qu'il S'INSTALLE (npm ci, pas npm install).",
+    "4. Regarder ce que la branche par defaut contient REELLEMENT (BurkinaCollect : 2 fichiers).",
+    "5. Verifier s'il y a PLUSIEURS troncs et s'ils ont un ANCETRE COMMUN (TAAMA : main est un commit orphelin).",
+    "6. Ne pas confondre technique et intention (SUGU fait son responsive en media queries, pas en Tailwind).",
+    "7. Verifier ce qu'un workflow FAIT, pas qu'il existe (MIFA Life : modele Azure de GitHub, rouge depuis toujours).",
+    "8. Chercher les catch VIDES autour d'une ecriture (BurkinaCollect et SUGU le meme jour).",
+    "9. Chercher les CHAINES de PR imbriquees avec git merge-base --is-ancestor (MIFA Life : une chaine de NEUF).",
+    "10. Verifier SON PROPRE ENVIRONNEMENT avant d'accuser le depot (comptrack : sparse checkout a 16%, git status 'clean').",
+    "11. Verifier quelle branche une PR VISE, pas seulement ce qu'elle contient (CompTrack : 17 PR visent une branche qui n'est pas le tronc)."
+  ]
 }
