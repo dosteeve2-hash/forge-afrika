@@ -1,0 +1,28 @@
+{
+  "projet": "phone-showcase",
+  "nom": "Phone Showcase (AURA Pro)",
+  "tier": 2,
+  "derniere_execution": "2026-09-10",
+  "verdict": "🟠 produit sain, outillage absent — la PR #1 le corrige",
+  "tronc": "master, TROIS commits, dernier du 27 juin",
+  "nature": "Site vitrine de 4 pages statiques et 8 composants, Next.js 16. Demonstration de savoir-faire front facon Apple pour un telephone fictif. La doctrine offline-first et FCFA ne s'y applique pas.",
+  "pr_ouvertes_du_depot": ["#1 (2 sept) Introduit ESLint, des tests et la CI — verifiee verte"],
+  "mes_pr": [],
+  "sante": {
+    "build":"passe, 4 pages",
+    "lint":"NE DEMARRE PAS — aucun eslint.config.mjs (meme motif qu'a CompTrack)",
+    "tests":"aucun",
+    "ci":"aucune",
+    "scripts":"trois seulement : dev, build, start"
+  },
+  "verification_pr_1": {
+    "lint_avec_1":"0 erreur",
+    "tests_avec_1":"3 / 3 (rien a lancer avant)",
+    "build_avec_1":"passe, 4 pages",
+    "reserve":"ajoute scripts/captures.mjs et 4 captures d'ecran dans docs/captures/ (~366 Ko). Discutable — des binaires dans un depot — mais sans commune mesure avec les 39 124 lignes de coverage/ de african-hybrid-agent#7 : ici c'est modeste et ca documente une vitrine.",
+    "conclusion":"a fusionner — seule PR du depot, verte, premiere verification automatique du projet"
+  },
+  "rien_construit_et_c_est_deliberе": "Le depot est sain cote produit et sa seule PR ouverte corrige deja sa seule vraie lacune. Y ajouter du code aujourd'hui serait soit empiler sur une PR non lue, soit inventer un besoin. Trois commits en trois mois sur un site vitrine ne sont pas un probleme a resoudre : c'est un projet fini.",
+  "prochain_chantier": "Fusionner la #1. Rien d'autre.",
+  "lecon": "Tous les depots ne demandent pas du travail. Un site vitrine fini, qui build, avec une seule PR verte en attente, n'a besoin que d'une fusion. Confondre 'jamais traite par le loop' et 'a l'abandon' ferait produire du travail inutile."
+}

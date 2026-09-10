@@ -1,0 +1,31 @@
+{
+  "projet": "mon-portfolio-2",
+  "nom": "Portfolio 2.0",
+  "tier": 2,
+  "derniere_execution": "2026-09-10",
+  "verdict": "🟢 le premier depot SAIN du portefeuille",
+  "tronc": "master, dernier commit 81e9f48 du 2 septembre",
+  "pr_ouvertes_du_depot": ["#10 la mienne — aucune autre"],
+  "mes_pr": ["#10 — garde-fou i18n : attraper les cles appelees qui n'existent pas"],
+  "sante": {
+    "lint": "propre",
+    "check_messages": "en/fr/tr synchronises, 103 cles",
+    "check_links": "16 projets, aucun lien mort (13 sondes non concluantes : proxy reseau de ma session)",
+    "check_i18n_usage": "100 cles appelees, toutes resolues (ma PR)",
+    "build": "passe, 9 pages statiques (3 locales x 2 routes)",
+    "ci": "presente et a jour",
+    "tests": "aucun framework de test — le depot s'appuie sur des scripts Node verifies en CI"
+  },
+  "fait_notable": "Sa PR du 2 septembre (#9) a ete FUSIONNEE. Deuxieme depot du portefeuille a l'avoir fait apres MillTrack, et le seul dont le tableau de PR soit entierement vide.",
+  "defaut_corrige": {
+    "nature": "check-messages.mjs verifie la FORME des locales, pas que les cles appelees existent. Une cle renommee dans les trois fichiers a la fois laisse le controle vert pendant que la page affiche le chemin brut de la cle.",
+    "cas_dangereux": "Les cles DYNAMIQUES : AboutSection construit ses libelles depuis une table { labelKey: 'locationLabel' } puis t(fact.labelKey). Aucune recherche de t('...') ne les voit. Meme motif dans la navigation, les competences et les statistiques : 28 des 103 cles ne sont atteignables que par la.",
+    "consequence": "Pas un plantage : `about.availValue` affiche en toutes lettres a un recruteur, sur la page censee inspirer confiance.",
+    "correctif": "scripts/check-i18n-usage.mjs — Node pur, zero dependance, cable en CI. Resout les cles statiques (t, t.rich, t.raw, t.markup) ET les litteraux affectes a une propriete finissant par Key.",
+    "preuve": "Deux pannes provoquees pour de vrai puis annulees. Renommer about.availValue dans les 3 locales : check-messages code 0, check-i18n-usage code 1. Supprimer about.bio1 des 3 locales : check-messages code 0, check-i18n-usage code 1."
+  },
+  "choix_signale": "PAS de framework de test ajoute. Le depot n'en a aucun et fonctionne par scripts Node verifies en CI ; y greffer Vitest pour ce seul besoin aurait ete une decision d'architecture deguisee en correctif.",
+  "nettoyage": "Fichier `master` a la racine supprime — une ligne, 'MERGE feat/projects-contact-0629 -', redirection de shell partie de travers. Un fichier nomme master rend `git checkout master` ambigu. deploy.ps1 et do_merge.bat LAISSES tels quels.",
+  "prochain_chantier": "Rien d'urgent. Le depot est sain. Si Steeve veut aller plus loin : les 13 sondes de liens non concluantes meritent d'etre relancees hors proxy pour savoir si ces demos repondent vraiment.",
+  "lecon": "Un garde-fou peut etre vert et aveugle. check-messages verifiait que les trois locales se ressemblent — pas qu'elles servent a quelque chose. La question a se poser devant tout controle automatique : QUELLE panne precise laisse-t-il passer ? Et il faut provoquer cette panne pour de vrai avant de croire qu'on l'a fermee."
+}

@@ -1,9 +1,9 @@
 {
   "_doc": "Priorite generale du lendemain, tous projets confondus. Ecrit par le DIGEST seul (playbook 03). Les loops par projet ont leur propre memoire dans etat/projets/<id>.json et ne touchent jamais ce fichier. Voir AUTOMATION/README.md §4.",
-  "derniere_execution": "2026-09-09",
-  "derniere_routine": "forge quotidien — triage TAAMA + CompTrack",
+  "derniere_execution": "2026-09-10",
+  "derniere_routine": "forge quotidien — Portfolio 2.0 (PR #10) + Phone Showcase (triage)",
   "reportes": [],
-  "prochaine_priorite": "Les tier 2, jamais traites et non attaches (add_repo necessaire) : Portfolio 2.0 (Mon-Portfolio-2.0), Phone Showcase, Sahel Commerce AI, UEEMT-Tokat. Puis les tier 3 en controle de sante seulement. TOUS les tier 1 sont traites (9 le 2026-09-08, TAAMA et CompTrack le 2026-09-09). REGLE 10, acquise le 2026-09-09 : VERIFIER SON PROPRE ENVIRONNEMENT avant d'accuser un depot — le clone de comptrack etait en sparse checkout a 16% et `git status` affichait 'working tree clean', ce qui m'a fait mesurer 'build casse, aucun test, aucun lint' sur un depot qui build tres bien. Faire `git sparse-checkout disable` et compter les fichiers avant toute mesure sur un clone herite.",
+  "prochaine_priorite": "Sahel Commerce AI puis UEEMT-Tokat — les deux derniers tier 2, non attaches (add_repo necessaire). Ensuite les tier 3 en CONTROLE DE SANTE seulement, jamais en developpement (playbook 02). REGLE 12, acquise le 2026-09-10 : un depot 'jamais traite par le loop' n'est pas forcement 'a l'abandon'. Phone Showcase a trois commits en trois mois, un build vert et une seule PR verte en attente : il n'a besoin que d'une fusion, pas de travail. Confondre les deux fait produire du code inutile. REGLE 13 : un garde-fou peut etre vert ET aveugle. Devant tout controle automatique, se demander QUELLE panne precise il laisse passer — et provoquer cette panne pour de vrai avant de croire qu'on l'a fermee.",
   "pr_ouvertes_suivies": [],
   "notes": "Architecture en vigueur depuis le 2026-09-06 : une routine quotidienne reveille la session vivante (les loops en sessions separees ne peuvent pas attacher de depot — parametre 'connectors' indisponible pour l'organisation). 24 loops restent desactives. Un a deux projets par jour. 2026-09-08 : premier passage en mode triage (hypothese Q7, non validee) sur FORJA — 12 PR ouvertes, seuil 5.",
   "tronc": "master",
@@ -32,7 +32,10 @@
     "duka-boutique#11": "ouverte — 0 test executable sans elle",
     "mifa_life_shop#46": "ouverte — le depot ne s'installe meme pas sans elle (npm ci echoue)",
     "taama#35": "ouverte — une suite de tests entiere bloquee sans elle",
-    "comptrack#38": "ouverte — eslint ne demarre meme pas sans elle"
+    "comptrack#38": "ouverte — eslint ne demarre meme pas sans elle",
+    "mon-portfolio-2.0#9": "FUSIONNEE le 2 septembre — je ne l'avais pas vu avant le 10",
+    "phone-showcase#1": "ouverte — eslint ne demarre pas sans elle",
+    "_compte_juste": "ONZE depots, DEUX fusions (milltrack#12 et mon-portfolio-2.0#9). J'ai repete 'neuf depots, une fusion' pendant deux jours : exact pour les tier 1, FAUX pour le portefeuille."
   },
   "projets_traites_le_2026_09_09": [
     "taama (TRIAGE)",
@@ -49,6 +52,12 @@
     "8. Chercher les catch VIDES autour d'une ecriture (BurkinaCollect et SUGU le meme jour).",
     "9. Chercher les CHAINES de PR imbriquees avec git merge-base --is-ancestor (MIFA Life : une chaine de NEUF).",
     "10. Verifier SON PROPRE ENVIRONNEMENT avant d'accuser le depot (comptrack : sparse checkout a 16%, git status 'clean').",
-    "11. Verifier quelle branche une PR VISE, pas seulement ce qu'elle contient (CompTrack : 17 PR visent une branche qui n'est pas le tronc)."
+    "11. Verifier quelle branche une PR VISE, pas seulement ce qu'elle contient (CompTrack : 17 PR visent une branche qui n'est pas le tronc).",
+    "12. 'Jamais traite par le loop' n'est pas 'a l'abandon' — un projet fini n'a besoin que d'une fusion (Phone Showcase).",
+    "13. Un garde-fou peut etre vert ET aveugle : demander quelle panne il laisse passer, et la provoquer pour de vrai (Portfolio 2.0)."
+  ],
+  "projets_traites_le_2026_09_10": [
+    "mon-portfolio-2 (PR #10)",
+    "phone-showcase (TRIAGE)"
   ]
 }
