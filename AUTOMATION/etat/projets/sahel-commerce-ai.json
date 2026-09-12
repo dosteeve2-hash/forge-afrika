@@ -1,0 +1,25 @@
+{
+  "projet": "sahel-commerce-ai",
+  "tier": 2,
+  "derniere_execution": "2026-09-12",
+  "verdict": "🔴 endpoint IA ouvert qui ECRIT en base — corrige par ma PR #1",
+  "tronc": "main, DEUX commits, dernier du 8 juillet",
+  "nature": "Backend FastAPI + frontend Next.js + Supabase. Agent IA en tool-calling pour commercants d'Afrique de l'Ouest : inventaire, ventes, reconciliation mobile money, PWA.",
+  "pr_ouvertes_du_depot": ["#1 la mienne — aucune autre, aucune autre branche non plus"],
+  "mes_pr": ["#1 — limite de debit sur /api/chat + premiere CI du depot"],
+  "defaut_corrige": {
+    "nature": "/api/chat sans authentification NI limite de debit.",
+    "gravite": "L'agent dispose d'outils qui ECRIVENT : add_product, adjust_stock, record_sale, reconcile_momo. Donc deux consequences — vider le credit d'API (visible sur une facture) ET modifier le stock d'un commercant ou enregistrer de fausses ventes (invisible). La seconde est la plus grave pour un outil cense tenir la comptabilite d'une boutique.",
+    "regle": "CLAUDE.md : tout endpoint touchant Anthropic/OpenAI doit avoir un rate limit, max 20 req/utilisateur/heure.",
+    "correctif": "backend/app/rate_limit.py — compteur a fenetre fixe en memoire, SOUS VERROU (uvicorn sert les endpoints synchrones dans un pool de threads), purge des fenetres expirees, 429 + Retry-After + RateLimit-*."
+  },
+  "ce_qui_etait_correct": "Le prompt systeme est une CONSTANTE et le message utilisateur entre comme tour `user` separe. La regle d'injection du CLAUDE.md est respectee — verifie avant de chercher ailleurs.",
+  "choix_assumes": [
+    "Aucune dependance ajoutee a la production : render.yaml est mono-instance, 30 lignes suffisent. Le jour ou il y a plusieurs repliques, seul l'interieur de etat_quota() change, pas son point d'entree. Ecrit dans le module.",
+    "Identification par IP, usurpable, et le module le dit : ca borne une boucle depuis une seule machine, pas un attaquant decide. Ce n'est pas de l'authentification."
+  ],
+  "preuve": "Le depot n'avait AUCUN test. 12 ajoutes. En retirant la dependance de chat.py : 2 echecs (la 21e requete passe). En la remettant : 12/12.",
+  "sante": {"tests":"12 (aucun avant)","ci":"premiere CI du depot — tests backend + build frontend","build_frontend":"passe, 5 pages"},
+  "prochain_chantier": "L'AUTHENTIFICATION — c'est le vrai manque. Une limite de debit borne l'abus, elle ne dit pas QUI modifie le stock. Decision d'architecture : Q16.",
+  "lecon": "Un endpoint IA sans limite est un probleme de cout. Un endpoint IA sans limite DONT L'AGENT ECRIT est un probleme d'integrite des donnees. Toujours lire les OUTILS exposes a l'agent, pas seulement l'endpoint."
+}

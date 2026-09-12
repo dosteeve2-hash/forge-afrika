@@ -389,3 +389,52 @@ en échec sur 72, et il n'y a aucune CI. La **PR #38** corrige tout, sur la bonn
 vérifiée ici, **72/72** tests, ESLint fonctionne (0 erreur), build 29 pages.
 
 **Réponse de Steeve :** _(en attente)_
+
+---
+
+## Q16 — Sahel Commerce AI : qui a le droit de modifier le stock ? (2026-09-12)
+
+`/api/chat` n'a **aucune authentification**. Ma PR #1 y pose une limite de débit — 20 requêtes
+par heure et par IP — mais une limite borne l'abus, elle ne dit pas **qui** agit.
+
+Or l'agent derrière cet endpoint dispose d'outils qui écrivent : `add_product`, `adjust_stock`,
+`record_sale`, `reconcile_momo`. Vingt requêtes par heure suffisent largement à fausser
+l'inventaire d'une boutique.
+
+| | Quoi | Pour / contre |
+|---|---|---|
+| **A. Une clé d'API partagée** (`AGENT_API_KEY` en en-tête) | quelques lignes, aucune base | protège d'Internet, pas entre commerçants ; suffisant si le service reste mono-boutique |
+| **B. Supabase Auth + rattachement du commerçant** | chaque requête porte un utilisateur, les données sont cloisonnées | c'est le vrai geste ; le schéma `supabase/schema.sql` n'a pas encore de colonne propriétaire |
+| **C. Rien de plus pour l'instant** | la limite de débit suffit en démo | acceptable tant que rien de réel n'y est saisi — à trancher avant le premier commerçant |
+
+**Hypothèse retenue : C tant que c'est une démo, B dès qu'un commerçant réel s'en sert.**
+Je n'ai **pas** ajouté d'authentification : c'est une décision d'architecture, pas un correctif,
+et B suppose de toucher au schéma.
+
+**Réponse de Steeve :** _(en attente)_
+
+---
+
+## Q17 — UEEMT-Tokat : `dev` est-elle encore vivante ? (2026-09-12)
+
+Quatre des sept PR ouvertes — **#8, #7, #6, #5**, toutes de juin-juillet — visent la branche
+`dev`, pas `main`. Les trois autres (#14, #12, #11) visent `main`, qui est la branche par défaut
+et a avancé jusqu'au 29 juillet.
+
+C'est le motif déjà rencontré chez CompTrack : des PR qui pointent vers une branche que le
+produit n'utilise peut-être plus.
+
+| | Si… | Alors |
+|---|---|---|
+| **A. `dev` est un vestige** | `main` est la seule branche vivante | re-cibler les 4 PR sur `main`, ou les fermer si leur contenu y est déjà |
+| **B. `dev` est une branche d'intégration active** | le flux est `feature → dev → main` | les 4 PR sont légitimes ; c'est `main` qui doit recevoir `dev` régulièrement |
+
+**Hypothèse retenue : A.** `main` porte les commits les plus récents et c'est la branche par
+défaut. **Je n'ai ni re-ciblé ni fermé** — re-cibler quatre PR est un geste qui t'appartient.
+
+⚠️ **Indépendamment de Q17** : `npm run build` **échoue** sur `main` sans `RESEND_API_KEY` —
+`src/lib/email.ts` construisait le client Resend au chargement du module. Aucune CI ne peut donc
+construire ce dépôt. La **PR #14** corrige cela et les 131 erreurs de lint : vérifiée ici,
+0 erreur, build 38 pages.
+
+**Réponse de Steeve :** _(en attente)_

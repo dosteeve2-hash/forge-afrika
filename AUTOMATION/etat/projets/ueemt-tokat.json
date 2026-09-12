@@ -1,0 +1,25 @@
+{
+  "projet": "ueemt-tokat",
+  "tier": 2,
+  "derniere_execution": "2026-09-12",
+  "mode": "TRIAGE (7 PR ouvertes)",
+  "verdict": "🔴 le tronc ne se construit pas sans secrets",
+  "tronc": "main, dernier commit 3f75d8d du 29 juillet, 14 branches, aucune CI",
+  "constat_central": "npm run build ECHOUE sur main : src/lib/email.ts construisait le client Resend AU CHARGEMENT DU MODULE (`const resend = new Resend(...)`), et new Resend() leve quand la cle manque. Next.js charge ce module pendant la collecte des donnees de /api/onboarding, et le build s'arrete. Aucune CI ne peut construire ce depot, aucun contributeur sans cle Resend de production non plus.",
+  "sante_du_tronc": {"lint":"131 erreurs, 65 avertissements","tests":"24 / 24","build":"ECHOUE sans RESEND_API_KEY","ci":"aucune"},
+  "verification_pr_14": {
+    "lint_main_seul":"131 erreurs",
+    "lint_avec_14":"0 erreur, 65 avertissements",
+    "build_main_seul":"echoue",
+    "build_avec_14":"passe, 38 pages",
+    "tests":"24/24 des deux cotes",
+    "correctif":"construire le client a l'appel (resendClient()) plutot qu'au chargement — exactement le bon geste",
+    "conclusion":"a fusionner ; sans elle rien ne peut verifier ce depot"
+  },
+  "pr_visant_la_mauvaise_branche": "#8, #7, #6, #5 visent `dev`, pas `main`. Motif de CompTrack (regle 11). dev existe mais main a avance jusqu'au 29 juillet : est-ce encore une branche d'integration vivante ou un vestige ? Q17. Rien re-cible ni ferme.",
+  "pr_ouvertes_du_depot": ["#14 (2 sept) 131 lint + build sans secrets + CI — verifiee verte, vise main","#12 photo fondateur — vise main","#11 logos historiques — vise main","#8 #7 #6 #5 (juin-juillet) — visent DEV"],
+  "mes_pr": [],
+  "dette_connue": ["run-log.txt et run-log2.txt : journaux d'execution versionnes, meritent au minimum une ligne de .gitignore","run-fixes.bat, run-fixes-2.bat, run-build-push.bat, run-deploy.ps1 : scripts Windows a la racine — signales, pas touches, ils servent peut-etre","65 avertissements de lint restants apres la #14"],
+  "prochain_chantier": "Fusionner la #14. Puis trancher Q17 (dev vivant ou vestige) avant de relire les quatre PR qui le visent.",
+  "lecon": "Instancier un client d'API au chargement d'un module casse le build de tous ceux qui n'ont pas le secret — y compris la CI. Le geste correct est une fabrique appelee au besoin. A chercher systematiquement : `const client = new X(process.env...)` au niveau module."
+}
