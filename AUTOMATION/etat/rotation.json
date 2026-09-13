@@ -58,7 +58,8 @@
     "13. Un garde-fou peut etre vert ET aveugle : demander quelle panne il laisse passer, et la provoquer pour de vrai (Portfolio 2.0).",
     "14. Lire les OUTILS exposes a un agent IA, pas seulement son endpoint : sans limite c'est un probleme de cout, sans limite ET avec des outils d'ecriture c'est un probleme d'integrite (Sahel Commerce AI).",
     "15. Chercher `const client = new X(process.env...)` au niveau module : instancier un client d'API au chargement casse le build de quiconque n'a pas le secret, CI comprise (UEEMT-Tokat).",
-    "16. Un controle de sante verifie L'ETIQUETTE du registre autant que le depot : 'doublon presume' a range en tier 3 le produit le plus avance du portefeuille (livestock-os)."
+    "16. Un controle de sante verifie L'ETIQUETTE du registre autant que le depot : 'doublon presume' a range en tier 3 le produit le plus avance du portefeuille (livestock-os).",
+    "17. Le playbook peut avoir raison sans etre suivi : pendant six jours les loops ont ajoute leurs questions A LA FIN de QUESTIONS.md alors que 00-protocole §4 dit 'en haut' et 03-digest §4 'sous la section En attente'. La fin du fichier, c'etait la section des questions RESOLUES. Douze questions en attente y ont ete classees comme traitees. Quand une regle ecrite n'est pas tenue, c'est un controle CI qu'il faut, pas une regle de plus."
   ],
   "projets_traites_le_2026_09_10": [
     "mon-portfolio-2 (PR #10)",
@@ -72,5 +73,13 @@
   "projets_traites_le_2026_09_13": [
     "livestock-os-legacy (CONTROLE DE SANTE)",
     "llm-africain-agent-ai (CONTROLE DE SANTE — depot vide)"
-  ]
+  ],
+  "questions_restructurees_2026_09_13": {
+    "constat": "12 des 16 questions en attente vivaient sous le titre '✅ Questions résolues'",
+    "cause": "chaque loop ajoutait sa question en fin de fichier ; la fin du fichier etait la section des resolues",
+    "corrige": "section resolues deplacee en fin, 6 questions anciennes numerotees Q1-Q6, sommaire de 16 lignes en tete",
+    "garde_fou": "AUTOMATION/scripts/forge-verifier-questions.py, 15e controle CI",
+    "non_touche": "le trou Q8/Q9 : dix fichiers d'etat et de rapports pointent deja vers Q10-Q18",
+    "chiffre_corrige": "16 questions en attente, pas 18 — annonce a tort les jours precedents"
+  }
 }

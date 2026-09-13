@@ -12,9 +12,47 @@
 
 ---
 
+---
+
+## 📋 Les 16 questions en un coup d'œil
+
+Deux d'entre elles commandent tout le reste : **Q1** (quel tronc fait foi) et **Q2**
+(les métriques sont-elles réelles). Les autres peuvent attendre sans rien bloquer.
+
+| # | Sujet | Ce qu'elle décide | Hypothèse appliquée en attendant |
+|---|---|---|---|
+| **Q1** | 🚨 `forge-afrika` : trois troncs divergents | ce qu'un `git clone` récupère, et donc ce que tout loop lit | `master` fait foi |
+| **Q2** | 📊 Les métriques de `lib/constants.ts` | tout l'ordre des priorités de la Phase 1 | illustratives, pas réelles |
+| Q3 | ⏰ 05h00 Turquie ou Burkina ? | l'heure des 27 routines | Turquie (02h00 UTC) |
+| Q4 | 🐄 `livestockos` vs `livestock-os` | lequel des deux est le produit | `livestockos` — **contredite depuis par Q18** |
+| Q5 | 🤖 Fusionner `LLM-africain-agent-AI` ? | le sort d'un dépôt vide | `african-hybrid-agent` est le vivant |
+| Q6 | 🎯 25 dépôts, une seule personne | concentrer ou tout garder | la rotation couvre tout, l'ordre reste ouvert |
+| Q7 | 🧹 Construire quand 5 PR attendent déjà ? | le mode triage — **modification du protocole, non appliquée** | seuil à 5, en attente de ton accord |
+| Q10 | ☕ FORJA fait-il encore de l'export de café ? | 11 PR à fermer plutôt qu'à fusionner | le tronc a raison |
+| Q11 | 🔑 African Hybrid Agent est-il déployé ? | si 6 PR sont encore bonnes à fusionner | non déployé |
+| Q12 | 📄 Le README de BurkinaCollect décrit un produit absent | réécrire le README ou construire le produit | README d'abord, rien modifié |
+| Q13 | 🌿 Problem to Projects Africa : `main` ou `master` ? | deux apps sans ancêtre commun | `main` |
+| Q14 | 🏭 TAAMA : le site public doit-il revenir ? | restaurer `/tarifs` et `/demo` depuis les PR #10/#12 | oui, à restaurer |
+| Q15 | 🧾 CompTrack : `feat/comptrack-v1` ou `main` ? | 17 PR ciblent la branche non-défaut | `main` |
+| Q16 | 🔐 Sahel Commerce AI : qui peut modifier le stock ? | l'authentification du seul endpoint qui écrit | démo → limite de débit seule |
+| Q17 | 🎓 UEEMT-Tokat : `dev` est-elle vivante ? | garder ou laisser mourir une branche | `main` fait foi |
+| Q18 | 🐄 Lequel des deux produits d'élevage est le bon ? | le tier de `livestock-os` au registre | `livestock-os`, plus récent et plus complet |
+
+> **Q4 et Q18 se contredisent.** Q4 (5 septembre) supposait `livestockos` vivant ; Q18
+> (13 septembre) a établi par lecture du code que `livestock-os` est plus récent, sans
+> ancêtre commun avec l'autre, et porte une fonction que `livestockos` n'a pas — le
+> **passeport de cheptel vérifiable par un prêteur**. Q18 remplace Q4. Une seule réponse
+> suffit pour les deux.
+
+> **Où sont Q8 et Q9 ?** Nulle part : la numérotation a sauté de Q7 à Q10 le 8 septembre.
+> Le trou est laissé tel quel — dix fichiers d'état et de rapports pointent déjà vers
+> `Q10`…`Q18`, et les renuméroter casserait ces renvois pour rien.
+
+---
+
 ## 🔴 En attente de réponse
 
-### [2026-09-05] 🚨 DÉPÔT — Trois troncs divergents, et le défaut pointe vers le plus vieux
+### Q1 — 🚨 DÉPÔT — Trois troncs divergents, et le défaut pointe vers le plus vieux (2026-09-05)
 **Contexte :** `forge-afrika` a trois branches longues qui ont divergé le 28 juin :
 
 | Branche | Commits | Dernier commit | Contenu |
@@ -44,7 +82,7 @@ la fusion si tu me le dis, mais je ne supprimerai rien.
 
 ---
 
-### [2026-09-05] 📊 PRODUIT — Les métriques de `lib/constants.ts` sont-elles réelles ?
+### Q2 — 📊 PRODUIT — Les métriques de `lib/constants.ts` sont-elles réelles ? (2026-09-05)
 **Contexte :** `FILIALES_FORGE` affiche des chiffres précis sur le site du QG :
 TAAMA 1 240 utilisateurs et 45 M FCFA, MIFA Life 3 400 utilisateurs et 78 M FCFA,
 CompTrack 890 utilisateurs, FORJA 560 utilisateurs et 120 M FCFA, AgroTrack 127…
@@ -70,7 +108,7 @@ chiffres et je ne les ai pas repris dans le registre.
 
 ---
 
-### [2026-09-05] ⏰ SYSTÈME — 05h00 heure de Turquie ou du Burkina ?
+### Q3 — ⏰ SYSTÈME — 05h00 heure de Turquie ou du Burkina ? (2026-09-05)
 **Contexte :** tu as demandé « tous les jours à partir de cinq heures du matin ». Tu vis
 à Tokat (UTC+3), tes projets et ton pays sont au Burkina Faso (UTC+0). 3 heures d'écart.
 **Enjeu :** le rapport doit t'attendre quand *tu* te réveilles.
@@ -80,7 +118,7 @@ chiffres et je ne les ai pas repris dans le registre.
 
 ---
 
-### [2026-09-05] 🐄 REGISTRE — `livestockos` et `livestock-os` : lequel est le vrai ?
+### Q4 — 🐄 REGISTRE — `livestockos` et `livestock-os` : lequel est le vrai ? (2026-09-05)
 **Contexte :** deux dépôts au nom quasi identique. `livestockos` (public, commit du
 3 septembre) semble le plus actif ; `livestock-os` (privé, 27 août) semble antérieur.
 Mais l'URL déclarée dans `lib/constants.ts` est `livestock-os.vercel.app` — avec le
@@ -91,7 +129,7 @@ tiret, donc côté ancien dépôt. L'un des deux est probablement du travail per
 
 ---
 
-### [2026-09-05] 🤖 REGISTRE — `LLM-africain-agent-AI` et `african-hybrid-agent` : fusion ?
+### Q5 — 🤖 REGISTRE — `LLM-africain-agent-AI` et `african-hybrid-agent` : fusion ? (2026-09-05)
 **Contexte :** les deux visent un agent IA africain. Le premier date de mai 2026, le
 second de septembre — le second semble être la suite. Ni l'un ni l'autre n'apparaît dans
 les filiales officielles de `lib/constants.ts`.
@@ -102,7 +140,7 @@ l'ancien est en tier 3. Une fusion sera proposée en revue du dimanche.
 
 ---
 
-### [2026-09-05] 🎯 STRATÉGIE — 25 dépôts, une seule personne. On concentre ?
+### Q6 — 🎯 STRATÉGIE — 25 dépôts, une seule personne. On concentre ? (2026-09-05)
 **Contexte :** le site du QG annonce 10 filiales dont 6 « Actif ». Le registre compte
 25 dépôts. Le KPI de Phase 1 en demande **3 vraiment finis**.
 **Enjeu :** c'est la décision la plus lourde du projet. Le modèle Dangote comme le modèle
@@ -117,29 +155,7 @@ données de terrain le justifieront.
 
 ---
 
-## ✅ Questions résolues
-
-### [2026-09-05] REGISTRE — Que sont réellement ComptTrack, Forja, InduBot, Duka, Mifa, UEEMT ?
-**Résolu sans toi**, par lecture de `lib/constants.ts` sur `master` — la source de vérité
-du site QG. Les descriptions déduites ont été remplacées par les vraies, et les URLs de
-production ajoutées au registre :
-
-| Dépôt | Vrai nom | Ce que c'est |
-|---|---|---|
-| `comptrack` | CompTrack | Comptabilité B2B conforme **SYSCOHADA** |
-| `forja` | FORJA | Filières agricoles d'export, de la parcelle au conteneur |
-| `indubot-afrika` | Indubot Afrika | Automation industrielle — machines, production, alertes |
-| `duka-boutique` | **SUGU** | Gestion de boutique pour commerçants du secteur informel |
-| `Mifa_Life_shop` | **MIFA Life** | Marketplace mode africaine et artisanat premium |
-| `ueemt-tokat` | UEEMT-Tokat | Plateforme des étudiants africains à Tokat |
-
-SUGU et MIFA Life, déclarées « Actif » sur le site, sont passées en **tier 1**.
-
-_Rien à faire de ton côté — c'est ici pour trace._
-
----
-
-## Q7. Un loop doit-il construire quand le dépôt a déjà 5 PR en attente ?
+### Q7 — Un loop doit-il construire quand le dépôt a déjà 5 PR en attente ? (2026-09-07)
 
 **Posée le** 2026-09-07 · **Statut** : en attente
 
@@ -170,7 +186,7 @@ attend ton accord — je ne l'ai pas appliquée.
 
 ---
 
-## Q10 — FORJA fait-il encore de l'export de café ? (2026-09-08)
+### Q10 — FORJA fait-il encore de l'export de café ? (2026-09-08)
 
 FORJA a douze PR ouvertes. Neuf d'entre elles (#1 à #9, toutes de juillet) construisent un
 produit d'**export de café** : `lots`, `exportations`, `acheteurs`, `finances`, `contrats`,
@@ -205,7 +221,7 @@ Elle se fusionne sans rien décider d'autre.
 
 ---
 
-## Q11 — African Hybrid Agent est-il déployé avec une clé d'API ? (2026-09-08)
+### Q11 — African Hybrid Agent est-il déployé avec une clé d'API ? (2026-09-08)
 
 Sur `main`, l'endpoint `/api/chat` n'a **ni limite de débit ni authentification**. Et
 `src/lib/llm/generate.ts` route vers **Anthropic ou OpenAI** dès que `ANTHROPIC_API_KEY` ou
@@ -236,7 +252,7 @@ pour ~240 utiles) puis fusionnée.
 
 ---
 
-## Q12 — Le README de BurkinaCollect décrit un produit qui n'existe pas (2026-09-08)
+### Q12 — Le README de BurkinaCollect décrit un produit qui n'existe pas (2026-09-08)
 
 Le dépôt est **public**. Sa branche par défaut contient **deux fichiers** : `README.md` et
 `hooks/useOfflineSync.ts`. Pas de `package.json`, pas d'application.
@@ -272,7 +288,7 @@ promesse publique d'un projet est ta parole, pas la mienne — même limite que 
 
 ---
 
-## Q13 — Problem to Projects Africa : `main` ou `master` ? (2026-09-08)
+### Q13 — Problem to Projects Africa : `main` ou `master` ? (2026-09-08)
 
 ```
 $ git merge-base origin/main origin/master
@@ -321,7 +337,7 @@ lint 0 problème, `tsc` passe, 30/30 tests, build 18 routes.
 
 ---
 
-## Q14 — TAAMA : le site public doit-il revenir ? (2026-09-09)
+### Q14 — TAAMA : le site public doit-il revenir ? (2026-09-09)
 
 Le tronc de TAAMA est **un commit orphelin**. `main` ne contient qu'un seul commit, `3f8318d` du
 10 août, et il n'a pas de parent : l'historique de juin-juillet a été remplacé, pas continué.
@@ -358,7 +374,7 @@ masquaient ce trou), et il n'y a **aucune CI**. La **PR #35** corrige tout : vé
 
 ---
 
-## Q15 — CompTrack : `feat/comptrack-v1` ou `main` ? (2026-09-09)
+### Q15 — CompTrack : `feat/comptrack-v1` ou `main` ? (2026-09-09)
 
 CompTrack a deux troncs, divergés le 27 juin (`ddf6add`) et avancés séparément jusqu'au 10 août.
 
@@ -392,7 +408,7 @@ vérifiée ici, **72/72** tests, ESLint fonctionne (0 erreur), build 29 pages.
 
 ---
 
-## Q16 — Sahel Commerce AI : qui a le droit de modifier le stock ? (2026-09-12)
+### Q16 — Sahel Commerce AI : qui a le droit de modifier le stock ? (2026-09-12)
 
 `/api/chat` n'a **aucune authentification**. Ma PR #1 y pose une limite de débit — 20 requêtes
 par heure et par IP — mais une limite borne l'abus, elle ne dit pas **qui** agit.
@@ -415,7 +431,7 @@ et B suppose de toucher au schéma.
 
 ---
 
-## Q17 — UEEMT-Tokat : `dev` est-elle encore vivante ? (2026-09-12)
+### Q17 — UEEMT-Tokat : `dev` est-elle encore vivante ? (2026-09-12)
 
 Quatre des sept PR ouvertes — **#8, #7, #6, #5**, toutes de juin-juillet — visent la branche
 `dev`, pas `main`. Les trois autres (#14, #12, #11) visent `main`, qui est la branche par défaut
@@ -441,7 +457,7 @@ construire ce dépôt. La **PR #14** corrige cela et les 131 erreurs de lint : v
 
 ---
 
-## Q18 — Lequel des deux produits d'élevage est le bon ? (2026-09-13)
+### Q18 — Lequel des deux produits d'élevage est le bon ? (2026-09-13)
 
 Le registre classe `livestock-os` en **tier 3**, avec la mention *« doublon présumé »*. Le
 contrôle de santé d'aujourd'hui montre que **les deux affirmations sont fausses** :
@@ -485,3 +501,25 @@ jusqu'au 11 août. Un `git clone` récupère la mauvaise.
 aucune branche. Ce n'est pas un risque, c'est un nom réservé. Le garder, ou le rendre ?
 
 **Réponse de Steeve :** _(en attente)_
+
+---
+
+## ✅ Questions résolues
+
+### [2026-09-05] REGISTRE — Que sont réellement ComptTrack, Forja, InduBot, Duka, Mifa, UEEMT ?
+**Résolu sans toi**, par lecture de `lib/constants.ts` sur `master` — la source de vérité
+du site QG. Les descriptions déduites ont été remplacées par les vraies, et les URLs de
+production ajoutées au registre :
+
+| Dépôt | Vrai nom | Ce que c'est |
+|---|---|---|
+| `comptrack` | CompTrack | Comptabilité B2B conforme **SYSCOHADA** |
+| `forja` | FORJA | Filières agricoles d'export, de la parcelle au conteneur |
+| `indubot-afrika` | Indubot Afrika | Automation industrielle — machines, production, alertes |
+| `duka-boutique` | **SUGU** | Gestion de boutique pour commerçants du secteur informel |
+| `Mifa_Life_shop` | **MIFA Life** | Marketplace mode africaine et artisanat premium |
+| `ueemt-tokat` | UEEMT-Tokat | Plateforme des étudiants africains à Tokat |
+
+SUGU et MIFA Life, déclarées « Actif » sur le site, sont passées en **tier 1**.
+
+_Rien à faire de ton côté — c'est ici pour trace._

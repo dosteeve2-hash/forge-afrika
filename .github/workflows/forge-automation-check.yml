@@ -121,6 +121,10 @@ jobs:
           [ -f CLAUDE.md ] && [ -f AUTOMATION/README.md ] && [ -f AUTOMATION/QUESTIONS.md ]
           echo "✅ documentation complète"
 
+      - name: Questions — aucune question en attente classée « résolue »
+        run: |
+          python3 AUTOMATION/scripts/forge-verifier-questions.py
+
       - name: Sécurité — aucun secret dans le dépôt
         run: |
           if git grep -InE '(AKIA[0-9A-Z]{16}|sk-[A-Za-z0-9]{20,}|ghp_[A-Za-z0-9]{30,}|-----BEGIN (RSA |OPENSSH |EC )?PRIVATE KEY-----)' -- . ; then
