@@ -1,0 +1,27 @@
+{
+  "projet": "livestock-os-legacy",
+  "depot": "dosteeve2-hash/livestock-os",
+  "tier_au_registre": 3,
+  "derniere_execution": "2026-09-13",
+  "mode": "CONTROLE DE SANTE (playbook 02)",
+  "verdict": "🟢 depot sain — MAIS mal classe",
+  "correction_du_registre": "Le registre disait 'doublon presume'. C'est FAUX, verifie : git merge-base livestock-os/master livestockos/main ne renvoie AUCUN ancetre commun, et les deux depots font des choses differentes. La mention a ete corrigee dans registry.json. Le TIER n'a pas ete change — c'est une decision de Steeve (Q18).",
+  "ce_que_c_est_vraiment": "Un passeport de cheptel verifiable par un preteur. app/dashboard/passeport + app/api/passeport/publier + page publique app/verifier/[code] : un eleveur publie un passeport, un preteur le verifie par un code. C'est la chaine de valeur de VISION.md — rendre un actif informel financable.",
+  "comparaison": {
+    "livestockos (tier 1)": "main, 19 commits, dernier 11 aout. Gestion de cheptel : alimentation, animaux, production, rapports, sante, stocks, transactions, vaccination, ventes. Pas d'authentification. Supabase.",
+    "livestock-os (tier 3)": "master, 17 commits, dernier 27 AOUT — plus recent. Ajoute marche, mouvements, passeport, onboarding, parametres, verifier/[code]. Better Auth. Neon (migration assumee le 24 aout). Persistance offline-first.",
+    "ancetre_commun": "AUCUN"
+  },
+  "sante": {
+    "visibilite": "PRIVE",
+    "deploye": "livestock-os-ashy.vercel.app",
+    "secrets_versionnes": "aucun — seul .env.example, aucune chaine suspecte dans l'arbre",
+    "branche_par_defaut": "master — coherente, c'est bien le tronc",
+    "branches": 5,
+    "issues_ouvertes": 1
+  },
+  "dette_mineure": ["_git_push.bat et commit_msg.txt a la racine — signales, pas touches"],
+  "a_signaler": "livestockos (le tier 1) a TOUJOURS sa branche par defaut sur feat/animaux-rapports — 3 commits arretes au 1er aout, alors que son main en a 19 jusqu'au 11 aout. Defaut releve le 5 septembre, non corrige. Ma PR #10 y attend toujours.",
+  "prochain_chantier": "AUCUN tant que Q18 n'est pas tranchee : lequel des deux produits d'elevage est le bon ? Developper le mauvais serait la pire depense du portefeuille.",
+  "lecon": "Une etiquette de registre ecrite une fois n'est jamais reverifiee. 'Doublon presume' a suffi a classer en tier 3 — donc en controle mensuel, donc invisible — le produit le plus avance du portefeuille. Un controle de sante doit verifier l'ETIQUETTE autant que le depot."
+}

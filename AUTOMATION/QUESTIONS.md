@@ -438,3 +438,50 @@ construire ce dépôt. La **PR #14** corrige cela et les 131 erreurs de lint : v
 0 erreur, build 38 pages.
 
 **Réponse de Steeve :** _(en attente)_
+
+---
+
+## Q18 — Lequel des deux produits d'élevage est le bon ? (2026-09-13)
+
+Le registre classe `livestock-os` en **tier 3**, avec la mention *« doublon présumé »*. Le
+contrôle de santé d'aujourd'hui montre que **les deux affirmations sont fausses** :
+
+```
+$ git merge-base livestock-os/master livestockos/main
+→ AUCUN ancêtre commun
+```
+
+| | `livestockos` — tier 1 | `livestock-os` — tier 3 |
+|---|---|---|
+| Dernier commit | 11 août | **27 août** |
+| Authentification | aucune | **Better Auth** |
+| Base | Supabase | **Neon** |
+| Persistance | — | **offline-first** |
+| En propre | stocks, transactions, alimentation | **passeport de cheptel**, `verifier/[code]`, marché, mouvements |
+
+`livestock-os` est **plus récent, plus complet, et fait autre chose**. Là où `livestockos` gère un
+cheptel, celui-ci le rend **lisible par un prêteur** : un éleveur publie un passeport, un prêteur
+le vérifie par un code public. C'est littéralement la chaîne de valeur de `VISION.md` — rendre un
+actif informel finançable.
+
+**Le produit le plus avancé du portefeuille est classé comme une archive à contrôler une fois par
+mois.**
+
+| | Décision | Conséquence |
+|---|---|---|
+| **A. `livestock-os` devient le produit d'élevage** | tier 1, loop quotidien ; `livestockos` passe en archive | il faut récupérer de `livestockos` ce qui n'existe pas ici — `stocks`, `transactions`, `alimentation` |
+| **B. `livestockos` reste le produit** | on garde le tier 1 actuel | on abandonne le passeport, l'auth, Neon et l'offline-first — soit trois semaines d'août |
+| **C. Ce sont deux produits distincts** | gestion de cheptel **et** passeport de financement | deux tier 1, deux loops, et il faut le dire dans `PROJECT.md` |
+
+**Hypothèse retenue : A.** Plus récent, plus complet, et sa fonction distinctive est celle que la
+vision met au centre. **Je n'ai pas changé le tier** — c'est ta décision. J'ai seulement corrigé
+dans `registry.json` la mention « doublon présumé », qui est une erreur constatable.
+
+⚠️ **Au passage, non résolu depuis le 5 septembre** : `livestockos` a toujours sa branche par
+défaut sur `feat/animaux-rapports` — 3 commits arrêtés au 1ᵉʳ août, alors que son `main` en a 19
+jusqu'au 11 août. Un `git clone` récupère la mauvaise.
+
+**Et une ligne sur `LLM-africain-agent-AI`** : le dépôt est **entièrement vide** — aucun commit,
+aucune branche. Ce n'est pas un risque, c'est un nom réservé. Le garder, ou le rendre ?
+
+**Réponse de Steeve :** _(en attente)_

@@ -1,9 +1,9 @@
 {
   "_doc": "Priorite generale du lendemain, tous projets confondus. Ecrit par le DIGEST seul (playbook 03). Les loops par projet ont leur propre memoire dans etat/projets/<id>.json et ne touchent jamais ce fichier. Voir AUTOMATION/README.md §4.",
-  "derniere_execution": "2026-09-12",
-  "derniere_routine": "forge quotidien — Sahel Commerce AI (PR #1) + UEEMT-Tokat (triage)",
+  "derniere_execution": "2026-09-13",
+  "derniere_routine": "forge quotidien — controle de sante livestock-os + LLM-africain-agent-AI",
   "reportes": [],
-  "prochaine_priorite": "TOUS LES TIER 1 ET TIER 2 SONT TRAITES. Il ne reste que les TIER 3, et le playbook 02 est clair : CONTROLE DE SANTE SEULEMENT, jamais de developpement — moderniser un depot qui dort est du travail perdu. Tier 3 : livestock-os (doublon presume de livestockos), LLM-africain-agent-AI, steevedo.github.io, Mon-Portfolio- (v1), binary-search-tree-java, Donald, Steeve-Donald-, desktop-tutorial. Tous non attaches (add_repo necessaire). Objectif d'un controle de sante : le depot est-il public ? contient-il un secret ? sa branche par defaut a-t-elle du sens ? faut-il l'archiver ou le fusionner ? RIEN D'AUTRE. REGLE 14, acquise le 2026-09-12 : lire les OUTILS exposes a un agent IA, pas seulement son endpoint — un endpoint sans limite est un probleme de cout, un endpoint sans limite dont l'agent ECRIT est un probleme d'integrite. REGLE 15 : chercher `const client = new X(process.env...)` au niveau module — instancier un client d'API au chargement casse le build de quiconque n'a pas le secret, CI comprise (UEEMT-Tokat).",
+  "prochaine_priorite": "Controle de sante des six tier 3 restants, un ou deux par jour, JAMAIS de developpement (playbook 02) : steevedo.github.io, Mon-Portfolio- (v1), binary-search-tree-java, Donald, Steeve-Donald-, desktop-tutorial. Tous non attaches. NE PAS re-controler llm-africain-agent-ai : il est VIDE, un controle mensuel n'y produit rien tant qu'il n'a pas de premier commit. REGLE 16, acquise le 2026-09-13 : un controle de sante doit verifier L'ETIQUETTE DU REGISTRE autant que le depot. 'Doublon presume' a suffi a ranger en tier 3 — donc hors de vue — le produit le PLUS AVANCE du portefeuille (livestock-os, passeport de cheptel verifiable par un preteur). Une etiquette ecrite une fois n'est jamais reverifiee : la reverifier fait partie du controle.",
   "pr_ouvertes_suivies": [],
   "notes": "Architecture en vigueur depuis le 2026-09-06 : une routine quotidienne reveille la session vivante (les loops en sessions separees ne peuvent pas attacher de depot — parametre 'connectors' indisponible pour l'organisation). 24 loops restent desactives. Un a deux projets par jour. 2026-09-08 : premier passage en mode triage (hypothese Q7, non validee) sur FORJA — 12 PR ouvertes, seuil 5.",
   "tronc": "master",
@@ -57,7 +57,8 @@
     "12. 'Jamais traite par le loop' n'est pas 'a l'abandon' — un projet fini n'a besoin que d'une fusion (Phone Showcase).",
     "13. Un garde-fou peut etre vert ET aveugle : demander quelle panne il laisse passer, et la provoquer pour de vrai (Portfolio 2.0).",
     "14. Lire les OUTILS exposes a un agent IA, pas seulement son endpoint : sans limite c'est un probleme de cout, sans limite ET avec des outils d'ecriture c'est un probleme d'integrite (Sahel Commerce AI).",
-    "15. Chercher `const client = new X(process.env...)` au niveau module : instancier un client d'API au chargement casse le build de quiconque n'a pas le secret, CI comprise (UEEMT-Tokat)."
+    "15. Chercher `const client = new X(process.env...)` au niveau module : instancier un client d'API au chargement casse le build de quiconque n'a pas le secret, CI comprise (UEEMT-Tokat).",
+    "16. Un controle de sante verifie L'ETIQUETTE du registre autant que le depot : 'doublon presume' a range en tier 3 le produit le plus avance du portefeuille (livestock-os)."
   ],
   "projets_traites_le_2026_09_10": [
     "mon-portfolio-2 (PR #10)",
@@ -67,5 +68,9 @@
     "sahel-commerce-ai (PR #1)",
     "ueemt-tokat (TRIAGE)"
   ],
-  "loop_manque_2026_09_11": "Le Forge Quotidien du 11 septembre n'a pas eu lieu : la routine a sonne, la session dormait, la chaine de check-in s'est interrompue avec elle. Limite connue de l'architecture a session unique. Rien perdu, aucune PR n'avait bouge."
+  "loop_manque_2026_09_11": "Le Forge Quotidien du 11 septembre n'a pas eu lieu : la routine a sonne, la session dormait, la chaine de check-in s'est interrompue avec elle. Limite connue de l'architecture a session unique. Rien perdu, aucune PR n'avait bouge.",
+  "projets_traites_le_2026_09_13": [
+    "livestock-os-legacy (CONTROLE DE SANTE)",
+    "llm-africain-agent-ai (CONTROLE DE SANTE — depot vide)"
+  ]
 }

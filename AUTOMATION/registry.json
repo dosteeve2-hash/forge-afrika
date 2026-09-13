@@ -308,7 +308,7 @@
     {
       "id": "livestock-os-legacy",
       "repo": "dosteeve2-hash/livestock-os",
-      "nom": "livestock-os (doublon presume)",
+      "nom": "livestock-os (passeport de cheptel)",
       "tier": 3,
       "phase": 1,
       "categorie": "a-arbitrer",
@@ -321,7 +321,8 @@
         "cron_utc": "23 4 2 * *",
         "heure_utc": "04:23",
         "heure_turquie": "07:23"
-      }
+      },
+      "correction_2026_09_13": "Le registre disait 'doublon presume'. FAUX, verifie : aucun ancetre commun avec livestockos, et c'est un produit DIFFERENT — passeport de cheptel verifiable par un preteur (dashboard/passeport, api/passeport/publier, page publique verifier/[code]), avec Better Auth, Neon et persistance offline-first. Plus RECENT que livestockos (27 aout contre 11 aout). Le tier n'a pas ete change : c'est une decision de Steeve, posee en Q18."
     },
     {
       "id": "llm-africain-agent-ai",
@@ -339,7 +340,8 @@
         "cron_utc": "23 4 4 * *",
         "heure_utc": "04:23",
         "heure_turquie": "07:23"
-      }
+      },
+      "constat_2026_09_13": "Depot VIDE : aucun commit, aucune branche. Ne pas re-controler avant un premier commit."
     },
     {
       "id": "steevedo-github-io",
