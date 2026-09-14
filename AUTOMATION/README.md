@@ -1,7 +1,7 @@
 # 🤖 Le Système d'Automatisation FORGE
 
 > Installé le 5 septembre 2026, à la demande de Steeve.
-> **Chaque dépôt a son propre loop** — sa propre Routine, sa propre session Claude,
+> **Cible : chaque dépôt a son propre loop** — sa propre Routine, sa propre session Claude,
 > son propre rapport. Pas de rotation, pas d'attention partagée.
 
 ---
@@ -47,6 +47,37 @@ D'où le **digest**, qui n'existe que pour ça.
 ---
 
 ## 2. Le planning
+
+> ## ⚠️ Ce qui tourne réellement, au 14 septembre 2026
+>
+> **Les 26 loops décrits ci-dessous sont DÉSACTIVÉS.** Ils ont été créés le 5 septembre,
+> ont tourné les 5 et 6, puis ont été éteints le 6 septembre au profit d'une architecture
+> différente. Leur `next_run_at` est resté figé au 7 septembre.
+>
+> Ce qui fait le travail depuis le 7 septembre est **une seule Routine** :
+> `🔨 Forge Quotidien — session vivante` (cron `3 2 * * *` UTC, soit 05h03 heure de
+> Turquie). Elle ne crée pas de session neuve : elle réveille **une session unique et
+> persistante**, qui garde son contexte d'un jour à l'autre et traite **2 projets par
+> jour** au lieu de 13.
+>
+> C'est un choix, pas une panne — une session qui se souvient de la veille diagnostique
+> mieux qu'une session neuve. Mais il a deux conséquences qu'il faut assumer :
+>
+> - **Le débit réel est de 2 projets par jour**, pas 25 par semaine. Un tour complet du
+>   portefeuille prend environ deux semaines.
+> - **Il n'y a plus qu'un seul point de défaillance.** Le 11 septembre, la session
+>   dormait quand la Routine a sonné : la journée entière a été perdue. Avec 26 loops
+>   indépendants, cela n'aurait coûté qu'un projet.
+>
+> Le digest et la revue stratégique sont éteints eux aussi : la session vivante écrit
+> son digest elle-même, puisqu'elle est seule à écrire.
+>
+> **Réactiver les 26 loops est une décision qui appartient à Steeve** — c'est un coût,
+> et la Q7 (mode triage) avertit qu'un dépôt à 20 PR n'a pas besoin d'un loop qui
+> construit tous les matins. La question est posée en **Q19**.
+>
+> Les tableaux ci-dessous restent la **cible**, et le champ `loop` du registre reste
+> leur source de vérité.
 
 Horaires en **heure de Turquie (UTC+3)**, là où vit Steeve.
 

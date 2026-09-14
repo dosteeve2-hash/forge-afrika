@@ -59,7 +59,8 @@
     "14. Lire les OUTILS exposes a un agent IA, pas seulement son endpoint : sans limite c'est un probleme de cout, sans limite ET avec des outils d'ecriture c'est un probleme d'integrite (Sahel Commerce AI).",
     "15. Chercher `const client = new X(process.env...)` au niveau module : instancier un client d'API au chargement casse le build de quiconque n'a pas le secret, CI comprise (UEEMT-Tokat).",
     "16. Un controle de sante verifie L'ETIQUETTE du registre autant que le depot : 'doublon presume' a range en tier 3 le produit le plus avance du portefeuille (livestock-os).",
-    "17. Le playbook peut avoir raison sans etre suivi : pendant six jours les loops ont ajoute leurs questions A LA FIN de QUESTIONS.md alors que 00-protocole §4 dit 'en haut' et 03-digest §4 'sous la section En attente'. La fin du fichier, c'etait la section des questions RESOLUES. Douze questions en attente y ont ete classees comme traitees. Quand une regle ecrite n'est pas tenue, c'est un controle CI qu'il faut, pas une regle de plus."
+    "17. Le playbook peut avoir raison sans etre suivi : pendant six jours les loops ont ajoute leurs questions A LA FIN de QUESTIONS.md alors que 00-protocole §4 dit 'en haut' et 03-digest §4 'sous la section En attente'. La fin du fichier, c'etait la section des questions RESOLUES. Douze questions en attente y ont ete classees comme traitees. Quand une regle ecrite n'est pas tenue, c'est un controle CI qu'il faut, pas une regle de plus.",
+    "18. Verifier ce que le SYSTEME fait, pas ce que sa documentation dit qu'il fait : 26 des 29 Routines etaient eteintes depuis le 6 septembre, et la PR #9, le README et CLAUDE.md decrivaient depuis huit jours une architecture remplacee le lendemain de son ecriture. Une seule commande (list_triggers) le montrait ; personne ne l'avait lancee. Meme classe d'erreur que QUESTIONS.md la veille : l'ecrit et le reel divergent en silence."
   ],
   "projets_traites_le_2026_09_10": [
     "mon-portfolio-2 (PR #10)",
@@ -81,5 +82,14 @@
     "garde_fou": "AUTOMATION/scripts/forge-verifier-questions.py, 15e controle CI",
     "non_touche": "le trou Q8/Q9 : dix fichiers d'etat et de rapports pointent deja vers Q10-Q18",
     "chiffre_corrige": "16 questions en attente, pas 18 — annonce a tort les jours precedents"
+  },
+  "routines_verifiees_2026_09_14": {
+    "total_recurrentes": 29,
+    "actives": 3,
+    "active_forge": "🔨 Forge Quotidien — session vivante (cron 3 2 * * * UTC, session persistante, 2 projets/jour)",
+    "active_veille": "Veille quotidienne — ecosysteme FORGE (cron 0 6 * * * UTC) — EN ECHEC, FAILED en 9s le 13/09, modele claude-fable-5",
+    "active_autre": "System health check (0 12 * * *) — pas une routine FORGE",
+    "eteintes": "les 26 loops par depot + digest + revue strategique, eteints le 6 septembre, next_run_at fige au 7",
+    "rien_modifie": "aucune Routine rallumee, eteinte ni reconfiguree — Q19 et Q20 posees"
   }
 }

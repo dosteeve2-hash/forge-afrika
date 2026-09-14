@@ -14,10 +14,12 @@
 
 ---
 
-## 📋 Les 16 questions en un coup d'œil
+## 📋 Les 18 questions en un coup d'œil
 
-Deux d'entre elles commandent tout le reste : **Q1** (quel tronc fait foi) et **Q2**
-(les métriques sont-elles réelles). Les autres peuvent attendre sans rien bloquer.
+Trois d'entre elles commandent tout le reste : **Q1** (quel tronc fait foi), **Q2**
+(les métriques sont-elles réelles) et **Q19** (quelle architecture d'automatisation).
+**Q20** est la seule urgence technique : la surveillance de production est en panne.
+Les autres peuvent attendre sans rien bloquer.
 
 | # | Sujet | Ce qu'elle décide | Hypothèse appliquée en attendant |
 |---|---|---|---|
@@ -37,6 +39,8 @@ Deux d'entre elles commandent tout le reste : **Q1** (quel tronc fait foi) et **
 | Q16 | 🔐 Sahel Commerce AI : qui peut modifier le stock ? | l'authentification du seul endpoint qui écrit | démo → limite de débit seule |
 | Q17 | 🎓 UEEMT-Tokat : `dev` est-elle vivante ? | garder ou laisser mourir une branche | `main` fait foi |
 | Q18 | 🐄 Lequel des deux produits d'élevage est le bon ? | le tier de `livestock-os` au registre | `livestock-os`, plus récent et plus complet |
+| **Q19** | ⚙️ Rallumer les 26 loops, ou garder la session vivante ? | le débit réel du système : 2 projets/jour contre 25/semaine | statu quo, rien rallumé |
+| **Q20** | 🚨 La veille de production échoue chaque matin | la seule surveillance des 13 URLs en production | aucune action — le modèle d'une Routine ne se change pas sans toi |
 
 > **Q4 et Q18 se contredisent.** Q4 (5 septembre) supposait `livestockos` vivant ; Q18
 > (13 septembre) a établi par lecture du code que `livestock-os` est plus récent, sans
@@ -499,6 +503,75 @@ jusqu'au 11 août. Un `git clone` récupère la mauvaise.
 
 **Et une ligne sur `LLM-africain-agent-AI`** : le dépôt est **entièrement vide** — aucun commit,
 aucune branche. Ce n'est pas un risque, c'est un nom réservé. Le garder, ou le rendre ?
+
+**Réponse de Steeve :** _(en attente)_
+
+---
+
+### Q19 — Faut-il rallumer les 26 loops, ou garder la session vivante ? (2026-09-14)
+
+**Constat.** Sur les 29 Routines récurrentes du compte, **3 seulement sont actives**.
+Les 26 loops par dépôt — 13 quotidiens, 4 hebdomadaires, 8 mensuels, plus le digest et
+la revue stratégique — ont été créés le 5 septembre, ont tourné les 5 et 6, et sont
+**éteints depuis le 6 septembre**. Leur `next_run_at` est resté figé au 7 septembre.
+
+Ce qui fait le travail depuis est **une seule Routine** : `🔨 Forge Quotidien — session
+vivante`, créée le 6 septembre à 14h45, qui réveille **cette session-ci** et lui demande
+de traiter **2 projets par jour**.
+
+Autrement dit : l'architecture décrite dans la PR #9, dans `AUTOMATION/README.md` et dans
+`CLAUDE.md` Partie II a été remplacée **le lendemain de son écriture**, et la
+documentation ne l'a jamais dit. Elle vient d'être corrigée.
+
+**Ce que chaque option coûte.**
+
+| | Pour | Contre |
+|---|---|---|
+| **A. Garder la session vivante** (actuel) | Elle se souvient de la veille — c'est ce qui a permis de corriger mes propres erreurs (le chiffre « neuf dépôts », la fausse panne CompTrack, l'hypothèse mobile SUGU). Un seul rapport à lire. | **2 projets/jour** : un tour du portefeuille prend deux semaines. **Un seul point de défaillance** — le 11 septembre la session dormait, la journée entière a été perdue. Et son contexte se remplit. |
+| **B. Rallumer les 26 loops** | 25 projets touchés par semaine. Une panne ne coûte qu'un projet. | Aucune mémoire d'un jour à l'autre : chaque session repart d'un doute sur ce qui existe déjà — c'est exactement ce qui a produit les 17 PR redondantes de CompTrack. 13 rapports par matin. Et un coût 13 fois supérieur. |
+| **C. Les deux** — session vivante + loops mensuels pour les archives | La mémoire là où elle sert, le balayage là où il suffit | Plus compliqué à suivre |
+
+**Hypothèse retenue : A**, statu quo — parce que rallumer 26 Routines quotidiennes est
+une dépense et un changement de comportement sur tout le portefeuille, et que ni l'un ni
+l'autre ne se décide sans toi. La Q7 va dans le même sens : un dépôt à 20 PR ouvertes n'a
+pas besoin d'un loop qui construit tous les matins.
+
+Je n'ai **rien rallumé ni éteint**. J'ai seulement corrigé la documentation pour qu'elle
+décrive ce qui tourne vraiment.
+
+**Réponse de Steeve :** _(en attente)_
+
+---
+
+### Q20 — La veille quotidienne échoue chaque matin, et elle te notifie (2026-09-14)
+
+**Constat.** La Routine `Veille quotidienne — écosystème FORGE` (cron `0 6 * * *` UTC)
+est **active** et **en échec** : son dernier passage, le 13 septembre à 06h04 UTC, s'est
+terminé en `FAILED` au bout de **9 secondes**. Neuf secondes, c'est trop court pour un
+échec de tâche — elle n'a pas eu le temps de tester une seule URL. C'est un échec au
+démarrage.
+
+Le candidat le plus probable est son modèle : la Routine est fixée sur `claude-fable-5`,
+un identifiant qui n'existe plus sous cette forme. Une Routine dont le modèle est
+introuvable échoue immédiatement, exactement comme ici.
+
+Ça compte pour deux raisons. C'est la seule surveillance de **production** du
+portefeuille — 13 URLs, les déploiements Vercel, les alertes de sécurité Supabase — et
+elle est muette depuis au moins un jour. Et elle a les notifications **push et e-mail**
+activées : tu reçois peut-être un échec tous les matins sans savoir d'où il vient.
+
+**Je n'ai pas touché au modèle.** Changer le modèle d'une Routine demande ta demande
+explicite, dans tes mots — ce n'est pas quelque chose que je décide.
+
+| | |
+|---|---|
+| **A** | Tu me dis « change le modèle de la veille », et je le passe à un identifiant valide |
+| **B** | Tu le corriges toi-même dans l'interface des Routines |
+| **C** | On la laisse éteinte et la session vivante reprend cette veille une fois par jour |
+
+**Hypothèse retenue :** aucune action — la Routine reste telle quelle jusqu'à ta réponse.
+C'est la seule question de ce fichier où l'hypothèse est de **ne rien faire**, parce que
+la règle sur le modèle des Routines ne me laisse pas d'autre choix.
 
 **Réponse de Steeve :** _(en attente)_
 

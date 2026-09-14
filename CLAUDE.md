@@ -151,16 +151,23 @@ au Burkina Faso, quel que soit son niveau de finition.
 Depuis septembre 2026, des routines Claude tournent automatiquement sur l'ensemble
 du portefeuille. Tout est décrit dans **`AUTOMATION/README.md`**.
 
-**Chaque dépôt a son propre loop** : sa Routine, sa session Claude dédiée, son rapport.
-Pas de rotation, pas d'attention partagée entre plusieurs projets.
+⚠️ **Une seule Routine tourne réellement**, et ce n'est pas celle que décrivaient les
+tableaux d'origine. Vérifié le 14 septembre 2026 :
 
-| Routine | Quand (heure de Turquie) | Rôle |
-|---|---|---|
-| 🔁 **13 loops quotidiens** | 05h03 → 07h03, échelonnés | Un par projet tier 1 : diagnostique, répare, développe, ouvre une PR draft |
-| 🔁 **4 loops hebdomadaires** | lun-jeu 07h13 | Un par projet vitrine (tier 2) |
-| 🔁 **8 loops mensuels** | les 2,4,6…16 à 07h23 | Un par archive (tier 3) — contrôle de santé |
-| 📋 **Digest** | tous les jours 08h33 | Agrège les rapports du matin en une seule page |
-| 🧭 **Revue Stratégique** | dimanche 09h03 | La semaine contre les KPIs, arbitrages, ROADMAP |
+| Routine | Cron | État | Rôle |
+|---|---|---|---|
+| 🔨 **Forge Quotidien — session vivante** | `3 2 * * *` UTC (05h03 Turquie) | **active** | Réveille **une session unique et persistante** qui traite **2 projets par jour** |
+| 🔁 13 loops quotidiens · 4 hebdo · 8 mensuels | 05h03 → 07h23 | **désactivés** | Créés le 5 sept., éteints le 6. `next_run_at` figé au 7 sept. |
+| 📋 Digest · 🧭 Revue Stratégique | 08h33 · dim. 09h03 | **désactivés** | La session vivante écrit son digest elle-même |
+
+La session vivante garde son contexte d'un jour à l'autre — c'est ce qui lui permet de
+corriger ses erreurs de la veille. En contrepartie le débit réel est de **2 projets par
+jour** (un tour du portefeuille ≈ deux semaines) et il n'y a **qu'un seul point de
+défaillance** : le 11 septembre la session dormait quand la Routine a sonné, et la
+journée entière a été perdue.
+
+Réactiver les 26 loops appartient à Steeve — voir **Q19**. Les tableaux de
+`AUTOMATION/README.md §2` restent la cible, pas l'état.
 
 Le planning exact est dans le champ `loop` de chaque projet du registre
 (`./AUTOMATION/scripts/forge-loops.sh --planning`).
@@ -170,8 +177,9 @@ Le protocole que ces routines suivent est dans
 automatique** — en particulier le §3, la liste de ce qui ne se fait jamais sans
 l'accord explicite de Steeve.
 
-⚠️ **Coexistence.** Une douzaine de loops écrivent dans `forge-afrika` en même temps
-chaque matin. Un loop n'écrit QUE dans les fichiers portant son identifiant
+⚠️ **Coexistence.** Règle écrite pour le jour où les 26 loops tourneront à nouveau —
+aujourd'hui la session vivante est seule à écrire. Une douzaine de loops écriraient dans
+`forge-afrika` en même temps chaque matin. Un loop n'écrit QUE dans les fichiers portant son identifiant
 (`rapports/<id>/`, `etat/projets/<id>.json`, `questions/<id>.md`) et travaille sur sa
 propre branche `claude/loop-<id>-<date>`. Les fichiers partagés — `JOURNAL.md`,
 `QUESTIONS.md`, `etat/sante.json`, `etat/rotation.json`, `registry.json` — appartiennent
