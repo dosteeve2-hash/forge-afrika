@@ -1,9 +1,9 @@
 {
   "_doc": "Priorite generale du lendemain, tous projets confondus. Ecrit par le DIGEST seul (playbook 03). Les loops par projet ont leur propre memoire dans etat/projets/<id>.json et ne touchent jamais ce fichier. Voir AUTOMATION/README.md §4.",
-  "derniere_execution": "2026-09-13",
+  "derniere_execution": "2026-09-14",
   "derniere_routine": "forge quotidien — controle de sante livestock-os + LLM-africain-agent-AI",
   "reportes": [],
-  "prochaine_priorite": "Controle de sante des six tier 3 restants, un ou deux par jour, JAMAIS de developpement (playbook 02) : steevedo.github.io, Mon-Portfolio- (v1), binary-search-tree-java, Donald, Steeve-Donald-, desktop-tutorial. Tous non attaches. NE PAS re-controler llm-africain-agent-ai : il est VIDE, un controle mensuel n'y produit rien tant qu'il n'a pas de premier commit. REGLE 16, acquise le 2026-09-13 : un controle de sante doit verifier L'ETIQUETTE DU REGISTRE autant que le depot. 'Doublon presume' a suffi a ranger en tier 3 — donc hors de vue — le produit le PLUS AVANCE du portefeuille (livestock-os, passeport de cheptel verifiable par un preteur). Une etiquette ecrite une fois n'est jamais reverifiee : la reverifier fait partie du controle.",
+  "prochaine_priorite": "Controle de sante des quatre tier 3 restants, un ou deux par jour, JAMAIS de developpement (playbook 02) : binary-search-tree-java, Donald, Steeve-Donald-, desktop-tutorial. Tous non attaches, tous publics (clone anonyme suffit, pas besoin d'access=push pour un controle). NE PAS re-controler les deux depots VIDES : llm-africain-agent-ai et steevedo-github-io — un controle mensuel n'y produit rien tant qu'ils n'ont pas de premier commit. Quand les quatre seront faits, le portefeuille aura ete entierement parcouru : reprendre alors par les tier 1 les plus anciens. ATTENTION Q19 et Q20 : ne rallumer aucune Routine eteinte et ne changer le modele d'aucune Routine sans demande explicite de Steeve.",
   "pr_ouvertes_suivies": [],
   "notes": "Architecture en vigueur depuis le 2026-09-06 : une routine quotidienne reveille la session vivante (les loops en sessions separees ne peuvent pas attacher de depot — parametre 'connectors' indisponible pour l'organisation). 24 loops restent desactives. Un a deux projets par jour. 2026-09-08 : premier passage en mode triage (hypothese Q7, non validee) sur FORJA — 12 PR ouvertes, seuil 5.",
   "tronc": "master",
@@ -91,5 +91,9 @@
     "active_autre": "System health check (0 12 * * *) — pas une routine FORGE",
     "eteintes": "les 26 loops par depot + digest + revue strategique, eteints le 6 septembre, next_run_at fige au 7",
     "rien_modifie": "aucune Routine rallumee, eteinte ni reconfiguree — Q19 et Q20 posees"
-  }
+  },
+  "projets_traites_le_2026_09_14": [
+    "steevedo-github-io",
+    "mon-portfolio-1"
+  ]
 }

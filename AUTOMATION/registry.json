@@ -350,8 +350,8 @@
       "tier": 3,
       "phase": 0,
       "categorie": "site-perso-legacy",
-      "mission": "Ancien site personnel GitHub Pages.",
-      "ambition": "Rediriger vers le portfolio 2.0 ou archiver.",
+      "mission": "Depot VIDE — zero commit. Il n'y a jamais eu de site.",
+      "ambition": "Le supprimer, ou le renommer dosteeve2-hash.github.io pour y mettre une redirection vers le portfolio 2.0.",
       "a_confirmer": true,
       "loop": {
         "frequence": "mensuel",
@@ -359,7 +359,9 @@
         "cron_utc": "23 4 6 * *",
         "heure_utc": "04:23",
         "heure_turquie": "07:23"
-      }
+      },
+      "correction_2026_09_14": "Le registre disait 'Ancien site personnel GitHub Pages'. Faux sur les deux mots : ni ancien, ni site — le depot est vide (git ls-remote : zero reference). Et nomme steevedo.github.io sous le compte dosteeve2-hash, il ne peut PAS servir de site racine : GitHub Pages exige <compte>.github.io. Tier inchange — c'est une decision de Steeve.",
+      "ne_pas_recontroler": "Depot vide : un controle mensuel n'y produit rien tant qu'il n'a pas de premier commit."
     },
     {
       "id": "mon-portfolio-1",
@@ -370,14 +372,15 @@
       "categorie": "archive",
       "mission": "Ancienne version du portfolio.",
       "ambition": "Archiver.",
-      "a_confirmer": true,
+      "a_confirmer": false,
       "loop": {
         "frequence": "mensuel",
         "jour_du_mois": 8,
         "cron_utc": "23 4 8 * *",
         "heure_utc": "04:23",
         "heure_turquie": "07:23"
-      }
+      },
+      "verifie_2026_09_14": "Etiquette verifiee et JUSTE (regle 16) : tier 3 / archive / ancienne version du portfolio. Dormant depuis le 26 mai, HTML statique sans dependance, aucun secret. Une branche chore/cleanup (11 juin, 2 commits, avance rapide propre) attend une fusion."
     },
     {
       "id": "binary-search-tree-java",
