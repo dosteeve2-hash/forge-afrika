@@ -3,7 +3,7 @@
   "derniere_execution": "2026-09-15",
   "derniere_routine": "forge quotidien — controle de sante livestock-os + LLM-africain-agent-AI",
   "reportes": [],
-  "prochaine_priorite": "DERNIERS tier 3 : Steeve-Donald- et desktop-tutorial. Publics, clone anonyme suffit (add_repo access=read puis GIT_LFS_SKIP_SMUDGE=1 git clone --depth 1). Playbook 02 : controle de sante, JAMAIS de developpement. Verifier l'etiquette du registre autant que le depot (regle 16), et si une branche chore/cleanup existe, LA COMPILER avant de la recommander (regle 19 — elle etait cassee sur binary-search-tree-java). NE PAS re-controler les deux depots vides : llm-africain-agent-ai et steevedo-github-io. APRES CES DEUX-LA le portefeuille aura ete ENTIEREMENT parcouru : reprendre par les tier 1 les plus anciens (taama, comptrack, agrotrack-bf, valuechain-connect selon etat/projets/). ATTENTION Q19 et Q20 : ne rallumer aucune Routine eteinte et ne changer le modele d'aucune Routine sans demande explicite de Steeve.",
+  "prochaine_priorite": "TOUR COMPLET — la rotation REPREND PAR LES TIER 1 LES PLUS ANCIENS, cette fois avec un diagnostic complet en main : taama, comptrack, agrotrack-bf, valuechain-connect (lire etat/projets/<id>.json avant de choisir, chacun dit ou il en est et ce qui bloque). Passer en mode CONSTRUCTION (playbook 01) et non plus controle de sante, SAUF si Q7 (mode triage) s'applique : un depot au-dela de 5 PR ouvertes ne doit rien construire de neuf. NE PLUS CONTROLER les quatre depots sans contenu reel : llm-africain-agent-ai, steevedo-github-io, steeve-donald, desktop-tutorial — un controle mensuel n'y produit rien. ATTENTION Q19 et Q20 : ne rallumer aucune Routine eteinte et ne changer le modele d'aucune Routine sans demande explicite de Steeve. Regle 19 : compiler/executer toute branche avant de la recommander a la fusion.",
   "pr_ouvertes_suivies": [],
   "notes": "Architecture en vigueur depuis le 2026-09-06 : une routine quotidienne reveille la session vivante (les loops en sessions separees ne peuvent pas attacher de depot — parametre 'connectors' indisponible pour l'organisation). 24 loops restent desactives. Un a deux projets par jour. 2026-09-08 : premier passage en mode triage (hypothese Q7, non validee) sur FORJA — 12 PR ouvertes, seuil 5.",
   "tronc": "master",
@@ -100,6 +100,19 @@
   ],
   "projets_traites_le_2026_09_15": [
     "binary-search-tree-java",
-    "donald"
-  ]
+    "donald",
+    "steeve-donald",
+    "desktop-tutorial"
+  ],
+  "tour_complet_2026_09_15": {
+    "fait": "Les 25 projets du registre ont un fichier d'etat et un diagnostic date. Tour boucle en onze jours, du 5 au 15 septembre.",
+    "depots_sans_contenu_reel": [
+      "llm-africain-agent-ai (TOTALEMENT vide)",
+      "steevedo-github-io (TOTALEMENT vide)",
+      "steeve-donald (1 commit, README de 2 lignes)",
+      "desktop-tutorial (1 commit, README d'origine GitHub Desktop)"
+    ],
+    "portefeuille_reel": "21 projets, pas 25",
+    "diagnostic_de_fond": "Le code ne manque nulle part. Ce sont les decisions qui manquent : des dizaines de PR ouvertes dont dix de la serie du 2 septembre, deux depots a troncs sans ancetre commun, trois branches par defaut mal placees."
+  }
 }

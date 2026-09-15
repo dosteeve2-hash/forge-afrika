@@ -1,0 +1,24 @@
+{
+  "projet": "desktop-tutorial",
+  "depot": "dosteeve2-hash/desktop-tutorial",
+  "tier_au_registre": 3,
+  "derniere_execution": "2026-09-15",
+  "mode": "CONTROLE DE SANTE (playbook 02)",
+  "verdict": "⚪ ce n'est pas un projet — c'est le tutoriel d'installation de GitHub Desktop",
+  "preuve": "Le README est le texte d'origine de GitHub Desktop, mot pour mot : 'Welcome to GitHub Desktop! ... Write your name on line 6, save it, and then head back to GitHub Desktop.' La ligne 6 n'a jamais ete remplie.",
+  "vitalite": {
+    "tronc_reel": "main (verifie)",
+    "branches": ["main", "Donald"],
+    "branches_divergent": "NON — les deux pointent sur le MEME SHA (559e9a01). Simple pointeur en double, pas une ligne de travail oubliee. Verifie plutot que suppose.",
+    "commits": 1,
+    "dernier_commit": "2025-10-17 — 'Initial commit', le seul",
+    "fichiers_suivis": 1,
+    "taille": "8 Ko",
+    "visibilite": "PRIVE — le clone anonyme est refuse ('could not read Username')",
+    "secrets_versionnes": "aucun"
+  },
+  "etiquette_verifiee": "tier 3 est juste, mais 'archive' suggere qu'il y a quelque chose a archiver. Ici, non.",
+  "ce_que_je_n_ai_pas_fait": "Playbook 02 : ni supprime, ni renomme.",
+  "recommandation": "LE SUPPRIMER. Il ne contient rien que le tutoriel n'ait ecrit lui-meme, il est prive donc n'expose rien, et il occupe une ligne du registre et un creneau de controle mensuel pour zero information. Seul depot du portefeuille dont on peut dire qu'il ne contient strictement rien de Steeve.",
+  "prochain_chantier": "AUCUN. Ne plus le controler : un controle mensuel n'y produira jamais rien."
+}

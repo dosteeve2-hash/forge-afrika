@@ -429,14 +429,16 @@
       "categorie": "archive",
       "mission": "Depot ancien, contenu a verifier.",
       "ambition": "Archiver ou clarifier.",
-      "a_confirmer": true,
+      "a_confirmer": false,
       "loop": {
         "frequence": "mensuel",
         "jour_du_mois": 14,
         "cron_utc": "23 4 14 * *",
         "heure_utc": "04:23",
         "heure_turquie": "07:23"
-      }
+      },
+      "verifie_2026_09_15": "Coquille vide : 1 commit ('Initial commit', 2 oct. 2025), 1 fichier, README de deux lignes. Jamais demarre. Recommandation : le supprimer, ou en faire le depot de PROFIL (nomme exactement dosteeve2-hash).",
+      "ne_pas_recontroler": "Aucun contenu reel : un controle mensuel n'y produit rien."
     },
     {
       "id": "desktop-tutorial",
@@ -453,7 +455,10 @@
         "cron_utc": "23 4 16 * *",
         "heure_utc": "04:23",
         "heure_turquie": "07:23"
-      }
+      },
+      "a_confirmer": false,
+      "verifie_2026_09_15": "Ce n'est pas un projet : c'est le tutoriel d'installation de GitHub Desktop. README d'origine mot pour mot, ligne 6 jamais remplie. Branche 'Donald' au MEME SHA que main (verifie). Depot PRIVE. A supprimer.",
+      "ne_pas_recontroler": "Aucun contenu reel : un controle mensuel n'y produit rien."
     }
   ],
   "_source_verite": "Les missions, noms et URLs des filiales viennent de lib/constants.ts (FILIALES_FORGE) sur la branche master — source de verite du site QG. Les metriques qui y figurent (utilisateurs, transactions, CA) n'ont PAS ete reprises ici : leur caractere reel ou illustratif reste a confirmer par Steeve (cf. QUESTIONS.md).",
