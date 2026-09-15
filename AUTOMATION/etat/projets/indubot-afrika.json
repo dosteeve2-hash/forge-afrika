@@ -1,6 +1,6 @@
 {
   "projet": "indubot-afrika",
-  "derniere_execution": "2026-09-08",
+  "derniere_execution": "2026-09-15",
   "verdict": "🟢",
   "tronc": "master (2026-09-02, correctif CI/lint fusionne)",
   "pr_ouvertes_du_depot": [
@@ -8,7 +8,8 @@
     "#3 la mienne"
   ],
   "mes_pr": [
-    "#3 — divergence d'hydratation sur la locale, 8 tests (aucun avant), CI etendue"
+    "#3 — divergence d'hydratation sur la locale, 8 tests (aucun avant), CI etendue",
+    "#5 — le fond anime de la page d'accueil tournait sans fin et hors de l'ecran sur telephone. Boucle requestAnimationFrame plein ecran avec flou de 35px recalcule a chaque image, ignorant « reduire les animations » ; et createBeam recevait les dimensions du TAMPON dans un repere ramene aux pixels CSS par ctx.scale(dpr, dpr) — a dpr = 3 l'essentiel du fond etait dessine hors ecran. Garde check-mouvement.mjs, 5 provocations dont une qui verifie l'ABSENCE de faux positif sur un rAF a un coup."
   ],
   "sante": {
     "ci": "presente, etendue de lint+build a lint+tests+build",
@@ -22,5 +23,6 @@
     "Aucune persistance : les donnees du tableau de bord sont generees cote client.",
     "tsc --noEmit signale LayoutProps hors d'un next build — preexistant."
   ],
-  "lecon": "Intl.NumberFormat(undefined) demande la locale de l'environnement : serveur au rendu, navigateur a l'hydratation. Sur une app SSR c'est une divergence d'hydratation, pas un detail de style."
+  "lecon": "Un garde-fou trop grossier fait des degats : ma premiere version accusait use-scheduled-tooltip.ts, qui utilise requestAnimationFrame comme un etrangleur a un coup — rien n'y bouge. J'ai corrige LA REGLE, pas le fichier. Ce qui distingue une animation d'un rappel unique, c'est la recurrence : la fonction passee a rAF se replanifie elle-meme. Une provocation dediee verifie maintenant que le cas a un coup reste vert.",
+  "motif_authentification": "TROUVE LE 15, NON CORRIGE : /dashboard n'appelle aucune session, et il n'y a ni middleware.ts ni proxy.ts. BetterAuth est pourtant installe — /api/auth/[...all] existe. La machinerie est la, le tableau de bord n'est pas derriere. Quatrieme occurrence du motif apres CompTrack main, CompTrack v1 et MillTrack master. Signale dans la PR #5 ; a ouvrir separement si Steeve le veut."
 }
