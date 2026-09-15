@@ -1,9 +1,9 @@
 {
   "_doc": "Priorite generale du lendemain, tous projets confondus. Ecrit par le DIGEST seul (playbook 03). Les loops par projet ont leur propre memoire dans etat/projets/<id>.json et ne touchent jamais ce fichier. Voir AUTOMATION/README.md §4.",
-  "derniere_execution": "2026-09-14",
+  "derniere_execution": "2026-09-15",
   "derniere_routine": "forge quotidien — controle de sante livestock-os + LLM-africain-agent-AI",
   "reportes": [],
-  "prochaine_priorite": "Controle de sante des quatre tier 3 restants, un ou deux par jour, JAMAIS de developpement (playbook 02) : binary-search-tree-java, Donald, Steeve-Donald-, desktop-tutorial. Tous non attaches, tous publics (clone anonyme suffit, pas besoin d'access=push pour un controle). NE PAS re-controler les deux depots VIDES : llm-africain-agent-ai et steevedo-github-io — un controle mensuel n'y produit rien tant qu'ils n'ont pas de premier commit. Quand les quatre seront faits, le portefeuille aura ete entierement parcouru : reprendre alors par les tier 1 les plus anciens. ATTENTION Q19 et Q20 : ne rallumer aucune Routine eteinte et ne changer le modele d'aucune Routine sans demande explicite de Steeve.",
+  "prochaine_priorite": "DERNIERS tier 3 : Steeve-Donald- et desktop-tutorial. Publics, clone anonyme suffit (add_repo access=read puis GIT_LFS_SKIP_SMUDGE=1 git clone --depth 1). Playbook 02 : controle de sante, JAMAIS de developpement. Verifier l'etiquette du registre autant que le depot (regle 16), et si une branche chore/cleanup existe, LA COMPILER avant de la recommander (regle 19 — elle etait cassee sur binary-search-tree-java). NE PAS re-controler les deux depots vides : llm-africain-agent-ai et steevedo-github-io. APRES CES DEUX-LA le portefeuille aura ete ENTIEREMENT parcouru : reprendre par les tier 1 les plus anciens (taama, comptrack, agrotrack-bf, valuechain-connect selon etat/projets/). ATTENTION Q19 et Q20 : ne rallumer aucune Routine eteinte et ne changer le modele d'aucune Routine sans demande explicite de Steeve.",
   "pr_ouvertes_suivies": [],
   "notes": "Architecture en vigueur depuis le 2026-09-06 : une routine quotidienne reveille la session vivante (les loops en sessions separees ne peuvent pas attacher de depot — parametre 'connectors' indisponible pour l'organisation). 24 loops restent desactives. Un a deux projets par jour. 2026-09-08 : premier passage en mode triage (hypothese Q7, non validee) sur FORJA — 12 PR ouvertes, seuil 5.",
   "tronc": "master",
@@ -60,7 +60,9 @@
     "15. Chercher `const client = new X(process.env...)` au niveau module : instancier un client d'API au chargement casse le build de quiconque n'a pas le secret, CI comprise (UEEMT-Tokat).",
     "16. Un controle de sante verifie L'ETIQUETTE du registre autant que le depot : 'doublon presume' a range en tier 3 le produit le plus avance du portefeuille (livestock-os).",
     "17. Le playbook peut avoir raison sans etre suivi : pendant six jours les loops ont ajoute leurs questions A LA FIN de QUESTIONS.md alors que 00-protocole §4 dit 'en haut' et 03-digest §4 'sous la section En attente'. La fin du fichier, c'etait la section des questions RESOLUES. Douze questions en attente y ont ete classees comme traitees. Quand une regle ecrite n'est pas tenue, c'est un controle CI qu'il faut, pas une regle de plus.",
-    "18. Verifier ce que le SYSTEME fait, pas ce que sa documentation dit qu'il fait : 26 des 29 Routines etaient eteintes depuis le 6 septembre, et la PR #9, le README et CLAUDE.md decrivaient depuis huit jours une architecture remplacee le lendemain de son ecriture. Une seule commande (list_triggers) le montrait ; personne ne l'avait lancee. Meme classe d'erreur que QUESTIONS.md la veille : l'ecrit et le reel divergent en silence."
+    "18. Verifier ce que le SYSTEME fait, pas ce que sa documentation dit qu'il fait : 26 des 29 Routines etaient eteintes depuis le 6 septembre, et la PR #9, le README et CLAUDE.md decrivaient depuis huit jours une architecture remplacee le lendemain de son ecriture. Une seule commande (list_triggers) le montrait ; personne ne l'avait lancee. Meme classe d'erreur que QUESTIONS.md la veille : l'ecrit et le reel divergent en silence.",
+    "19. Une branche du MEME NOM issue de la MEME campagne de nettoyage peut etre juste sur un depot et fausse sur son voisin : chore/cleanup etait correcte sur Mon-Portfolio- le 14 (recommandee a la fusion) et CASSEE sur binary-search-tree-java le 15 — elle avait extrait, parmi deux TreeGUI.java divergents du ZIP, celui qui ne compile pas. Generaliser depuis le voisin aurait fait fusionner du code mort. La seule facon de savoir est de L'EXECUTER : compiler, lancer les tests, pas lire le diff.",
+    "20. Du code livre en archive compressee (.zip, .rar) n'est pas du code versionne : ni diff, ni blame, ni recherche, ni revue — et les artefacts de build y voyagent avec. DEUX des quatre dernieres archives du portefeuille le font (binary-search-tree-java en ZIP, Donald en RAR). Le RAR est en plus proprietaire : aucun outil ne l'ouvrait dans la session."
   ],
   "projets_traites_le_2026_09_10": [
     "mon-portfolio-2 (PR #10)",
@@ -95,5 +97,9 @@
   "projets_traites_le_2026_09_14": [
     "steevedo-github-io",
     "mon-portfolio-1"
+  ],
+  "projets_traites_le_2026_09_15": [
+    "binary-search-tree-java",
+    "donald"
   ]
 }
