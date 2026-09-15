@@ -18,8 +18,9 @@
 
 Trois d'entre elles commandent tout le reste : **Q1** (quel tronc fait foi), **Q2**
 (les métriques sont-elles réelles) et **Q19** (quelle architecture d'automatisation).
-**Q20** est la seule urgence technique : la surveillance de production est en panne.
-Les autres peuvent attendre sans rien bloquer.
+Deux urgences techniques : **Q20**, la surveillance de production est en panne, et
+**Q15**, le CompTrack livré en production n'a aucune page de connexion — tout son tableau
+de bord comptable s'ouvre à qui connaît l'adresse. Les autres peuvent attendre sans rien bloquer.
 
 | # | Sujet | Ce qu'elle décide | Hypothèse appliquée en attendant |
 |---|---|---|---|
@@ -35,7 +36,7 @@ Les autres peuvent attendre sans rien bloquer.
 | Q12 | 📄 Le README de BurkinaCollect décrit un produit absent | réécrire le README ou construire le produit | README d'abord, rien modifié |
 | Q13 | 🌿 Problem to Projects Africa : `main` ou `master` ? | deux apps sans ancêtre commun | `main` |
 | Q14 | 🏭 TAAMA : le site public doit-il revenir ? | restaurer `/tarifs` et `/demo` depuis les PR #10/#12 | oui, à restaurer |
-| Q15 | 🧾 CompTrack : `feat/comptrack-v1` ou `main` ? | 17 PR ciblent la branche non-défaut | `main` |
+| **Q15** | 🧾 CompTrack : GitHub et Vercel se contredisent | quel tronc fait foi, et où vont 21 PR | aucune — je ne tranche pas |
 | Q16 | 🔐 Sahel Commerce AI : qui peut modifier le stock ? | l'authentification du seul endpoint qui écrit | démo → limite de débit seule |
 | Q17 | 🎓 UEEMT-Tokat : `dev` est-elle vivante ? | garder ou laisser mourir une branche | `main` fait foi |
 | Q18 | 🐄 Lequel des deux produits d'élevage est le bon ? | le tier de `livestock-os` au registre | `livestock-os`, plus récent et plus complet |
@@ -378,35 +379,60 @@ masquaient ce trou), et il n'y a **aucune CI**. La **PR #35** corrige tout : vé
 
 ---
 
-### Q15 — CompTrack : `feat/comptrack-v1` ou `main` ? (2026-09-09)
+### Q15 — CompTrack : `feat/comptrack-v1` ou `main` ? (2026-09-09, réécrite le 15)
 
-CompTrack a deux troncs, divergés le 27 juin (`ddf6add`) et avancés séparément jusqu'au 10 août.
+⚠️ **Ce que je t'ai dit le 9 septembre était incomplet, et l'incomplet penchait du mauvais côté.**
+Je t'avais présenté `feat/comptrack-v1` comme le tronc parce que c'est la branche par défaut sur
+GitHub. Je n'avais pas regardé Vercel. Vercel dit l'inverse.
 
-| | `feat/comptrack-v1` ← **branche par défaut** | `main` |
+**Les deux réglages se contredisent :**
+
+| | GitHub | Vercel |
 |---|---|---|
-| Commits depuis la divergence | 12 | 36 |
-| Pages | **24** | 20 |
-| En propre | `(auth)/connexion`, `(auth)/inscription`, `bilan`, `contrats`, `declarations`, `employes`, `paie`, `tresorerie` | `catalogue`, `vente-rapide`, `budget` |
-| Authentification | oui | **aucune** |
+| Branche désignée | `feat/comptrack-v1` (branche par défaut) | `main` (branche de production) |
+| Ce que ça commande | la base par défaut d'une PR, ce qu'un `git clone` récupère | **ce qui est réellement livré** |
 
-Et surtout : **17 des 21 PR ouvertes visent `main`**, qui n'est pas la branche par défaut. Seules
-#38, #36, #30 et #8 visent `v1`. Dix-sept PR pointent donc vers une branche que le produit
-n'utilise pas — les fusionner mettrait du code là où personne ne le livre.
+Les six déploiements `target: "production"` du projet viennent **tous** de `main`, sans exception.
+Tous ceux de `feat/comptrack-v1` sont des previews (`target: null`). Le dernier déploiement en
+production est `69d3ff7` — la pointe actuelle de `main`, du 10 août.
+
+**Conséquence sur la pile de PR, exactement à l'envers de ce que j'avais écrit :** les 17 PR qui
+visent `main` visent ce qui est réellement livré. Les 4 qui visent `v1` — dont **ma propre #38** —
+visent une branche qui n'a jamais rien mis en production.
+
+**Et le fond du problème, qu'aucun des deux troncs ne résout :**
+
+| | `feat/comptrack-v1` | `main` ← **en production** |
+|---|---|---|
+| Commits depuis la divergence (`ddf6add`, 27 juin) | 12 | 36 |
+| Pages | 24 | 20 |
+| Page de connexion | oui, `signInWithPassword` réel | **aucune** |
+| Le tableau de bord est-il protégé ? | **non** — `middleware.ts` ne fait que limiter le débit de `/api/*` | **non** |
+
+Autrement dit : un logiciel de comptabilité SYSCOHADA, livré, dont **tout le tableau de bord
+s'ouvre à qui connaît l'adresse** — salaires, déclarations fiscales, trésorerie, bilan. Ce n'est
+pas une conséquence de la question du tronc : c'est vrai des deux côtés. La différence est que
+`v1` a déjà la porte et qu'il n'y manque que le mur ; `main` n'a ni l'un ni l'autre.
 
 | | Pour | Contre |
 |---|---|---|
-| **A. `feat/comptrack-v1` est le tronc** | c'est déjà la branche par défaut ; elle porte l'authentification, la paie, les déclarations et le bilan — le cœur d'un SaaS de comptabilité SYSCOHADA | il faut re-cibler ou fermer 17 PR |
-| **B. `main` est le tronc** | 36 commits contre 12, et `catalogue` / `vente-rapide` suggèrent une direction plus large | pas d'authentification du tout ; il faudrait changer la branche par défaut et perdre paie/déclarations/bilan |
-| **C. Fusionner les deux** | rien n'est perdu | 36 et 12 commits divergents sur les mêmes fichiers : la réconciliation est un chantier à part entière |
+| **A. `main` devient le tronc partout** | c'est déjà ce qui est livré ; 36 commits contre 12 ; 17 PR sont déjà bien ciblées | il faut y porter connexion, inscription, paie, déclarations, bilan — et changer la branche par défaut GitHub |
+| **B. `feat/comptrack-v1` devient le tronc partout** | il porte l'authentification, la paie, les déclarations, le bilan : le cœur d'un SaaS de comptabilité | il faut re-cibler ou fermer 17 PR **et** changer la branche de production Vercel, donc toucher à la production |
+| **C. Réconcilier les deux** | rien n'est perdu — la seule option qui garde `catalogue` / `vente-rapide` **et** la paie | 36 et 12 commits divergents sur les mêmes fichiers : un chantier à part entière, pas une manipulation |
 
-**Hypothèse retenue : A.** C'est la branche par défaut, et un logiciel de comptabilité sans
-connexion utilisateur n'est pas livrable. **Je n'ai rien re-ciblé ni fermé** : re-cibler 17 PR et
-changer une branche par défaut sont deux gestes qui t'appartiennent.
+**Hypothèse retenue : je ne tranche pas, et j'arrête de construire à l'aveugle sur CompTrack.**
+Changer une branche de production Vercel est une action de production — le protocole me l'interdit
+(§3). Changer la branche par défaut GitHub re-base 17 PR d'un coup. Les deux t'appartiennent.
+En attendant, je continue de baser mes PR sur `feat/comptrack-v1`, parce que c'est la branche par
+défaut et que ma #38 y vit déjà — mais **je sais désormais que cela ne va nulle part en
+production**, et je préfère te le dire que laisser l'ambiguïté travailler pour moi.
 
-⚠️ **Indépendamment de Q15** : sur `feat/comptrack-v1`, `npx eslint` **ne démarre même pas** —
-il n'y a aucun `eslint.config.mjs`, et `package.json` appelle encore `next lint`. Six tests sont
-en échec sur 72, et il n'y a aucune CI. La **PR #38** corrige tout, sur la bonne branche :
-vérifiée ici, **72/72** tests, ESLint fonctionne (0 erreur), build 29 pages.
+Ce que j'ai quand même fait, parce que c'est vrai quelle que soit ta réponse : **PR #39** sur `v1`
+— le tableau de bord ne s'ouvre plus sans connexion. Liste blanche (une page ajoutée demain est
+protégée sans que personne y pense), `getUser()` et jamais `getSession()`, et la distinction entre
+« personne n'est connecté » et « ce déploiement n'a pas de Supabase », que le repli sur
+`http://placeholder.supabase.co` rendait invisible. 15 tests, dont quatre sabotages délibérés du
+garde qui les font bien échouer.
 
 **Réponse de Steeve :** _(en attente)_
 
