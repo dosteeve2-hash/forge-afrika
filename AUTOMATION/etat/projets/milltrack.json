@@ -1,29 +1,39 @@
 {
   "projet": "milltrack",
-  "derniere_execution": "2026-09-08",
+  "derniere_execution": "2026-09-15",
   "verdict": "🟢",
   "tronc": "master — sain : lint 0, 124 tests, build 13 routes, CI presente",
   "pr_ouvertes_du_depot": [
-    "#3 (30 juil) quality improvements — error.tsx et loading.tsx DEJA sur le tronc, ne reste qu'un LOVABLE_PROTOCOL.md",
-    "#2 (18 juil) sprint14 fournisseurs+parametres — contient entierement la #1",
-    "#1 (13 juil) auth complete v2 — sous-ensemble strict de la #2",
-    "#13 la mienne"
+    "6 PR ouvertes au 15 septembre, dont 3 a moi.",
+    "#3 (30 juil) quality improvements — error.tsx et loading.tsx DEJA sur le tronc (verifie : presents mais differents), ne reste qu'un LOVABLE_PROTOCOL.md",
+    "#2 (18 juil) sprint14 fournisseurs+parametres — 26 commits de retard, 3 CONFLITS reels avec master : clients/page.tsx, production/page.tsx, (dashboard)/layout.tsx",
+    "#1 (13 juil) auth complete v2 — 12 de ses 13 fichiers sont IDENTIQUES AU BIT PRES a ceux de la #2 ; le 13e, SidebarNav.tsx, differe de +8/-1 (la #2 ajoute 3 entrees de nav). Entierement absorbee par la #2."
   ],
   "mes_pr": [
-    "#13 — tableau de bord utilisable sur telephone : tiroir sous 768px, 3 tableaux defilants, 9 grilles KPI en auto-fit. 22 tests ajoutes."
+    "#13 — tableau de bord utilisable sur telephone : tiroir sous 768px, 3 tableaux defilants, 9 grilles KPI en auto-fit. 22 tests ajoutes.",
+    "#14 — les commandes survivent au rechargement, et la saisie francaise passe. lib/persistance-locale.ts, 124 -> 158 tests.",
+    "#15 — AUTHENTIFICATION. Le tronc n'en avait aucune ; le travail dormait dans les #1/#2 depuis juillet. Porte sur master d'aujourd'hui : garde en liste blanche dans proxy.ts, getUser() jamais getSession(), lib/supabase/config.ts, ?suite= valide, bouton de deconnexion. 124 -> 142 tests, lint 0/0, build 16 routes."
   ],
   "sante": {
     "ci": "presente depuis la PR #12 fusionnee le 2 septembre",
-    "tests": "146 apres ma PR (124 avant)",
+    "tests": "124 au tronc ; 142 avec la #15, 158 avec la #14",
     "lint": "0 erreur, 0 avertissement",
-    "build": "passe, 13 routes"
+    "build": "passe — 13 routes au tronc, 16 avec la #15",
+    "authentification": "AUCUNE au tronc. app/(dashboard)/dashboard/page.tsx porte encore '// TODO: replace with real Supabase getUser() call' en commentaire."
   },
   "note_portefeuille": "MillTrack a FUSIONNE le 2 septembre la PR #12 (repare tests + lint + ajoute la CI). FORJA a la meme PR (#27) toujours ouverte. Meme correctif, deux destins : l'un a un tronc vert, l'autre un tronc rouge. C'est la demonstration la plus nette que le goulot est la fusion.",
-  "prochain_chantier": "Les PR #1 et #2 apportent l'AUTHENTIFICATION, que le tronc n'a pas du tout (MillTrack se visite sans compte). Vrai manque, mais a reecrire sur l'arborescence actuelle : elles ecrivent dans (dashboard)/dashboard/ et ajoutent un middleware.ts alors que le tronc est passe a proxy.ts. Fermer la #3 (contenu deja au tronc) et la #1 (sous-ensemble de la #2).",
+  "prochain_chantier": "La #15 a porte l'authentification ; il reste a etendre lib/persistance-locale.ts (PR #14) aux pages encore en MOCK_*, une PR par page. Les conflits de la #2 sur clients/ et production/ appartiennent a Steeve : le tronc a construit ses propres versions depuis juillet.",
   "dette_connue": [
     "rapports/page.tsx : liste rendue en grille de 5 colonnes au lieu d'un <table> — meme defaut mobile, demande une restructuration.",
     "Aucune donnee reelle : tout est MOCK_*. Ni base, ni authentification.",
     "pr_body.md traine a la racine du depot."
   ],
-  "lecon": "Une regle de lint m'a fait ecrire MOINS de code. useEffect(() => setOuvert(false), [pathname]) est refuse par react-hooks/set-state-in-effect ; memoriser le chemin d'ouverture (ouvertSur === pathname) supprime l'effet entier. Et mon test sur aria-current avait tort, pas le composant : un tiroir en aria-hidden sort de l'arbre d'accessibilite, donc ses liens ne doivent PAS etre comptes."
+  "lecon": "Une regle de lint m'a fait ecrire MOINS de code. useEffect(() => setOuvert(false), [pathname]) est refuse par react-hooks/set-state-in-effect ; memoriser le chemin d'ouverture (ouvertSur === pathname) supprime l'effet entier. Et mon test sur aria-current avait tort, pas le composant : un tiroir en aria-hidden sort de l'arbre d'accessibilite, donc ses liens ne doivent PAS etre comptes.",
+  "chantier_en_cours": "",
+  "deux_defauts_de_la_version_de_juillet": {
+    "garde_vide": "La #2 protege matcher: ['/dashboard/:path*']. Sur le tronc actuel ce motif ne couvre AUCUNE page — les onze s'appellent /lots, /machines, /stocks…, et '/dashboard/:path*' ne couvre meme pas '/dashboard', qui n'a pas de segment suivant. Un garde vert et vide. La #15 le remplace par une liste blanche, avec un test qui rejoue le motif de la #2 et echoue.",
+    "build_casse": "Le tronc est en Next 16, qui a renomme middleware.ts en proxy.ts et REFUSE le build quand les deux existent. La #2 apporte un middleware.ts ; le tronc a deja un proxy.ts. Fusionner la #2 telle quelle casse le build — rencontre pour de vrai en essayant, pas deduit.",
+    "mot_de_passe_en_clair": "La page de connexion de la #2 imprime un identifiant et un mot de passe de demonstration dans la page. Non repris dans la #15."
+  },
+  "motif_du_portefeuille": "Troisieme logiciel de gestion du portefeuille dont le tronc n'a aucune authentification, apres CompTrack (main) et CompTrack (v1, qui a la porte mais pas le mur). Ce n'est pas un oubli isole : c'est ce qui arrive quand les PR qui apportent l'auth ne sont jamais fusionnees."
 }
