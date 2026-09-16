@@ -14,13 +14,14 @@
 
 ---
 
-## 📋 Les 18 questions en un coup d'œil
+## 📋 Les 19 questions en un coup d'œil
 
 Trois d'entre elles commandent tout le reste : **Q1** (quel tronc fait foi), **Q2**
 (les métriques sont-elles réelles) et **Q19** (quelle architecture d'automatisation).
-Deux urgences techniques : **Q20**, la surveillance de production est en panne, et
-**Q15**, le CompTrack livré en production n'a aucune page de connexion — tout son tableau
-de bord comptable s'ouvre à qui connaît l'adresse. Les autres peuvent attendre sans rien bloquer.
+Trois urgences techniques : **Q21**, AgroTrack BF répond **500 en production depuis
+vingt-cinq jours** et seul toi peux le remettre en service ; **Q20**, la surveillance de
+production est elle-même en panne, ce qui explique que personne ne l'ait vu ; et **Q15**,
+le CompTrack livré n'a aucune page de connexion. Les autres peuvent attendre sans rien bloquer.
 
 | # | Sujet | Ce qu'elle décide | Hypothèse appliquée en attendant |
 |---|---|---|---|
@@ -41,6 +42,7 @@ de bord comptable s'ouvre à qui connaît l'adresse. Les autres peuvent attendre
 | Q17 | 🎓 UEEMT-Tokat : `dev` est-elle vivante ? | garder ou laisser mourir une branche | `main` fait foi |
 | Q18 | 🐄 Lequel des deux produits d'élevage est le bon ? | le tier de `livestock-os` au registre | `livestock-os`, plus récent et plus complet |
 | **Q19** | ⚙️ Rallumer les 26 loops, ou garder la session vivante ? | le débit réel du système : 2 projets/jour contre 25/semaine | statu quo, rien rallumé |
+| **Q21** | 🌾 AgroTrack BF : `/dashboard` répond 500 en production | remettre en service un tier 1 mort depuis 25 jours | aucune — poser une variable est une action de production |
 | **Q20** | 🚨 La veille de production échoue chaque matin | la seule surveillance des 13 URLs en production | aucune action — le modèle d'une Routine ne se change pas sans toi |
 
 > **Q4 et Q18 se contredisent.** Q4 (5 septembre) supposait `livestockos` vivant ; Q18
@@ -598,6 +600,53 @@ explicite, dans tes mots — ce n'est pas quelque chose que je décide.
 **Hypothèse retenue :** aucune action — la Routine reste telle quelle jusqu'à ta réponse.
 C'est la seule question de ce fichier où l'hypothèse est de **ne rien faire**, parce que
 la règle sur le modèle des Routines ne me laisse pas d'autre choix.
+
+**Réponse de Steeve :** _(en attente)_
+
+---
+
+### Q21 — AgroTrack BF : `/dashboard` répond 500 en production (2026-09-16)
+
+`https://agrotrack-bf.vercel.app/dashboard` renvoie **HTTP 500**. Vérifié ce matin à
+02h19 UTC. Le relevé du **22 août** signalait déjà la même panne : **vingt-cinq jours**
+qu'un de tes produits tier 1 est inutilisable, et personne ne l'a vu — parce que la
+veille de production qui aurait dû le dire est elle-même morte depuis le 14 (**Q20**).
+
+**La cause, établie en la reproduisant et non en la déduisant.** Application lancée sans
+les deux variables Supabase :
+
+```
+GET /            → 200
+GET /dashboard   → 500
+serveur : Error: Your project's URL and Key are required to create a Supabase client!
+```
+
+Deux occurrences, layout et page — correspondant exactement aux deux digests renvoyés par
+la production. `lib/supabase/{client,server}.ts` écrivaient `process.env.X!` : l'assertion
+ne ment qu'au vérificateur de types, et à l'exécution `@supabase/ssr` lève **dans**
+`createClient()`, donc **avant** que le layout ait pu appeler `getUser()` et rediriger.
+Une variable oubliée n'a pas dégradé la connexion : elle a emporté **les seize pages**.
+
+**Ce que j'ai fait, et sa limite.** La **PR #19** fait fermer le produit au lieu de le
+casser : `/dashboard` redirige vers `/auth/login?raison=non-configure`, et la page de
+connexion dit ce qui manque. Prouvé dans les deux sens, y compris l'absence de faux
+positif quand les variables sont présentes.
+
+**Mais elle ne remet pas AgroTrack en service.** Le remède est de poser
+`NEXT_PUBLIC_SUPABASE_URL` et `NEXT_PUBLIC_SUPABASE_ANON_KEY` dans Vercel. C'est une
+**action de production**, que le protocole §3 m'interdit — et à raison : je ne sais pas
+quelle base Supabase tu veux brancher, ni si `agrotrack-bf` doit pointer vers un projet
+existant ou un nouveau.
+
+| | |
+|---|---|
+| **A. Tu poses les deux variables** | trente secondes dans Vercel, et le produit revit |
+| **B. AgroTrack n'est plus une priorité** | alors dis-le : je cesse d'y consacrer des passages, et le registre le sort du tier 1 |
+
+**Hypothèse retenue : je ne touche à rien en production, et je ne construis plus sur
+AgroTrack tant que tu n'as pas répondu.** Construire par-dessus une production morte
+n'aurait pas de sens. La PR #19 attend, et elle est utile quelle que soit ta réponse :
+le jour où une variable sera oubliée à nouveau, le produit fermera au lieu de tomber.
 
 **Réponse de Steeve :** _(en attente)_
 

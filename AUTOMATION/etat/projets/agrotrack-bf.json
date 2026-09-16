@@ -1,7 +1,7 @@
 {
   "projet": "agrotrack-bf",
-  "derniere_execution": "2026-09-07",
-  "verdict": "🟡",
+  "derniere_execution": "2026-09-16",
+  "verdict": "🔴 /dashboard repond 500 EN PRODUCTION depuis le 22 aout — 25 jours",
   "tronc": "master",
   "pr_ouvertes_du_depot": [
     "#15 (ouverte le 2026-08-11, corrections UX, toujours en attente)",
@@ -10,7 +10,8 @@
   ],
   "mes_pr": [
     "#17 — tableau de bord utilisable sur telephone, 133 tests verts",
-    "#18 — schema des donnees + pages Membres ET Parcelles branchees, 135 tests verts. AUCUNE base creee."
+    "#18 — schema des donnees + pages Membres ET Parcelles branchees, 135 tests verts. AUCUNE base creee.",
+    "#19 — /dashboard 500 en production : le produit ferme au lieu de casser quand Supabase manque. Prouve dans les deux sens. Lint 0, tests 120 → 125, build vert."
   ],
   "sante": {
     "ci": "presente et bloquante (lint + tests + build)",
@@ -29,7 +30,7 @@
     "cout_quasi_nul": "✅ tiers gratuits"
   },
   "chantier_en_cours": "PR #17 et #18 en attente de fusion",
-  "prochain_chantier": "BLOQUE sur une decision de Steeve : appliquer la migration sur une base de developpement (action de production, protocole §3.6). La Phase 1 du PRD est couverte cote donnees (membres + parcelles). Ensuite : Collectes, puis SEULEMENT apres la synchro hors ligne (Phase 2). On ne rend pas offline-first des donnees qui n'existent pas encore.",
+  "prochain_chantier": "Rien de neuf tant que Q21 n'a pas de reponse : le produit est en panne et seul Steeve peut poser les variables. Construire par-dessus une production morte n'a pas de sens.",
   "dette_connue": [
     "14 pages sur 16 sont toujours en MOCK. Membres et Parcelles sont branchees.",
     "Le SQL de la PR #18 est relu mais jamais execute : aucune preuve d'execution tant qu'une base n'existe pas.",
@@ -37,7 +38,20 @@
     "2 composants orphelins restants (DashboardClient, CollectesClient). MembresClient et ParcelleTable portaient en fait le bon modele de donnees.",
     "tsconfig.tsbuildinfo versionne — artefact de compilation.",
     "PR #15 en attente depuis le 2026-08-11.",
-    "Aucune structure i18n."
+    "Aucune structure i18n.",
+    "La page de connexion imprime EN CLAIR l'identifiant et le mot de passe de demo (meme motif qu'a MillTrack). Les retirer casse le bouton de demo — decision de Steeve.",
+    "tsconfig.tsbuildinfo est suivi par git : fichier genere, modifie a chaque compilation, donc conflit a chaque branche qui compile."
   ],
-  "lecon": "Un composant client qui importe un module tirant next/headers casse le build, et les tests ne le voient pas : jsdom tolere l'import. npm test vert n'autorise pas a sauter npm run build."
+  "lecon": "Un composant client qui importe un module tirant next/headers casse le build, et les tests ne le voient pas : jsdom tolere l'import. npm test vert n'autorise pas a sauter npm run build.",
+  "panne_production": {
+    "url": "https://agrotrack-bf.vercel.app/dashboard",
+    "code": 500,
+    "vue_le": "2026-09-16 02h19 UTC, et deja le 2026-08-22",
+    "cause": "process.env.X! dans lib/supabase/{client,server}.ts. L'assertion ne ment qu'au verificateur de types ; a l'execution @supabase/ssr leve DANS createClient(), donc AVANT que le layout puisse appeler getUser() et rediriger. Les 16 pages du tableau de bord renvoyaient 500 au lieu d'une page de connexion.",
+    "etablie_par": "REPRODUCTION, pas deduction : application lancee sans les deux variables, / → 200 et /dashboard → 500 avec « Your project's URL and Key are required ». Deux occurrences, correspondant aux deux digests de la production.",
+    "vercel_runtime_errors": "ne remonte RIEN sur 24h — l'agregation ne voit pas cette erreur.",
+    "correctif": "PR #19 : ferme au lieu de casser (307 vers /auth/login?raison=non-configure).",
+    "remede_reel": "Poser NEXT_PUBLIC_SUPABASE_URL et NEXT_PUBLIC_SUPABASE_ANON_KEY dans Vercel. Action de production, interdite au protocole §3. C'est Q21."
+  },
+  "regle_23": "23a AUTHENTIFICATION : PASSE. (dashboard)/layout.tsx appelle getUser() cote serveur et redirige ; les 16 pages vivent sous ce layout. C'etait ma premiere hypothese et elle etait FAUSSE — verifiee avant d'etre ecrite. 23b MOUVEMENT JS : PASSE, aucun gsap/lenis/requestAnimationFrame."
 }

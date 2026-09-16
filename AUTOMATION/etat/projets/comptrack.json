@@ -19,15 +19,15 @@
   "chantier_en_cours": "",
   "prochain_chantier": "Rien de neuf sur CompTrack tant que Q15 n'a pas de reponse. Construire davantage sur v1 reviendrait a empiler du travail sur une branche qui ne livre rien ; construire sur main sans avoir tranche serait pire. #38 et #39 attendent.",
   "dette_connue": [
-    "20 PR ouvertes, 0 fusionnee, la plus ancienne du 2026-06-29.",
-    "17 d'entre elles ajoutent des pages deja presentes au tronc — verifie branche par branche.",
+    "21 PR ouvertes, 0 fusionnee, la plus ancienne du 2026-06-29.",
+    "17 ciblent main, 4 ciblent feat/comptrack-v1 (#38 #36 #30 #8). Aucune des deux cibles n'est clairement LE tronc : GitHub designe v1 par defaut, Vercel livre main. C'est Q15.",
     "5 paires de doublons : /fournisseurs (#7,#17), /clients (#6,#15), /depenses (#8,#18), /previsions (#21,#36), /factures (#16,#22).",
-    "Deux troncs divergents (main et feat/comptrack-v1) ; 11 PR ciblent main, le mauvais.",
-    "Le tronc s'appelle feat/comptrack-v1 — un nom de branche de feature pour un tronc invite a l'erreur.",
-    "34 branches distantes."
+    "Le tronc par defaut GitHub s'appelle feat/comptrack-v1 — un nom de branche de feature pour une branche par defaut invite a l'erreur, et m'y a fait tomber.",
+    "34 branches distantes.",
+    "AUCUNE authentification sur main, qui est pourtant ce qui est livre. Ma PR #39 pose le garde sur v1 ; main reste ouvert tant que Q15 n'est pas tranchee."
   ],
   "incident": "",
-  "lecon": "Comparer une PR au mauvais tronc donne un resultat faux avec l'apparence de la rigueur. Ici 17 PR visaient main alors que la branche par defaut est feat/comptrack-v1 — mon triage du 7 septembre les avait comptees sans le voir. Et un sparse checkout herite peut faire croire qu'un depot est casse alors que git dit 'working tree clean'.",
+  "lecon": "Une mesure partielle a l'apparence d'une mesure complete. Le 9 septembre j'ai lu la branche par defaut GitHub et j'en ai deduit le tronc, sans regarder l'hebergeur : les six deploiements de production viennent tous de main. Le 7, un sparse checkout herite m'avait fait croire que le depot etait casse alors que git disait 'working tree clean'. Deux fois le meme defaut de methode : conclure depuis la premiere source consultee. Regles 21 et 22.",
   "mode": "TRIAGE (21 PR ouvertes — la plus grosse pile du portefeuille)",
   "autre_tronc": "main — 20 pages dont catalogue, vente-rapide, budget ; AUCUNE page d'authentification. C'est pourtant la branche que Vercel livre. Diverge de v1 le 27 juin (ddf6add) : main +36 commits, v1 +12. Les deux pointes datent du 10 aout, a six heures d'intervalle.",
   "constat_central": "Aucune des 21 PR ne peut aboutir tant que Q15 n'est pas tranchee, et la question n'est plus 'laquelle des deux branches' mais 'lequel des deux reglages on aligne sur l'autre'. Changer la branche de production Vercel est une action de production, interdite par le protocole §3. Changer la branche par defaut GitHub re-base 17 PR d'un coup. Les deux appartiennent a Steeve.",
@@ -59,7 +59,9 @@
     "preuve": "Les 6 deploiements target=production du projet prj_IR3AncG2FQrxKF6A06WPZh7Ert4u viennent tous de githubCommitRef=main. Tous ceux de feat/comptrack-v1 sont target=null, donc des previews. Dernier deploiement en production : 69d3ff7, pointe de main, 10 aout.",
     "consequence": "Exactement l'inverse de ce que j'avais ecrit : les 17 PR qui visent main visent ce qui est reellement livre ; les 4 qui visent v1 — dont ma #38 — visent une branche qui n'a jamais rien mis en production.",
     "lecon": "La branche par defaut GitHub et la branche de production de l'hebergeur sont deux reglages distincts. Croire que l'un dit l'autre, c'est la meme erreur de methode que le clone superficiel de TAAMA : une mesure partielle qui a l'apparence d'une mesure complete.",
-    "regle": "Voir regle 22 de etat/rotation.json."
+    "regle": "Voir regle 22 de etat/rotation.json.",
+    "affirmation_refutee": "main, le mauvais",
+    "nettoyage_2026_09_16": "Le bloc de correction existait depuis le 15, mais dette_connue disait encore « 11 PR ciblent main, le mauvais » et la lecon presentait la version refutee comme l'enseignement. Corrige le 16, en meme temps que le meme defaut sur taama.json — c'est ce qui a motive le 16e controle CI."
   },
   "trou_de_securite": {
     "constat": "Le tableau de bord de CompTrack s'ouvre a qui connait l'adresse — 21 pages : paie, declarations fiscales, tresorerie, bilan, employes, contrats.",
