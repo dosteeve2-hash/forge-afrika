@@ -55,6 +55,10 @@
   },
   "regle_23": "23a AUTHENTIFICATION : PASSE. (dashboard)/layout.tsx appelle getUser() cote serveur et redirige ; les 16 pages vivent sous ce layout. C'etait ma premiere hypothese et elle etait FAUSSE — verifiee avant d'etre ecrite. 23b MOUVEMENT JS : PASSE, aucun gsap/lenis/requestAnimationFrame.",
   "releves_de_panne": [
-    "2026-09-16 10h32 UTC — /membres repond 500 avec le digest 527092414, LE MEME que /dashboard. Confirme par la mesure ce que je deduisais de la structure : c'est le layout partage qui tombe, donc les seize pages. Toujours en panne, 25e jour."
+    "2026-09-16 10h32 UTC — /membres repond 500 avec le digest 527092414, LE MEME que /dashboard. Confirme par la mesure ce que je deduisais de la structure : c'est le layout partage qui tombe, donc les seize pages. Toujours en panne, 25e jour.",
+    "2026-09-16 14h31 UTC — TOUJOURS EN PANNE, 25e jour. /dashboard 500 (digest layout 527092414 + digest page 918475680) et /parcelles 500 (meme digest layout 527092414). Troisieme page mesuree apres /membres a 10h32 : le digest du layout est IDENTIQUE sur les trois. La cause reste celle etablie par reproduction le 16 au matin ; rien re-diagnostique."
+  ],
+  "note_de_methode": [
+    "2026-09-16 14h30 — ma premiere sonde de ce releve a renvoye code 000 sur les quatre chemins. Ce n'etait PAS une panne d'AgroTrack : le proxy sortant de la session refusait le CONNECT vers agrotrack-bf.vercel.app (403, visible dans recentRelayFailures). Un code 000 signifie « je n'ai pas joint l'hote », jamais « l'hote repond mal » — l'ecrire comme un constat serait repeter l'erreur du 15 septembre ou j'avais annonce « la demo CompTrack repond 503 » sur un echec de sonde transitoire. Mesure refaite par une autre voie avant d'affirmer quoi que ce soit."
   ]
 }
