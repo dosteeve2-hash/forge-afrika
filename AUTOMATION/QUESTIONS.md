@@ -35,7 +35,7 @@ le CompTrack livré n'a aucune page de connexion. Les autres peuvent attendre sa
 | Q10 | ☕ FORJA fait-il encore de l'export de café ? | 11 PR à fermer plutôt qu'à fusionner | le tronc a raison |
 | **Q11** | 🔑 Aisha tourne en public sans limite de débit, sous une URL au nom de BurkinaCollect | un endpoint IA ouvert sur un dépôt public | aucune — **mon hypothèse « non déployé » était fausse** |
 | Q12 | 📄 Le README de BurkinaCollect décrit un produit absent | réécrire le README ou construire le produit | README d'abord, rien modifié |
-| Q13 | 🌿 Problem to Projects Africa : `main` ou `master` ? | deux apps sans ancêtre commun | `main` |
+| **Q13** | 🌿 Problem to Projects Africa : la branche livrée n'a pas l'intelligence | 61 fichiers dormants, dont toute la génération IA et 4 contextes pays | `main` reste le tronc, **rien porté** |
 | Q14 | 🏭 TAAMA : le site public doit-il revenir ? | restaurer `/tarifs` et `/demo` depuis les PR #10/#12 | oui, à restaurer |
 | **Q15** | 🧾 CompTrack : GitHub et Vercel se contredisent | quel tronc fait foi, et où vont 21 PR | aucune — je ne tranche pas |
 | Q16 | 🔐 Sahel Commerce AI : qui peut modifier le stock ? | l'authentification du seul endpoint qui écrit | démo → limite de débit seule |
@@ -304,50 +304,57 @@ promesse publique d'un projet est ta parole, pas la mienne — même limite que 
 
 ---
 
-### Q13 — Problem to Projects Africa : `main` ou `master` ? (2026-09-08)
+### Q13 — Problem to Projects Africa : la branche livrée n'a pas l'intelligence (2026-09-08, **réécrite le 16**)
 
-```
-$ git merge-base origin/main origin/master
-→ aucun ancêtre commun
-```
+⚠️ **Ce que j'avais écrit était faux sur le point décisif.** Mon état disait qu'il ne restait
+sur `master` que **« trois fichiers qui n'existent nulle part ailleurs »** — `CLAUDE.md`,
+`AGENTS.md`, un logo. Compté ce matin fichier par fichier : **61 des 80 fichiers de `master`
+sont absents de `main`**, et 86 de `main` absents de `master`.
 
-Le dépôt contient **deux applications sans un seul commit en commun**. Ce ne sont pas deux
-versions d'un même produit qui ont divergé — ce sont deux implémentations séparées de la même
-idée, dans le même dépôt. Git ne peut pas les réconcilier : il n'y a rien à quoi se rattacher.
+**La topologie, elle, tient** — vérifiée en clone complet (règle 21) : deux racines réelles,
+aucun ancêtre commun. Contrairement à TAAMA, ce diagnostic-là était juste.
 
-| | `main` (par défaut) | `master` |
+**Ce qui est livré.** Tous les déploiements `target: production` viennent de **`main`**, y
+compris la pointe actuelle `94d1962`. Les déploiements de `master` sont tous des previews.
+GitHub et Vercel sont d'accord ici (règle 22 vérifiée, pas supposée).
+
+| | `main` — **en production** | `master` — jamais livré |
 |---|---|---|
-| Commits · fichiers | 32 · 105 | 7 · 80 |
-| Dernier commit | 25 juillet | 13 juillet |
-| Parcours | `intake` → `modes` → `results` / `results-enhanced` → `roadmap/[id]` → `project/[id]`, + `explore`, `profile`, `signup` | `start` → `problem` → `skills` → `idea` → `results/[id]`, + `about`, `how-it-works` |
-| API | `analyze-project`, `recommend`, `sync` | `generate`, `save-project` |
-| En propre | `docs/` — Blueprint, PRD MVP, architecture technique | **`CLAUDE.md`**, `AGENTS.md`, charte SDC dark premium, **logo officiel** |
+| Commits · dernier | 32 · 25 juillet | 7 · 13 juillet |
+| Fichiers | 105 | 80 |
+| Absents de l'autre branche | 86 | **61** |
+| Génération de projets | moteur **local** (`EnhancedProjectAnalyzer`) | **API Anthropic**, `claude-opus-4-5` |
+| `@anthropic-ai/sdk` dans `package.json` | **non** | oui |
+| Contextes pays | — | **Burkina, Mali, Sénégal, Côte d'Ivoire** |
+| Comptes, tableau de bord, profil | oui | page de connexion seulement |
+| Tests, config eslint, docs | oui | non |
+| `CLAUDE.md`, `AGENTS.md` | **absents** | présents |
 
-`dashboard`, `login` et `auth/callback` existent des deux côtés, écrits deux fois.
+**Le point qui change tout.** `main` a bien un dossier `src/lib/ai/` — mais c'est une
+**interface vide** : `registerProvider()` n'est jamais appelé, personne n'importe `@/lib/ai`,
+et `package.json` ne contient aucun SDK d'IA. `getActiveProvider()` rend `null` par
+construction. Les recommandations viennent d'un moteur heuristique local.
 
-**Et les deux PR ouvertes visent des troncs différents** : la #10 vise `main`, la #9 vise
-`master`. Autrement dit, le travail continue en parallèle sur les deux, et chaque jour qui passe
-rend l'abandon de l'une plus coûteux.
+Autrement dit : **la branche qui tourne n'a aucune intelligence, et la branche qui l'a n'a
+jamais été livrée.** Pour un produit qui s'appelle « Problem to Project », c'est le cœur.
+
+**Bonne nouvelle, et vérifiée :** la couche IA de `master` est correcte. `/api/generate`
+limite le débit (5 req/min par IP), valide l'entrée par un schéma Zod, et met le texte de
+l'utilisateur dans le prompt **utilisateur** — le `SYSTEM_PROMPT` est une constante. La règle
+de `CLAUDE.md` « ne jamais concaténer l'input utilisateur dans un system prompt » est donc
+respectée. Deux réserves mineures : le compteur est en mémoire, donc par instance sur
+serverless ; et le texte libre n'est pas entouré de délimiteurs `<user_input>`.
 
 | | Pour | Contre |
 |---|---|---|
-| **A. `main` est le produit** | c'est la branche par défaut, la plus avancée (32 commits contre 7), elle porte le Blueprint et le PRD, et sa PR #10 est vérifiée verte | on perd la charte SDC et le logo officiel — **récupérables : 3 fichiers à copier** |
-| **B. `master` est le produit** | il porte la charte visuelle finalisée, le logo, et le `CLAUDE.md` que `main` n'a pas | 7 commits contre 32, arrêté depuis le 13 juillet, et il faudrait re-cibler la branche par défaut |
-| **C. Les garder tous les deux** | rien à trancher tout de suite | c'est la situation actuelle : deux apps, deux PR, deux troncs, et personne ne sait laquelle livrer |
+| **A. `main` reste le tronc, on y porte `src/lib/ai/` et `src/lib/context/`** | c'est ce qui est livré, c'est ce qui a les comptes, les tests et la CI ; et le produit ferait enfin ce que son nom promet | il faut réconcilier deux modèles de données sans ancêtre commun |
+| **B. `master` devient le tronc** | il a l'intelligence et les quatre contextes pays, écrits avec soin | il perd comptes, tableau de bord, profil, tests, CI — et il faudrait changer la branche de production |
+| **C. Statu quo** | rien à faire | le produit continue de recommander sans IA, et 61 fichiers de travail réel dorment |
 
-**Hypothèse retenue : A.** `main` est la branche par défaut et la plus construite ; ce que
-`master` a en propre tient en trois fichiers (`CLAUDE.md`, `AGENTS.md`,
-`public/brand/logo-ppa.svg`) qui se copient à la main.
-
-**Je n'ai rien fait** : ni fermé la #9, ni re-ciblé quoi que ce soit, ni touché à `master`. Et
-je n'ai **rien construit** sur `main` non plus — développer avant que tu tranches, c'est risquer
-de développer l'application qui sera abandonnée.
-
-⚠️ **Indépendamment de Q13** : sur `main`, `npx tsc --noEmit` **échoue**, il y a **91
-avertissements** de lint, **deux `@ts-nocheck`** — dont un sur le moteur de recommandation, le
-cœur du produit — et un fichier de tests que rien ne peut exécuter (aucun script `test` dans
-`package.json`). Aucune CI ne l'a jamais signalé. La **PR #10** corrige tout : vérifiée ici,
-lint 0 problème, `tsc` passe, 30/30 tests, build 18 routes.
+**Hypothèse retenue : A, et je n'ai rien porté.** Porter `src/lib/ai/` et `src/lib/context/`
+de `master` vers `main`, c'est précisément la décision que cette question te pose — le faire
+sans ta réponse serait trancher à ta place. Ce que j'ai fait, c'est mesurer, pour que la
+décision tienne en une minute.
 
 **Réponse de Steeve :** _(en attente)_
 

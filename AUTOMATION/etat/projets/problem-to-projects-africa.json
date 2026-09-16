@@ -1,13 +1,37 @@
 {
   "projet": "problem-to-projects-africa",
-  "derniere_execution": "2026-09-08",
-  "verdict": "🔴 deux applications sans ancetre commun dans le meme depot",
-  "tronc": "main (branche par defaut), 32 commits, dernier 94d1962 du 25 juillet",
-  "constat_central": "git merge-base origin/main origin/master ne renvoie AUCUN ancetre commun. Ce ne sont pas deux versions divergentes d'une meme application : ce sont deux applications differentes construites separement dans le meme depot. Aucune fusion git n'est possible. Et les deux PR ouvertes visent des troncs differents — #10 vise main, #9 vise master.",
+  "derniere_execution": "2026-09-16",
+  "verdict": "🔴 la branche qui tourne en production n'a aucune intelligence artificielle, et celle qui l'a n'a jamais ete livree",
+  "tronc": "main (branche par defaut ET branche de production), 32 commits, dernier 94d1962 du 25 juillet",
+  "constat_central": "PPA est un generateur de projets : on decrit un probleme, il propose un projet. Sur main — la branche qui sert les visiteurs — cette generation n'existe pas. src/lib/ai/ y est un echafaudage mort : aucun fichier n'importe @/lib/ai, registerProvider n'est jamais appele, et package.json ne contient aucun SDK d'IA. La vraie couche de generation est sur master, avec le SDK Anthropic, quatre contextes pays, une limite de debit et une validation Zod — et master n'a jamais ete deployee en production, seulement en previsualisation. Les deux branches n'ont aucun ancetre commun : ce sont deux applications construites separement dans le meme depot, verifie en clone COMPLET (git rev-parse --is-shallow-repository = false).",
+  "CORRECTION_2026_09_16": {
+    "affirmation_refutee": "trois fichiers",
+    "ou_elle_vivait": "champ prochain_chantier de ce fichier, ecrit le 8 septembre, et la note que j'ai envoyee a Steeve le meme jour",
+    "ce_qu_elle_disait": "que master ne detenait en propre que CLAUDE.md, AGENTS.md et public/brand/logo-ppa.svg — donc que l'abandonner ne couterait presque rien",
+    "ce_qui_est_vrai": "61 des 80 fichiers de master sont absents de main (git diff --name-status origin/main origin/master | grep -c '^A' = 61). Parmi eux : les 4 fichiers de src/lib/ai/ (provider, prompts, schemas, generate-project) et les 6 de src/lib/context/ (burkina, mali, senegal, cote-ivoire, countries, index). Ce n'est pas de la decoration : c'est le produit.",
+    "pourquoi_je_me_suis_trompe": "le 8 septembre j'ai liste ce que master avait de VISIBLE en propre — un logo, deux fichiers de doc — sans compter le diff. J'ai pris l'echantillon que j'avais regarde pour le total. La mesure coutait une commande.",
+    "consequence": "l'arbitrage de Q13 changeait de nature : ce n'etait pas 'garde-t-on trois fichiers avant d'archiver', c'etait 'la moitie du produit a-t-elle ete ecrite sur la branche qu'on n'a jamais livree'."
+  },
+  "production": {
+    "etabli_le": "2026-09-16",
+    "methode": "lecture des deploiements Vercel, filtre target = production",
+    "branche_en_production": "main — TOUS les deploiements de production en viennent, y compris la pointe 94d1962",
+    "master": "n'a jamais produit que des previsualisations. Zero deploiement de production en 7 commits.",
+    "regle_22_appliquee": "verifie, et ici branche par defaut = branche de production. Ce n'est pas toujours le cas (CompTrack, Q15) — c'est pour cela que je le mesure au lieu de le supposer."
+  },
   "deux_troncs": {
-    "main": "32 commits, 25 juillet, 105 fichiers. Parcours intake -> modes -> results / results-enhanced -> roadmap/[id] -> project/[id], plus explore, profile, signup. API analyze-project, recommend, sync. A en propre : docs/ (Blueprint, PRD MVP, architecture technique), .env.example.",
-    "master": "7 commits, 13 juillet, 80 fichiers. Parcours start -> start/problem -> start/skills -> start/idea -> results/[id], plus about, how-it-works. API generate, save-project. A en propre : CLAUDE.md, AGENTS.md, charte SDC dark premium, logo officiel public/brand/logo-ppa.svg.",
-    "communs_ecrits_deux_fois": "dashboard, login, auth/callback"
+    "main": "32 commits, 25 juillet, 105 fichiers, EN PRODUCTION. Parcours intake -> modes -> results / results-enhanced -> roadmap/[id] -> project/[id], plus explore, profile, signup. API analyze-project, recommend, sync. A en propre : docs/ (Blueprint, PRD MVP, architecture technique), .env.example. 86 de ses fichiers sont absents de master.",
+    "master": "7 commits, 13 juillet, 80 fichiers, JAMAIS EN PRODUCTION. Parcours start -> start/problem -> start/skills -> start/idea -> results/[id], plus about, how-it-works. API generate, save-project. A en propre : src/lib/ai/ (SDK Anthropic, modele claude-opus-4-5), src/lib/context/ (4 pays), CLAUDE.md, AGENTS.md, charte SDC dark premium, logo officiel public/brand/logo-ppa.svg. 61 de ses 80 fichiers sont absents de main.",
+    "communs_ecrits_deux_fois": "dashboard, login, auth/callback",
+    "ancetre_commun": "aucun. deux racines reelles, merge-base vide. Verifie en clone complet, pas en clone superficiel (regle 21)."
+  },
+  "la_couche_ia_de_master": {
+    "ou": "src/app/api/generate/route.ts + src/lib/ai/",
+    "fournisseur": "@anthropic-ai/sdk, modele claude-opus-4-5",
+    "limite_de_debit": "PRESENTE — 5 requetes/minute par IP, en memoire. Conforme a l'esprit de la regle CLAUDE.md sur les endpoints IA, meme si le plafond est exprime a la minute et non a l'heure.",
+    "validation_entree": "IntakePayloadSchema.safeParse (Zod) avant tout appel",
+    "injection_de_prompt": "CORRECT — SYSTEM_PROMPT est une constante, le texte de l'utilisateur part dans le message user, jamais concatene dans le system prompt.",
+    "conclusion": "cette couche est saine. Si elle etait sur main, elle tournerait. Le probleme n'est pas sa qualite, c'est qu'elle n'a jamais ete livree."
   },
   "sante_de_main": {
     "build": "passe, 18 routes",
@@ -15,7 +39,8 @@
     "tsc": "ECHOUE — src/__tests__/components.test.tsx reference it/expect sans runner ni types installes",
     "ci": "AUCUNE (pas de dossier .github)",
     "ts_nocheck": "DEUX : src/lib/recommendation/enhanced-engine.ts (le moteur de recommandation, coeur du produit) et src/components/intake/differentiated-intake-forms.tsx",
-    "tests": "un fichier de tests existe mais package.json n'a AUCUN script test — il ne compile pas et ne s'execute pas. Apparence de couverture sans couverture."
+    "tests": "un fichier de tests existe mais package.json n'a AUCUN script test — il ne compile pas et ne s'execute pas. Apparence de couverture sans couverture.",
+    "ia": "src/lib/ai/provider.ts existe mais est mort : aucun import de @/lib/ai dans tout le depot, registerProvider jamais appele, aucun SDK d'IA dans package.json."
   },
   "verification_pr_10": {
     "lint_main_seul": "0 erreur, 91 avertissements",
@@ -31,13 +56,14 @@
     "#9 (10 aout) palette FORGE v3 — vise MASTER, donc suspendue a Q13"
   ],
   "mes_pr": [],
-  "prochain_chantier": "RIEN CONSTRUIRE tant que Q13 n'est pas tranchee : developper sur main avant de savoir si main est le produit, c'est risquer de developper l'application qui sera abandonnee. Une fois tranchee : fusionner la #10 (si main), fermer la #9, et recuperer de master les trois fichiers qui n'existent nulle part ailleurs — CLAUDE.md, AGENTS.md, public/brand/logo-ppa.svg — AVANT toute archive. Ne jamais supprimer master (protocole §3 regle 4).",
+  "prochain_chantier": "RIEN CONSTRUIRE tant que Q13 n'est pas tranchee. Porter src/lib/ai/ et src/lib/context/ de master vers main, c'est precisement la decision que Q13 pose a Steeve : le faire sans sa reponse serait trancher a sa place. Ce que j'ai fait, c'est mesurer, pour que la decision tienne en une minute. Une fois tranchee : si main fait foi, fusionner la #10 puis porter les 10 fichiers de generation depuis master avant tout archivage, et fermer la #9. Ne jamais supprimer master (protocole §3 regle 4) — elle detient 61 fichiers uniques.",
   "dette_connue": [
+    "La branche en production ne sait pas generer de projet.",
     "91 avertissements de lint sur main.",
     "Deux @ts-nocheck, dont un sur le moteur de recommandation.",
     "Un fichier de tests qui ne compile ni ne s'execute.",
     "Aucune CI.",
     "main n'a pas de CLAUDE.md — il est sur master."
   ],
-  "lecon": "Cinquieme depot de la serie du 2 septembre : MillTrack #12 (fusionnee), FORJA #27, African Hybrid Agent #7, BurkinaCollect #4 (brouillon), et celui-ci #10. Meme correctif ecrit le meme jour sur cinq depots, UNE seule fusion. Et une nouvelle categorie de divergence : jusqu'ici les troncs divergents partageaient une histoire ; ici il n'y en a aucune, donc aucune reconciliation automatique n'est possible."
+  "lecon": "Deux lecons. (1) Cinquieme depot de la serie du 2 septembre : MillTrack #12 (fusionnee), FORJA #27, African Hybrid Agent #7, BurkinaCollect #4 (brouillon), et celui-ci #10. Meme correctif ecrit le meme jour sur cinq depots, UNE seule fusion. (2) Mesurer l'ampleur d'une divergence, pas l'echantillonner : le 8 septembre j'ai regarde ce que master avait de visible en propre et j'ai pris cet echantillon pour le total, ce qui a fait passer une moitie de produit pour de la decoration. Une divergence se compte avec git diff --name-status, jamais a l'oeil."
 }
