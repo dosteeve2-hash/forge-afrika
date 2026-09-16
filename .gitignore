@@ -33,3 +33,23 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# ─── FORGE — automatisation & notes ──────────────────────────────
+# Notes de travail personnelles (annoncées non versionnées dans le README)
+NOTES/*
+!NOTES/.gitkeep
+
+# Clones temporaires des autres dépôts, créés par le Forge Quotidien
+/forge-workdir/
+/tmp-forge/
+
+# Secrets — master n'ignorait que .env*.local ; un .env à la racine
+# passait donc au travers. cf. AUTOMATION/playbooks/02-sentinelle-sante.md §C
+.env
+.env.production
+!.env.production.example
+*.key
+
+# Journaux de l atelier : volumineux et regenerables. Les JSON et la
+# synthese, eux, sont le resultat et restent versionnes.
+AUTOMATION/machine/atelier/**/*.log

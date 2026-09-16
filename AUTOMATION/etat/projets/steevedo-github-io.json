@@ -1,0 +1,20 @@
+{
+  "projet": "steevedo-github-io",
+  "depot": "dosteeve2-hash/steevedo.github.io",
+  "tier_au_registre": 3,
+  "derniere_execution": "2026-09-14",
+  "mode": "CONTROLE DE SANTE (playbook 02)",
+  "verdict": "⚪ depot ENTIEREMENT VIDE — et mal nomme pour ce qu'il pretend etre",
+  "preuve_du_vide": "git clone --depth 1 -> 'warning: You appear to have cloned an empty repository'. git ls-remote origin -> aucune sortie, zero reference. git remote show origin -> 'HEAD branch: (unknown)'. Zero commit, zero branche, zero fichier.",
+  "correction_du_registre": "Le registre disait 'Ancien site personnel GitHub Pages'. FAUX sur les deux mots : ce n'est pas ANCIEN et ce n'est pas un SITE — il n'y a jamais rien eu. Corrige dans registry.json. Tier inchange (3), c'est coherent.",
+  "le_point_qui_compte": "GitHub Pages n'attribue le site racine d'un compte qu'au depot nomme exactement <compte>.github.io. Le compte est dosteeve2-hash ; il faudrait donc dosteeve2-hash.github.io. Nomme steevedo.github.io, ce depot ne peut etre qu'un site de PROJET, servi a dosteeve2-hash.github.io/steevedo.github.io/. L'ambition inscrite au registre — 'rediriger vers le portfolio 2.0' — n'est donc pas realisable par ce depot tel qu'il est nomme. Le nom vient vraisemblablement d'un ancien pseudo.",
+  "sante": {
+    "visibilite": "PUBLIC",
+    "secrets_versionnes": "sans objet — aucun fichier",
+    "ci": "aucune, et rien a construire",
+    "dernier_commit": "aucun"
+  },
+  "ce_que_je_n_ai_pas_fait": "Ni supprime, ni renomme, ni rempli. Supprimer ou renommer un depot est hors limites (00-protocole-forge.md §3), et le remplir sans savoir ce que Steeve veut produirait du travail a jeter.",
+  "recommandation": "Trois options, aucune urgente : (1) le supprimer, il est vide ; (2) le renommer dosteeve2-hash.github.io et y mettre une redirection d'une ligne vers le portfolio 2.0 — seule facon d'obtenir cette adresse courte ; (3) le laisser, il ne coute rien.",
+  "prochain_chantier": "AUCUN. Deuxieme depot vide du portefeuille apres llm-africain-agent-ai. NE PAS RE-CONTROLER tant qu'il n'a pas de premier commit : un controle mensuel sur un depot vide ne produit rien."
+}

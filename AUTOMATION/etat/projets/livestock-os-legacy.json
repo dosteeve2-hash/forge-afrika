@@ -1,0 +1,38 @@
+{
+  "projet": "livestock-os-legacy",
+  "depot": "dosteeve2-hash/livestock-os",
+  "tier_au_registre": 3,
+  "derniere_execution": "2026-09-16",
+  "mode": "CONTROLE DE SANTE (playbook 02)",
+  "verdict": "🟢 le depot le mieux construit du portefeuille — mais sans lint, sans tests, sans CI",
+  "correction_du_registre": "Le registre disait 'doublon presume'. C'est FAUX, verifie : git merge-base livestock-os/master livestockos/main ne renvoie AUCUN ancetre commun, et les deux depots font des choses differentes. La mention a ete corrigee dans registry.json. Le TIER n'a pas ete change — c'est une decision de Steeve (Q18).",
+  "ce_que_c_est_vraiment": "Un passeport de cheptel verifiable par un preteur. app/dashboard/passeport + app/api/passeport/publier + page publique app/verifier/[code] : un eleveur publie un passeport, un preteur le verifie par un code. C'est la chaine de valeur de VISION.md — rendre un actif informel financable.",
+  "comparaison": {
+    "livestockos (tier 1)": "main, 19 commits, dernier 11 aout. Gestion de cheptel : alimentation, animaux, production, rapports, sante, stocks, transactions, vaccination, ventes. Pas d'authentification. Supabase.",
+    "livestock-os (tier 3)": "master, 17 commits, dernier 27 AOUT — plus recent. Ajoute marche, mouvements, passeport, onboarding, parametres, verifier/[code]. Better Auth. Neon (migration assumee le 24 aout). Persistance offline-first.",
+    "ancetre_commun": "AUCUN"
+  },
+  "sante": {
+    "visibilite": "PRIVE",
+    "deploye": "livestock-os-ashy.vercel.app",
+    "secrets_versionnes": "aucun — seul .env.example, aucune chaine suspecte dans l'arbre",
+    "branche_par_defaut": "master — coherente, c'est bien le tronc",
+    "branches": 5,
+    "issues_ouvertes": 1,
+    "lint": "NE DEMARRAIT PAS — `next lint` supprime dans Next 16, et eslint.config.mjs via FlatCompat produisait « Converting circular structure to JSON ». Repare par la PR #3.",
+    "tests": "0 avant, 6 avec la PR #3 — les premiers du depot",
+    "ci": "AUCUNE avant, premiere CI apportee par la PR #3 (lint, types, tests, build)",
+    "build": "passe, 17 routes"
+  },
+  "dette_mineure": [
+    "_git_push.bat et commit_msg.txt a la racine — signales, pas touches"
+  ],
+  "a_signaler": "livestockos (le tier 1) a TOUJOURS sa branche par defaut sur feat/animaux-rapports — 3 commits arretes au 1er aout, alors que son main en a 19 jusqu'au 11 aout. Defaut releve le 5 septembre, non corrige. Ma PR #10 y attend toujours.",
+  "prochain_chantier": "Q18 reste ouverte : aucune fonctionnalite a construire ici tant que le choix entre les deux produits d'elevage n'est pas fait. Ce passage n'a touche que des defauts vrais quelle que soit la reponse.",
+  "lecon": "Une etiquette de registre ecrite une fois n'est jamais reverifiee. 'Doublon presume' a suffi a classer en tier 3 — donc en controle mensuel, donc invisible — le produit le plus avance du portefeuille. Un controle de sante doit verifier l'ETIQUETTE autant que le depot.",
+  "regle_23": "23a AUTHENTIFICATION : PASSE, et c'est la SEULE complete du portefeuille. proxy.ts garde /dashboard ; le layout fait la validation reelle avec auth.api.getSession(), comme son commentaire l'annonce — verifie. /api/passeport/publier exige une session, borne ses entiers, limite a 5 publications/24h, et prend le nom de l'eleveur dans la SESSION, jamais dans le corps de la requete. 23b MOUVEMENT JS : PASSE.",
+  "defaut_trouve": "Le graphique de cheptel dessinait TROIS courbes ecrites a la main pour QUATRE especes calculees. Les volailles etaient comptees chaque mois et affichees nulle part — y compris les trois volailles des donnees de demonstration. Sur un logiciel d'elevage burkinabe, la volaille n'est pas marginale. Invisible parce que le point de serie etait un Record<string, string|number>, ou toute cle est permise et aucune exigee.",
+  "mes_pr": [
+    "#3 — les volailles etaient comptees et n'apparaissaient nulle part. Type derive de Espece, graphique qui boucle sur ESPECES, table de traits exhaustive. Plus : lint reanime, 4 erreurs reparees, premiers tests, premiere CI."
+  ]
+}

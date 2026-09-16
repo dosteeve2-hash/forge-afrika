@@ -1,0 +1,24 @@
+{
+  "projet": "binary-search-tree-java",
+  "depot": "dosteeve2-hash/binary-search-tree-java",
+  "tier_au_registre": 3,
+  "derniere_execution": "2026-09-15",
+  "mode": "CONTROLE DE SANTE (playbook 02)",
+  "verdict": "🔴 la branche chore/cleanup NE COMPILE PAS — ne pas la fusionner en l'etat",
+  "vitalite": {
+    "tronc_reel": "main (verifie)",
+    "dernier_commit": "2026-01-02 — environ 8,5 mois",
+    "branches": ["main", "chore/cleanup"],
+    "fichiers_suivis_sur_main": 2,
+    "secrets_versionnes": "aucun"
+  },
+  "defaut_de_fond": "Sur main, tout le projet tient dans BinarySearchTree.zip. Un depot git dont le contenu est une archive n'est pas un depot de code : pas de diff, pas de blame, pas de recherche. Le ZIP contient en plus les .class compiles, un dossier .vscode, et une copie imbriquee integrale.",
+  "ce_que_fait_la_branche": "chore/cleanup extrait src/AVLTree.java, src/BinarySearchTree.java, src/TreeGUI.java, deplace le rapport .docx dans docs/ avec un nom ASCII, supprime le ZIP, ecarte .class et .vscode. Avance rapide propre (merge-base = pointe de main). L'intention est bonne.",
+  "le_defaut": "Elle a extrait la MAUVAISE copie de TreeGUI.java. Le ZIP en contenait deux, divergentes : BinarySearchTree/TreeGUI.java (e5ab243d, 22 dec.) et BinarySearchTree/BinarySearchTree/TreeGUI.java (bf556fc5, 19 dec.). AVLTree et BinarySearchTree etaient identiques dans les deux copies ; seul TreeGUI divergeait. La branche a pris le plus recent, qui a une accolade en trop et appelle new TreeGUI() SANS setVisible(true) — que le constructeur n'appelle pas non plus.",
+  "preuve": "javac sur la version de chore/cleanup : 'src/TreeGUI.java:179: error: class, interface, enum, or record expected' — code 1. javac sur la copie imbriquee du ZIP : code 0. La branche transformerait un depot dont le projet fonctionne en un depot dont le code visible ne compile pas.",
+  "main_est_il_casse": "NON. Le ZIP de main renferme une version qui compile.",
+  "ce_que_je_n_ai_pas_fait": "Playbook 02 : rien pousse, rien fusionne, rien corrige.",
+  "recommandation": "Ne pas fusionner en l'etat. Au choix : (1) remplacer src/TreeGUI.java par la copie imbriquee du ZIP (bf556fc5), qui compile ; ou (2) garder celle du 22 decembre, retirer l'accolade en trop et retablir setVisible(true). Compiler avant de fusionner. Le reste de la branche est bon.",
+  "regle_acquise": "REGLE 19 : une branche du MEME NOM issue de la MEME campagne de nettoyage peut etre juste sur un depot et fausse sur son voisin. Mon-Portfolio- le 14 (juste, recommandee), binary-search-tree-java le 15 (cassee). La seule facon de savoir est de l'EXECUTER — ici, de la compiler.",
+  "prochain_chantier": "AUCUN de mon fait. Pour Steeve : corriger TreeGUI.java sur chore/cleanup, puis fusionner."
+}

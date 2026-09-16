@@ -1,0 +1,6 @@
+{
+  "_doc": "Etat de sante machine du dernier scan. Permet a la session du lendemain de detecter une REGRESSION (ce qui a casse depuis hier) et pas seulement un defaut. Voir AUTOMATION/playbooks/02-sentinelle-sante.md.",
+  "date": null,
+  "projets": {},
+  "synthese": { "critique": 0, "majeur": 0, "mineur": 0, "info": 0 }
+}

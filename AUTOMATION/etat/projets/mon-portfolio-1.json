@@ -1,0 +1,34 @@
+{
+  "projet": "mon-portfolio-1",
+  "depot": "dosteeve2-hash/Mon-Portfolio-",
+  "tier_au_registre": 3,
+  "derniere_execution": "2026-09-14",
+  "mode": "CONTROLE DE SANTE (playbook 02)",
+  "verdict": "🟢 sain et dormant — etiquette du registre VERIFIEE ET JUSTE",
+  "etiquette_verifiee": "Regle 16 appliquee. tier 3 / archive / 'Ancienne version du portfolio' / 'Archiver' : tout tient. Contrairement a livestock-os la veille, ou l'etiquette enterrait le meilleur produit. a_confirmer passe a false.",
+  "vitalite": {
+    "tronc_reel": "main (verifie par git remote show origin, pas suppose)",
+    "dernier_commit": "2026-05-26 01:56 — environ 3,5 mois",
+    "branches": ["main", "chore/cleanup"],
+    "fichiers_suivis": 19,
+    "pile": "HTML/CSS/JS pur, aucune dependance"
+  },
+  "branche_de_nettoyage_prete": {
+    "nom": "chore/cleanup",
+    "date": "2026-06-11",
+    "avance": "2 commits devant main, 0 derriere — avance rapide propre",
+    "verification": "merge-base origin/main origin/chore/cleanup = la pointe de main. Verifie explicitement : un premier 'git log A..B' etait revenu vide DANS LES DEUX SENS parce que le clone superficiel n'avait pas les deux references — meme piege que TAAMA (regle sur les ancetres communs).",
+    "contenu": "ajoute .gitignore ; supprime README.txt, assets/README.txt, assets/test.txt, .gitkeep, index_14.html",
+    "recommandation": "a fusionner — c'est le seul geste utile sur ce depot"
+  },
+  "point_a_trancher": "chore/cleanup supprime index_14.html, qui est le fichier modifie EN DERNIER (01h56, une minute apres index.html). Mais index.html est plus riche (il a une section 'AI Agent' que l'autre n'a pas) et c'est lui qu'un hebergeur statique sert a la racine. Le '_14' et le 'Add files via upload' qui le precede trahissent un brouillon de 14e iteration jamais promu. La branche a donc RAISON de le supprimer — signale parce que l'horodatage seul suggere l'inverse.",
+  "defaut_documentaire": "README.md annonce 'Deploye via Vercel (statique)' et dit de pousser index.html ET vercel.json. Or vercel.json a ete supprime du depot le 29 mars 2026 et n'y est jamais revenu. Le mode d'emploi decrit une configuration absente — meme classe que la regle 18.",
+  "securite": {
+    "secrets_versionnes": "aucun — motifs AWS, OpenAI, GitHub, cles privees, api_key= : zero occurrence",
+    "env_versionne": "aucun",
+    "dependances": "sans objet",
+    "a_savoir": "depot PUBLIC contenant 12 portraits de Steeve (7,2 Mo). Choix de publication assume, mais a savoir avant de decider du sort d'une archive."
+  },
+  "ce_que_je_n_ai_pas_fait": "Playbook 02 : controle de sante, jamais de developpement. Ni fusion de chore/cleanup, ni correction du README, ni PR ouverte.",
+  "prochain_chantier": "AUCUN de mon fait. Pour Steeve : fusionner chore/cleanup (un clic), puis corriger ou retirer la section deploiement du README."
+}

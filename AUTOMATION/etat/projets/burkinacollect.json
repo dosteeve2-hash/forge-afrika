@@ -1,0 +1,37 @@
+{
+  "projet": "burkinacollect",
+  "derniere_execution": "2026-09-16",
+  "verdict": "🔴 aucune application sur la branche par defaut d'un depot public",
+  "depot_public": true,
+  "tronc": "main, dernier commit 7081b0a du 28 juin — contient DEUX fichiers : README.md et hooks/useOfflineSync.ts",
+  "constat_central": "L'application (17 fichiers, Next.js 16) vit dans la PR #4, ouverte le 2 septembre et laissee EN BROUILLON. Le README de main promet six fonctionnalites (dashboard, form builder, sync queue, agents, carte, dashboard superviseur) dont AUCUNE n'existe dans aucune branche : la branche la plus avancee a deux routes, / et /about. Le README affiche meme son logo via public/favicon.ico, fichier absent de main — le logo est casse sur la page GitHub.",
+  "pr_ouvertes_du_depot": [
+    "#4 (2 sept, BROUILLON) publie l'app sur main + repare la perte de soumissions + tests + CI — verifiee verte par moi",
+    "#3 (29 juin) page /about + landing — absorbee par la #4"
+  ],
+  "mes_pr": [],
+  "defaut_grave": {
+    "fichier": "hooks/useOfflineSync.ts sur main",
+    "nature": "Perte silencieuse de donnees terrain.",
+    "mecanique": "Dans la boucle de vidage, un item ayant epuise MAX_RETRIES n'entre dans aucune branche du if, donc il n'est pas repousse dans `remaining` — et `remaining` est ensuite ecrit dans localStorage A LA PLACE de la file. La soumission est effacee sans avoir ete envoyee, sans erreur, sans trace.",
+    "en_usage_reel": "Un agent remplit un formulaire hors reseau ; trois synchronisations echouent ; sa saisie disparait et rien ne le lui dit.",
+    "doctrine": "VISION.md §4 : robuste > elegant, la coupure en plein formulaire est un cas NOMINAL. Un outil de collecte offline-first qui perd une saisie en silence rate sa raison d'etre, pas un cas limite.",
+    "correctif": "La PR #4 extrait processQueue() (pure, testable sans React) et separe synced / remaining / failed. Les items epuises remontent via failed et failedCount au lieu d'etre effaces."
+  },
+  "verification_pr_4": {
+    "lint": "0 erreur",
+    "tests": "6 / 6 (aucun test n'existait avant)",
+    "build": "passe, 3 routes, 106 kB de JS au premier chargement",
+    "ci": "la PR apporte .github/workflows/ci.yml — le depot n'en a pas",
+    "conclusion": "fusionnable en l'etat ; elle est seulement en BROUILLON, ce qui est probablement la seule raison pour laquelle personne ne l'a regardee (CodeRabbit ne relit pas les brouillons)"
+  },
+  "non_verifie": "burkinacollect.vercel.app : le proxy reseau de la session bloque ce domaine. Si Vercel construit depuis la branche par defaut, il ne peut pas y avoir d'application — main n'a pas de package.json.",
+  "prochain_chantier": "RIEN CONSTRUIRE tant que la #4 n'est pas fusionnee. Construire ici voudrait dire soit reinventer la #4 sur un main vide, soit empiler une PR sur un brouillon que personne n'a lu. Le blocage n'est pas un manque de code : c'est que le code ecrit n'a jamais ete publie.",
+  "dette_connue": [
+    "README.md decrit six fonctionnalites qui n'existent nulle part — a corriger, mais c'est la parole de Steeve (protocole §3 regle 10), je ne l'ai pas touche.",
+    "public/favicon.ico reference par le README mais absent de main.",
+    "Aucune CI sur main."
+  ],
+  "lecon": "Une PR en brouillon est invisible : personne ne la relit, aucun bot ne l'annote, elle ne demande rien. Ici c'est toute l'application d'un depot public qui dort dans un brouillon depuis six jours pendant que la branche par defaut affiche un README de produit fini. Le brouillon est le bon defaut pour MES PR — il rend mon travail reversible — mais il devient un piege quand la PR est le livrable principal du depot.",
+  "DECOUVERTE_2026_09_16": "L'URL burkinacollect.vercel.app NE SERT PAS BurkinaCollect. Le projet Vercel du meme nom a ete relie au depot african-hybrid-agent le 5 juin 2026 ; il sert « Aisha — Agent IA Africain » depuis. BurkinaCollect n'a donc AUCUN deploiement, en plus d'avoir un tronc a deux fichiers et toute son application endormie dans la PR #4 en brouillon. Verifie par la reponse HTTP 200 et par la liste des deploiements du projet."
+}

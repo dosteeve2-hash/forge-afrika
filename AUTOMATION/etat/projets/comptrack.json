@@ -1,0 +1,73 @@
+{
+  "projet": "comptrack",
+  "derniere_execution": "2026-09-15",
+  "verdict": "🔴 GitHub et Vercel ne designent pas le meme tronc — et ce qui est livre n'a aucune connexion",
+  "tronc": "INDETERMINE. GitHub : feat/comptrack-v1 (branche par defaut). Vercel : main (branche de production). Q15 doit trancher.",
+  "pr_ouvertes_du_depot": [
+    "20 PR ouvertes, la plus ancienne a 69 jours, AUCUNE fusionnee"
+  ],
+  "mes_pr": [
+    "#38 claude/ci-lint-and-tests → feat/comptrack-v1 — ESLint, 6 tests repares, CI. Verte. Mais sur la branche qui ne va pas en production.",
+    "#39 claude/garde-tableau-de-bord → feat/comptrack-v1 — garde d'acces. Build 0 erreur, 25 routes, 15 tests ajoutes tous verts. Les 6 rouges de la suite sont ceux de la base, repares par #38."
+  ],
+  "sante": {
+    "ci": "aucune sur le tronc — la PR #38 en ajoute une",
+    "lint": "cassé sur le tronc : next lint part en questionnaire interactif faute de config, donc bloque en CI",
+    "tests": "6 echecs sur 72 au tronc ; la PR #38 les repare",
+    "branches": 34
+  },
+  "chantier_en_cours": "",
+  "prochain_chantier": "Rien de neuf sur CompTrack tant que Q15 n'a pas de reponse. Construire davantage sur v1 reviendrait a empiler du travail sur une branche qui ne livre rien ; construire sur main sans avoir tranche serait pire. #38 et #39 attendent.",
+  "dette_connue": [
+    "21 PR ouvertes, 0 fusionnee, la plus ancienne du 2026-06-29.",
+    "17 ciblent main, 4 ciblent feat/comptrack-v1 (#38 #36 #30 #8). Aucune des deux cibles n'est clairement LE tronc : GitHub designe v1 par defaut, Vercel livre main. C'est Q15.",
+    "5 paires de doublons : /fournisseurs (#7,#17), /clients (#6,#15), /depenses (#8,#18), /previsions (#21,#36), /factures (#16,#22).",
+    "Le tronc par defaut GitHub s'appelle feat/comptrack-v1 — un nom de branche de feature pour une branche par defaut invite a l'erreur, et m'y a fait tomber.",
+    "34 branches distantes.",
+    "AUCUNE authentification sur main, qui est pourtant ce qui est livre. Ma PR #39 pose le garde sur v1 ; main reste ouvert tant que Q15 n'est pas tranchee."
+  ],
+  "incident": "",
+  "lecon": "Une mesure partielle a l'apparence d'une mesure complete. Le 9 septembre j'ai lu la branche par defaut GitHub et j'en ai deduit le tronc, sans regarder l'hebergeur : les six deploiements de production viennent tous de main. Le 7, un sparse checkout herite m'avait fait croire que le depot etait casse alors que git disait 'working tree clean'. Deux fois le meme defaut de methode : conclure depuis la premiere source consultee. Regles 21 et 22.",
+  "mode": "TRIAGE (21 PR ouvertes — la plus grosse pile du portefeuille)",
+  "autre_tronc": "main — 20 pages dont catalogue, vente-rapide, budget ; AUCUNE page d'authentification. C'est pourtant la branche que Vercel livre. Diverge de v1 le 27 juin (ddf6add) : main +36 commits, v1 +12. Les deux pointes datent du 10 aout, a six heures d'intervalle.",
+  "constat_central": "Aucune des 21 PR ne peut aboutir tant que Q15 n'est pas tranchee, et la question n'est plus 'laquelle des deux branches' mais 'lequel des deux reglages on aligne sur l'autre'. Changer la branche de production Vercel est une action de production, interdite par le protocole §3. Changer la branche par defaut GitHub re-base 17 PR d'un coup. Les deux appartiennent a Steeve.",
+  "erreur_de_methode_corrigee": "Mes premieres mesures disaient build casse / aucun test / aucun lint. FAUX : le clone local herite d'une session precedente etait en SPARSE CHECKOUT a 16% — app/, components/, lib/, __tests__/ absents du disque. Et `git status` affichait 'working tree clean'. Tout a ete remesure apres `git sparse-checkout disable`. Lecon : verifier son propre environnement avant d'accuser le depot.",
+  "sante_du_vrai_tronc": {
+    "build": "passe, 29 pages",
+    "tests": "6 echecs / 72, 2 suites en echec",
+    "lint": "NE DEMARRE PAS — aucun eslint.config.mjs, et package.json appelle encore `next lint`. Ce n'est pas du lint sale, c'est PAS DE LINT.",
+    "ci": "aucune"
+  },
+  "verification_pr_38": {
+    "tests_tronc_seul": "6 echecs / 72",
+    "tests_avec_38": "72 / 72, 3 suites",
+    "lint_tronc_seul": "ne demarre pas",
+    "lint_avec_38": "0 erreur, 4 avertissements",
+    "build_avec_38": "passe, 29 pages",
+    "base": "feat/comptrack-v1 — la bonne branche",
+    "conclusion": "seule des 21 PR a la fois sur la bonne branche et verifiee verte. A fusionner d'abord."
+  },
+  "absorbees_par_le_vrai_tronc": {
+    "#23 maintenance-infra": "64 fichiers ajoutes, 64 DEJA sur v1 — a fermer",
+    "#22 sprint15-factures-rapports": "19 ajoutes, 19 DEJA sur v1 — a fermer",
+    "#21 previsions-sprint13": "21 ajoutes, 20 deja sur v1"
+  },
+  "prudence": "Pour les PR de juin-juillet (#12 #11 #10 #9 #7 #6 #5 #4), le diff contre v1 melange leur travail propre et la divergence des deux troncs : leurs chiffres d'ajout ne sont pas exploitables tels quels. Les relire APRES avoir tranche Q15, pas avant.",
+  "CORRECTION_MAJEURE_2026_09_15": {
+    "ce_que_j_ai_dit_le_9": "feat/comptrack-v1 est le tronc, donc 17 PR sur 21 visent la mauvaise branche.",
+    "ce_qui_manquait": "Je n'avais regarde que GitHub. Vercel designe main comme branche de production.",
+    "preuve": "Les 6 deploiements target=production du projet prj_IR3AncG2FQrxKF6A06WPZh7Ert4u viennent tous de githubCommitRef=main. Tous ceux de feat/comptrack-v1 sont target=null, donc des previews. Dernier deploiement en production : 69d3ff7, pointe de main, 10 aout.",
+    "consequence": "Exactement l'inverse de ce que j'avais ecrit : les 17 PR qui visent main visent ce qui est reellement livre ; les 4 qui visent v1 — dont ma #38 — visent une branche qui n'a jamais rien mis en production.",
+    "lecon": "La branche par defaut GitHub et la branche de production de l'hebergeur sont deux reglages distincts. Croire que l'un dit l'autre, c'est la meme erreur de methode que le clone superficiel de TAAMA : une mesure partielle qui a l'apparence d'une mesure complete.",
+    "regle": "Voir regle 22 de etat/rotation.json.",
+    "affirmation_refutee": "main, le mauvais",
+    "nettoyage_2026_09_16": "Le bloc de correction existait depuis le 15, mais dette_connue disait encore « 11 PR ciblent main, le mauvais » et la lecon presentait la version refutee comme l'enseignement. Corrige le 16, en meme temps que le meme defaut sur taama.json — c'est ce qui a motive le 16e controle CI."
+  },
+  "trou_de_securite": {
+    "constat": "Le tableau de bord de CompTrack s'ouvre a qui connait l'adresse — 21 pages : paie, declarations fiscales, tresorerie, bilan, employes, contrats.",
+    "vrai_des_deux_cotes": "main n'a aucune page de connexion. v1 a /connexion, /inscription et /auth/callback, mais son middleware.ts ne fait que limiter le debit de /api/* : la porte existe, le mur manque.",
+    "verification": "git ls-tree -r origin/main | grep -Ei 'middleware|auth|login|connexion' ne rend rien. Sur v1, middleware.ts lu ligne a ligne : matcher ['/api/:path*'], aucune verification d'utilisateur.",
+    "correctif": "PR #39 sur feat/comptrack-v1 — garde d'acces en liste blanche, getUser() et jamais getSession(), distinction 'pas connecte' / 'pas de Supabase'. 15 tests, 4 sabotages deliberes prouvent qu'ils ne sont pas verts par hasard. Vrai quelle que soit la reponse a Q15.",
+    "non_corrige": "main reste sans authentification, et c'est main qui est livre. Le corriger la-bas suppose d'y porter toute la couche Supabase — donc d'avoir tranche Q15."
+  }
+}

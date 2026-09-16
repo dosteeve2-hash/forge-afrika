@@ -1,0 +1,56 @@
+{
+  "projet": "taama",
+  "derniere_execution": "2026-09-15",
+  "verdict": "🔴 18 PR ouvertes, 0 fusionnee, toutes fusionnables — et le tronc a perdu le site public",
+  "tronc": "main = 30 commits, UNE SEULE racine (66ca73d, 27 juin), pointe 3f8318d du 10 aout. Verifie en clone COMPLET le 15 septembre.",
+  "pr_ouvertes_du_depot": [
+    "18 PR ouvertes (verifie par l'API le 2026-09-07) : #35 #26 #18 #17 #16 #15 #14 #13 #12 #11 #10 #9 #8 #7 #6 #5 #4 #3",
+    "La plus ancienne : #3, du 2026-06-29 — 70 jours",
+    "#35 est verte, non-draft, prete depuis le 2026-09-02"
+  ],
+  "mes_pr": [],
+  "chantier_en_cours": "",
+  "prochain_chantier": "Fusionner la #35 (verifiee : 110 -> 169 tests) et ma #37 (site public restaure par extraction). Puis relire les 16 restantes UNE PAR UNE contre main : elles sont en retard, pas mortes, et mon triage du 9 les avait toutes ecartees a tort. Ne rien fermer avant cette relecture.",
+  "dette_connue": [
+    "18 PR ouvertes, 0 fusionnee, la plus ancienne du 2026-06-29. Le blocage est decisionnel.",
+    "#35 verte et prete depuis le 2026-09-02 : elle repare 59 tests morts et ajoute la CI.",
+    "Aucun .env.example alors que le projet utilise Supabase et Sentry.",
+    "Aucune trace d'offline-first sur un produit destine au terrain africain.",
+    "Tests dependants du temps : dates d'expiration en dur.",
+    "25 branches distantes."
+  ],
+  "incident": "PR #36 ouverte puis fermee le meme jour : doublon de #35, non detecte faute d'avoir liste les PR ouvertes du depot avant de commencer. Regle ajoutee au playbook 01, etape 0.",
+  "correction_2026_09_07": "Ce fichier annoncait 5 PR ouvertes. C'etait FAUX : il y en a 18. L'erreur venait d'une liste partielle prise pour complete. Detectee par recoupement avec un comptage des refs refs/pull/*/merge, puis confirmee par l'API.",
+  "mode": "TRIAGE — refait sur donnees correctes le 2026-09-15",
+  "constat_central": "Les 18 PR ont toutes un ancetre commun avec main (merge-base a34f9fa) : elles ne sont pas infusionnables, seulement EN RETARD de 16 a 28 commits. Ce qui reste vrai : le remplacement du 10 aout a garde le tableau de bord, enrichi, mais perdu TOUT le site public — /pricing /demo /contact /tarifs /blog n'existent sur aucune des 17 routes de main. C'est Q14.",
+  "ce_que_le_remplacement_a_garde": "Le tableau de bord, ENRICHI : main a toutes les pages de l'ancienne histoire plus analytics, certifications, commandes, fournisseurs, parcelles, rapports, tracabilite. Et en plus complet — inventaire/page.tsx fait 591 lignes sur main contre 29 avant.",
+  "ce_que_le_remplacement_a_perdu": "TOUT le site public. main n'a que src/app/page.tsx. Les pages /pricing /demo /contact /tarifs /blog n'existent NULLE PART ailleurs que dans les PR orphelines.",
+  "chaine_des_pages_publiques": "#4 pricing-page ⊂ #5 demo-page ⊂ #6 contact-page ⊂ #9 tarifs-deploy ⊂ #10 contact-leads. #12 blog est une branche separee.",
+  "tri": {
+    "fusionner_en_premier": "#35 — 1 commit devant, 0 derriere. Verte, apporte la CI, debloque une suite de tests entiere.",
+    "le_site_public_manque_vraiment": "#10 (/contact /demo /pricing /tarifs) et #12 (/blog) sont les seules a apporter des routes absentes de main.",
+    "supersees_par_10": "#3 #4 #5 #6 #7 #8 #9 — chacune est un sous-ensemble de la chaine que #10 termine. Fermables APRES que le contenu soit sur main, pas avant.",
+    "superseees_par_main": "#11 #13 #14 #15 #16 #17 #18 #26 — construisent des pages du tableau de bord que main possede deja (analytics, certifications, fournisseurs, rapports, parametres). A verifier une par une avant fermeture : main est plus complet, mais 'plus complet' n'est pas 'contient tout'.",
+    "mot_important": "AUCUNE de ces PR n'est infusionnable. Fermer reste une decision de Steeve, et elle doit etre prise sur le contenu, pas sur une topologie git que j'avais mal lue."
+  },
+  "verification_pr_35": {
+    "lint_main_seul": "9 erreurs, 13 avertissements",
+    "lint_avec_35": "0 erreur, 13 avertissements",
+    "tests_main_seul": "1 SUITE ENTIERE bloquee au chargement (__tests__/InventairePage.test.tsx), 110 tests",
+    "tests_avec_35": "169 / 169, 10 suites",
+    "build_avec_35": "passe, 20 routes",
+    "ci": "aucune sur main ; la #35 l'apporte"
+  },
+  "mon_erreur_du_2026_09_07": "J'ai traite TAAMA le 7 septembre, corrige mon compte de PR (5 -> 18) et ferme un doublon — mais je n'ai PAS vu que le tronc etait un commit orphelin, donc que les PR que je comptais etaient inertes. J'ai compte une pile sans verifier qu'elle tenait debout. La regle n°5 du 8 septembre est arrivee un jour trop tard pour TAAMA.",
+  "lecon": "Compter les PR ouvertes ne dit rien de leur fusionnabilite. Un tronc peut avoir ete remplace par un commit orphelin, et toutes les PR qui le visent deviennent alors decoratives. Et l'inverse du reflexe est vrai aussi : j'ai failli conclure que les 17 etaient redondantes parce que le tableau de bord etait sauve — c'aurait fait perdre le site public entier, qui n'existe que la.",
+  "CORRECTION_MAJEURE_2026_09_15": {
+    "ce_que_j_avais_dit_le_9_septembre": "« main est un commit ORPHELIN, 17 PR sur 18 sont infusionnables par construction, 15 sont fermables sans rien perdre. » C'est FAUX.",
+    "la_verite": "main a 30 commits et UNE SEULE racine, 66ca73d du 27 juin. 3f8318d n'est pas une racine : c'est la TETE de main, et il a un parent (8373c7a). Les 18 PR ont TOUTES un ancetre commun avec main. Aucune n'est orpheline. Elles sont seulement EN RETARD, de 16 a 28 commits.",
+    "pourquoi_je_me_suis_trompe": "J'avais mesure sur un CLONE SUPERFICIEL. Sur --depth 20, git presente la frontiere du clone comme s'il s'agissait de racines : main affiche 23 commits et DEUX fausses racines, et merge-base(main, feat/contact-leads) renvoie AUCUN. Sur un clone complet : 30 commits, une racine, et merge-base = a34f9fa. Experience refaite le 15 septembre, les deux cas cote a cote.",
+    "gravite": "J'ai recommande a Steeve de fermer 15 PR 'sans rien perdre'. S'il l'avait fait, il aurait ferme du travail reel et fusionnable. C'est l'erreur la plus consequente de ce systeme a ce jour.",
+    "ce_qui_restait_juste": "main a bien PERDU le site public : /pricing /demo /contact /tarifs /blog n'existent sur aucune de ses 17 routes. Verifie de nouveau le 15 septembre. Et la chaine #4 ⊂ #5 ⊂ #6 ⊂ #7 ⊂ #8 ⊂ #9 ⊂ #10 est reelle — #10 est le sur-ensemble.",
+    "verifie_aussi": "Problem to Projects Africa : meme affirmation, mais VRAIE — deux racines reelles (8bea3ad du 8 juin, c2bcef3 du 14 mars) et merge-base AUCUN meme en clone complet. Ce diagnostic-la tient.",
+    "affirmation_refutee": "commit ORPHELIN",
+    "nettoyage_2026_09_16": "Le 15 j'avais ajoute ce bloc de correction SANS nettoyer verdict, tronc, constat_central et prochain_chantier, qui portaient encore l'affirmation refutee. Un lecteur pressé — ou moi demain — lisait le haut du fichier et repartait avec le diagnostic faux. Corrige le 16, et un 16e controle CI verifie desormais qu'une affirmation refutee ne survit nulle part dans son propre fichier."
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "projet": "donald",
+  "depot": "dosteeve2-hash/Donald",
+  "tier_au_registre": 3,
+  "derniere_execution": "2026-09-15",
+  "mode": "CONTROLE DE SANTE (playbook 02)",
+  "verdict": "🟡 sain et sans risque, mais ce n'est pas un projet — c'est un tiroir",
+  "etiquette_verifiee": "Regle 16 appliquee : tier 3 / archive est JUSTE. Dormant depuis 11 mois, aucun lien avec la Phase 1.",
+  "vitalite": {
+    "tronc_reel": "main (verifie)",
+    "dernier_commit": "2025-10-25 — environ 11 mois, le plus dormant du portefeuille",
+    "branches": ["main"],
+    "fichiers_suivis": 3,
+    "secrets_versionnes": "aucun"
+  },
+  "contenu": {
+    "README.md": "UNE SEULE LIGNE : '# Donald'",
+    "WebOdev1_SteeveDo.rar": "1,7 Mo — un devoir de developpement web, en archive RAR v5",
+    "hand_gestures_effects.py": "62 lignes — controle d'image par gestes de la main (OpenCV + MediaPipe)"
+  },
+  "constat": "Deux travaux sans rapport l'un avec l'autre, dans un depot dont le nom (un prenom) ne dit rien de son contenu, et dont le README ne le dit pas non plus.",
+  "motif_partage": "Comme binary-search-tree-java le meme matin : du code livre en archive compressee. DEUX des quatre dernieres archives du portefeuille le font. Le RAR est en plus un format proprietaire — aucun outil pour l'ouvrir dans cette session, ce qui illustre le probleme mieux qu'un argument.",
+  "defaut_mineur": "hand_gestures_effects.py importe cv2 et mediapipe, et le depot n'a NI requirements.txt, NI pyproject.toml, NI Pipfile. Quiconque le clone doit deviner les dependances et leurs versions — or MediaPipe casse souvent entre versions. Le script est propre par ailleurs : il verifie l'ouverture de la camera et sort proprement sinon.",
+  "ce_que_je_n_ai_pas_fait": "Playbook 02 : rien ajoute, ni requirements.txt ni README. Aucune PR.",
+  "recommandation": "Par cout croissant, aucune urgente : (1) deux lignes de README disant ce que le depot contient — le geste le moins cher et le plus utile ; (2) un requirements.txt (opencv-python, mediapipe) si le script doit rester executable ; (3) extraire le RAR ou l'archiver ailleurs ; (4) ou fusionner ce depot avec un autre — seul, il ne represente rien.",
+  "prochain_chantier": "AUCUN de mon fait."
+}

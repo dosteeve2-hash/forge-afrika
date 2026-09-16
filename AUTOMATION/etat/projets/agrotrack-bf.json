@@ -1,0 +1,64 @@
+{
+  "projet": "agrotrack-bf",
+  "derniere_execution": "2026-09-16",
+  "verdict": "🔴 /dashboard repond 500 EN PRODUCTION depuis le 22 aout — 25 jours",
+  "tronc": "master",
+  "pr_ouvertes_du_depot": [
+    "#15 (ouverte le 2026-08-11, corrections UX, toujours en attente)",
+    "#17 (la mienne, draft, mobile)",
+    "#18 (la mienne, draft, noyau de donnees + page Membres)"
+  ],
+  "mes_pr": [
+    "#17 — tableau de bord utilisable sur telephone, 133 tests verts",
+    "#18 — schema des donnees + pages Membres ET Parcelles branchees, 135 tests verts. AUCUNE base creee.",
+    "#19 — /dashboard 500 en production : le produit ferme au lieu de casser quand Supabase manque. Prouve dans les deux sens. Lint 0, tests 120 → 125, build vert."
+  ],
+  "sante": {
+    "ci": "presente et bloquante (lint + tests + build)",
+    "tests": "133 verts",
+    "lint": "propre",
+    "build": "0 erreur, 23 routes",
+    "env_example": true,
+    "secrets_versionnes": false,
+    "auth": "getUser() cote serveur + redirect dans le layout — conforme"
+  },
+  "doctrine": {
+    "fcfa": "✅ 16 fichiers",
+    "mobile": "✅ repare le 2026-09-07 (PR #17)",
+    "offline_first": "❌ toujours absente. client_id et saisie_hors_ligne poses par la PR #18, mais ni service worker, ni IndexedDB, ni file d'attente. Phase 2 du PRD.",
+    "i18n": "❌ aucune structure",
+    "cout_quasi_nul": "✅ tiers gratuits"
+  },
+  "chantier_en_cours": "PR #17 et #18 en attente de fusion",
+  "prochain_chantier": "Rien de neuf tant que Q21 n'a pas de reponse : le produit est en panne et seul Steeve peut poser les variables. Construire par-dessus une production morte n'a pas de sens.",
+  "dette_connue": [
+    "14 pages sur 16 sont toujours en MOCK. Membres et Parcelles sont branchees.",
+    "Le SQL de la PR #18 est relu mais jamais execute : aucune preuve d'execution tant qu'une base n'existe pas.",
+    "Aucun test d'integration possible sans base.",
+    "2 composants orphelins restants (DashboardClient, CollectesClient). MembresClient et ParcelleTable portaient en fait le bon modele de donnees.",
+    "tsconfig.tsbuildinfo versionne — artefact de compilation.",
+    "PR #15 en attente depuis le 2026-08-11.",
+    "Aucune structure i18n.",
+    "La page de connexion imprime EN CLAIR l'identifiant et le mot de passe de demo (meme motif qu'a MillTrack). Les retirer casse le bouton de demo — decision de Steeve.",
+    "tsconfig.tsbuildinfo est suivi par git : fichier genere, modifie a chaque compilation, donc conflit a chaque branche qui compile."
+  ],
+  "lecon": "Un composant client qui importe un module tirant next/headers casse le build, et les tests ne le voient pas : jsdom tolere l'import. npm test vert n'autorise pas a sauter npm run build.",
+  "panne_production": {
+    "url": "https://agrotrack-bf.vercel.app/dashboard",
+    "code": 500,
+    "vue_le": "2026-09-16 02h19 UTC, et deja le 2026-08-22",
+    "cause": "process.env.X! dans lib/supabase/{client,server}.ts. L'assertion ne ment qu'au verificateur de types ; a l'execution @supabase/ssr leve DANS createClient(), donc AVANT que le layout puisse appeler getUser() et rediriger. Les 16 pages du tableau de bord renvoyaient 500 au lieu d'une page de connexion.",
+    "etablie_par": "REPRODUCTION, pas deduction : application lancee sans les deux variables, / → 200 et /dashboard → 500 avec « Your project's URL and Key are required ». Deux occurrences, correspondant aux deux digests de la production.",
+    "vercel_runtime_errors": "ne remonte RIEN sur 24h — l'agregation ne voit pas cette erreur.",
+    "correctif": "PR #19 : ferme au lieu de casser (307 vers /auth/login?raison=non-configure).",
+    "remede_reel": "Poser NEXT_PUBLIC_SUPABASE_URL et NEXT_PUBLIC_SUPABASE_ANON_KEY dans Vercel. Action de production, interdite au protocole §3. C'est Q21."
+  },
+  "regle_23": "23a AUTHENTIFICATION : PASSE. (dashboard)/layout.tsx appelle getUser() cote serveur et redirige ; les 16 pages vivent sous ce layout. C'etait ma premiere hypothese et elle etait FAUSSE — verifiee avant d'etre ecrite. 23b MOUVEMENT JS : PASSE, aucun gsap/lenis/requestAnimationFrame.",
+  "releves_de_panne": [
+    "2026-09-16 10h32 UTC — /membres repond 500 avec le digest 527092414, LE MEME que /dashboard. Confirme par la mesure ce que je deduisais de la structure : c'est le layout partage qui tombe, donc les seize pages. Toujours en panne, 25e jour.",
+    "2026-09-16 14h31 UTC — TOUJOURS EN PANNE, 25e jour. /dashboard 500 (digest layout 527092414 + digest page 918475680) et /parcelles 500 (meme digest layout 527092414). Troisieme page mesuree apres /membres a 10h32 : le digest du layout est IDENTIQUE sur les trois. La cause reste celle etablie par reproduction le 16 au matin ; rien re-diagnostique."
+  ],
+  "note_de_methode": [
+    "2026-09-16 14h30 — ma premiere sonde de ce releve a renvoye code 000 sur les quatre chemins. Ce n'etait PAS une panne d'AgroTrack : le proxy sortant de la session refusait le CONNECT vers agrotrack-bf.vercel.app (403, visible dans recentRelayFailures). Un code 000 signifie « je n'ai pas joint l'hote », jamais « l'hote repond mal » — l'ecrire comme un constat serait repeter l'erreur du 15 septembre ou j'avais annonce « la demo CompTrack repond 503 » sur un echec de sonde transitoire. Mesure refaite par une autre voie avant d'affirmer quoi que ce soit."
+  ]
+}

@@ -190,6 +190,28 @@ Devenir la référence incontournable. Expansion CEDEAO. Infrastructure critique
 
 ---
 
+## 🤖 L'automatisation quotidienne
+
+Depuis septembre 2026, des routines Claude tournent **tous les matins à 05h00** sur
+l'ensemble du portefeuille — 25 dépôts, du QG aux filiales.
+
+| Routine | Quand | Ce qu'elle fait |
+|---|---|---|
+| 🔨 **Forge Quotidien** | lun → sam | Scanne les 25 dépôts (build, sécurité, déploiements, doctrine terrain), puis développe en profondeur les 2-3 projets du jour |
+| 🧭 **Revue Stratégique** | dimanche | Mesure la semaine contre les KPIs de Phase 1, propose les arbitrages, met à jour la ROADMAP |
+
+Chaque exécution laisse un rapport daté dans [`AUTOMATION/rapports/`](./AUTOMATION/rapports/)
+et pose ses questions dans [`AUTOMATION/QUESTIONS.md`](./AUTOMATION/QUESTIONS.md) — sans
+jamais s'arrêter d'avancer en attendant la réponse.
+
+**Tout passe par des PR draft.** Rien n'est jamais mergé, déployé ou supprimé sans
+décision humaine.
+
+**→ [Mode d'emploi complet](./AUTOMATION/README.md)** ·
+**[Le protocole d'autonomie](./AUTOMATION/playbooks/00-protocole-forge.md)**
+
+---
+
 ## 🤝 Contribuer
 
 FORGE Afrika est en développement actif. Chaque repo est ouvert aux contributions.

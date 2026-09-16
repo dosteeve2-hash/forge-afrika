@@ -1,0 +1,137 @@
+name: 🔨 Vérification du système d'automatisation
+
+# Le système d'automatisation pilote 25 dépôts. Un registre invalide ou un script
+# cassé le rendrait silencieusement inopérant — et personne ne s'en apercevrait
+# avant plusieurs jours. Cette CI est le garde-fou.
+
+on:
+  push:
+    branches: [master]
+    paths: ['AUTOMATION/**', 'CLAUDE.md', '.github/workflows/forge-automation-check.yml']
+  pull_request:
+    paths: ['AUTOMATION/**', 'CLAUDE.md', '.github/workflows/forge-automation-check.yml']
+  workflow_dispatch:
+
+jobs:
+  verifier:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Registre — JSON valide
+        run: jq empty AUTOMATION/registry.json
+
+      - name: Registre — champs obligatoires présents
+        run: |
+          manquants=$(jq -r '
+            .projets[]
+            | select((.id? // "") == "" or (.repo? // "") == "" or (.nom? // "") == ""
+                     or (.mission? // "") == "" or (.tier? | type) != "number")
+            | .id // .repo // "(entrée sans identifiant)"
+          ' AUTOMATION/registry.json)
+          if [ -n "$manquants" ]; then
+            echo "::error::Entrées incomplètes dans le registre :"; echo "$manquants"; exit 1
+          fi
+          echo "✅ tous les champs obligatoires sont présents"
+
+      - name: Registre — pas de doublon d'identifiant ni de dépôt
+        run: |
+          for champ in id repo; do
+            dbl=$(jq -r ".projets[].$champ" AUTOMATION/registry.json | sort | uniq -d)
+            if [ -n "$dbl" ]; then
+              echo "::error::Doublon sur le champ '$champ' : $dbl"; exit 1
+            fi
+          done
+          echo "✅ aucun doublon"
+
+      - name: Registre — chaque projet a son loop
+        run: |
+          sans=$(jq -r '.projets[] | select(.loop == null) | .id' AUTOMATION/registry.json)
+          if [ -n "$sans" ]; then
+            echo "::error::Projet sans loop dédié (il ne serait jamais traité) : $sans"; exit 1
+          fi
+          echo "✅ les $(jq '.projets|length' AUTOMATION/registry.json) projets ont un loop"
+
+      - name: Registre — fréquence et cron des loops valides
+        run: |
+          if ! mauvais=$(jq -r '
+            .projets[] | select(.loop)
+            | select(((.loop.frequence | IN("quotidien","hebdomadaire","mensuel")) | not)
+                     or ((.loop.cron_utc // "") == "")
+                     or ((.loop.cron_utc | split(" ") | length) != 5))
+            | .id' AUTOMATION/registry.json); then
+            echo "::error::jq a échoué sur le registre — expression ou JSON invalide"; exit 1
+          fi
+          if [ -n "$mauvais" ]; then
+            echo "::error::Loop mal formé (fréquence inconnue ou cron non standard) : $mauvais"; exit 1
+          fi
+          echo "✅ fréquences et crons valides"
+
+      - name: Registre — tout projet tier 1 tourne tous les jours
+        run: |
+          mous=$(jq -r '.projets[] | select(.tier == 1 and .loop.frequence != "quotidien") | .id' AUTOMATION/registry.json)
+          if [ -n "$mous" ]; then
+            echo "::error::Projet tier 1 sans loop quotidien : $mous"; exit 1
+          fi
+          echo "✅ tous les tier 1 sont quotidiens"
+
+      - name: Loops — pas deux loops à la même minute
+        run: |
+          collisions=$(jq -r '.projets[] | select(.loop) | "\(.loop.cron_utc)"' AUTOMATION/registry.json | sort | uniq -d)
+          if [ -n "$collisions" ]; then
+            echo "::error::Deux loops démarrent exactement en même temps : $collisions"; exit 1
+          fi
+          echo "✅ loops échelonnés, aucune collision"
+
+      - name: Fichiers d'état — JSON valide
+        run: |
+          jq empty AUTOMATION/etat/rotation.json
+          jq empty AUTOMATION/etat/sante.json
+          echo "✅ fichiers d'état valides"
+
+      - name: Scripts — syntaxe shell
+        run: |
+          for f in AUTOMATION/scripts/*.sh; do bash -n "$f" && echo "✅ $f"; done
+
+      - name: Scripts — exécutables
+        run: |
+          for f in AUTOMATION/scripts/*.sh; do
+            [ -x "$f" ] || { echo "::error::$f n'est pas exécutable (git update-index --chmod=+x)"; exit 1; }
+          done
+          echo "✅ scripts exécutables"
+
+      - name: Scripts — shellcheck
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq shellcheck
+          shellcheck -S warning AUTOMATION/scripts/*.sh
+
+      - name: Planning — le script des loops tourne
+        run: |
+          ./AUTOMATION/scripts/forge-loops.sh           >/dev/null || { echo "::error::forge-loops.sh (jour) échoue"; exit 1; }
+          ./AUTOMATION/scripts/forge-loops.sh --planning >/dev/null || { echo "::error::forge-loops.sh --planning échoue"; exit 1; }
+          ./AUTOMATION/scripts/forge-loops.sh --cron     >/dev/null || { echo "::error::forge-loops.sh --cron échoue"; exit 1; }
+          ./AUTOMATION/scripts/forge-loops.sh --json     >/dev/null || { echo "::error::forge-loops.sh --json échoue"; exit 1; }
+          echo "✅ planning des loops exécutable"
+
+      - name: Documentation — les playbooks référencés existent
+        run: |
+          for f in 00-protocole-forge 01-loop-projet 02-sentinelle-sante 03-digest-quotidien 04-revue-strategique; do
+            [ -f "AUTOMATION/playbooks/$f.md" ] || { echo "::error::playbook manquant : $f.md"; exit 1; }
+          done
+          [ -f CLAUDE.md ] && [ -f AUTOMATION/README.md ] && [ -f AUTOMATION/QUESTIONS.md ]
+          echo "✅ documentation complète"
+
+      - name: Questions — aucune question en attente classée « résolue »
+        run: |
+          python3 AUTOMATION/scripts/forge-verifier-questions.py
+
+      - name: Corrections — aucune affirmation réfutée ne survit dans son fichier
+        run: |
+          python3 AUTOMATION/scripts/forge-verifier-corrections.py
+
+      - name: Sécurité — aucun secret dans le dépôt
+        run: |
+          if git grep -InE '(AKIA[0-9A-Z]{16}|sk-[A-Za-z0-9]{20,}|ghp_[A-Za-z0-9]{30,}|-----BEGIN (RSA |OPENSSH |EC )?PRIVATE KEY-----)' -- . ; then
+            echo "::error::Secret potentiel détecté dans le dépôt"; exit 1
+          fi
+          echo "✅ aucun secret détecté"
