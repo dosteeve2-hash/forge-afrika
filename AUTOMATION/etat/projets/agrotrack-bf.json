@@ -53,5 +53,8 @@
     "correctif": "PR #19 : ferme au lieu de casser (307 vers /auth/login?raison=non-configure).",
     "remede_reel": "Poser NEXT_PUBLIC_SUPABASE_URL et NEXT_PUBLIC_SUPABASE_ANON_KEY dans Vercel. Action de production, interdite au protocole §3. C'est Q21."
   },
-  "regle_23": "23a AUTHENTIFICATION : PASSE. (dashboard)/layout.tsx appelle getUser() cote serveur et redirige ; les 16 pages vivent sous ce layout. C'etait ma premiere hypothese et elle etait FAUSSE — verifiee avant d'etre ecrite. 23b MOUVEMENT JS : PASSE, aucun gsap/lenis/requestAnimationFrame."
+  "regle_23": "23a AUTHENTIFICATION : PASSE. (dashboard)/layout.tsx appelle getUser() cote serveur et redirige ; les 16 pages vivent sous ce layout. C'etait ma premiere hypothese et elle etait FAUSSE — verifiee avant d'etre ecrite. 23b MOUVEMENT JS : PASSE, aucun gsap/lenis/requestAnimationFrame.",
+  "releves_de_panne": [
+    "2026-09-16 10h32 UTC — /membres repond 500 avec le digest 527092414, LE MEME que /dashboard. Confirme par la mesure ce que je deduisais de la structure : c'est le layout partage qui tombe, donc les seize pages. Toujours en panne, 25e jour."
+  ]
 }
