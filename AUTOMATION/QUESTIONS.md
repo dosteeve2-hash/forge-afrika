@@ -33,7 +33,7 @@ le CompTrack livré n'a aucune page de connexion. Les autres peuvent attendre sa
 | Q6 | 🎯 25 dépôts, une seule personne | concentrer ou tout garder | la rotation couvre tout, l'ordre reste ouvert |
 | Q7 | 🧹 Construire quand 5 PR attendent déjà ? | le mode triage — **modification du protocole, non appliquée** | seuil à 5, en attente de ton accord |
 | Q10 | ☕ FORJA fait-il encore de l'export de café ? | 11 PR à fermer plutôt qu'à fusionner | le tronc a raison |
-| Q11 | 🔑 African Hybrid Agent est-il déployé ? | si 6 PR sont encore bonnes à fusionner | non déployé |
+| **Q11** | 🔑 Aisha tourne en public sans limite de débit, sous une URL au nom de BurkinaCollect | un endpoint IA ouvert sur un dépôt public | aucune — **mon hypothèse « non déployé » était fausse** |
 | Q12 | 📄 Le README de BurkinaCollect décrit un produit absent | réécrire le README ou construire le produit | README d'abord, rien modifié |
 | Q13 | 🌿 Problem to Projects Africa : `main` ou `master` ? | deux apps sans ancêtre commun | `main` |
 | Q14 | 🏭 TAAMA : le site public doit-il revenir ? | restaurer `/tarifs` et `/demo` depuis les PR #10/#12 | oui, à restaurer |
@@ -228,32 +228,41 @@ Elle se fusionne sans rien décider d'autre.
 
 ---
 
-### Q11 — African Hybrid Agent est-il déployé avec une clé d'API ? (2026-09-08)
+### Q11 — African Hybrid Agent tourne en public, sous le nom d'un autre produit (2026-09-08, **hypothèse infirmée le 16**)
 
-Sur `main`, l'endpoint `/api/chat` n'a **ni limite de débit ni authentification**. Et
-`src/lib/llm/generate.ts` route vers **Anthropic ou OpenAI** dès que `ANTHROPIC_API_KEY` ou
-`OPENAI_API_KEY` est défini — à défaut il tombe sur Ollama en local, qui ne coûte rien.
+⚠️ **Mon hypothèse « non déployé » était fausse.** Vérifié ce matin :
+`https://burkinacollect.vercel.app/` répond **200** et sert **« Aisha — Agent IA Africain »**.
 
-Le dépôt est **public**. Donc : si une instance de cette application tourne quelque part avec une
-clé renseignée, n'importe qui peut boucler sur `/api/chat` et facturer cette clé.
+**Pourquoi cette URL.** Le projet Vercel s'appelait bien `burkinacollect` à l'origine — son
+plus ancien déploiement, du 25 mai, vient du dépôt `burkinacollect`. Il a été **relié au
+dépôt `african-hybrid-agent` le 5 juin**. Tous les déploiements depuis portent
+`githubCommitRepo: african-hybrid-agent`. La production actuelle date du **24 juin**, depuis
+`main @ e20281b6` — le tronc qui n'a plus bougé depuis le 27 juin.
 
-**Je n'ai pas vérifié si c'est le cas, et je ne le ferai pas** : lire les variables
-d'environnement d'un déploiement est une action de production, exclue par
-`00-protocole-forge.md §3`. Le README ne mentionne aucune URL de production pour ce dépôt-ci
-(il en cite pour BurkinaCollect et Problem to Projects Africa).
+**Deux conséquences, et elles vont dans des directions opposées :**
 
-| | Situation | Ce qu'il faut faire |
-|---|---|---|
-| **A** | Pas déployé, ou déployé sans clé (Ollama seul) | Aucune urgence. Fusionner la #7 quand même : la limite doit exister avant le premier déploiement, pas après. |
-| **B** | Déployé avec `ANTHROPIC_API_KEY` ou `OPENAI_API_KEY` | **Urgent.** Retirer la clé du déploiement *maintenant*, puis fusionner la #7 avant de la remettre. |
+1. **BurkinaCollect n'a aucun déploiement.** L'URL à son nom sert un autre produit. Cela
+   s'ajoute à Q12 : tronc à deux fichiers, application endormie dans la PR #4 en brouillon.
+2. **Le tronc déployé est antérieur à la PR #7**, qui apporte la limite de débit sur
+   `/api/chat`. L'endpoint public tourne donc **sans limite côté code**, et le dépôt est
+   **public**.
 
-**Hypothèse retenue : A**, parce que rien dans le dépôt n'atteste d'un déploiement de ce projet.
-Mais c'est une hypothèse, pas une vérification — et si c'est B, elle coûte de l'argent chaque
-jour où elle reste fausse.
+**Ce que je n'ai pas fait, volontairement : je n'ai pas sollicité `/api/chat`.** Le tester
+consommerait ton crédit — c'est exactement l'abus contre lequel je te mets en garde. Le commit
+du 5 juin ordonne `Ollama → Claude → OpenAI → synthèse locale` ; sur Vercel il n'y a pas
+d'Ollama, donc la facturation dépend de la présence des clés API dans ce projet, que je ne
+peux pas lire.
 
-Dans les deux cas la conclusion est la même : **la PR #7 borne cette dépense et attend depuis le
-2 septembre.** Elle mérite d'être reprise sans son dossier `coverage/` (39 124 lignes ajoutées
-pour ~240 utiles) puis fusionnée.
+| | |
+|---|---|
+| **A. Fusionner la PR #7** | elle est prête depuis le 2 septembre et pose la limite de débit |
+| **B. Retirer le déploiement public** | si Aisha n'est pas censée être en ligne, le plus simple est de la dépublier |
+| **C. Ne rien faire** | un endpoint IA public et sans limite reste ouvert, sur un dépôt public |
+
+**Hypothèse retenue : je ne touche à rien.** Dépublier est une action de production (§3), et
+fusionner t'appartient. Je n'ai pas réécrit la limite de débit : **elle existe déjà dans la
+PR #7**, et la réécrire aurait été du travail perdu — c'est d'ailleurs ce que ma note de
+rotation m'aurait fait faire ce matin si je n'avais pas vérifié.
 
 **Réponse de Steeve :** _(en attente)_
 

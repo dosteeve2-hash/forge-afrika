@@ -1,6 +1,6 @@
 {
   "projet": "african-hybrid-agent",
-  "derniere_execution": "2026-09-08",
+  "derniere_execution": "2026-09-16",
   "mode": "TRIAGE (6 PR ouvertes, seuil 5 depasse)",
   "verdict": "🔴 tronc fige + CI structurellement rouge",
   "depot_public": true,
@@ -23,8 +23,14 @@
     "routes_ouvertes": "chat, corpus, evidence, search/vector, analytics, audit, cache. Les deux routes /api/admin/* sont gardees (et generate-embeddings refuse la production)."
   },
   "reserve_sur_pr_7": "Le limiteur est du bon travail (Redis + repli memoire, shared:false honnete, 429 + Retry-After, 98 lignes de tests). Deux reserves : (1) elle versionne tout coverage/ — 39 124 lignes ajoutees pour ~240 utiles — et son .gitignore ajoute *.tsbuildinfo mais PAS coverage/ ; (2) le chemin Redis fait get puis set, ce n'est pas atomique — INCR + EXPIRE serait exact. Sous charge la limite est plus lache que 20.",
-  "ordre_de_fusion_recommande": ["#7 (degraissee de coverage/)", "#3", "#5 (ferme la #4)", "#6", "#2 en dernier"],
-  "prochain_chantier": "RIEN CONSTRUIRE tant que la #7 n'est pas traitee : la CI de main ne peut pas passer, donc rien ne validerait un ajout. Si Steeve autorise, le chantier utile est de reprendre la #7 sans le dossier coverage/.",
+  "ordre_de_fusion_recommande": [
+    "#7 (degraissee de coverage/)",
+    "#3",
+    "#5 (ferme la #4)",
+    "#6",
+    "#2 en dernier"
+  ],
+  "prochain_chantier": "La limite de debit est DEJA ecrite : PR #7, ouverte depuis le 2 septembre, non fusionnee. Ne pas la reecrire. Ce qui manque est une decision de Steeve : fusionner la #7, ou retirer le deploiement public. C'est Q11, dont l'hypothese vient d'etre infirmee.",
   "dette_connue": [
     "25 fichiers de statut a la racine (CODEX_*, STATUS_FINAL, FINAL_STATUS, WORK_COMPLETED, CONTINUATION_*) — c'est ce que range la PR #2.",
     "Artefacts commites : test_output.txt, test_output_simple.txt, test_results.json, test_results.txt, tsconfig.tsbuildinfo.",
@@ -32,5 +38,13 @@
     "41 `any` subsistent dans les couches RAG et agent (la PR #7 passe la regle en warning en attendant).",
     "Couverture de tests reelle : 19,98% des instructions."
   ],
-  "lecon": "La bonne question de triage n'est pas 'combien de PR ouvertes' mais 'le tronc a-t-il bouge ?'. Tronc qui avance sans les PR (FORJA, MillTrack) : elles pourrissent, il faut fermer. Tronc arrete (ici) : elles restent bonnes, il faut fusionner. Meme cause — personne ne fusionne — mais remede oppose. Un loop qui ne regarde pas la date du dernier commit du tronc se trompera de remede."
+  "lecon": "La bonne question de triage n'est pas 'combien de PR ouvertes' mais 'le tronc a-t-il bouge ?'. Tronc qui avance sans les PR (FORJA, MillTrack) : elles pourrissent, il faut fermer. Tronc arrete (ici) : elles restent bonnes, il faut fusionner. Meme cause — personne ne fusionne — mais remede oppose. Un loop qui ne regarde pas la date du dernier commit du tronc se trompera de remede.",
+  "DECOUVERTE_2026_09_16": {
+    "fait": "Ce projet EST DEPLOYE, publiquement, a https://burkinacollect.vercel.app — une URL au nom d'un AUTRE produit. Repond 200 et sert « Aisha — Agent IA Africain ».",
+    "pourquoi_ce_nom": "Le projet Vercel s'appelait bien burkinacollect a l'origine : son plus ancien deploiement (25 mai 2026) vient du depot burkinacollect, pose par codex. Il a ete RELIE au depot african-hybrid-agent le 5 juin 2026. Tous les deploiements depuis portent githubCommitRepo=african-hybrid-agent.",
+    "production_actuelle": "dpl_9twSL5z8Ys5pkUMCTCdsRKoh9QPc, target=production, READY, du 24 juin 2026, depuis main @ e20281b6. C'est le tronc qui n'a pas bouge depuis le 27 juin.",
+    "depot_public": "githubRepoVisibility=public — l'URL et le code sont decouvrables.",
+    "consequence": "Q11 demandait « African Hybrid Agent est-il deploye ? » avec l'hypothese « non ». L'HYPOTHESE EST FAUSSE, etablie par la reponse HTTP et par la liste des deploiements. Et le tronc deploye est ANTERIEUR a la PR #7, qui apporte la limite de debit sur /api/chat : l'endpoint public tourne donc SANS limite cote code.",
+    "ce_que_je_n_ai_pas_teste": "Je n'ai PAS sollicite /api/chat. Le tester consommerait le credit de Steeve — c'est exactement l'abus contre lequel je le mets en garde. Le commit du 5 juin ordonne Ollama → Claude → OpenAI → synthese locale ; sur Vercel il n'y a pas d'Ollama, donc la facturation depend de la presence des cles API dans ce projet, que je ne peux pas lire."
+  }
 }

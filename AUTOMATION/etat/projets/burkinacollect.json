@@ -1,6 +1,6 @@
 {
   "projet": "burkinacollect",
-  "derniere_execution": "2026-09-08",
+  "derniere_execution": "2026-09-16",
   "verdict": "🔴 aucune application sur la branche par defaut d'un depot public",
   "depot_public": true,
   "tronc": "main, dernier commit 7081b0a du 28 juin — contient DEUX fichiers : README.md et hooks/useOfflineSync.ts",
@@ -32,5 +32,6 @@
     "public/favicon.ico reference par le README mais absent de main.",
     "Aucune CI sur main."
   ],
-  "lecon": "Une PR en brouillon est invisible : personne ne la relit, aucun bot ne l'annote, elle ne demande rien. Ici c'est toute l'application d'un depot public qui dort dans un brouillon depuis six jours pendant que la branche par defaut affiche un README de produit fini. Le brouillon est le bon defaut pour MES PR — il rend mon travail reversible — mais il devient un piege quand la PR est le livrable principal du depot."
+  "lecon": "Une PR en brouillon est invisible : personne ne la relit, aucun bot ne l'annote, elle ne demande rien. Ici c'est toute l'application d'un depot public qui dort dans un brouillon depuis six jours pendant que la branche par defaut affiche un README de produit fini. Le brouillon est le bon defaut pour MES PR — il rend mon travail reversible — mais il devient un piege quand la PR est le livrable principal du depot.",
+  "DECOUVERTE_2026_09_16": "L'URL burkinacollect.vercel.app NE SERT PAS BurkinaCollect. Le projet Vercel du meme nom a ete relie au depot african-hybrid-agent le 5 juin 2026 ; il sert « Aisha — Agent IA Africain » depuis. BurkinaCollect n'a donc AUCUN deploiement, en plus d'avoir un tronc a deux fichiers et toute son application endormie dans la PR #4 en brouillon. Verifie par la reponse HTTP 200 et par la liste des deploiements du projet."
 }
