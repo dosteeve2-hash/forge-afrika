@@ -1,6 +1,6 @@
 {
   "projet": "indubot-afrika",
-  "derniere_execution": "2026-09-15",
+  "derniere_execution": "2026-09-16",
   "verdict": "🟢",
   "tronc": "master (2026-09-02, correctif CI/lint fusionne)",
   "pr_ouvertes_du_depot": [
@@ -24,5 +24,16 @@
     "tsc --noEmit signale LayoutProps hors d'un next build — preexistant."
   ],
   "lecon": "Un garde-fou trop grossier fait des degats : ma premiere version accusait use-scheduled-tooltip.ts, qui utilise requestAnimationFrame comme un etrangleur a un coup — rien n'y bouge. J'ai corrige LA REGLE, pas le fichier. Ce qui distingue une animation d'un rappel unique, c'est la recurrence : la fonction passee a rAF se replanifie elle-meme. Une provocation dediee verifie maintenant que le cas a un coup reste vert.",
-  "motif_authentification": "TROUVE LE 15, NON CORRIGE : /dashboard n'appelle aucune session, et il n'y a ni middleware.ts ni proxy.ts. BetterAuth est pourtant installe — /api/auth/[...all] existe. La machinerie est la, le tableau de bord n'est pas derriere. Quatrieme occurrence du motif apres CompTrack main, CompTrack v1 et MillTrack master. Signale dans la PR #5 ; a ouvrir separement si Steeve le veut."
+  "motif_authentification": "TROUVE LE 15, NON CORRIGE : /dashboard n'appelle aucune session, et il n'y a ni middleware.ts ni proxy.ts. BetterAuth est pourtant installe — /api/auth/[...all] existe. La machinerie est la, le tableau de bord n'est pas derriere. Quatrieme occurrence du motif apres CompTrack main, CompTrack v1 et MillTrack master. Signale dans la PR #5 ; a ouvrir separement si Steeve le veut.",
+  "fusions_du_16_septembre": "Steeve a fusionne #3 le 16 septembre entre 15h00 et 15h06 UTC, dans un lot de QUINZE PR sur onze depots. Premier deblocage du goulot depuis le 2 septembre.",
+  "pr_restante_apres_le_lot": "#4 et #5 — conflits resolus et repousses le 16. ATTENTION : les deux ajoutent un script et une etape de CI ; celle qui sera fusionnee en second demandera une fusion de plus. Rien a faire avant.",
+  "CORRECTION_2026_09_16": {
+    "affirmation_refutee": "aucun fichier commun",
+    "ou_elle_vivait": "le corps de ma PR #4, section « Ce que cette PR ne fait pas »",
+    "ce_qu_elle_disait": "« Elle est independante de la PR #3 : aucun fichier commun, les deux se fusionnent dans n'importe quel ordre. »",
+    "ce_qui_est_vrai": "la #3 touche .github/workflows/ci.yml et package.json, et la #4 aussi. Quand Steeve a fusionne la #3, la #4 est passee en conflit sur ces deux fichiers exactement. Elles n'etaient pas independantes.",
+    "pourquoi_je_me_suis_trompe": "j'ai compare les fichiers SOURCE des deux PR et conclu a l'independance sans regarder les fichiers de CONFIGURATION. Or toute PR qui apporte un garde-fou ajoute un script a package.json et une etape a la CI : ce sont precisement les deux fichiers que toutes les PR de ce type se disputent.",
+    "troisieme_fichier": "le conflit sur src/components/dashboard/sidebar.tsx, lui, ne vient pas de la #3 mais de la #2 (README et captures), que je n'avais jamais examinee. Elle rend les modules non implementes desactives avec un badge « Bientot ». Resolu en combinant : le badge vit desormais dans le composant partage, donc il apparait AUSSI dans le tiroir mobile.",
+    "regle": "regle 28"
+  }
 }

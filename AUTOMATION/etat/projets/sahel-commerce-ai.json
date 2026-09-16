@@ -1,12 +1,16 @@
 {
   "projet": "sahel-commerce-ai",
   "tier": 2,
-  "derniere_execution": "2026-09-12",
+  "derniere_execution": "2026-09-16",
   "verdict": "🔴 endpoint IA ouvert qui ECRIT en base — corrige par ma PR #1",
   "tronc": "main, DEUX commits, dernier du 8 juillet",
   "nature": "Backend FastAPI + frontend Next.js + Supabase. Agent IA en tool-calling pour commercants d'Afrique de l'Ouest : inventaire, ventes, reconciliation mobile money, PWA.",
-  "pr_ouvertes_du_depot": ["#1 la mienne — aucune autre, aucune autre branche non plus"],
-  "mes_pr": ["#1 — limite de debit sur /api/chat + premiere CI du depot"],
+  "pr_ouvertes_du_depot": [
+    "#1 la mienne — aucune autre, aucune autre branche non plus"
+  ],
+  "mes_pr": [
+    "#1 — limite de debit sur /api/chat + premiere CI du depot"
+  ],
   "defaut_corrige": {
     "nature": "/api/chat sans authentification NI limite de debit.",
     "gravite": "L'agent dispose d'outils qui ECRIVENT : add_product, adjust_stock, record_sale, reconcile_momo. Donc deux consequences — vider le credit d'API (visible sur une facture) ET modifier le stock d'un commercant ou enregistrer de fausses ventes (invisible). La seconde est la plus grave pour un outil cense tenir la comptabilite d'une boutique.",
@@ -19,7 +23,12 @@
     "Identification par IP, usurpable, et le module le dit : ca borne une boucle depuis une seule machine, pas un attaquant decide. Ce n'est pas de l'authentification."
   ],
   "preuve": "Le depot n'avait AUCUN test. 12 ajoutes. En retirant la dependance de chat.py : 2 echecs (la 21e requete passe). En la remettant : 12/12.",
-  "sante": {"tests":"12 (aucun avant)","ci":"premiere CI du depot — tests backend + build frontend","build_frontend":"passe, 5 pages"},
+  "sante": {
+    "tests": "12 (aucun avant)",
+    "ci": "premiere CI du depot — tests backend + build frontend",
+    "build_frontend": "passe, 5 pages"
+  },
   "prochain_chantier": "L'AUTHENTIFICATION — c'est le vrai manque. Une limite de debit borne l'abus, elle ne dit pas QUI modifie le stock. Decision d'architecture : Q16.",
-  "lecon": "Un endpoint IA sans limite est un probleme de cout. Un endpoint IA sans limite DONT L'AGENT ECRIT est un probleme d'integrite des donnees. Toujours lire les OUTILS exposes a l'agent, pas seulement l'endpoint."
+  "lecon": "Un endpoint IA sans limite est un probleme de cout. Un endpoint IA sans limite DONT L'AGENT ECRIT est un probleme d'integrite des donnees. Toujours lire les OUTILS exposes a l'agent, pas seulement l'endpoint.",
+  "fusions_du_16_septembre": "Steeve a fusionne #1 le 16 septembre entre 15h00 et 15h06 UTC, dans un lot de QUINZE PR sur onze depots. Premier deblocage du goulot depuis le 2 septembre."
 }

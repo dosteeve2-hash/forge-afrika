@@ -1,15 +1,14 @@
 {
   "projet": "livestockos",
-  "derniere_execution": "2026-09-07",
-  "verdict": "🟡",
-  "tronc": "main (11 aout). ATTENTION : la branche par defaut est feat/animaux-rapports (1er aout), sans tests.",
+  "derniere_execution": "2026-09-16",
+  "verdict": "🟢 PREMIERE FUSION DE STEEVE DANS CETTE SERIE — main est vert, verifie sur le main fusionne",
+  "tronc": "main @ c051f32 (16 septembre, fusion de ma #10). ATTENTION : la branche par defaut du depot reste feat/animaux-rapports @ 0dbc645 — mais elle est desormais MESUREE comme entierement contenue dans main (0 commit unique, main a 18 commits qu'elle n'a pas). Un git clone recupere donc un instantane perime de 18 commits, et la repointer ne peut RIEN faire perdre.",
   "pr_ouvertes_du_depot": [
-    "#8 responsive mobile (11 aout)",
-    "#9 CI+lint+tests (2 sept, draft)",
-    "#10 la mienne"
+    "#8 responsive mobile (11 aout) — se fusionne proprement",
+    "#9 CI+lint+tests (2 sept, draft) — 5 conflits, anterieurs a ma #10"
   ],
   "mes_pr": [
-    "#10 — repare les 17 tests en echec sur main + accents francais + accessibilite. 133/133 verts."
+    "#10 — repare les 17 tests en echec sur main + accents francais + accessibilite. FUSIONNEE PAR STEEVE LE 16 SEPTEMBRE. 133/133 verifies sur le main fusionne."
   ],
   "sante": {
     "ci": "AUCUNE sur main — la PR #9 en ajoute une",
@@ -18,12 +17,32 @@
     "build": "0 erreur, 14 routes",
     "tsc": "propre"
   },
-  "prochain_chantier": "Fusionner #10, puis #9 (sa CI aura enfin une base saine), puis relire #8. ATTENTION : la branche de #9 ne contient AUCUNE des 5 suites de main — fusionnee seule, sa CI virerait rouge au premier tour.",
+  "prochain_chantier": "La #8 est la seule fusionnable telle quelle (verifie). La #9 demande de resoudre 5 conflits sur une branche que je n'ai pas ouverte — je peux preparer la resolution si Steeve le demande, mais je ne reecris pas l'historique d'une branche d'autrui (protocole §3 regle 3). Repointer la branche par defaut sur main est un reglage GitHub qui lui appartient (§3) — desormais sans aucun risque, mesure a l'appui. Ne rien construire ici : Q18 n'est pas tranchee.",
   "dette_connue": [
     "Branche par defaut feat/animaux-rapports != tronc main. Troisieme depot du jour dans ce cas.",
     "32 erreurs de lint sur main, preexistantes.",
     "components/AlertesSanitaires.tsx orphelin : plus aucun import depuis la refonte du dashboard.",
     "Aucune persistance : toutes les pages sont des maquettes en useState local, aucun Supabase."
   ],
-  "lecon": "Les accents supprimes dans l'interface ne sont pas une coquille de test : c'est du mauvais francais affiche a l'utilisateur, et la doctrine met le francais en premier. Deux tests redeviennent verts en corrigeant le produit, pas le test."
+  "lecon": "Un ordre de fusion se prouve en fusionnant. J'avais classe la #9 en etape 2 sur un raisonnement correct (sa CI a besoin d'une base verte) sans jamais lancer git merge : elle ne se fusionne pas, et ne se fusionnait deja pas avant mon travail. Meme famille que la regle 24 — un garde-fou qu'on n'execute pas n'existe pas ; ici, une recommandation qu'on n'execute pas ne vaut pas plus. Et quand une fusion revele un probleme, mesurer AVANT de l'imputer a son propre travail : les memes 5 conflits des deux cotes de ma fusion, donc pas les miens.",
+  "fusion_du_16_septembre": {
+    "quoi": "Steeve a fusionne ma PR #10 le 16 septembre a 15h00 UTC, ouverte le 7. Premiere fusion observee pendant cette session.",
+    "main_avant": "2cbef03",
+    "main_apres": "c051f32",
+    "promesse_tenue": "verifiee sur le vrai main fusionne, pas sur ma branche : npm ci puis vitest run -> 133/133, 5 fichiers de tests. Avant la #10, main sortait en echec a 17 tests sur 134.",
+    "il_a_suivi_l_ordre_propose": "le corps de la #10 proposait 1) celle-ci 2) la #9 3) la #8. Il a fait l'etape 1."
+  },
+  "etat_des_deux_pr_restantes": {
+    "#9 (CI + lint + tests, draft du 2 septembre)": "NE SE FUSIONNE PAS — conflits de contenu dans 5 fichiers : app/(dashboard)/alimentation/page.tsx, app/(dashboard)/layout.tsx, package.json, package-lock.json, et vitest.setup.ts (add/add). VERIFIE DANS LES DEUX SENS : les memes 5 conflits apparaissent contre 2cbef03 (main AVANT la fusion) et contre c051f32 (APRES). La fusion de ma #10 n'y est donc pour RIEN — le conflit preexistait.",
+    "#8 (responsive mobile, 11 aout)": "se fusionne PROPREMENT, sans aucun conflit — teste contre main avant ET apres la fusion."
+  },
+  "CORRECTION_ORDRE_DE_FUSION": {
+    "affirmation_refutee": "puis #9 (sa CI aura enfin une base saine)",
+    "ou_elle_vivait": "champ prochain_chantier de ce fichier, et section « Ordre de fusion suggere » du corps de ma PR #10",
+    "ce_qu_elle_disait": "que la #9 etait l'etape 2, une fois main remis au vert",
+    "ce_qui_est_vrai": "la #9 ne peut pas etre fusionnee du tout : 5 conflits de contenu, anterieurs a mon travail. L'etape 2 praticable est la #8, qui passe proprement. Mon ordre etait juste sur le RAISONNEMENT (la CI de la #9 a besoin d'une base verte) et faux sur la FAISABILITE.",
+    "pourquoi_je_me_suis_trompe": "j'avais verifie que la branche de la #9 ne contenait aucune des 5 suites de main — donc son CONTENU — sans jamais tenter la fusion. Un ordre de fusion qui ne teste pas la fusion n'est pas un ordre de fusion. Une seule commande manquait : git merge.",
+    "regle": "regle 27"
+  },
+  "fusions_du_16_septembre": "Steeve a fusionne #10 le 16 septembre entre 15h00 et 15h06 UTC, dans un lot de QUINZE PR sur onze depots. Premier deblocage du goulot depuis le 2 septembre."
 }

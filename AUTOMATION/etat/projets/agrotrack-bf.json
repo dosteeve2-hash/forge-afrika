@@ -1,7 +1,7 @@
 {
   "projet": "agrotrack-bf",
   "derniere_execution": "2026-09-16",
-  "verdict": "🔴 /dashboard repond 500 EN PRODUCTION depuis le 22 aout — 25 jours",
+  "verdict": "🟠 ne casse plus, n'est pas en service. Le 500 de 25 jours est termine depuis la fusion de la #19 ; il manque toujours les deux variables Supabase (Q21).",
   "tronc": "master",
   "pr_ouvertes_du_depot": [
     "#15 (ouverte le 2026-08-11, corrections UX, toujours en attente)",
@@ -56,9 +56,20 @@
   "regle_23": "23a AUTHENTIFICATION : PASSE. (dashboard)/layout.tsx appelle getUser() cote serveur et redirige ; les 16 pages vivent sous ce layout. C'etait ma premiere hypothese et elle etait FAUSSE — verifiee avant d'etre ecrite. 23b MOUVEMENT JS : PASSE, aucun gsap/lenis/requestAnimationFrame.",
   "releves_de_panne": [
     "2026-09-16 10h32 UTC — /membres repond 500 avec le digest 527092414, LE MEME que /dashboard. Confirme par la mesure ce que je deduisais de la structure : c'est le layout partage qui tombe, donc les seize pages. Toujours en panne, 25e jour.",
-    "2026-09-16 14h31 UTC — TOUJOURS EN PANNE, 25e jour. /dashboard 500 (digest layout 527092414 + digest page 918475680) et /parcelles 500 (meme digest layout 527092414). Troisieme page mesuree apres /membres a 10h32 : le digest du layout est IDENTIQUE sur les trois. La cause reste celle etablie par reproduction le 16 au matin ; rien re-diagnostique."
+    "2026-09-16 14h31 UTC — TOUJOURS EN PANNE, 25e jour. /dashboard 500 (digest layout 527092414 + digest page 918475680) et /parcelles 500 (meme digest layout 527092414). Troisieme page mesuree apres /membres a 10h32 : le digest du layout est IDENTIQUE sur les trois. La cause reste celle etablie par reproduction le 16 au matin ; rien re-diagnostique.",
+    "2026-09-16 18h53 UTC — FIN DE LA PANNE. /dashboard repond 200 et redirige vers /auth/login?raison=non-configure, avec la banniere qui nomme les deux variables manquantes et le bouton de demo desactive. La #19 fusionnee a 15h01 a redeploye la production : le produit FERME au lieu de casser. Vingt-cinq jours de 500, termines. Il n'est PAS en service pour autant — les variables restent a poser, c'est Q21."
   ],
   "note_de_methode": [
     "2026-09-16 14h30 — ma premiere sonde de ce releve a renvoye code 000 sur les quatre chemins. Ce n'etait PAS une panne d'AgroTrack : le proxy sortant de la session refusait le CONNECT vers agrotrack-bf.vercel.app (403, visible dans recentRelayFailures). Un code 000 signifie « je n'ai pas joint l'hote », jamais « l'hote repond mal » — l'ecrire comme un constat serait repeter l'erreur du 15 septembre ou j'avais annonce « la demo CompTrack repond 503 » sur un echec de sonde transitoire. Mesure refaite par une autre voie avant d'affirmer quoi que ce soit."
-  ]
+  ],
+  "fusions_du_16_septembre": "Steeve a fusionne #17, #18, #19 le 16 septembre entre 15h00 et 15h06 UTC, dans un lot de QUINZE PR sur onze depots. Premier deblocage du goulot depuis le 2 septembre.",
+  "trouvaille_du_16_au_soir": {
+    "quoi": "la page de connexion, enfin visible, imprimait le mot de passe du compte de demonstration en clair",
+    "pourquoi_ca_comptait_maintenant": "tant que Supabase est absent, le couple ne vaut rien : le compte n'existe pas. Mais Q21 demande a Steeve de poser les variables — a la seconde ou il le fera, ce mot de passe devient un identifiant VALIDE affiche a qui charge l'adresse. Le correctif devait donc preceder sa reponse.",
+    "comment_je_ne_l_avais_pas_vue": "la page ne s'affichait pas : elle etait derriere un 500. Reparer la panne a rendu le defaut visible.",
+    "meme_defaut_que": "la PR #2 de MillTrack, dont j'avais explicitement refuse de reprendre le mot de passe de demo affiche. Il etait deja sur ce tronc-ci.",
+    "ma_pr": "#20 — lib/demo.ts (DEMO_EMAIL / DEMO_PASSWORD, sans prefixe NEXT_PUBLIC_), le bouton reste, le mot de passe disparait. 153 -> 162 tests.",
+    "a_dire_a_steeve": "la valeur affichee est BRULEE : publique, et dans l'historique git. DEMO_PASSWORD doit recevoir une valeur neuve.",
+    "sabotage_qui_m_a_corrige": "j'avais commente que `||` protegeait contre une variable definie mais VIDE, comme dans config.ts. Faux ici : le repli etant la chaine vide, `?? ''` et `|| ''` rendent la meme valeur — le sabotage est reste vert. C'est la comparaison explicite `!== ''` qui protege. Commentaire et test corriges."
+  }
 }

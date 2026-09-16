@@ -42,7 +42,7 @@ le CompTrack livré n'a aucune page de connexion. Les autres peuvent attendre sa
 | Q17 | 🎓 UEEMT-Tokat : `dev` est-elle vivante ? | garder ou laisser mourir une branche | `main` fait foi |
 | Q18 | 🐄 Lequel des deux produits d'élevage est le bon ? | le tier de `livestock-os` au registre | `livestock-os`, plus récent et plus complet |
 | **Q19** | ⚙️ Rallumer les 26 loops, ou garder la session vivante ? | le débit réel du système : 2 projets/jour contre 25/semaine | statu quo, rien rallumé |
-| **Q21** | 🌾 AgroTrack BF : `/dashboard` répond 500 en production | remettre en service un tier 1 mort depuis 25 jours | aucune — poser une variable est une action de production |
+| **Q21** | 🌾 AgroTrack BF : il ne casse plus, il n'est pas en service | poser deux variables — et en changer une troisième avant | aucune — poser une variable est une action de production |
 | **Q20** | 🚨 La veille de production échoue chaque matin | la seule surveillance des 13 URLs en production | aucune action — le modèle d'une Routine ne se change pas sans toi |
 
 > **Q4 et Q18 se contredisent.** Q4 (5 septembre) supposait `livestockos` vivant ; Q18
@@ -507,6 +507,20 @@ construire ce dépôt. La **PR #14** corrige cela et les 131 erreurs de lint : v
 
 ### Q18 — Lequel des deux produits d'élevage est le bon ? (2026-09-13)
 
+> **16 septembre — tu as fusionné dans les DEUX, et ça ne tranche pas.**
+> `livestockos` #10 (réparation des 17 tests) et `livestock-os` #3 (les volailles
+> comptées et jamais affichées) ont été fusionnées à cinq minutes d'intervalle.
+> Je ne le lis pas comme une réponse : réparer un dépôt n'est pas le choisir, et tu as
+> réparé les deux. La question reste posée.
+>
+> Mesuré au passage sur `livestockos` : sa branche par défaut, `feat/animaux-rapports`,
+> est **entièrement contenue dans `main`** — zéro commit unique, `main` a 18 commits
+> qu'elle n'a pas. La repointer sur `main` ne peut donc **rien** faire perdre. C'est un
+> réglage GitHub qui t'appartient (protocole §3), et il vaut quelle que soit ta réponse
+> à Q18.
+>
+> Son `main` est vert : **133/133**, vérifié sur le `main` fusionné et non sur ma branche.
+
 Le registre classe `livestock-os` en **tier 3**, avec la mention *« doublon présumé »*. Le
 contrôle de santé d'aujourd'hui montre que **les deux affirmations sont fausses** :
 
@@ -621,7 +635,33 @@ la règle sur le modèle des Routines ne me laisse pas d'autre choix.
 
 ---
 
-### Q21 — AgroTrack BF : `/dashboard` répond 500 en production (2026-09-16)
+### Q21 — AgroTrack BF : il ne casse plus, il n'est pas en service (2026-09-16, mis à jour le soir même)
+
+> **Mise à jour du 16 septembre, 18h53 UTC — la panne est terminée.**
+>
+> Tu as fusionné la **#19** à 15h01. La production a été redéployée, et `/dashboard`
+> répond désormais **200** : il redirige vers `/auth/login?raison=non-configure`, la
+> bannière nomme les deux variables manquantes, et le bouton de démo est désactivé.
+> **Vingt-cinq jours de 500, terminés.** Le produit ferme au lieu de casser.
+>
+> **Il n'est pas en service pour autant** — la question ci-dessous reste entière.
+>
+> **⚠️ Et une chose à régler AVANT d'y répondre.**
+>
+> La page de connexion, enfin visible, **imprimait le mot de passe du compte de
+> démonstration en clair**. Aujourd'hui il ne vaut rien : sans Supabase, le compte
+> n'existe pas. Mais à la seconde où tu poseras les deux variables, ce mot de passe
+> devient un **identifiant valide affiché à qui charge l'adresse**.
+>
+> La **PR #20** le retire : les identifiants viennent de `DEMO_EMAIL` et
+> `DEMO_PASSWORD` (sans préfixe `NEXT_PUBLIC_`), le bouton « Accéder à la démo » reste,
+> le mot de passe disparaît. **Fusionne-la avant de poser les variables.**
+>
+> **La valeur qui était affichée est brûlée** : elle a été publique et reste dans
+> l'historique git. `DEMO_PASSWORD` doit recevoir une valeur **neuve**.
+>
+> *Je ne l'avais pas vue parce que la page ne s'affichait pas — elle était derrière le
+> 500. Réparer la panne a rendu le défaut visible.*
 
 `https://agrotrack-bf.vercel.app/dashboard` renvoie **HTTP 500**. Vérifié ce matin à
 02h19 UTC. Le relevé du **22 août** signalait déjà la même panne : **vingt-cinq jours**

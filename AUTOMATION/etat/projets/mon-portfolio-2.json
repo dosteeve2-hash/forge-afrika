@@ -2,7 +2,7 @@
   "projet": "mon-portfolio-2",
   "nom": "Portfolio 2.0",
   "tier": 2,
-  "derniere_execution": "2026-09-15",
+  "derniere_execution": "2026-09-16",
   "verdict": "🟢 le premier depot SAIN du portefeuille",
   "tronc": "master, dernier commit 81e9f48 du 2 septembre",
   "pr_ouvertes_du_depot": [
@@ -33,5 +33,7 @@
   "nettoyage": "Fichier `master` a la racine supprime — une ligne, 'MERGE feat/projects-contact-0629 -', redirection de shell partie de travers. Un fichier nomme master rend `git checkout master` ambigu. deploy.ps1 et do_merge.bat LAISSES tels quels.",
   "prochain_chantier": "Rien de bloquant. Le depot reste le plus sain du portefeuille : lint propre, build vert, CI a jour, et maintenant 3 garde-fous dont 2 qui tournent enfin.",
   "lecon": "Une regle CSS `prefers-reduced-motion` generale donne l'air d'une couverture complete. Elle couvre les durees d'animation et de transition — donc tout SAUF le mouvement que JavaScript pilote lui-meme, qui est justement celui qu'on remarque le plus. Chercher systematiquement gsap, lenis, requestAnimationFrame et les tweens de valeurs : c'est la que le reglage est ignore, et c'est invisible depuis le fichier CSS.",
-  "bug_de_robustesse_trouve": "AnimatedCounter rendait `0` dans le balisage et seul le declencheur de defilement le remplacait. Sur un Android d'entree de gamme en 2G, pendant le chargement du bundle — ou si le declencheur ne part jamais — le portfolio affichait « 0 projets ». Un chiffre FAUX, pas un chiffre absent. La valeur finale est desormais rendue des le serveur."
+  "bug_de_robustesse_trouve": "AnimatedCounter rendait `0` dans le balisage et seul le declencheur de defilement le remplacait. Sur un Android d'entree de gamme en 2G, pendant le chargement du bundle — ou si le declencheur ne part jamais — le portfolio affichait « 0 projets ». Un chiffre FAUX, pas un chiffre absent. La valeur finale est desormais rendue des le serveur.",
+  "fusions_du_16_septembre": "Steeve a fusionne #10 le 16 septembre entre 15h00 et 15h06 UTC, dans un lot de QUINZE PR sur onze depots. Premier deblocage du goulot depuis le 2 septembre.",
+  "pr_restante_apres_le_lot": "#11 — conflit resolu et repousse : les trois garde-fous cohabitent desormais (check:links, check:i18n-usage de la #10, check:motion). Tous verts."
 }

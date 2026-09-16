@@ -1,6 +1,6 @@
 {
   "projet": "comptrack",
-  "derniere_execution": "2026-09-15",
+  "derniere_execution": "2026-09-16",
   "verdict": "🔴 GitHub et Vercel ne designent pas le meme tronc — et ce qui est livre n'a aucune connexion",
   "tronc": "INDETERMINE. GitHub : feat/comptrack-v1 (branche par defaut). Vercel : main (branche de production). Q15 doit trancher.",
   "pr_ouvertes_du_depot": [
@@ -69,5 +69,6 @@
     "verification": "git ls-tree -r origin/main | grep -Ei 'middleware|auth|login|connexion' ne rend rien. Sur v1, middleware.ts lu ligne a ligne : matcher ['/api/:path*'], aucune verification d'utilisateur.",
     "correctif": "PR #39 sur feat/comptrack-v1 — garde d'acces en liste blanche, getUser() et jamais getSession(), distinction 'pas connecte' / 'pas de Supabase'. 15 tests, 4 sabotages deliberes prouvent qu'ils ne sont pas verts par hasard. Vrai quelle que soit la reponse a Q15.",
     "non_corrige": "main reste sans authentification, et c'est main qui est livre. Le corriger la-bas suppose d'y porter toute la couche Supabase — donc d'avoir tranche Q15."
-  }
+  },
+  "fusions_du_16_septembre": "Steeve a fusionne #39 le 16 septembre entre 15h00 et 15h06 UTC, dans un lot de QUINZE PR sur onze depots. Premier deblocage du goulot depuis le 2 septembre."
 }

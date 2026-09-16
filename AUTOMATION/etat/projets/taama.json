@@ -1,6 +1,6 @@
 {
   "projet": "taama",
-  "derniere_execution": "2026-09-15",
+  "derniere_execution": "2026-09-16",
   "verdict": "🔴 18 PR ouvertes, 0 fusionnee, toutes fusionnables — et le tronc a perdu le site public",
   "tronc": "main = 30 commits, UNE SEULE racine (66ca73d, 27 juin), pointe 3f8318d du 10 aout. Verifie en clone COMPLET le 15 septembre.",
   "pr_ouvertes_du_depot": [
@@ -52,5 +52,6 @@
     "verifie_aussi": "Problem to Projects Africa : meme affirmation, mais VRAIE — deux racines reelles (8bea3ad du 8 juin, c2bcef3 du 14 mars) et merge-base AUCUN meme en clone complet. Ce diagnostic-la tient.",
     "affirmation_refutee": "commit ORPHELIN",
     "nettoyage_2026_09_16": "Le 15 j'avais ajoute ce bloc de correction SANS nettoyer verdict, tronc, constat_central et prochain_chantier, qui portaient encore l'affirmation refutee. Un lecteur pressé — ou moi demain — lisait le haut du fichier et repartait avec le diagnostic faux. Corrige le 16, et un 16e controle CI verifie desormais qu'une affirmation refutee ne survit nulle part dans son propre fichier."
-  }
+  },
+  "fusions_du_16_septembre": "Steeve a fusionne #37 le 16 septembre entre 15h00 et 15h06 UTC, dans un lot de QUINZE PR sur onze depots. Premier deblocage du goulot depuis le 2 septembre."
 }

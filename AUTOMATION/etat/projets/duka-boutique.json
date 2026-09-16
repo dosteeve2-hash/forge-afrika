@@ -1,7 +1,7 @@
 {
   "projet": "duka-boutique",
   "nom": "SUGU",
-  "derniere_execution": "2026-09-08",
+  "derniere_execution": "2026-09-16",
   "verdict": "🟠 tronc qui compile, mais aucun test n'a jamais tourne + perte de donnees silencieuse (corrigee par ma PR #12)",
   "tronc": "master, dernier commit c10e0e7 du 10 aout",
   "pr_ouvertes_du_depot": [
@@ -33,5 +33,6 @@
     "32 avertissements de lint (surtout <img> au lieu de next/image).",
     "middleware.ts alors que Next 15.5 est en place — a surveiller au passage a Next 16 (forja et milltrack sont deja passes a proxy.ts)."
   ],
-  "lecon": "Deuxieme depot du jour avec le MEME defaut : une ecriture qui echoue et une interface qui dit que tout va bien. BurkinaCollect perdait les soumissions terrain epuisees, SUGU perd les ventes quand le disque est plein. Deux produits, deux sessions differentes, la meme faute. C'est un motif a chercher systematiquement : partout ou un catch est vide autour d'une ecriture."
+  "lecon": "Deuxieme depot du jour avec le MEME defaut : une ecriture qui echoue et une interface qui dit que tout va bien. BurkinaCollect perdait les soumissions terrain epuisees, SUGU perd les ventes quand le disque est plein. Deux produits, deux sessions differentes, la meme faute. C'est un motif a chercher systematiquement : partout ou un catch est vide autour d'une ecriture.",
+  "fusions_du_16_septembre": "Steeve a fusionne #12 le 16 septembre entre 15h00 et 15h06 UTC, dans un lot de QUINZE PR sur onze depots. Premier deblocage du goulot depuis le 2 septembre."
 }

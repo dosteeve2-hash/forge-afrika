@@ -1,6 +1,6 @@
 {
   "projet": "milltrack",
-  "derniere_execution": "2026-09-15",
+  "derniere_execution": "2026-09-16",
   "verdict": "🟢",
   "tronc": "master — sain : lint 0, 124 tests, build 13 routes, CI presente",
   "pr_ouvertes_du_depot": [
@@ -35,5 +35,7 @@
     "build_casse": "Le tronc est en Next 16, qui a renomme middleware.ts en proxy.ts et REFUSE le build quand les deux existent. La #2 apporte un middleware.ts ; le tronc a deja un proxy.ts. Fusionner la #2 telle quelle casse le build — rencontre pour de vrai en essayant, pas deduit.",
     "mot_de_passe_en_clair": "La page de connexion de la #2 imprime un identifiant et un mot de passe de demonstration dans la page. Non repris dans la #15."
   },
-  "motif_du_portefeuille": "Troisieme logiciel de gestion du portefeuille dont le tronc n'a aucune authentification, apres CompTrack (main) et CompTrack (v1, qui a la porte mais pas le mur). Ce n'est pas un oubli isole : c'est ce qui arrive quand les PR qui apportent l'auth ne sont jamais fusionnees."
+  "motif_du_portefeuille": "Troisieme logiciel de gestion du portefeuille dont le tronc n'a aucune authentification, apres CompTrack (main) et CompTrack (v1, qui a la porte mais pas le mur). Ce n'est pas un oubli isole : c'est ce qui arrive quand les PR qui apportent l'auth ne sont jamais fusionnees.",
+  "fusions_du_16_septembre": "Steeve a fusionne #13, #14 le 16 septembre entre 15h00 et 15h06 UTC, dans un lot de QUINZE PR sur onze depots. Premier deblocage du goulot depuis le 2 septembre.",
+  "pr_restante_apres_le_lot": "#15 — conflit resolu et repousse le 16 a 18h35 : master avait gagne DashboardNav (extrait par la #13). La deconnexion descend dans DashboardNav, donc elle existe aussi dans le TIROIR mobile, ce que ma version d'origine ne faisait pas. 198/198, lint 0, tsc 0, build vert, les 5 sabotages rejoues."
 }
