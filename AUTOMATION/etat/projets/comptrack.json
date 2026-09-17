@@ -1,6 +1,6 @@
 {
   "projet": "comptrack",
-  "derniere_execution": "2026-09-16",
+  "derniere_execution": "2026-09-17",
   "verdict": "🔴 GitHub et Vercel ne designent pas le meme tronc — et ce qui est livre n'a aucune connexion",
   "tronc": "INDETERMINE. GitHub : feat/comptrack-v1 (branche par defaut). Vercel : main (branche de production). Q15 doit trancher.",
   "pr_ouvertes_du_depot": [
@@ -17,7 +17,7 @@
     "branches": 34
   },
   "chantier_en_cours": "",
-  "prochain_chantier": "Rien de neuf sur CompTrack tant que Q15 n'a pas de reponse. Construire davantage sur v1 reviendrait a empiler du travail sur une branche qui ne livre rien ; construire sur main sans avoir tranche serait pire. #38 et #39 attendent.",
+  "prochain_chantier": "RIEN CONSTRUIRE : 20 PR ouvertes, au-dela du seuil de triage. Et le garde ne doit PAS etre porte sur main — il n'y protegerait rien, et le faire trancherait Q15 a la place de Steeve. Le vrai chantier, si sa reponse est « v1 est le produit », est de faire SERVIR v1 en production. Poser un verrou sur la vitrine ne le remplace pas.",
   "dette_connue": [
     "21 PR ouvertes, 0 fusionnee, la plus ancienne du 2026-06-29.",
     "17 ciblent main, 4 ciblent feat/comptrack-v1 (#38 #36 #30 #8). Aucune des deux cibles n'est clairement LE tronc : GitHub designe v1 par defaut, Vercel livre main. C'est Q15.",
@@ -63,12 +63,27 @@
     "affirmation_refutee": "main, le mauvais",
     "nettoyage_2026_09_16": "Le bloc de correction existait depuis le 15, mais dette_connue disait encore « 11 PR ciblent main, le mauvais » et la lecon presentait la version refutee comme l'enseignement. Corrige le 16, en meme temps que le meme defaut sur taama.json — c'est ce qui a motive le 16e controle CI."
   },
-  "trou_de_securite": {
-    "constat": "Le tableau de bord de CompTrack s'ouvre a qui connait l'adresse — 21 pages : paie, declarations fiscales, tresorerie, bilan, employes, contrats.",
-    "vrai_des_deux_cotes": "main n'a aucune page de connexion. v1 a /connexion, /inscription et /auth/callback, mais son middleware.ts ne fait que limiter le debit de /api/* : la porte existe, le mur manque.",
-    "verification": "git ls-tree -r origin/main | grep -Ei 'middleware|auth|login|connexion' ne rend rien. Sur v1, middleware.ts lu ligne a ligne : matcher ['/api/:path*'], aucune verification d'utilisateur.",
-    "correctif": "PR #39 sur feat/comptrack-v1 — garde d'acces en liste blanche, getUser() et jamais getSession(), distinction 'pas connecte' / 'pas de Supabase'. 15 tests, 4 sabotages deliberes prouvent qu'ils ne sont pas verts par hasard. Vrai quelle que soit la reponse a Q15.",
-    "non_corrige": "main reste sans authentification, et c'est main qui est livre. Le corriger la-bas suppose d'y porter toute la couche Supabase — donc d'avoir tranche Q15."
+  "fusions_du_16_septembre": "Steeve a fusionne #39 le 16 septembre entre 15h00 et 15h06 UTC, dans un lot de QUINZE PR sur onze depots. Premier deblocage du goulot depuis le 2 septembre.",
+  "CORRECTION_2026_09_17": {
+    "affirmation_refutee": "s'ouvre a qui connait l'adresse",
+    "ou_elle_vivait": "champ trou_de_securite de ce fichier (supprime), et mes rapports des 9 et 15 septembre",
+    "ce_qu_elle_disait": "que le tableau de bord comptable etait expose — « 21 pages : paie, declarations fiscales, tresorerie, bilan, employes, contrats »",
+    "ce_qui_est_vrai": "sur main — la branche EN PRODUCTION — il n'y a aucune donnee a exposer. Aucun fichier n'importe @supabase (alors que la dependance est dans package.json), aucun fetch(, aucun axios, aucun createClient dans app/, lib/ ni components/. Les chiffres des 18 pages sont des tableaux ecrits en dur — 5 rien que dans factures/page.tsx. Aucun .env.example. Il n'y a pas de salaires exposes : il n'y a pas de salaires.",
+    "pourquoi_je_me_suis_trompe": "j'ai lu les NOMS des pages — paie, declarations fiscales, tresorerie — et j'en ai deduit leur contenu. Une dependance installee et jamais appelee ressemble a un trou de securite tant qu'on ne cherche pas qui l'appelle.",
+    "troisieme_fois": "meme motif que SUGU le 15 septembre et AgroTrack le 16 : de l'echafaudage mort pris pour une faille. Les trois fois, la verification a tenu en une commande.",
+    "ce_qui_reste_vrai_de_l_ancien_constat": "main n'a aucune page de connexion. v1 a /connexion, /inscription et /auth/callback, mais son middleware.ts ne fait que limiter le debit de /api/* : la porte existe, le mur manque.",
+    "regle": "regle 19, troisieme application decisive"
   },
-  "fusions_du_16_septembre": "Steeve a fusionne #39 le 16 septembre entre 15h00 et 15h06 UTC, dans un lot de QUINZE PR sur onze depots. Premier deblocage du goulot depuis le 2 septembre."
+  "ou_la_39_a_atterri": {
+    "mesure_le": "2026-09-17",
+    "fait": "Steeve a fusionne la #39 le 16 a 15h05. Elle visait feat/comptrack-v1.",
+    "consequence": "le deploiement de cette fusion porte target: null — une PREVISUALISATION. Les CINQ deploiements target: production du projet viennent tous de main, le plus recent du 16 septembre 19h32 (fusion de la #40, par Steeve, sur main). Le garde ne protege donc pas le site servi.",
+    "mais": "et il n'y a rien a y proteger — voir CORRECTION_2026_09_17.",
+    "regle": "regle 22 revérifiée avec des donnees fraiches, et regle 29"
+  },
+  "les_deux_branches": {
+    "main": "EN PRODUCTION. 18 pages. Aucune donnee, aucun appel reseau, aucune authentification. Une VITRINE.",
+    "feat/comptrack-v1": "jamais en production. 21 pages, schema Supabase, tests, page de connexion + garde (#39 fusionnee). Le PRODUIT.",
+    "reformulation": "ce ne sont pas deux troncs concurrents : c'est une demonstration qui tourne et un produit qui ne tourne pas. Q15 reecrite en consequence."
+  }
 }

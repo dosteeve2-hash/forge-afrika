@@ -37,7 +37,7 @@ le CompTrack livré n'a aucune page de connexion. Les autres peuvent attendre sa
 | Q12 | 📄 Le README de BurkinaCollect décrit un produit absent | réécrire le README ou construire le produit | README d'abord, rien modifié |
 | **Q13** | 🌿 Problem to Projects Africa : la branche livrée n'a pas l'intelligence | 61 fichiers dormants, dont toute la génération IA et 4 contextes pays | `main` reste le tronc, **rien porté** |
 | Q14 | 🏭 TAAMA : le site public doit-il revenir ? | restaurer `/tarifs` et `/demo` depuis les PR #10/#12 | oui, à restaurer |
-| **Q15** | 🧾 CompTrack : GitHub et Vercel se contredisent | quel tronc fait foi, et où vont 21 PR | aucune — je ne tranche pas |
+| **Q15** | 🧾 CompTrack : une vitrine tourne, le produit non | faire servir `v1`, ou assumer que c'est un prototype | aucune — je ne tranche pas |
 | Q16 | 🔐 Sahel Commerce AI : qui peut modifier le stock ? | l'authentification du seul endpoint qui écrit | démo → limite de débit seule |
 | Q17 | 🎓 UEEMT-Tokat : `dev` est-elle vivante ? | garder ou laisser mourir une branche | `main` fait foi |
 | Q18 | 🐄 Lequel des deux produits d'élevage est le bon ? | le tier de `livestock-os` au registre | `livestock-os`, plus récent et plus complet |
@@ -397,60 +397,53 @@ masquaient ce trou), et il n'y a **aucune CI**. La **PR #35** corrige tout : vé
 
 ---
 
-### Q15 — CompTrack : `feat/comptrack-v1` ou `main` ? (2026-09-09, réécrite le 15)
+### Q15 — CompTrack : une vitrine tourne, le produit non (2026-09-09, réécrite le 17)
 
-⚠️ **Ce que je t'ai dit le 9 septembre était incomplet, et l'incomplet penchait du mauvais côté.**
-Je t'avais présenté `feat/comptrack-v1` comme le tronc parce que c'est la branche par défaut sur
-GitHub. Je n'avais pas regardé Vercel. Vercel dit l'inverse.
+> **Cette question a changé de nature le 17 septembre.** Je la posais comme « laquelle
+> des deux branches est le vrai tronc ». La mesure dit autre chose, et la vraie question
+> est plus simple à trancher.
 
-**Les deux réglages se contredisent :**
+**Ce que tu as fusionné hier n'a pas livré.** La **#39** — le garde du tableau de bord —
+visait `feat/comptrack-v1`. Son déploiement porte `target: null` : une **prévisualisation**.
+Les **cinq** déploiements `target: production` du projet viennent tous de `main`, le plus
+récent étant ta propre fusion de la #40, hier à 19h32.
 
-| | GitHub | Vercel |
+**Et je me suis trompé deux fois sur ce dépôt, dans le même sens.** Les 9 et 15 septembre
+j'ai écrit que le tableau de bord comptable « s'ouvre à qui connaît l'adresse — paie,
+déclarations fiscales, trésorerie, bilan ». C'est faux, et la vérification tient en une
+commande :
+
+```
+$ grep -rn "from '@supabase" --include=*.ts --include=*.tsx .   → aucun
+$ grep -rnE "fetch\(|axios|createClient" app lib components     → aucun
+```
+
+`@supabase/ssr` est bien dans `package.json` de `main`, et **rien ne l'importe**. Aucun
+appel réseau nulle part. Les chiffres des 18 pages sont des tableaux écrits en dur.
+**Il n'y a pas de salaires exposés : il n'y a pas de salaires.**
+
+| | `main` | `feat/comptrack-v1` |
 |---|---|---|
-| Branche désignée | `feat/comptrack-v1` (branche par défaut) | `main` (branche de production) |
-| Ce que ça commande | la base par défaut d'une PR, ce qu'un `git clone` récupère | **ce qui est réellement livré** |
+| en production | **oui**, 5 déploiements sur 5 | jamais |
+| pages | 18 | 21 |
+| données | **aucune**, tout en dur | schéma Supabase, tests |
+| authentification | aucune | connexion + garde (#39, fusionnée) |
+| ce que c'est | une **vitrine** | le **produit** |
 
-Les six déploiements `target: "production"` du projet viennent **tous** de `main`, sans exception.
-Tous ceux de `feat/comptrack-v1` sont des previews (`target: null`). Le dernier déploiement en
-production est `69d3ff7` — la pointe actuelle de `main`, du 10 août.
+**La question, donc :** veux-tu que `v1` devienne ce qui est servi ?
 
-**Conséquence sur la pile de PR, exactement à l'envers de ce que j'avais écrit :** les 17 PR qui
-visent `main` visent ce qui est réellement livré. Les 4 qui visent `v1` — dont **ma propre #38** —
-visent une branche qui n'a jamais rien mis en production.
+| | |
+|---|---|
+| **A. Oui** | il faut faire pointer la production de Vercel sur `v1` (ou fusionner `v1` dans `main`), et les 17 PR qui visent `main` deviennent à retrier |
+| **B. Non, `main` reste la vitrine** | alors `v1` est un prototype, et il faut le dire — sinon chaque passage y remettra du travail qui ne sera jamais servi |
 
-**Et le fond du problème, qu'aucun des deux troncs ne résout :**
+**Hypothèse retenue : aucune, et je ne construis rien ici.** Ce dépôt a 20 PR ouvertes,
+au-delà du seuil de triage. Et surtout : **je n'ai pas porté le garde sur `main`** — il
+n'y protégerait rien, et le faire trancherait à ta place. Si ta réponse est A, le chantier
+n'est pas « poser un verrou sur la vitrine », c'est « faire servir le produit ».
 
-| | `feat/comptrack-v1` | `main` ← **en production** |
-|---|---|---|
-| Commits depuis la divergence (`ddf6add`, 27 juin) | 12 | 36 |
-| Pages | 24 | 20 |
-| Page de connexion | oui, `signInWithPassword` réel | **aucune** |
-| Le tableau de bord est-il protégé ? | **non** — `middleware.ts` ne fait que limiter le débit de `/api/*` | **non** |
-
-Autrement dit : un logiciel de comptabilité SYSCOHADA, livré, dont **tout le tableau de bord
-s'ouvre à qui connaît l'adresse** — salaires, déclarations fiscales, trésorerie, bilan. Ce n'est
-pas une conséquence de la question du tronc : c'est vrai des deux côtés. La différence est que
-`v1` a déjà la porte et qu'il n'y manque que le mur ; `main` n'a ni l'un ni l'autre.
-
-| | Pour | Contre |
-|---|---|---|
-| **A. `main` devient le tronc partout** | c'est déjà ce qui est livré ; 36 commits contre 12 ; 17 PR sont déjà bien ciblées | il faut y porter connexion, inscription, paie, déclarations, bilan — et changer la branche par défaut GitHub |
-| **B. `feat/comptrack-v1` devient le tronc partout** | il porte l'authentification, la paie, les déclarations, le bilan : le cœur d'un SaaS de comptabilité | il faut re-cibler ou fermer 17 PR **et** changer la branche de production Vercel, donc toucher à la production |
-| **C. Réconcilier les deux** | rien n'est perdu — la seule option qui garde `catalogue` / `vente-rapide` **et** la paie | 36 et 12 commits divergents sur les mêmes fichiers : un chantier à part entière, pas une manipulation |
-
-**Hypothèse retenue : je ne tranche pas, et j'arrête de construire à l'aveugle sur CompTrack.**
-Changer une branche de production Vercel est une action de production — le protocole me l'interdit
-(§3). Changer la branche par défaut GitHub re-base 17 PR d'un coup. Les deux t'appartiennent.
-En attendant, je continue de baser mes PR sur `feat/comptrack-v1`, parce que c'est la branche par
-défaut et que ma #38 y vit déjà — mais **je sais désormais que cela ne va nulle part en
-production**, et je préfère te le dire que laisser l'ambiguïté travailler pour moi.
-
-Ce que j'ai quand même fait, parce que c'est vrai quelle que soit ta réponse : **PR #39** sur `v1`
-— le tableau de bord ne s'ouvre plus sans connexion. Liste blanche (une page ajoutée demain est
-protégée sans que personne y pense), `getUser()` et jamais `getSession()`, et la distinction entre
-« personne n'est connecté » et « ce déploiement n'a pas de Supabase », que le repli sur
-`http://placeholder.supabase.co` rendait invisible. 15 tests, dont quatre sabotages délibérés du
-garde qui les font bien échouer.
+**Ce que je n'ai pas fait, et qui t'appartient :** repointer la branche de production chez
+l'hébergeur, fusionner `v1` dans `main`, ou fermer des PR.
 
 **Réponse de Steeve :** _(en attente)_
 
