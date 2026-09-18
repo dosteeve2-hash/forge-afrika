@@ -1,15 +1,16 @@
 {
   "projet": "sahel-commerce-ai",
   "tier": 2,
-  "derniere_execution": "2026-09-16",
-  "verdict": "🔴 endpoint IA ouvert qui ECRIT en base — corrige par ma PR #1",
-  "tronc": "main, DEUX commits, dernier du 8 juillet",
+  "derniere_execution": "2026-09-18",
+  "verdict": "🟠 le hors-ligne existait, le RETOUR en ligne manquait — corrige par ma PR #2",
+  "tronc": "main @ f626ac5 (fusion de ma #1 le 16 septembre)",
   "nature": "Backend FastAPI + frontend Next.js + Supabase. Agent IA en tool-calling pour commercants d'Afrique de l'Ouest : inventaire, ventes, reconciliation mobile money, PWA.",
   "pr_ouvertes_du_depot": [
-    "#1 la mienne — aucune autre, aucune autre branche non plus"
+    "#2 la mienne — aucune autre"
   ],
   "mes_pr": [
-    "#1 — limite de debit sur /api/chat + premiere CI du depot"
+    "#1 — limite de debit sur /api/chat + premiere CI du depot. FUSIONNEE le 16 septembre.",
+    "#2 — l'application ne revenait jamais en ligne apres une coupure. lib/reseau.js, attente qui double, plafond 5 min, evenement online, erreur metier = backend joignable. 10 tests (le frontend n'en avait AUCUN), CI etendue, 4 sabotages conformes."
   ],
   "defaut_corrige": {
     "nature": "/api/chat sans authentification NI limite de debit.",
@@ -28,7 +29,24 @@
     "ci": "premiere CI du depot — tests backend + build frontend",
     "build_frontend": "passe, 5 pages"
   },
-  "prochain_chantier": "L'AUTHENTIFICATION — c'est le vrai manque. Une limite de debit borne l'abus, elle ne dit pas QUI modifie le stock. Decision d'architecture : Q16.",
-  "lecon": "Un endpoint IA sans limite est un probleme de cout. Un endpoint IA sans limite DONT L'AGENT ECRIT est un probleme d'integrite des donnees. Toujours lire les OUTILS exposes a l'agent, pas seulement l'endpoint.",
-  "fusions_du_16_septembre": "Steeve a fusionne #1 le 16 septembre entre 15h00 et 15h06 UTC, dans un lot de QUINZE PR sur onze depots. Premier deblocage du goulot depuis le 2 septembre."
+  "prochain_chantier": "Q22 (synchronisation) puis Q16 (authentification) — les deux sont des decisions d'architecture, pas des correctifs. En attendant : la dette de formatage FCFA et le service worker sont des chantiers libres, qui valent quelle que soit la reponse.",
+  "lecon": "Un repli hors-ligne sans retour en ligne n'est pas de l'offline-first : c'est une porte qui se ferme. Le booleen etait la moitie du mecanisme, et la moitie manquante ne se voit pas en lisant le code qui marche — elle se voit en cherchant qui le remet a zero.",
+  "fusions_du_16_septembre": "Steeve a fusionne #1 le 16 septembre entre 15h00 et 15h06 UTC, dans un lot de QUINZE PR sur onze depots. Premier deblocage du goulot depuis le 2 septembre.",
+  "defaut_du_18": {
+    "nature": "lib/api.js portait un booleen demoMode passe a true au premier echec reseau et JAMAIS remis a false.",
+    "consequence": "sur un Android d'entree de gamme en 2G/3G intermittent — la cible de VISION.md §4 — une coupure de CINQ SECONDES basculait l'application sur les donnees de l'appareil pour TOUTE la session. Le reseau revenait, l'application ne le voyait pas. Et la banniere restait affichee : refresh() ne tournait qu'au montage.",
+    "doctrine": "VISION.md §4 dit « l'app fonctionne sans connexion et SE SYNCHRONISE QUAND ELLE REVIENT ». Il manquait le retour.",
+    "correctif": "PR #2"
+  },
+  "trois_faux_defauts_evites": [
+    "« le service worker precharge /icon.svg qui n'existe pas, donc addAll rejette » — public/icon.svg EXISTE.",
+    "« une vente enregistree hors ligne est perdue » — faux : lib/demo.js persiste dans localStorage, et la banniere dit deja « les donnees restent sur cet appareil ».",
+    "« le formatage FCFA va produire NaN FCFA » — les six sites arrondissent correctement ; aucune division n'y produit de valeur non finie. Note comme dette, pas annonce comme bug."
+  ],
+  "dette_connue": [
+    "fmtFCFA duplique dans deux fichiers et inline dans quatre autres — six sites, aucune source unique. Motif exact du « NaN FCFA » de ValueChain Connect.",
+    "sw.js met en cache TOUTES les reponses GET, y compris non-ok : un 500 mis en cache est resservi hors ligne.",
+    "strategie network-first dans le service worker, sur un produit dont la doctrine dit offline-first.",
+    "AUCUNE synchronisation : ce qui est ecrit hors ligne ne remonte jamais au serveur — Q22."
+  ]
 }

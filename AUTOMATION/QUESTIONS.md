@@ -14,7 +14,7 @@
 
 ---
 
-## 📋 Les 19 questions en un coup d'œil
+## 📋 Les 20 questions en un coup d'œil
 
 Trois d'entre elles commandent tout le reste : **Q1** (quel tronc fait foi), **Q2**
 (les métriques sont-elles réelles) et **Q19** (quelle architecture d'automatisation).
@@ -39,11 +39,12 @@ le CompTrack livré n'a aucune page de connexion. Les autres peuvent attendre sa
 | Q14 | 🏭 TAAMA : le site public doit-il revenir ? | restaurer `/tarifs` et `/demo` depuis les PR #10/#12 | oui, à restaurer |
 | **Q15** | 🧾 CompTrack : une vitrine tourne, le produit non | faire servir `v1`, ou assumer que c'est un prototype | aucune — je ne tranche pas |
 | Q16 | 🔐 Sahel Commerce AI : qui peut modifier le stock ? | l'authentification du seul endpoint qui écrit | démo → limite de débit seule |
-| Q17 | 🎓 UEEMT-Tokat : `dev` est-elle vivante ? | garder ou laisser mourir une branche | `main` fait foi |
+| Q17 | 🎓 UEEMT-Tokat : `dev` est **morte**, mesuré | fermer la #8, recibler la #11, 4 PR en conflit | je ne touche à rien |
 | Q18 | 🐄 Lequel des deux produits d'élevage est le bon ? | le tier de `livestock-os` au registre | `livestock-os`, plus récent et plus complet |
 | **Q19** | ⚙️ Rallumer les 26 loops, ou garder la session vivante ? | le débit réel du système : 2 projets/jour contre 25/semaine | statu quo, rien rallumé |
 | **Q21** | 🌾 AgroTrack BF : il ne casse plus, il n'est pas en service | poser deux variables — et en changer une troisième avant | aucune — poser une variable est une action de production |
 | **Q20** | 🚨 La veille de production échoue chaque matin | la seule surveillance des 13 URLs en production | aucune action — le modèle d'une Routine ne se change pas sans toi |
+| Q22 | 📶 Sahel : ce qui est écrit hors ligne ne remonte jamais | la moitié « se synchronise » de la doctrine | C tant que c'est une démo — se répond avec Q16 |
 
 > **Q4 et Q18 se contredisent.** Q4 (5 septembre) supposait `livestockos` vivant ; Q18
 > (13 septembre) a établi par lecture du code que `livestock-os` est plus récent, sans
@@ -472,27 +473,38 @@ et B suppose de toucher au schéma.
 
 ---
 
-### Q17 — UEEMT-Tokat : `dev` est-elle encore vivante ? (2026-09-12)
+### Q17 — UEEMT-Tokat : `dev` est morte, mesuré (2026-09-12, tranchée par la mesure le 18)
 
-Quatre des sept PR ouvertes — **#8, #7, #6, #5**, toutes de juin-juillet — visent la branche
-`dev`, pas `main`. Les trois autres (#14, #12, #11) visent `main`, qui est la branche par défaut
-et a avancé jusqu'au 29 juillet.
+> **Je posais la question dans le vide : elle se mesure.** Sur un clone **complet** :
+>
+> ```
+> dev est-il contenu dans main ?   OUI — déjà fusionné
+> main a 33 commits que dev n'a pas
+> dev a  0 commits que main n'a pas
+> ```
+>
+> `dev` n'a **rien** en propre. Figée au 26 juillet ; `main` a bougé hier.
 
-C'est le motif déjà rencontré chez CompTrack : des PR qui pointent vers une branche que le
-produit n'utilise peut-être plus.
+**Ce que ça change concrètement : quatre des six PR ouvertes visent cette branche morte.**
 
-| | Si… | Alors |
-|---|---|---|
-| **A. `dev` est un vestige** | `main` est la seule branche vivante | re-cibler les 4 PR sur `main`, ou les fermer si leur contenu y est déjà |
-| **B. `dev` est une branche d'intégration active** | le flux est `feature → dev → main` | les 4 PR sont légitimes ; c'est `main` qui doit recevoir `dev` régulièrement |
+| PR | base | déjà dans `main` ? | fusionnable dans `main` ? |
+|---|---|---|---|
+| **#8** gouvernance | `dev` | **OUI — absorbée par la #9** | propre |
+| **#11** logos archives | `main` | non | **propre** |
+| #5 annonces | `dev` | non | 1 conflit |
+| #6 membres filtres | `dev` | non | 2 conflits |
+| #7 cotisations CSV | `dev` | non | 3 conflits |
+| #12 photo fondateur | `main` | non | 1 conflit |
 
-**Hypothèse retenue : A.** `main` porte les commits les plus récents et c'est la branche par
-défaut. **Je n'ai ni re-ciblé ni fermé** — re-cibler quatre PR est un geste qui t'appartient.
+**Trois gestes, tous à toi :**
 
-⚠️ **Indépendamment de Q17** : `npm run build` **échoue** sur `main` sans `RESEND_API_KEY` —
-`src/lib/email.ts` construisait le client Resend au chargement du module. Aucune CI ne peut donc
-construire ce dépôt. La **PR #14** corrige cela et les 131 erreurs de lint : vérifiée ici,
-0 erreur, build 38 pages.
+1. **Fermer la #8** — sa branche est déjà dans `main` via la #9. Deux PR pour une même branche ; rien à perdre.
+2. **Recibler la #11 sur `main`** — la seule qui passe proprement.
+3. **Supprimer ou repointer `dev`** — zéro commit unique, mesure à l'appui.
+
+Pour **#5, #6, #7, #12** : du travail réel, des conflits réels. **Dis-moi lesquelles comptent encore et je les résous.**
+
+**Hypothèse retenue : je ne touche à rien.** Fermer, recibler ou supprimer une branche sont des gestes du protocole §3 — et ce sont tes PR.
 
 **Réponse de Steeve :** _(en attente)_
 
@@ -696,6 +708,39 @@ existant ou un nouveau.
 AgroTrack tant que tu n'as pas répondu.** Construire par-dessus une production morte
 n'aurait pas de sens. La PR #19 attend, et elle est utile quelle que soit ta réponse :
 le jour où une variable sera oubliée à nouveau, le produit fermera au lieu de tomber.
+
+**Réponse de Steeve :** _(en attente)_
+
+---
+
+### Q22 — Sahel Commerce AI : ce qui est écrit hors ligne ne remonte jamais (2026-09-18)
+
+Ma **PR #2** répare le fait que l'application ne **revenait** jamais en ligne après une
+coupure. Elle ne répare pas la moitié suivante.
+
+`VISION.md §4` demande deux choses : *« l'app fonctionne sans connexion »* — c'est fait,
+et bien fait, le mode local persiste dans `localStorage` et le dit honnêtement — *« et
+**se synchronise quand elle revient** »* — **ça, ça n'existe pas.**
+
+Concrètement : un commerçant hors réseau enregistre trois ventes. Elles sont sauvegardées
+**sur son téléphone**. Le réseau revient, l'application se reconnecte (grâce à la #2), et
+les trois ventes **restent sur le téléphone**. Le serveur ne les verra jamais.
+
+Rien ne ment — la bannière dit « les données restent sur cet appareil ». Mais un outil de
+gestion de boutique dont les écritures ne remontent pas n'est pas un outil de gestion.
+
+| | Quoi | Pour / contre |
+|---|---|---|
+| **A. File d'attente locale + rejeu au retour** | chaque écriture hors ligne est empilée, puis rejouée quand le backend répond | le vrai geste ; demande des identifiants stables et une idempotence côté serveur, sinon un rejeu double les ventes |
+| **B. Lecture seule hors ligne** | on consulte hors ligne, on n'écrit que connecté | honnête et simple, mais ampute le produit là où il sert le plus — au marché, sans réseau |
+| **C. Rien de plus, c'est une démonstration** | l'état actuel | tenable tant qu'aucun commerçant réel n'y saisit ses ventes |
+
+**Hypothèse retenue : C tant que c'est une démonstration**, exactement comme **Q16** — et
+les deux se répondent ensemble. A n'a de sens qu'avec l'authentification de Q16 : sans
+savoir **qui** écrit, une file d'attente rejoue des ventes sans propriétaire.
+
+**Ce que je n'ai pas fait :** aucune file, aucun rejeu. C'est une architecture, et elle
+touche au schéma comme Q16.
 
 **Réponse de Steeve :** _(en attente)_
 
