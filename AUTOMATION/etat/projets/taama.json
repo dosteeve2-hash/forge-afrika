@@ -39,7 +39,17 @@
     "tests_main_seul": "1 SUITE ENTIERE bloquee au chargement (__tests__/InventairePage.test.tsx), 110 tests",
     "tests_avec_35": "169 / 169, 10 suites",
     "build_avec_35": "passe, 20 routes",
-    "ci": "aucune sur main ; la #35 l'apporte"
+    "ci": "aucune sur main ; la #35 l'apporte",
+    "SUITE_DONNEE": {
+      "etat_de_la_pr": "OUVERTE",
+      "verifie_le": "2026-09-19",
+      "base": "main",
+      "base_enregistree_dans_la_pr": "3f8318d",
+      "tete_de_base_aujourd_hui": "afb5f4c",
+      "retard": "2 commits — dont la fusion de #37 le 16 septembre",
+      "fusion_a_blanc": "PROPRE — aucun conflit, teste le 19 en clone complet. La recommandation TIENT TOUJOURS.",
+      "precision_sur_la_correction_du_15": "Le bloc CORRECTION_MAJEURE_2026_09_15 dit « 3f8318d n'est pas une racine : c'est la TETE de main ». Le point de fond — ce commit a un parent, main a une seule racine — reste EXACT. Mais 3f8318d n'est plus la tete de main depuis le 16 : c'est afb5f4c. Precision, pas refutation."
+    }
   },
   "mon_erreur_du_2026_09_07": "J'ai traite TAAMA le 7 septembre, corrige mon compte de PR (5 -> 18) et ferme un doublon — mais je n'ai PAS vu que le tronc etait un commit orphelin, donc que les PR que je comptais etaient inertes. J'ai compte une pile sans verifier qu'elle tenait debout. La regle n°5 du 8 septembre est arrivee un jour trop tard pour TAAMA.",
   "lecon": "Compter les PR ouvertes ne dit rien de leur fusionnabilite. Un tronc peut avoir ete remplace par un commit orphelin, et toutes les PR qui le visent deviennent alors decoratives. Et l'inverse du reflexe est vrai aussi : j'ai failli conclure que les 17 etaient redondantes parce que le tableau de bord etait sauve — c'aurait fait perdre le site public entier, qui n'existe que la.",

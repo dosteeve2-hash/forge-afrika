@@ -12,7 +12,16 @@
     "lint_avec_46": "0 erreur, 65 avertissements",
     "tests_avec_46": "90 / 90, 4 fichiers",
     "build_avec_46": "passe, 38 pages",
-    "conclusion": "a fusionner AVANT tout le reste — tant que le depot ne s'installe pas, aucune des 21 autres PR ne peut etre validee"
+    "conclusion": "a fusionner AVANT tout le reste — tant que le depot ne s'installe pas, aucune des 21 autres PR ne peut etre validee",
+    "SUITE_DONNEE": {
+      "etat_de_la_pr": "FUSIONNEE",
+      "fusionnee_le": "2026-09-16T14:59:53Z",
+      "fusionnee_par": "dosteeve2-hash",
+      "verifie_le": "2026-09-19",
+      "methode": "API GitHub, champ merged=true et merged_at — pas le tableau du recensement, qui n'est qu'une copie",
+      "ce_que_ca_change": "Le depot s'installe de nouveau (npm ci passait plus). La recommandation « a fusionner AVANT tout le reste » est HONOREE : les 21 autres PR du depot peuvent desormais etre validees.",
+      "pourquoi_ce_champ_existe": "Sans lui, le bloc ci-dessus se lit comme une recommandation EN ATTENTE. Il l'a ete trois jours de trop. Voir regle 32."
+    }
   },
   "chaine_juin_juillet": {
     "_doc": "Verifie avec git merge-base --is-ancestor : chaque branche contient STRICTEMENT la precedente. Seule la pointe #21 compte.",

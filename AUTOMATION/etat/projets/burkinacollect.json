@@ -22,7 +22,16 @@
     "tests": "6 / 6 (aucun test n'existait avant)",
     "build": "passe, 3 routes, 106 kB de JS au premier chargement",
     "ci": "la PR apporte .github/workflows/ci.yml — le depot n'en a pas",
-    "conclusion": "fusionnable en l'etat ; elle est seulement en BROUILLON, ce qui est probablement la seule raison pour laquelle personne ne l'a regardee (CodeRabbit ne relit pas les brouillons)"
+    "conclusion": "fusionnable en l'etat ; elle est seulement en BROUILLON, ce qui est probablement la seule raison pour laquelle personne ne l'a regardee (CodeRabbit ne relit pas les brouillons)",
+    "SUITE_DONNEE": {
+      "etat_de_la_pr": "FUSIONNEE",
+      "fusionnee_le": "2026-09-16T15:00:12Z",
+      "fusionnee_par": "dosteeve2-hash",
+      "verifie_le": "2026-09-19",
+      "methode": "API GitHub, champ merged=true et merged_at — pas le tableau du recensement, qui n'est qu'une copie",
+      "ce_que_ca_change": "Le tronc passe de 2 a 17 fichiers et la perte silencieuse de soumissions est corrigee. La recommandation « fusionnable en l'etat ; elle est seulement en BROUILLON » est donc HONOREE : elle ne decrit plus rien a faire.",
+      "pourquoi_ce_champ_existe": "Sans lui, le bloc ci-dessus se lit comme une recommandation EN ATTENTE. Il l'a ete trois jours de trop. Voir regle 32."
+    }
   },
   "non_verifie": "burkinacollect.vercel.app : le proxy reseau de la session bloque ce domaine. Si Vercel construit depuis la branche par defaut, il ne peut pas y avoir d'application — main n'a pas de package.json.",
   "prochain_chantier": "Fermer la #3 (absorbee). Puis Q12 : corriger le tableau « Fonctionnalites » ou construire — c'est une parole publique, donc celle de Steeve (protocole §3 regle 10). Rien a construire ici tant qu'il n'a pas tranche.",

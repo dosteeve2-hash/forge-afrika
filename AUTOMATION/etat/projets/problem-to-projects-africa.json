@@ -49,7 +49,16 @@
     "tsc_avec_10": "passe",
     "tests_avec_10": "30 / 30, 2 fichiers (rien a lancer avant)",
     "build_avec_10": "passe, 18 routes",
-    "conclusion": "fusionnable en l'etat, base = HEAD de main"
+    "conclusion": "fusionnable en l'etat, base = HEAD de main",
+    "SUITE_DONNEE": {
+      "etat_de_la_pr": "FUSIONNEE",
+      "fusionnee_le": "2026-09-16T15:03:28Z",
+      "fusionnee_par": "dosteeve2-hash",
+      "verifie_le": "2026-09-19",
+      "methode": "API GitHub, champ merged=true et merged_at — pas le tableau du recensement, qui n'est qu'une copie",
+      "ce_que_ca_change": "La recommandation « fusionnable en l'etat, base = HEAD de main » est HONOREE : tsc passe sur main, les deux @ts-nocheck sont partis, premiere CI en place.",
+      "pourquoi_ce_champ_existe": "Sans lui, le bloc ci-dessus se lit comme une recommandation EN ATTENTE. Il l'a ete trois jours de trop. Voir regle 32."
+    }
   },
   "pr_ouvertes_du_depot": [
     "#10 (2 sept) supprime les 2 @ts-nocheck et les 31 any, fait tourner les tests, ajoute la CI — vise MAIN, verifiee verte",

@@ -18,7 +18,16 @@
     "tests_master_seul": "5 echecs / 148",
     "tests_avec_27": "148 / 148",
     "build_avec_27": "passe, 16 routes",
-    "conclusion": "fusionnable en l'etat, et prioritaire"
+    "conclusion": "fusionnable en l'etat, et prioritaire",
+    "SUITE_DONNEE": {
+      "etat_de_la_pr": "OUVERTE",
+      "verifie_le": "2026-09-19",
+      "base": "master",
+      "base_enregistree_dans_la_pr": "5abfc3c",
+      "tete_de_base_aujourd_hui": "6e16536",
+      "retard": "4 commits — les fusions de #4 et #5 du 16 septembre",
+      "fusion_a_blanc": "PROPRE — aucun conflit, teste le 19 en clone complet. La recommandation « fusionnable en l'etat, et prioritaire » TIENT TOUJOURS."
+    }
   },
   "triage": {
     "fusionner": [

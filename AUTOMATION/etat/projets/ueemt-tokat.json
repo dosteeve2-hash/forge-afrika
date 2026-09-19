@@ -19,7 +19,16 @@
     "build_avec_14": "passe, 38 pages",
     "tests": "24/24 des deux cotes",
     "correctif": "construire le client a l'appel (resendClient()) plutot qu'au chargement — exactement le bon geste",
-    "conclusion": "a fusionner ; sans elle rien ne peut verifier ce depot"
+    "conclusion": "a fusionner ; sans elle rien ne peut verifier ce depot",
+    "SUITE_DONNEE": {
+      "etat_de_la_pr": "FUSIONNEE",
+      "fusionnee_le": "2026-09-16T15:00:21Z",
+      "fusionnee_par": "dosteeve2-hash",
+      "verifie_le": "2026-09-19",
+      "methode": "API GitHub, champ merged=true et merged_at — pas le tableau du recensement, qui n'est qu'une copie",
+      "ce_que_ca_change": "La recommandation « a fusionner ; sans elle rien ne peut verifier ce depot » est HONOREE : le build passe sans secrets et la CI tourne.",
+      "pourquoi_ce_champ_existe": "Sans lui, le bloc ci-dessus se lit comme une recommandation EN ATTENTE. Il l'a ete trois jours de trop. Voir regle 32."
+    }
   },
   "pr_visant_la_mauvaise_branche": "#8, #7, #6, #5 visent `dev`, pas `main`. Motif de CompTrack (regle 11). dev existe mais main a avance jusqu'au 29 juillet : est-ce encore une branche d'integration vivante ou un vestige ? Q17. Rien re-cible ni ferme.",
   "pr_ouvertes_du_depot": [
@@ -52,5 +61,20 @@
     "#7 cotisations CSV": "vise dev. 3 fichiers en conflit.",
     "#12 photo fondateur": "vise main. 1 fichier en conflit.",
     "rien_ferme_ni_recible": "ce sont des PR de Steeve — protocole §3."
+  },
+  "jeton_vercel_oidc_TRANCHE_LE_19": {
+    "de_quoi_il_s_agit": "La PR #14 se terminait par « ⚠️ A faire de ton cote : revoquer un jeton ». .env.production etait suivi par git et contenait un VERCEL_OIDC_TOKEN, commite dans 3f75d8d.",
+    "ce_que_la_fusion_a_ferme": "Le fichier n'est plus suivi : .env.production est ABSENT de l'arbre de main aujourd'hui (verifie le 19). .gitignore le couvre desormais.",
+    "ce_que_la_fusion_n_a_PAS_ferme": "git rm --cached ne reecrit pas l'historique. 3f75d8d est un ANCETRE de main : n'importe qui clonant ce depot public recupere encore le fichier et le jeton.",
+    "la_question_restee_sans_suite": "Personne n'avait verifie si le jeton etait encore vivant. La PR disait « tres probablement deja expire — a verifier plutot qu'a supposer ». Pendant trois jours, personne n'a verifie.",
+    "VERIFIE_LE_19": {
+      "methode": "Lecture LOCALE de la seule revendication exp du JWT. Le jeton n'a jamais ete ecrit sur disque, jamais affiche, et aucun service n'a ete contacte.",
+      "emis_le": "2026-06-13T17:06:26Z",
+      "expire_le": "2026-06-14T05:06:26Z",
+      "duree_de_vie": "12 heures",
+      "conclusion": "EXPIRE DEPUIS 97 JOURS. Aucune revocation n'est necessaire. L'action demandee a Steeve dans la PR #14 est SANS OBJET."
+    },
+    "ce_qui_reste_vrai_malgre_tout": "Le jeton reste lisible dans l'historique public. Il est mort, donc inexploitable — mais l'incident dit que .env.production a ete suivi par git une fois. Le garde-fou est en place (gitignore + controle « Securite — aucun secret dans le depot » en CI) ; rien de plus a faire.",
+    "pourquoi_je_l_ecris_ici": "C'etait une action en attente que PERSONNE ne suivait : ni QUESTIONS.md, ni ce fichier, seulement le corps d'une PR fusionnee. Une PR fusionnee n'est pas un porte-consignes — ce qu'elle laisse a faire doit sortir de son corps. Voir regle 33."
   }
 }

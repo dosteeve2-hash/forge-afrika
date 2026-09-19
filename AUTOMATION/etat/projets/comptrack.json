@@ -45,7 +45,18 @@
     "lint_avec_38": "0 erreur, 4 avertissements",
     "build_avec_38": "passe, 29 pages",
     "base": "feat/comptrack-v1 — la bonne branche",
-    "conclusion": "seule des 21 PR a la fois sur la bonne branche et verifiee verte. A fusionner d'abord."
+    "conclusion": "seule des 21 PR a la fois sur la bonne branche et verifiee verte. A fusionner d'abord.",
+    "SUITE_DONNEE": {
+      "etat_de_la_pr": "OUVERTE",
+      "verifie_le": "2026-09-19",
+      "base": "feat/comptrack-v1",
+      "base_enregistree_dans_la_pr": "dc65248",
+      "tete_de_base_aujourd_hui": "143fdb5",
+      "retard": "2 commits",
+      "fusion_a_blanc": "PROPRE — aucun conflit. Teste le 19 en clone COMPLET (regle 21) : merge --no-commit --no-ff de la base dans la tete de PR. Les fusions du 16 ne l'ont pas cassee.",
+      "MAIS": "elle viserait quand meme une branche qui ne livre rien. feat/comptrack-v1 n'a jamais produit un deploiement target=production ; main si. Mesure du 19 : main a 38 commits absents de v1, v1 en a 14 absents de main. C'est la regle 29 par anticipation — la fusionner ne livrerait pas.",
+      "donc": "verte et fusionnable n'est pas la meme chose qu'utile. Ne pas la presenter comme prete tant que Q15 n'est pas tranchee."
+    }
   },
   "absorbees_par_le_vrai_tronc": {
     "#23 maintenance-infra": "64 fichiers ajoutes, 64 DEJA sur v1 — a fermer",

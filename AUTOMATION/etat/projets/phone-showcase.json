@@ -20,7 +20,16 @@
     "tests_avec_1": "3 / 3 (rien a lancer avant)",
     "build_avec_1": "passe, 4 pages",
     "reserve": "ajoute scripts/captures.mjs et 4 captures d'ecran dans docs/captures/ (~366 Ko). Discutable — des binaires dans un depot — mais sans commune mesure avec les 39 124 lignes de coverage/ de african-hybrid-agent#7 : ici c'est modeste et ca documente une vitrine.",
-    "conclusion": "a fusionner — seule PR du depot, verte, premiere verification automatique du projet"
+    "conclusion": "a fusionner — seule PR du depot, verte, premiere verification automatique du projet",
+    "SUITE_DONNEE": {
+      "etat_de_la_pr": "FUSIONNEE",
+      "fusionnee_le": "2026-09-16T15:03:35Z",
+      "fusionnee_par": "dosteeve2-hash",
+      "verifie_le": "2026-09-19",
+      "methode": "API GitHub, champ merged=true et merged_at — pas le tableau du recensement, qui n'est qu'une copie",
+      "ce_que_ca_change": "La recommandation « a fusionner — seule PR du depot » est HONOREE. Le depot a desormais ZERO PR ouverte : son unique chantier est termine.",
+      "pourquoi_ce_champ_existe": "Sans lui, le bloc ci-dessus se lit comme une recommandation EN ATTENTE. Il l'a ete trois jours de trop. Voir regle 32."
+    }
   },
   "rien_construit_et_c_est_deliberе": "Le depot est sain cote produit et sa seule PR ouverte corrige deja sa seule vraie lacune. Y ajouter du code aujourd'hui serait soit empiler sur une PR non lue, soit inventer un besoin. Trois commits en trois mois sur un site vitrine ne sont pas un probleme a resoudre : c'est un projet fini.",
   "prochain_chantier": "RIEN. Deuxieme depot du portefeuille dans cet etat apres Portfolio 2.0, et le premier a y arriver par une fusion. Sorti de la rotation active : un controle mensuel suffit.",
