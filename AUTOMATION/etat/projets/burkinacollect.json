@@ -1,13 +1,12 @@
 {
   "projet": "burkinacollect",
-  "derniere_execution": "2026-09-16",
-  "verdict": "🔴 aucune application sur la branche par defaut d'un depot public",
+  "derniere_execution": "2026-09-19",
+  "verdict": "🟠 l'application est publiee ; le README promet NEUF fonctionnalites pour DEUX pages",
   "depot_public": true,
-  "tronc": "main, dernier commit 7081b0a du 28 juin — contient DEUX fichiers : README.md et hooks/useOfflineSync.ts",
+  "tronc": "main @ a4ec55b — 17 fichiers depuis la fusion de la #4. Etait a 2 fichiers jusqu'au 16 septembre.",
   "constat_central": "L'application (17 fichiers, Next.js 16) vit dans la PR #4, ouverte le 2 septembre et laissee EN BROUILLON. Le README de main promet six fonctionnalites (dashboard, form builder, sync queue, agents, carte, dashboard superviseur) dont AUCUNE n'existe dans aucune branche : la branche la plus avancee a deux routes, / et /about. Le README affiche meme son logo via public/favicon.ico, fichier absent de main — le logo est casse sur la page GitHub.",
   "pr_ouvertes_du_depot": [
-    "#4 (2 sept, BROUILLON) publie l'app sur main + repare la perte de soumissions + tests + CI — verifiee verte par moi",
-    "#3 (29 juin) page /about + landing — absorbee par la #4"
+    "#3 (29 juin) — ENTIEREMENT absorbee par la #4, verifie par merge-base. Fermable sans rien perdre."
   ],
   "mes_pr": [],
   "defaut_grave": {
@@ -26,12 +25,31 @@
     "conclusion": "fusionnable en l'etat ; elle est seulement en BROUILLON, ce qui est probablement la seule raison pour laquelle personne ne l'a regardee (CodeRabbit ne relit pas les brouillons)"
   },
   "non_verifie": "burkinacollect.vercel.app : le proxy reseau de la session bloque ce domaine. Si Vercel construit depuis la branche par defaut, il ne peut pas y avoir d'application — main n'a pas de package.json.",
-  "prochain_chantier": "RIEN CONSTRUIRE tant que la #4 n'est pas fusionnee. Construire ici voudrait dire soit reinventer la #4 sur un main vide, soit empiler une PR sur un brouillon que personne n'a lu. Le blocage n'est pas un manque de code : c'est que le code ecrit n'a jamais ete publie.",
+  "prochain_chantier": "Fermer la #3 (absorbee). Puis Q12 : corriger le tableau « Fonctionnalites » ou construire — c'est une parole publique, donc celle de Steeve (protocole §3 regle 10). Rien a construire ici tant qu'il n'a pas tranche.",
   "dette_connue": [
     "README.md decrit six fonctionnalites qui n'existent nulle part — a corriger, mais c'est la parole de Steeve (protocole §3 regle 10), je ne l'ai pas touche.",
     "public/favicon.ico reference par le README mais absent de main.",
     "Aucune CI sur main."
   ],
   "lecon": "Une PR en brouillon est invisible : personne ne la relit, aucun bot ne l'annote, elle ne demande rien. Ici c'est toute l'application d'un depot public qui dort dans un brouillon depuis six jours pendant que la branche par defaut affiche un README de produit fini. Le brouillon est le bon defaut pour MES PR — il rend mon travail reversible — mais il devient un piege quand la PR est le livrable principal du depot.",
-  "DECOUVERTE_2026_09_16": "L'URL burkinacollect.vercel.app NE SERT PAS BurkinaCollect. Le projet Vercel du meme nom a ete relie au depot african-hybrid-agent le 5 juin 2026 ; il sert « Aisha — Agent IA Africain » depuis. BurkinaCollect n'a donc AUCUN deploiement, en plus d'avoir un tronc a deux fichiers et toute son application endormie dans la PR #4 en brouillon. Verifie par la reponse HTTP 200 et par la liste des deploiements du projet."
+  "DECOUVERTE_2026_09_16": "L'URL burkinacollect.vercel.app NE SERT PAS BurkinaCollect. Le projet Vercel du meme nom a ete relie au depot african-hybrid-agent le 5 juin 2026 ; il sert « Aisha — Agent IA Africain » depuis. BurkinaCollect n'a donc AUCUN deploiement, en plus d'avoir un tronc a deux fichiers et toute son application endormie dans la PR #4 en brouillon. Verifie par la reponse HTTP 200 et par la liste des deploiements du projet.",
+  "fusions_du_16_RECENSEES_LE_19": [
+    "#4 a 15h00:11 UTC — l'application est PUBLIEE : main passe de 2 a 17 fichiers, la perte silencieuse de soumissions est corrigee sur le tronc",
+    "Recensement complet : VINGT-NEUF fusions le 16 septembre sur dix-neuf depots, pas quinze ni seize. Voir rapports/2026-09-19-recensement-fusions.md."
+  ],
+  "CORRECTION_2026_09_19": {
+    "affirmation_refutee": "contient DEUX fichiers",
+    "ou_elle_vivait": "champ tronc de ce fichier, ecrit le 16",
+    "ce_qui_est_vrai": "main porte 17 fichiers depuis la fusion de la #4 le 16 septembre a 15h00:11 UTC.",
+    "pourquoi": "je comptais les fusions depuis mes notifications GitHub, et je n'etais pas abonne a ce depot. Regles 30 et 31.",
+    "consequence_positive": "le defaut que j'appelais « le pire possible pour un outil de collecte offline-first » — une soumission effacee en silence apres MAX_RETRIES — est corrige SUR LE TRONC."
+  },
+  "q12_toujours_valable": {
+    "revu_le": "2026-09-19",
+    "ce_que_j_ai_failli_corriger_a_tort": "la feuille de route du README est en cases NON cochees, ce qui est honnete. J'allais en conclure que Q12 etait infondee.",
+    "ce_qui_fonde_Q12": "le tableau « ✨ Fonctionnalites / Features », AU-DESSUS de la feuille de route, presente NEUF fonctionnalites comme des faits — dashboard operationnel, form builder, sync queue offline, gestion des agents, carte des zones, dashboard superviseur, journal d'audit, export CSV, responsive — sans aucune marque de « prevu », juste sous un lien « Voir le site live ».",
+    "la_realite": "l'application publiee a DEUX pages : / et /about.",
+    "correction_de_ma_question": "Q12 disait « six fonctionnalites ». C'est NEUF.",
+    "aggravation": "le decalage est desormais plus visible : avant, un visiteur cliquait et ne trouvait rien ; maintenant il clique et trouve deux pages la ou le tableau en promet neuf."
+  }
 }

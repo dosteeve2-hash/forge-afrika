@@ -1,6 +1,6 @@
 {
   "projet": "forja",
-  "derniere_execution": "2026-09-08",
+  "derniere_execution": "2026-09-19",
   "mode": "TRIAGE (hypothese Q7 — 12 PR ouvertes, seuil 5 depasse)",
   "verdict": "🔴 tronc casse",
   "tronc": "master, dernier commit 5abfc3c du 2026-08-10",
@@ -21,9 +21,24 @@
     "conclusion": "fusionnable en l'etat, et prioritaire"
   },
   "triage": {
-    "fusionner": ["#27"],
-    "fermer_sans_perte": ["#10 perimee", "#12 perimee", "#2 doublon strict de #3 (meme HEAD f3d513b)"],
-    "decision_produit_de_steeve": ["#1", "#3", "#4", "#5", "#6", "#7", "#8", "#9"],
+    "fusionner": [
+      "#27"
+    ],
+    "fermer_sans_perte": [
+      "#10 perimee",
+      "#12 perimee",
+      "#2 doublon strict de #3 (meme HEAD f3d513b)"
+    ],
+    "decision_produit_de_steeve": [
+      "#1",
+      "#3",
+      "#4",
+      "#5",
+      "#6",
+      "#7",
+      "#8",
+      "#9"
+    ],
     "imbrications": "#1 ⊂ #2 ≡ #3 · #4 ⊂ #5 · #6 ⊂ #7 ⊂ #8 ⊂ #9 — seules les pointes #3 #5 #9 comptent"
   },
   "incompatibilites_des_pr_de_juillet": [
@@ -37,5 +52,9 @@
     "20 avertissements de lint restants : <img> au lieu de next/image sur les 3 sections de la landing, variables inutilisees.",
     "sprint14.bat / sprint14.ps1 / sprint14_pr.bat / run_build_push.bat : scripts Windows jetables versionnes, dont un deja sur le tronc."
   ],
-  "lecon": "Un depot sans CI dont le tronc est rouge depuis un mois pendant que 12 PR attendent : le goulot est en aval, pas en amont. Sur 12 PR ouvertes, 11 ne doivent PAS etre fusionnees. Le vrai chiffre du portefeuille n'est pas '69 PR a fusionner' mais 'une poignee a fusionner, une longue trainee a fermer'."
+  "lecon": "Un depot sans CI dont le tronc est rouge depuis un mois pendant que 12 PR attendent : le goulot est en aval, pas en amont. Sur 12 PR ouvertes, 11 ne doivent PAS etre fusionnees. Le vrai chiffre du portefeuille n'est pas '69 PR a fusionner' mais 'une poignee a fusionner, une longue trainee a fermer'.",
+  "fusions_du_16_RECENSEES_LE_19": [
+    "#4 et #5 a 15h02:26 et 15h02:33 UTC — deux PR dont je n'avais jamais eu connaissance.",
+    "Recensement complet : VINGT-NEUF fusions le 16 septembre sur dix-neuf depots, pas quinze ni seize. Voir rapports/2026-09-19-recensement-fusions.md."
+  ]
 }

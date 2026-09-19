@@ -14,7 +14,7 @@
 
 ---
 
-## 📋 Les 20 questions en un coup d'œil
+## 📋 Les 19 questions en un coup d'œil
 
 Trois d'entre elles commandent tout le reste : **Q1** (quel tronc fait foi), **Q2**
 (les métriques sont-elles réelles) et **Q19** (quelle architecture d'automatisation).
@@ -33,7 +33,6 @@ le CompTrack livré n'a aucune page de connexion. Les autres peuvent attendre sa
 | Q6 | 🎯 25 dépôts, une seule personne | concentrer ou tout garder | la rotation couvre tout, l'ordre reste ouvert |
 | Q7 | 🧹 Construire quand 5 PR attendent déjà ? | le mode triage — **modification du protocole, non appliquée** | seuil à 5, en attente de ton accord |
 | Q10 | ☕ FORJA fait-il encore de l'export de café ? | 11 PR à fermer plutôt qu'à fusionner | le tronc a raison |
-| **Q11** | 🔑 Aisha tourne en public sans limite de débit, sous une URL au nom de BurkinaCollect | un endpoint IA ouvert sur un dépôt public | aucune — **mon hypothèse « non déployé » était fausse** |
 | Q12 | 📄 Le README de BurkinaCollect décrit un produit absent | réécrire le README ou construire le produit | README d'abord, rien modifié |
 | **Q13** | 🌿 Problem to Projects Africa : la branche livrée n'a pas l'intelligence | 61 fichiers dormants, dont toute la génération IA et 4 contextes pays | `main` reste le tronc, **rien porté** |
 | Q14 | 🏭 TAAMA : le site public doit-il revenir ? | restaurer `/tarifs` et `/demo` depuis les PR #10/#12 | oui, à restaurer |
@@ -229,56 +228,14 @@ Elle se fusionne sans rien décider d'autre.
 
 ---
 
-### Q11 — African Hybrid Agent tourne en public, sous le nom d'un autre produit (2026-09-08, **hypothèse infirmée le 16**)
-
-⚠️ **Mon hypothèse « non déployé » était fausse.** Vérifié ce matin :
-`https://burkinacollect.vercel.app/` répond **200** et sert **« Aisha — Agent IA Africain »**.
-
-**Pourquoi cette URL.** Le projet Vercel s'appelait bien `burkinacollect` à l'origine — son
-plus ancien déploiement, du 25 mai, vient du dépôt `burkinacollect`. Il a été **relié au
-dépôt `african-hybrid-agent` le 5 juin**. Tous les déploiements depuis portent
-`githubCommitRepo: african-hybrid-agent`. La production actuelle date du **24 juin**, depuis
-`main @ e20281b6` — le tronc qui n'a plus bougé depuis le 27 juin.
-
-**Deux conséquences, et elles vont dans des directions opposées :**
-
-1. **BurkinaCollect n'a aucun déploiement.** L'URL à son nom sert un autre produit. Cela
-   s'ajoute à Q12 : tronc à deux fichiers, application endormie dans la PR #4 en brouillon.
-2. **Le tronc déployé est antérieur à la PR #7**, qui apporte la limite de débit sur
-   `/api/chat`. L'endpoint public tourne donc **sans limite côté code**, et le dépôt est
-   **public**.
-
-**Ce que je n'ai pas fait, volontairement : je n'ai pas sollicité `/api/chat`.** Le tester
-consommerait ton crédit — c'est exactement l'abus contre lequel je te mets en garde. Le commit
-du 5 juin ordonne `Ollama → Claude → OpenAI → synthèse locale` ; sur Vercel il n'y a pas
-d'Ollama, donc la facturation dépend de la présence des clés API dans ce projet, que je ne
-peux pas lire.
-
-| | |
-|---|---|
-| **A. Fusionner la PR #7** | elle est prête depuis le 2 septembre et pose la limite de débit |
-| **B. Retirer le déploiement public** | si Aisha n'est pas censée être en ligne, le plus simple est de la dépublier |
-| **C. Ne rien faire** | un endpoint IA public et sans limite reste ouvert, sur un dépôt public |
-
-**Hypothèse retenue : je ne touche à rien.** Dépublier est une action de production (§3), et
-fusionner t'appartient. Je n'ai pas réécrit la limite de débit : **elle existe déjà dans la
-PR #7**, et la réécrire aurait été du travail perdu — c'est d'ailleurs ce que ma note de
-rotation m'aurait fait faire ce matin si je n'avais pas vérifié.
-
-**Réponse de Steeve :** _(en attente)_
-
----
-
 ### Q12 — Le README de BurkinaCollect décrit un produit qui n'existe pas (2026-09-08)
 
-Le dépôt est **public**. Sa branche par défaut contient **deux fichiers** : `README.md` et
-`hooks/useOfflineSync.ts`. Pas de `package.json`, pas d'application.
+Le dépôt est **public**. *(Mis à jour le 19 : depuis la fusion de la #4 le 16 septembre, `main` porte **17 fichiers** et l'application est en ligne. Le point n° 1 ci-dessous — la perte silencieuse de soumissions — est **corrigé sur le tronc**.)*
 
 Ce README présente pourtant un produit fini — badges Next.js 16 / React 19 / TypeScript /
 Tailwind, un lien « 🌍 Voir le site live » vers `burkinacollect.vercel.app`, et six
 fonctionnalités : dashboard opérationnel, form builder, sync queue offline, gestion des agents,
-carte des zones, dashboard superviseur. **Aucune des six n'existe dans aucune branche.** La plus
-avancée (PR #4) a deux routes : `/` et `/about`.
+carte des zones, dashboard superviseur. **Aucune n'existe.** *(Revu le 19 : le tableau en présente **neuf**, pas six — j'avais compté court. Et la **PR #4 a été fusionnée le 16** : l'application est publiée, avec deux routes, `/` et `/about`. Le décalage est donc plus visible qu'avant, pas moins — un visiteur clique et trouve deux pages là où le tableau en promet neuf.)*
 
 Ce n'est pas une question technique, c'est une question de parole publique — donc la tienne.
 
@@ -747,6 +704,35 @@ touche au schéma comme Q16.
 ---
 
 ## ✅ Questions résolues
+
+### [2026-09-19] Q11 — African Hybrid Agent : l'endpoint IA public est fermé
+
+**Résolu par toi le 16 septembre, et je ne l'ai vu que trois jours plus tard.**
+
+Ce que je signalais depuis le 8 : `burkinacollect.vercel.app` sert `african-hybrid-agent`,
+dont `/api/chat` tournait **sans limite de débit**, sur un dépôt **public**.
+
+Tu as fusionné la **PR #7 le 16 septembre à 15h00:00 UTC** — la deuxième fusion de ta session.
+
+**Vérifié dans les deux sens, sans solliciter l'endpoint :**
+
+```
+src/lib/rate-limit.ts:4   export const AI_RATE_LIMIT = { limit: 20, windowSeconds: 3600 }
+src/app/api/chat/route.ts:41   logOptional("orchestrator", "rate_limited", …)
+```
+
+Vingt requêtes par heure — exactement la règle de `CLAUDE.md`. Et en production : déploiement
+`target: production`, état `READY`, depuis `main @ f99cc32`, dont le message de commit est
+« Merge pull request #7 — Limite de débit sur l'endpoint IA ».
+
+*Je n'ai pas appelé `/api/chat` : la métadonnée du déploiement et le code source suffisent, et
+l'appeler dépenserait le crédit que la limite protège.*
+
+**Ma faute :** j'ai porté cette question en tête de cinq check-ins comme « urgente, sans
+réponse », alors qu'elle était close. Mon décompte des fusions venait de mes notifications, pas
+des dépôts — **règles 30 et 31**.
+
+---
 
 ### [2026-09-05] REGISTRE — Que sont réellement ComptTrack, Forja, InduBot, Duka, Mifa, UEEMT ?
 **Résolu sans toi**, par lecture de `lib/constants.ts` sur `master` — la source de vérité

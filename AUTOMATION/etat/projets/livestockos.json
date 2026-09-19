@@ -1,6 +1,6 @@
 {
   "projet": "livestockos",
-  "derniere_execution": "2026-09-16",
+  "derniere_execution": "2026-09-19",
   "verdict": "🟢 PREMIERE FUSION DE STEEVE DANS CETTE SERIE — main est vert, verifie sur le main fusionne",
   "tronc": "main @ c051f32 (16 septembre, fusion de ma #10). ATTENTION : la branche par defaut du depot reste feat/animaux-rapports @ 0dbc645 — mais elle est desormais MESUREE comme entierement contenue dans main (0 commit unique, main a 18 commits qu'elle n'a pas). Un git clone recupere donc un instantane perime de 18 commits, et la repointer ne peut RIEN faire perdre.",
   "pr_ouvertes_du_depot": [
@@ -44,5 +44,9 @@
     "pourquoi_je_me_suis_trompe": "j'avais verifie que la branche de la #9 ne contenait aucune des 5 suites de main — donc son CONTENU — sans jamais tenter la fusion. Un ordre de fusion qui ne teste pas la fusion n'est pas un ordre de fusion. Une seule commande manquait : git merge.",
     "regle": "regle 27"
   },
-  "fusions_du_16_septembre": "Steeve a fusionne #10 le 16 septembre entre 15h00 et 15h06 UTC, dans un lot de QUINZE PR sur onze depots. Premier deblocage du goulot depuis le 2 septembre."
+  "fusions_du_16_septembre": "Steeve a fusionne #10 le 16 septembre entre 15h00 et 15h06 UTC, dans un lot de QUINZE PR sur onze depots. Premier deblocage du goulot depuis le 2 septembre.",
+  "fusions_du_16_RECENSEES_LE_19": [
+    "#10 a 15h00:33 et #8 a 15h03:20 UTC — deux fusions. Comptees sur main, PAS sur la branche par defaut du depot.",
+    "Recensement complet : VINGT-NEUF fusions le 16 septembre sur dix-neuf depots, pas quinze ni seize. Voir rapports/2026-09-19-recensement-fusions.md."
+  ]
 }

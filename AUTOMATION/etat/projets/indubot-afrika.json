@@ -1,6 +1,6 @@
 {
   "projet": "indubot-afrika",
-  "derniere_execution": "2026-09-16",
+  "derniere_execution": "2026-09-19",
   "verdict": "🟢",
   "tronc": "master (2026-09-02, correctif CI/lint fusionne)",
   "pr_ouvertes_du_depot": [
@@ -35,5 +35,9 @@
     "pourquoi_je_me_suis_trompe": "j'ai compare les fichiers SOURCE des deux PR et conclu a l'independance sans regarder les fichiers de CONFIGURATION. Or toute PR qui apporte un garde-fou ajoute un script a package.json et une etape a la CI : ce sont precisement les deux fichiers que toutes les PR de ce type se disputent.",
     "troisieme_fichier": "le conflit sur src/components/dashboard/sidebar.tsx, lui, ne vient pas de la #3 mais de la #2 (README et captures), que je n'avais jamais examinee. Elle rend les modules non implementes desactives avec un badge « Bientot ». Resolu en combinant : le badge vit desormais dans le composant partage, donc il apparait AUSSI dans le tiroir mobile.",
     "regle": "regle 28"
-  }
+  },
+  "fusions_du_16_RECENSEES_LE_19": [
+    "#2 (README et captures) a 15h03:41 UTC, en plus de la #3 — c'est la #2 qui a cree les conflits de mes #4 et #5.",
+    "Recensement complet : VINGT-NEUF fusions le 16 septembre sur dix-neuf depots, pas quinze ni seize. Voir rapports/2026-09-19-recensement-fusions.md."
+  ]
 }
