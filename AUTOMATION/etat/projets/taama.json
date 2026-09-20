@@ -63,5 +63,12 @@
     "affirmation_refutee": "commit ORPHELIN",
     "nettoyage_2026_09_16": "Le 15 j'avais ajoute ce bloc de correction SANS nettoyer verdict, tronc, constat_central et prochain_chantier, qui portaient encore l'affirmation refutee. Un lecteur pressé — ou moi demain — lisait le haut du fichier et repartait avec le diagnostic faux. Corrige le 16, et un 16e controle CI verifie desormais qu'une affirmation refutee ne survit nulle part dans son propre fichier."
   },
-  "fusions_du_16_septembre": "Steeve a fusionne #37 le 16 septembre entre 15h00 et 15h06 UTC, dans un lot de QUINZE PR sur onze depots. Premier deblocage du goulot depuis le 2 septembre."
+  "fusions_du_16_septembre": "Steeve a fusionne #37 le 16 septembre entre 15h00 et 15h06 UTC, dans un lot de QUINZE PR sur onze depots. Premier deblocage du goulot depuis le 2 septembre.",
+  "MESURE_2026_09_20": {
+    "tronc_reel": "main @ afb5f4c",
+    "cite_dans_ce_fichier": "66ca73d — c'est la RACINE, pas la tete ; et 3f8318d, qui etait la tete jusqu'au 16",
+    "pr_ouvertes": 18,
+    "compteur_du_fichier": "18 — EXACT. La #37 a ete creee apres le 7 septembre puis fusionnee le 16, le total n'a pas bouge. J'ai failli le 'corriger' a tort.",
+    "toutes_visent": "main"
+  }
 }

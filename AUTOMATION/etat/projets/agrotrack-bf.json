@@ -71,5 +71,10 @@
     "ma_pr": "#20 — lib/demo.ts (DEMO_EMAIL / DEMO_PASSWORD, sans prefixe NEXT_PUBLIC_), le bouton reste, le mot de passe disparait. 153 -> 162 tests.",
     "a_dire_a_steeve": "la valeur affichee est BRULEE : publique, et dans l'historique git. DEMO_PASSWORD doit recevoir une valeur neuve.",
     "sabotage_qui_m_a_corrige": "j'avais commente que `||` protegeait contre une variable definie mais VIDE, comme dans config.ts. Faux ici : le repli etant la chaine vide, `?? ''` et `|| ''` rendent la meme valeur — le sabotage est reste vert. C'est la comparaison explicite `!== ''` qui protege. Commentaire et test corriges."
+  },
+  "MESURE_2026_09_20": {
+    "tronc_reel": "master @ a8f7615",
+    "pr_ouvertes": 2,
+    "la_verite": "#20 (la mienne, brouillon, mot de passe de demo) et #15. Les #17, #18 et #19 ont ete fusionnees le 16 — ce fichier les listait encore comme ouvertes."
   }
 }

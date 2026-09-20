@@ -4,7 +4,7 @@
   "derniere_execution": "2026-09-18",
   "mode": "TRIAGE (7 PR ouvertes)",
   "verdict": "🟡 tronc sain depuis la fusion de ma #14 ; 6 PR ouvertes dont 4 visent une branche MORTE",
-  "tronc": "main, dernier commit 3f75d8d du 29 juillet, 14 branches, aucune CI",
+  "tronc": "main @ 3c0c098. La CI existe depuis la fusion de la #14 le 16 septembre ; avant elle, le depot n'en avait pas et le build echouait sans les secrets. 14 branches. Mesure le 2026-09-20.",
   "constat_central": "npm run build ECHOUE sur main : src/lib/email.ts construisait le client Resend AU CHARGEMENT DU MODULE (`const resend = new Resend(...)`), et new Resend() leve quand la cle manque. Next.js charge ce module pendant la collecte des donnees de /api/onboarding, et le build s'arrete. Aucune CI ne peut construire ce depot, aucun contributeur sans cle Resend de production non plus.",
   "sante_du_tronc": {
     "lint": "131 erreurs, 65 avertissements",
@@ -38,7 +38,7 @@
     "#8 #7 #6 #5 (juin-juillet) — visent DEV"
   ],
   "mes_pr": [
-    "#14 — 131 erreurs de lint reparees, build debloque sans secrets (client Resend construit au chargement du module : aucune CI ne pouvait construire le depot), premiere CI. FUSIONNEE le 16 septembre a 15h00:20 UTC."
+    "#14 (2 sept) — FUSIONNEE le 16 septembre a 15h00:21. Elle a apporte la premiere CI du depot, repare 131 erreurs de lint et rendu le build possible sans secrets de production. Son corps demandait aussi de revoquer un VERCEL_OIDC_TOKEN : verifie le 19, le jeton avait expire 12 h apres son emission, 97 jours plus tot — aucune action necessaire."
   ],
   "dette_connue": [
     "run-log.txt et run-log2.txt : journaux d'execution versionnes, meritent au minimum une ligne de .gitignore",
@@ -76,5 +76,13 @@
     },
     "ce_qui_reste_vrai_malgre_tout": "Le jeton reste lisible dans l'historique public. Il est mort, donc inexploitable — mais l'incident dit que .env.production a ete suivi par git une fois. Le garde-fou est en place (gitignore + controle « Securite — aucun secret dans le depot » en CI) ; rien de plus a faire.",
     "pourquoi_je_l_ecris_ici": "C'etait une action en attente que PERSONNE ne suivait : ni QUESTIONS.md, ni ce fichier, seulement le corps d'une PR fusionnee. Une PR fusionnee n'est pas un porte-consignes — ce qu'elle laisse a faire doit sortir de son corps. Voir regle 33."
+  },
+  "MESURE_2026_09_20": {
+    "tronc_reel": "main @ 3c0c098",
+    "cite_dans_ce_fichier": "3f75d8d du 29 juillet — base de la #14, fusionnee le 16",
+    "affirmation_refutee": "aucune CI",
+    "la_verite": "la CI existe depuis la fusion de la #14 le 16 septembre. Le champ `tronc` de ce fichier la disait absente cinq jours de trop.",
+    "pr_ouvertes": 6,
+    "repartition": "2 visent main (#12, #11) · 4 visent `dev` (#8, #7, #6, #5), branche morte mesuree le 18 — 0 commit unique, 33 de retard. Q17."
   }
 }

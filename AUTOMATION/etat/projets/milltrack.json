@@ -4,7 +4,7 @@
   "verdict": "🟢",
   "tronc": "master — sain : lint 0, 124 tests, build 13 routes, CI presente",
   "pr_ouvertes_du_depot": [
-    "6 PR ouvertes au 15 septembre, dont 3 a moi.",
+    "4 PR ouvertes au 2026-09-20 (mesure API) : #15 (la mienne), #3, #2, #1. Les #13 et #14 ont ete fusionnees le 16 septembre.",
     "#3 (30 juil) quality improvements — error.tsx et loading.tsx DEJA sur le tronc (verifie : presents mais differents), ne reste qu'un LOVABLE_PROTOCOL.md",
     "#2 (18 juil) sprint14 fournisseurs+parametres — 26 commits de retard, 3 CONFLITS reels avec master : clients/page.tsx, production/page.tsx, (dashboard)/layout.tsx",
     "#1 (13 juil) auth complete v2 — 12 de ses 13 fichiers sont IDENTIQUES AU BIT PRES a ceux de la #2 ; le 13e, SidebarNav.tsx, differe de +8/-1 (la #2 ajoute 3 entrees de nav). Entierement absorbee par la #2."
@@ -37,5 +37,12 @@
   },
   "motif_du_portefeuille": "Troisieme logiciel de gestion du portefeuille dont le tronc n'a aucune authentification, apres CompTrack (main) et CompTrack (v1, qui a la porte mais pas le mur). Ce n'est pas un oubli isole : c'est ce qui arrive quand les PR qui apportent l'auth ne sont jamais fusionnees.",
   "fusions_du_16_septembre": "Steeve a fusionne #13, #14 le 16 septembre entre 15h00 et 15h06 UTC, dans un lot de QUINZE PR sur onze depots. Premier deblocage du goulot depuis le 2 septembre.",
-  "pr_restante_apres_le_lot": "#15 — conflit resolu et repousse le 16 a 18h35 : master avait gagne DashboardNav (extrait par la #13). La deconnexion descend dans DashboardNav, donc elle existe aussi dans le TIROIR mobile, ce que ma version d'origine ne faisait pas. 198/198, lint 0, tsc 0, build vert, les 5 sabotages rejoues."
+  "pr_restante_apres_le_lot": "#15 — conflit resolu et repousse le 16 a 18h35 : master avait gagne DashboardNav (extrait par la #13). La deconnexion descend dans DashboardNav, donc elle existe aussi dans le TIROIR mobile, ce que ma version d'origine ne faisait pas. 198/198, lint 0, tsc 0, build vert, les 5 sabotages rejoues.",
+  "MESURE_2026_09_20": {
+    "tronc_reel": "master @ 3b9480b",
+    "pr_ouvertes": 4,
+    "affirmation_refutee": "6 PR ouvertes au 15 septembre, dont 3 a moi.",
+    "la_verite": "4 ouvertes : #15 (la mienne), #3, #2, #1. Les #13 et #14 ont ete fusionnees le 16.",
+    "toutes_visent": "master"
+  }
 }

@@ -48,5 +48,10 @@
     "sw.js met en cache TOUTES les reponses GET, y compris non-ok : un 500 mis en cache est resservi hors ligne.",
     "strategie network-first dans le service worker, sur un produit dont la doctrine dit offline-first.",
     "AUCUNE synchronisation : ce qui est ecrit hors ligne ne remonte jamais au serveur — Q22."
-  ]
+  ],
+  "MESURE_2026_09_20": {
+    "tronc_reel": "main @ f626ac5 — exact",
+    "pr_ouvertes": 1,
+    "laquelle": "#2, la mienne, brouillon"
+  }
 }

@@ -68,5 +68,12 @@
   "fusions_du_16_RECENSEES_LE_19": [
     "#46 a 14h59:52 UTC (le depot s'installe a nouveau), puis #13, #23, #29, #30 — CINQ fusions.",
     "Recensement complet : VINGT-NEUF fusions le 16 septembre sur dix-neuf depots, pas quinze ni seize. Voir rapports/2026-09-19-recensement-fusions.md."
-  ]
+  ],
+  "MESURE_2026_09_20": {
+    "tronc_reel": "main @ c92ea7b",
+    "cite_dans_ce_fichier": "f3991a8 du 10 aout — c'etait la base de la #46, fusionnee le 16",
+    "pr_ouvertes": 18,
+    "EMPILEES": "#47 et #48 ont pour base `claude/motion-bklit-kokonut-animations-vthtl6`, qui est exactement la TETE de la #45 (egalite de SHA e90b936 verifiee). Les fusionner les verserait dans la #45, pas dans main — le piege de duka-boutique#12.",
+    "ordre_de_fusion": "fusionner la #45 d'abord ; les #47 et #48 devront ensuite etre reciblees sur main, ou fusionnees AVANT la #45 pour partir avec elle."
+  }
 }

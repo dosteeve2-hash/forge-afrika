@@ -39,5 +39,10 @@
   "fusions_du_16_RECENSEES_LE_19": [
     "#2 (README et captures) a 15h03:41 UTC, en plus de la #3 — c'est la #2 qui a cree les conflits de mes #4 et #5.",
     "Recensement complet : VINGT-NEUF fusions le 16 septembre sur dix-neuf depots, pas quinze ni seize. Voir rapports/2026-09-19-recensement-fusions.md."
-  ]
+  ],
+  "MESURE_2026_09_20": {
+    "tronc_reel": "master @ aaecec1",
+    "pr_ouvertes": 2,
+    "lesquelles": "#4 et #5, les miennes, toutes deux basees sur la tete actuelle"
+  }
 }

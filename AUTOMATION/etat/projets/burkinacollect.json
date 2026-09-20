@@ -60,5 +60,10 @@
     "la_realite": "l'application publiee a DEUX pages : / et /about.",
     "correction_de_ma_question": "Q12 disait « six fonctionnalites ». C'est NEUF.",
     "aggravation": "le decalage est desormais plus visible : avant, un visiteur cliquait et ne trouvait rien ; maintenant il clique et trouve deux pages la ou le tableau en promet neuf."
+  },
+  "MESURE_2026_09_20": {
+    "tronc_reel": "main @ a4ec55b — le champ `tronc` etait EXACT",
+    "pr_ouvertes": 0,
+    "consequence": "la #3 a ete fermee ou fusionnee depuis. Zero PR ouverte : ce depot attend une decision sur son README (Q12), pas un clic."
   }
 }

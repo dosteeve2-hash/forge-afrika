@@ -42,5 +42,10 @@
     "la_11_est_prete": "elle porte desormais les deux travaux (3 commits : la CI/tests, le correctif, la fusion de la #12). Verifie sur la branche reelle : se fusionne proprement dans master, 80/80 tests, lint 0 erreur, build vert.",
     "remede": "un clic sur la #11. Rien d'autre a faire, et surtout pas une PR de remplacement.",
     "regle": "regle 29"
+  },
+  "MESURE_2026_09_20": {
+    "tronc_reel": "master @ c10e0e7 — INCHANGE depuis le 10 aout",
+    "pr_ouvertes": 2,
+    "toujours_vrai": "`ecrireLocal` reste ABSENT de master, verifie le 20 septembre. La #12 fusionnee le 16 est partie dans la branche de la #11. La vente perdue n'est toujours pas corrigee pour les commercants."
   }
 }

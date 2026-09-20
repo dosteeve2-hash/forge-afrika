@@ -4,7 +4,9 @@
   "verdict": "🔴 GitHub et Vercel ne designent pas le meme tronc — et ce qui est livre n'a aucune connexion",
   "tronc": "INDETERMINE. GitHub : feat/comptrack-v1 (branche par defaut). Vercel : main (branche de production). Q15 doit trancher.",
   "pr_ouvertes_du_depot": [
-    "20 PR ouvertes, la plus ancienne a 69 jours, AUCUNE fusionnee"
+    "21 PR ouvertes au 2026-09-20 (mesure API). DEUX ont ete fusionnees depuis : la #39 le 16 septembre, la #40 le 16 au soir.",
+    "17 visent `main`, la branche qui livre reellement (regle 22).",
+    "4 visent `feat/comptrack-v1`, qui n'a jamais produit de deploiement de production : #38 (la mienne), #36, #30, #8."
   ],
   "mes_pr": [
     "#38 claude/ci-lint-and-tests → feat/comptrack-v1 — ESLint, 6 tests repares, CI. Verte. Mais sur la branche qui ne va pas en production.",
@@ -96,5 +98,13 @@
     "main": "EN PRODUCTION. 18 pages. Aucune donnee, aucun appel reseau, aucune authentification. Une VITRINE.",
     "feat/comptrack-v1": "jamais en production. 21 pages, schema Supabase, tests, page de connexion + garde (#39 fusionnee). Le PRODUIT.",
     "reformulation": "ce ne sont pas deux troncs concurrents : c'est une demonstration qui tourne et un produit qui ne tourne pas. Q15 reecrite en consequence."
+  },
+  "MESURE_2026_09_20": {
+    "tronc_reel": "main @ 5f0a2f3 — la branche de PRODUCTION (regle 22), pas feat/comptrack-v1 qui est le defaut GitHub",
+    "pr_ouvertes": 21,
+    "affirmation_refutee": "20 PR ouvertes, la plus ancienne a 69 jours, AUCUNE fusionnee",
+    "la_verite": "21 ouvertes, et DEUX ont ete fusionnees depuis : la #39 le 16, la #40 le 16 au soir.",
+    "repartition": "17 visent main (la branche qui livre) · 4 visent feat/comptrack-v1 (qui n'a jamais rien mis en production) : #38, #36, #30, #8",
+    "dont_la_mienne": "#38 est dans les 4 qui ne livreraient rien"
   }
 }

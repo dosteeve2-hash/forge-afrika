@@ -65,5 +65,12 @@
   "fusions_du_16_RECENSEES_LE_19": [
     "#4 et #5 a 15h02:26 et 15h02:33 UTC — deux PR dont je n'avais jamais eu connaissance.",
     "Recensement complet : VINGT-NEUF fusions le 16 septembre sur dix-neuf depots, pas quinze ni seize. Voir rapports/2026-09-19-recensement-fusions.md."
-  ]
+  ],
+  "MESURE_2026_09_20": {
+    "tronc_reel": "master @ 6e16536",
+    "cite_dans_ce_fichier": "5abfc3c du 10 aout — base de la #27, deplacee par les fusions des #4 et #5 le 16",
+    "pr_ouvertes": 8,
+    "toutes_visent": "master",
+    "ma_pr": "#27, fusion a blanc propre verifiee le 19"
+  }
 }
