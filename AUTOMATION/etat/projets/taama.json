@@ -70,5 +70,11 @@
     "pr_ouvertes": 18,
     "compteur_du_fichier": "18 — EXACT. La #37 a ete creee apres le 7 septembre puis fusionnee le 16, le total n'a pas bouge. J'ai failli le 'corriger' a tort.",
     "toutes_visent": "main"
+  },
+  "CI_DU_TRONC_2026_09_21": {
+    "etat": "AUCUNE",
+    "mesure_le": "2026-09-21",
+    "methode": "API GitHub Actions, list_workflow_runs filtre sur le tronc reel — pas sur la branche par defaut (regle 31)",
+    "detail": "AUCUNE CI sur main — zero run mesure le 21 septembre. C'est la #35 qui en apporterait une."
   }
 }

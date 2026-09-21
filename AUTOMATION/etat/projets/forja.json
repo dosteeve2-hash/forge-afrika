@@ -72,5 +72,11 @@
     "pr_ouvertes": 8,
     "toutes_visent": "master",
     "ma_pr": "#27, fusion a blanc propre verifiee le 19"
+  },
+  "CI_DU_TRONC_2026_09_21": {
+    "etat": "AUCUNE",
+    "mesure_le": "2026-09-21",
+    "methode": "API GitHub Actions, list_workflow_runs filtre sur le tronc reel — pas sur la branche par defaut (regle 31)",
+    "detail": "AUCUNE CI sur master — zero run mesure le 21 septembre. C'est la #27 qui en apporterait une."
   }
 }

@@ -47,5 +47,11 @@
     "tronc_reel": "master @ c10e0e7 — INCHANGE depuis le 10 aout",
     "pr_ouvertes": 2,
     "toujours_vrai": "`ecrireLocal` reste ABSENT de master, verifie le 20 septembre. La #12 fusionnee le 16 est partie dans la branche de la #11. La vente perdue n'est toujours pas corrigee pour les commercants."
+  },
+  "CI_DU_TRONC_2026_09_21": {
+    "etat": "AUCUNE",
+    "mesure_le": "2026-09-21",
+    "methode": "API GitHub Actions, list_workflow_runs filtre sur le tronc reel — pas sur la branche par defaut (regle 31)",
+    "detail": "AUCUNE CI sur master — zero run mesure le 21 septembre. C'est la #11 qui en apporterait une, et c'est aussi elle qui livrerait enfin ecrireLocal."
   }
 }

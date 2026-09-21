@@ -75,5 +75,29 @@
     "pr_ouvertes": 18,
     "EMPILEES": "#47 et #48 ont pour base `claude/motion-bklit-kokonut-animations-vthtl6`, qui est exactement la TETE de la #45 (egalite de SHA e90b936 verifiee). Les fusionner les verserait dans la #45, pas dans main — le piege de duka-boutique#12.",
     "ordre_de_fusion": "fusionner la #45 d'abord ; les #47 et #48 devront ensuite etre reciblees sur main, ou fusionnees AVANT la #45 pour partir avec elle."
+  },
+  "CHANTIER_2026_09_21": {
+    "constat": "La CI de main etait ROUGE depuis le 16 septembre a 15h04. Cinq jours.",
+    "cause": "Une seule erreur de lint : @next/next/no-html-link-for-pages sur ParametresClient.tsx:721 — le lien « Retour au profil » etait une ancre HTML <a href=\"/profil\"> au lieu d'un <Link>.",
+    "unicite_verifiee": "C'est la SEULE ancre HTML vers une route interne des 318 fichiers suivis. Un oubli ponctuel, pas un motif — d'ou un correctif d'une ligne.",
+    "ce_que_ca_cassait": "Une ancre HTML vers une page interne provoque une navigation document complete, la ou <Link> fait une transition cote client. Sur un Android d'entree de gamme en 2G (VISION.md §4), revenir sur une page deja visitee retelechargeait toute la coque de l'application.",
+    "chronologie": {
+      "14:59:57": "run #3, fusion de la #46 (celle qui installe la CI) — SUCCES",
+      "15:02:05": "run #4, fusion de la #13 — annule",
+      "15:02:22": "run #5, fusion de la #23 — annule",
+      "15:02:51": "run #6, fusion de la #29 — ANNULE 18 s plus tard. C'est elle qui apporte le commit fautif 5423b92.",
+      "15:03:08": "run #7, fusion de la #30 — ECHEC. Dernier etat de main, rouge depuis."
+    },
+    "la_ci_a_tenu_quatre_minutes": "Le run vert du 16 a 14h59 est celui de ma #46, la PR qui installe cette CI.",
+    "ce_n_est_PAS_un_defaut_de_config": "cancel-in-progress est correct : quand cinq PR sont fusionnees en 90 s, seul l'etat final merite verification — et il a ete verifie, et il a echoue. Le garde-fou a parfaitement fonctionne. Personne n'a regarde le resultat. Q20.",
+    "verifie": {
+      "lint_avant": "1 erreur, 66 avertissements",
+      "lint_apres": "0 erreur, 66 avertissements",
+      "tests": "90/90 des deux cotes",
+      "build": "passe, code de sortie 0"
+    },
+    "pr": "#49, brouillon, ouverte le 21 septembre",
+    "verification_negative_FCFA": "Avant de chercher, j'ai controle le point le plus probable pour une boutique : le formatage des montants. Partout Intl.NumberFormat('fr-FR') ou toLocaleString('fr-FR'), AUCUNE decimale. Les seuls .toFixed() portent sur une note d'avis (4.3 ★) et des revenus en milliers (128K FCFA) — legitimes. La doctrine XOF est respectee. Ne pas y revenir (regle 23).",
+    "reste_a_faire": "66 avertissements react-hooks/* arrives avec Next 16, passes en avertissement par la #46 avec justification. Chantier a part entiere. Et les #47/#48 restent empilees sur la #45."
   }
 }

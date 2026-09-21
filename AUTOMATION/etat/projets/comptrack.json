@@ -106,5 +106,11 @@
     "la_verite": "21 ouvertes, et DEUX ont ete fusionnees depuis : la #39 le 16, la #40 le 16 au soir.",
     "repartition": "17 visent main (la branche qui livre) · 4 visent feat/comptrack-v1 (qui n'a jamais rien mis en production) : #38, #36, #30, #8",
     "dont_la_mienne": "#38 est dans les 4 qui ne livreraient rien"
+  },
+  "CI_DU_TRONC_2026_09_21": {
+    "etat": "AUCUNE",
+    "mesure_le": "2026-09-21",
+    "methode": "API GitHub Actions, list_workflow_runs filtre sur le tronc reel — pas sur la branche par defaut (regle 31)",
+    "detail": "AUCUNE CI sur main — zero run mesure le 21 septembre. La #38 en apporte une, mais elle vise feat/comptrack-v1. Meme fusionnee, le tronc qui LIVRE resterait sans filet. Q15."
   }
 }

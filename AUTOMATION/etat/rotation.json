@@ -1,9 +1,9 @@
 {
   "_doc": "Priorite generale du lendemain, tous projets confondus. Ecrit par le DIGEST seul (playbook 03). Les loops par projet ont leur propre memoire dans etat/projets/<id>.json et ne touchent jamais ce fichier. Voir AUTOMATION/README.md §4.",
-  "derniere_execution": "2026-09-20",
-  "derniere_routine": "forge quotidien — recensement des 91 PR ouvertes + audit des PR empilees",
+  "derniere_execution": "2026-09-21",
+  "derniere_routine": "forge quotidien — mifa-life-shop (PR #49) + tour de sante CI des 17 troncs",
   "reportes": [],
-  "prochaine_priorite": "Les fichiers d'etat sont a jour au 2026-09-20 : ne PAS refaire le recensement, lire etat/recensement-pr.json. CONSTRUIRE, cette fois. Les fichiers d'etat sont mesures, plus rien ne bloque un chantier. Candidats, par ordre : (1) mifa-life-shop — 18 PR, le depot s'installe de nouveau depuis la #46, et le triage est deja fait a moitie (les #47/#48 empilees sur la #45) ; (2) forja — 8 PR, tronc a 6e16536, ma #27 fusionne proprement ; (3) taama — 18 PR toutes sur main mais tres en retard (bases a cf18433, b214ab5), le vrai chantier est le triage. AVANT toute recommandation de fusion : lancer AUTOMATION/scripts/forge-pr-empilees.py (regle 35). Ne PAS toucher a comptrack ni ueemt tant que Q15 et Q17 n'ont pas de reponse : 8 de leurs PR visent une branche qui ne livre pas. phone-showcase, PPA et burkinacollect sont a zero PR — ils attendent une decision, pas du code.",
+  "prochaine_priorite": "Sante CI mesuree le 21 : NE PAS la refaire, lire etat/sante-ci-troncs.json. Les 5 troncs sans CI (forja, taama, livestockos, duka-boutique, comptrack) attendent un clic, pas du code — ne pas reecrire ces PR. CONSTRUIRE ailleurs. Candidats : (1) FORJA — 8 PR, tronc master @ 6e16536, jamais traite en profondeur depuis le 8 septembre, et Q10 (fait-il encore de l'export de cafe ?) est sans reponse depuis 13 jours ; (2) TAAMA — 18 PR toutes sur main mais tres en retard, le chantier est le triage ; (3) mifa-life-shop suite — les 66 avertissements react-hooks/* de Next 16, chantier a part entiere. AVANT toute recommandation de fusion : forge-pr-empilees.py (regle 35). Ne pas toucher a comptrack ni ueemt tant que Q15 et Q17 n'ont pas de reponse.",
   "pr_ouvertes_suivies": [],
   "notes": "Architecture en vigueur depuis le 2026-09-06 : une routine quotidienne reveille la session vivante (les loops en sessions separees ne peuvent pas attacher de depot — parametre 'connectors' indisponible pour l'organisation). 24 loops restent desactives. Un a deux projets par jour. 2026-09-08 : premier passage en mode triage (hypothese Q7, non validee) sur FORJA — 12 PR ouvertes, seuil 5.",
   "tronc": "master",
@@ -147,5 +147,9 @@
   "projets_traites_le_2026_09_20": [
     "RECENSEMENT PORTEFEUILLE (91 PR ouvertes, 17 depots, 11 qui ne livreraient rien)",
     "17 fichiers d'etat corriges a la mesure (4 portaient une affirmation FAUSSE, pas seulement vieille)"
+  ],
+  "projets_traites_le_2026_09_21": [
+    "mifa-life-shop (PR #49 — CI du tronc rouge depuis 5 jours, une ligne)",
+    "TOUR DE SANTE CI (17 troncs : 11 verts, 1 rouge, 5 sans aucune CI)"
   ]
 }

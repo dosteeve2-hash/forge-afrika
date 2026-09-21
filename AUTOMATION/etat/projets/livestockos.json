@@ -55,5 +55,11 @@
     "ce_qui_manquait": "la #8 a ete fusionnee le 16 a 15h03:20 UTC, TROIS MINUTES apres la #10. Elle est bien dans le recensement des 29 ; c'est ce fichier qui ne l'avait pas enregistree. J'ai failli annoncer une fusion inconnue.",
     "pr_ouvertes": 1,
     "laquelle": "#9 seulement, brouillon, 5 conflits anterieurs a mon travail"
+  },
+  "CI_DU_TRONC_2026_09_21": {
+    "etat": "AUCUNE",
+    "mesure_le": "2026-09-21",
+    "methode": "API GitHub Actions, list_workflow_runs filtre sur le tronc reel — pas sur la branche par defaut (regle 31)",
+    "detail": "AUCUNE CI sur main — zero run mesure le 21 septembre. C'est la #9 (brouillon) qui en apporterait une."
   }
 }
