@@ -78,5 +78,36 @@
     "mesure_le": "2026-09-21",
     "methode": "API GitHub Actions, list_workflow_runs filtre sur le tronc reel — pas sur la branche par defaut (regle 31)",
     "detail": "AUCUNE CI sur master — zero run mesure le 21 septembre. C'est la #27 qui en apporterait une."
+  },
+  "CHANTIER_2026_09_22": {
+    "tronc_mesure": "master @ 6e16536 — lint 12 erreurs / 18 avertissements, tests 5 echecs / 148, AUCUNE CI",
+    "la_27_tient": "Ce tronc est exactement ce que decrit ma PR #27 du 2 septembre. Non reecrite : elle fusionne proprement et attend un clic. J'ai cherche ce qu'elle NE couvre pas.",
+    "defaut_trouve": {
+      "quoi": "La page d'accueil annonce « 0+ Tonnes de cafe tracees », « 0+ Acheteurs connectes », « 0 pays », « 0% ».",
+      "cause": "AnimatedCounter ecrit litteralement `0` dans le balisage ; seul un tween GSAP declenche par useInView cote client le remplace.",
+      "mesure_ou": "HTML servi par forja-pied.vercel.app, 22 septembre",
+      "pourquoi_ca_compte": "Android d'entree de gamme en 2G (VISION.md §4) : un acheteur international voit zero tonne et zero acheteur pendant plusieurs secondes. Un chiffre FAUX est pire qu'un chiffre absent.",
+      "deja_vu": "Defaut IDENTIQUE corrige sur Mon-Portfolio-2.0 le 15 septembre (« 0 projets »). Deuxieme depot, meme composant.",
+      "pr": "#28, brouillon — 3 tests dont un garde-fou contre un correctif trop zele (end=0 doit rester 0)"
+    },
+    "ordre_de_fusion_PROUVE": {
+      "methode": "Les #27 et #28 touchent AnimatedCounter.tsx. Les DEUX ordres testes en fusionnant reellement (regle 27).",
+      "27_puis_28": "fusion PROPRE",
+      "28_puis_27": "fusion PROPRE",
+      "combinaison": "0 erreur de lint, 151 / 151 tests. Le tronc passerait de « 12 erreurs, 5 echecs, aucune CI » a « 0 erreur, 151 tests, CI »."
+    },
+    "Q10_TRANCHEE_PAR_LA_MESURE": {
+      "la_question_etait_mal_posee": "Je demandais si FORJA fait ENCORE du cafe. Le cafe va tres bien. Le depot contient un SECOND produit.",
+      "le_cafe": "Page d'accueil 200, complete et coherente. Treize pages de tableau de bord, 3 959 lignes. DocumentExport en dollars.",
+      "le_module_etranger": "src/app/tontine/ — 8 fichiers, 1 420 lignes, en-tetes « UEEMT », nav affichant « UEEMT ».",
+      "le_vrai_proprietaire": "ueemt-tokat/main porte le module complet : 13 fichiers + 2 migrations Supabase.",
+      "injoignable": "AUCUN lien vers /tontine dans tout le depot, grep exhaustif hors du module.",
+      "non_fonctionnel": "Il interroge tontine_groups / tontine_members ; les migrations de FORJA sont waitlist, lots, profils. Et il redirige vers /connexion, route absente de FORJA, presente chez UEEMT.",
+      "en_production": "forja-pied.vercel.app/tontine -> 500, x-matched-path: /tontine",
+      "ce_que_ca_ne_casse_PAS": "Seuls ces 5 fichiers importent le client Supabase serveur. Le cafe n'en depend pas — contrairement a AgroTrack le 16, ou le meme process.env.X! avait emporte seize pages.",
+      "rien_touche": "Supprimer 1 420 lignes est une decision, pas un correctif : une cooperative de cafe peut legitimement vouloir une tontine. Q10 porte desormais la mesure et les deux options."
+    },
+    "motif_qui_dort": "src/lib/supabase/server.ts porte le defaut d'AgroTrack : process.env.X! ment au verificateur de types, @supabase/ssr leve DANS createServerClient(), avant tout garde-fou. Ne touche que la tontine aujourd'hui. Le jour ou une page cafe utilisera ce client, elle tombera pareil. Signale, pas corrige.",
+    "verifications_negatives": "FCFA : DocumentExport formate a 2 decimales mais des DOLLARS, pour des documents d'export — legitime. DeviseWidget est un convertisseur multi-devises, le XOF y passe par maximumFractionDigits: 0 au-dessus de 1 000. Pas de violation. J'ai failli nommer deux faux defauts (regle 23). npm ci : le depot s'installe."
   }
 }

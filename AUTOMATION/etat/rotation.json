@@ -1,9 +1,9 @@
 {
   "_doc": "Priorite generale du lendemain, tous projets confondus. Ecrit par le DIGEST seul (playbook 03). Les loops par projet ont leur propre memoire dans etat/projets/<id>.json et ne touchent jamais ce fichier. Voir AUTOMATION/README.md §4.",
-  "derniere_execution": "2026-09-21",
-  "derniere_routine": "forge quotidien — mifa-life-shop (PR #49) + tour de sante CI des 17 troncs",
+  "derniere_execution": "2026-09-22",
+  "derniere_routine": "forge quotidien — forja (PR #28) + Q10 tranchee par la mesure",
   "reportes": [],
-  "prochaine_priorite": "Sante CI mesuree le 21 : NE PAS la refaire, lire etat/sante-ci-troncs.json. Les 5 troncs sans CI (forja, taama, livestockos, duka-boutique, comptrack) attendent un clic, pas du code — ne pas reecrire ces PR. CONSTRUIRE ailleurs. Candidats : (1) FORJA — 8 PR, tronc master @ 6e16536, jamais traite en profondeur depuis le 8 septembre, et Q10 (fait-il encore de l'export de cafe ?) est sans reponse depuis 13 jours ; (2) TAAMA — 18 PR toutes sur main mais tres en retard, le chantier est le triage ; (3) mifa-life-shop suite — les 66 avertissements react-hooks/* de Next 16, chantier a part entiere. AVANT toute recommandation de fusion : forge-pr-empilees.py (regle 35). Ne pas toucher a comptrack ni ueemt tant que Q15 et Q17 n'ont pas de reponse.",
+  "prochaine_priorite": "NE PAS refaire : le recensement des 91 PR (20 sept), la sante CI des 17 troncs (21 sept), ni le diagnostic de forja (22 sept). CONSTRUIRE. Candidats par ordre : (1) TAAMA — 18 PR toutes sur main mais tres en retard (bases a cf18433, b214ab5), aucune CI sur le tronc, ma #35 fusionne proprement ; le chantier est le TRIAGE, pas le code. (2) mifa-life-shop — les 66 avertissements react-hooks/* de Next 16, chantier a part entiere. (3) livestockos — 1 PR en brouillon avec 5 conflits anterieurs a mon travail. AVANT toute recommandation de fusion : forge-pr-empilees.py (regle 35). Ne pas toucher a comptrack ni ueemt tant que Q15 et Q17 sont sans reponse. Sur forja : ne PAS supprimer le module tontine — c'est Q10, et elle est chez Steeve.",
   "pr_ouvertes_suivies": [],
   "notes": "Architecture en vigueur depuis le 2026-09-06 : une routine quotidienne reveille la session vivante (les loops en sessions separees ne peuvent pas attacher de depot — parametre 'connectors' indisponible pour l'organisation). 24 loops restent desactives. Un a deux projets par jour. 2026-09-08 : premier passage en mode triage (hypothese Q7, non validee) sur FORJA — 12 PR ouvertes, seuil 5.",
   "tronc": "master",
@@ -151,5 +151,9 @@
   "projets_traites_le_2026_09_21": [
     "mifa-life-shop (PR #49 — CI du tronc rouge depuis 5 jours, une ligne)",
     "TOUR DE SANTE CI (17 troncs : 11 verts, 1 rouge, 5 sans aucune CI)"
+  ],
+  "projets_traites_le_2026_09_22": [
+    "forja (PR #28 — la page d'accueil annonce 0 tonne, 0 acheteur)",
+    "Q10 TRANCHEE : le cafe va bien, mais le depot porte 1 420 lignes du module tontine d'UEEMT, injoignable et en 500"
   ]
 }

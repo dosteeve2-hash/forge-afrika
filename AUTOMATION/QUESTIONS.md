@@ -195,6 +195,34 @@ attend ton accord — je ne l'ai pas appliquée.
 
 ### Q10 — FORJA fait-il encore de l'export de café ? (2026-09-08)
 
+> **🔬 Mesuré le 2026-09-22 — la question n'est pas celle que je croyais.**
+>
+> Je demandais si FORJA fait *encore* du café. La mesure dit autre chose : **le café va bien, et le dépôt contient un second produit.**
+>
+> **Le café est vivant et cohérent.** `forja-pied.vercel.app` répond **200** avec une page d'accueil complète — traçabilité lot-par-lot, certification EUDR, mise en relation acheteurs, témoignages de coopératives ivoiriennes. Les treize pages du tableau de bord (`clients`, `commandes`, `devis`, `qualite`, `rapports`…) font **3 959 lignes**. Le `DocumentExport` génère des documents d'export en dollars. Rien n'a dérivé.
+>
+> **Mais `src/app/tontine/` existe : 8 fichiers, 1 420 lignes.** Et ce n'est pas du café :
+>
+> | mesure | résultat |
+> |---|---|
+> | provenance | `types/tontine.ts:1` — « **UEEMT** Tontine Groupes Privés » ; `nav.tsx:56` affiche « UEEMT » ; la page dit « Bienvenue dans votre espace tontine **UEEMT** » |
+> | le vrai propriétaire | `ueemt-tokat/main` porte le module complet — **13 fichiers + 2 migrations Supabase** (`20260712_tontine_elections.sql`, `20260718_tontine_groupes_prives.sql`) |
+> | accessible ? | **aucun lien vers `/tontine` dans tout le dépôt** — grep exhaustif, hors du module lui-même |
+> | peut-il fonctionner ? | il interroge `tontine_groups`, `tontine_members`, `tontine_contributions`, `tontine_payouts`. Les migrations de FORJA sont `001_waitlist`, `004_lots`, `005_profils`. **Aucune table tontine.** |
+> | et il redirige vers | `redirect('/connexion')` — **route qui n'existe pas dans FORJA**, elle existe chez UEEMT |
+> | en production | **`forja-pied.vercel.app/tontine` → 500**, `x-matched-path: /tontine` |
+>
+> **Ce que ça ne casse PAS, vérifié :** seuls ces 5 fichiers importent le client Supabase serveur. Le reste du produit café n'en dépend pas — contrairement à AgroTrack le 16 septembre, où le même `process.env.X!` avait emporté seize pages. **Le café n'est pas en panne. Seul le module étranger l'est.**
+>
+> **Ce qui reste à trancher, et qui est à toi :**
+> 1. **Le module part-il ?** C'est du code d'UEEMT, injoignable, non fonctionnel ici. Mais une coopérative de café *peut* légitimement vouloir une tontine — je ne supprime pas 1 420 lignes sur une supposition.
+> 2. **Ou reste-t-il et devient réel ?** Il faudrait alors les deux migrations, une route `/connexion`, et un lien depuis la navigation.
+>
+> **Hypothèse retenue en attendant : on ne touche à rien.** Je n'ai ni supprimé ni masqué le module. Le 500 reste — il est sur une route que rien ne référence, donc personne ne l'atteint sans la taper à la main.
+>
+> **Au passage, `src/lib/supabase/server.ts` porte le motif d'AgroTrack** : `process.env.NEXT_PUBLIC_SUPABASE_URL!` ment au vérificateur de types, et `@supabase/ssr` lève **dans** `createServerClient()`, avant tout garde-fou. Aujourd'hui ça ne touche que la tontine. **Le jour où une page café utilisera ce client, elle tombera de la même façon.**
+
+
 FORJA a douze PR ouvertes. Neuf d'entre elles (#1 à #9, toutes de juillet) construisent un
 produit d'**export de café** : `lots`, `exportations`, `acheteurs`, `finances`, `contrats`,
 avec les migrations `004_lots` → `008_finances`.
