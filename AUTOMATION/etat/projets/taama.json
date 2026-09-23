@@ -76,5 +76,15 @@
     "mesure_le": "2026-09-21",
     "methode": "API GitHub Actions, list_workflow_runs filtre sur le tronc reel — pas sur la branche par defaut (regle 31)",
     "detail": "AUCUNE CI sur main — zero run mesure le 21 septembre. C'est la #35 qui en apporterait une."
+  },
+  "TRIAGE_2026_09_23": {
+    "mesure": "18 PR, chacune testee EN FUSIONNANT sur clone complet (32 commits sur main, is-shallow = false)",
+    "une_seule_propre": "#35, la mienne — 1 d'avance, 2 de retard. Elle apporte la PREMIERE CI du depot. A fusionner d'abord.",
+    "chaine_prouvee": "#3 ⊂ #4 ⊂ #5 ⊂ #6 ⊂ #7 ⊂ #8 ⊂ #9 ⊂ #10, complete, par merge-base --is-ancestor",
+    "nuance_capitale": "Ces sept ne sont fermables QUE si la #10 est fusionnee. La decision porte sur la #10. C'est la nuance qui manquait le 15 septembre. Regle 37.",
+    "la_26_REGRESSE": "Elle apporte 3 fichiers ; error.tsx et loading.tsx existent deja sur main en versions PLUS RECENTES (49 vs 41 lignes ; composants partages vs div inline). La fusionner deferait du travail livre. Seul LOVABLE_PROTOCOL.md est neuf. Regle 36.",
+    "plus_gros_apport_restant": "#18 feat/maintenance-infra — 24 fichiers, 3 823 insertions",
+    "rien_touche": "Aucun conflit resolu, aucune PR fermee ni reciblee. Ce sont les PR de Steeve.",
+    "donnees": "AUTOMATION/etat/triage-taama.json"
   }
 }
