@@ -85,7 +85,8 @@
   "40. UN INVENTAIRE DE MES PROPRES PR POURRIT COMME UN AUTRE. Je portais « 12 PR a moi, toutes vertes » depuis plusieurs jours ; une recherche par auteur en donne 20 ouvertes depuis le 2 septembre, dont trois que je ne suivais pas du tout (livestock-os#5, ambition#1, Mifa#47 et #48). Le chiffre le plus facile a ne jamais reverifier est celui dont on est l'auteur.",
   "41. UN ZERO NON MESURE RESSEMBLE A UN ZERO MESURE. `etat/sante.json` portait date=null, projets={} et « critique: 0, majeur: 0, mineur: 0 » depuis sa creation : le scan du playbook 02 n'a jamais tourne. Lu vite, il annonce un portefeuille sain le jour ou 5 troncs sont sans CI, 1 est rouge, 91 PR attendent et le KPI de Phase 1 est a 0/3. Remplace par des null, avec un avertissement : des null se remarquent, des zeros se croient. Corollaire de la regle 19 — un compteur a zero doit dire s'il a ete mesure.",
   "42. NE JAMAIS LIRE L'ETAT DE SORTIE D'UN TUBE. `npx tsc --noEmit 2>&1 | tail -8; echo $?` affiche l'etat de `tail`, donc 0, meme quand tsc echoue. J'ai annonce « code tsc: 0 » sous huit erreurs TS2307 affichees juste au-dessus. Rediriger vers un fichier, lire l'etat, puis afficher le fichier. Et les huit erreurs elles-memes venaient d'un `.next/` laisse par un build d'un autre jour dans le clone : `.next` n'est pas suivi par git, donc une CI sur checkout neuf ne les voit jamais — un artefact local n'est pas l'etat du depot. Corollaire de la regle 21 (un clone superficiel fausse la racine) : le repertoire de travail ment aussi.",
-  "43. « C'EST LA DECISION QUI BLOQUE » MERITE D'ETRE TESTE COMME UNE MESURE. `sante-ci-troncs.json` concluait le 21 septembre que pour comptrack « c'est Q15 qui bloque, pas le code ». Vrai de la #38, qui vise la mauvaise branche. Faux du tronc : rien n'interdisait d'apporter une CI a `main` directement — proteger ce qui est deja en ligne n'est pas choisir quel tronc est le produit. Cinq jours a croire bloque ce qui etait faisable le jour meme. Quand une question de Steeve semble bloquer un chantier, chercher la part du chantier qui ne la traverse pas."
+  "43. « C'EST LA DECISION QUI BLOQUE » MERITE D'ETRE TESTE COMME UNE MESURE. `sante-ci-troncs.json` concluait le 21 septembre que pour comptrack « c'est Q15 qui bloque, pas le code ». Vrai de la #38, qui vise la mauvaise branche. Faux du tronc : rien n'interdisait d'apporter une CI a `main` directement — proteger ce qui est deja en ligne n'est pas choisir quel tronc est le produit. Cinq jours a croire bloque ce qui etait faisable le jour meme. Quand une question de Steeve semble bloquer un chantier, chercher la part du chantier qui ne la traverse pas.",
+  "44. UN DEPLOIEMENT « BLOCKED » N'EST PAS UN DEPLOIEMENT « ERROR ». Sur combine, les previews echouent au build sur DATABASE_URL absent (lisible dans le journal), mais le deploiement de PRODUCTION depuis main est BLOCKED et n'a AUCUN evenement de build : il n'a jamais compile. Son errorLink pointe vers troubleshoot-project-collaboration#team-configuration. Lire le journal de build d'un deploiement bloque ne donne rien et fait croire a tort que la cause est la meme que celle des previews. Verifier l'etat (`state`) avant de chercher une cause dans les journaux."
  ],
  "projets_traites_le_2026_09_10": [
   "mon-portfolio-2 (PR #10)",
@@ -186,5 +187,23 @@
   "comptrack": "PR #41 — CI sur `main`, le tronc qui LIVRE. La #38 visait feat/comptrack-v1 : meme fusionnee, main restait sans filet. lint 6 -> 0, tsc 0, 64/64, build 0, 3 sabotages rouges. Q15 non tranchee.",
   "veille_des_troncs": "20 reveils non traites depuis le 23 (file de notifications bloquee). Tour fait le 26 : 11/11 troncs inchanges, ecrireLocal toujours absent de duka-boutique/master.",
   "corrige_chez_moi": "En-tete de QUESTIONS.md (AgroTrack « 500 depuis 25 jours », faux depuis le 16) ; etat/sante.json (« 0 critique » jamais mesure -> null) ; sante-ci-troncs.json (comptrack)."
+ },
+ "COMBINE_2026_09_26": {
+  "fusion": "Steeve a fusionne combine#1 a 12h07 UTC. main = 65f7cbd, 97 fichiers, ~19 300 lignes.",
+  "ce_que_j_ai_corrige": [
+   "CI rouge sur « Parcours navigateur » : le parcours passait 70 verifications, c'est l'audit d'accessibilite qui mourait avant de commencer. Le semeur exige COMBINE_ALLOW_DEMO_SEED=true et COMBINE_DEMO_PASSWORD (16 car.), que le workflow ne posait pas.",
+   "Derriere : `connecter()` ouvrait /connexion en `domcontentloaded`, avant l'hydratation de React — le clic ne declenchait rien. Mesure : domcontentloaded (179/103 ms) -> les deux connexions echouent ; load (323/409 ms) -> les deux reussissent. Aligne sur `parcours.mjs` qui attend deja networkidle.",
+   "MISE-EN-LIGNE.md affirmait trois choses fausses : depot distant vide, aucun deploiement lance, aucun test navigateur possible."
+  ],
+  "etat_des_deploiements": {
+   "previews": "ERROR au build — `DATABASE_URL est absent. at lib/db.ts:5:9`, puis `Failed to collect page data for /api/appel/[id]/export`. Le garde-fou fait son travail ; il manque les variables sur Vercel.",
+   "production_depuis_main": "BLOCKED, sans aucun evenement de build. errorLink : troubleshoot-project-collaboration#team-configuration. Cause DIFFERENTE des previews (regle 44)."
+  },
+  "autre_session": "Une branche `claude/deployer-vercel` est apparue pendant mon travail : une autre session ecrit un script de mise en ligne. Son message de commit dit que le connecteur Vercel repond 403 sur projectEnvVars — je l'ai constate aussi — et que la CLI `vercel` authentifiee au nom de Steeve est le seul chemin. NE PAS DUPLIQUER ce travail.",
+  "ce_qui_reste_a_steeve": "Poser DATABASE_URL et BETTER_AUTH_SECRET sur Vercel (action de production), et lever le blocage de configuration d'equipe."
+ },
+ "mon_portfolio_2026_09_26": {
+  "base_a_bouge": "master ddf59cc -> cb84b51 : la PR #13 (photo sur telephone + section certifications) a ete fusionnee a 10h15. Elle n'est pas de moi.",
+  "ma_pr_11": "Testee EN FUSIONNANT sur le nouveau master (regle 27) : fusion propre, zero conflit. Et le resultat fusionne est vert — lint, tsc, check-messages, check-motion, build. Le garde-fou check-motion que la #11 apporte ne casse pas sur les fichiers de la #13 (aucun nouvel import gsap/lenis). Rien a corriger : elle attend un clic."
  }
 }
