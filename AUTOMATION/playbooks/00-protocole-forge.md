@@ -115,6 +115,61 @@ Ne descends jamais au niveau 6 sur un projet dont le niveau 1 est rouge.
 
 ---
 
+## 5 bis. Les huit règles de Steeve (2026-09-26)
+
+Steeve a envoyé ces huit règles en demandant qu'elles entrent « dans notre manière
+d'opérer ». Elles ne sont pas décoratives : chacune est traduite ici en décision que
+la routine prend ou refuse de prendre. Là où une règle contredit la pratique actuelle,
+c'est écrit — c'est le seul intérêt de les noter.
+
+| # | La règle | Ce qu'elle change ici |
+|---|---|---|
+| 1 | **Livrer tôt, livrer souvent.** | Une PR verte non fusionnée n'est pas une livraison. Le KPI de sortie de Phase 1 compte des logiciels **utilisés**, pas déployés. |
+| 2 | **Ne pas construire avant de savoir à qui on vend.** | Un projet sans premier utilisateur nommé ne reçoit plus de fonctionnalité — seulement des réparations. |
+| 3 | **L'équipe fondatrice compte plus que la première idée.** | L'équipe, c'est une personne, étudiante en L3. C'est la contrainte, pas le manque d'idées. Aucun nouveau dépôt. |
+| 4 | **Ne pas écouter aveuglément la demande ; résoudre le problème dessous.** | S'applique d'abord à moi : Steeve demande un rapport chaque matin ; le problème dessous est trois produits en service. |
+| 5 | **Construire pour où va le marché, pas seulement pour où il est.** | Ne dispense pas de la doctrine terrain (`VISION.md §4`) : le 2G et l'Android d'entrée de gamme sont où le marché **est** et sera encore longtemps. |
+| 6 | **Fondateur technique : avancer sans coder.** | Mesuré : depuis le 5 septembre le goulot est le bouton de fusion, jamais le code. Écrire une ligne de plus ne le débloque pas. |
+| 7 | **Ne pas continuer par simple coût déjà engagé.** | Autorise à proposer l'abandon. Ne m'autorise pas à l'exécuter : fermer une PR ou un dépôt reste §3. |
+| 8 | **Dormir.** | La routine tourne à 05h03 pour qu'il n'ait rien à faire la nuit. Un digest qui exige une réponse la nuit est un digest raté. |
+
+### Ce que ces règles disent de l'état du 26 septembre
+
+Trois mesures, déjà au dossier, que les règles rendent lisibles :
+
+- **91 PR ouvertes, dont 57 (63 %) sur trois dépôts** — comptrack 21, taama 18,
+  mifa-life-shop 18. Aucun des trois n'a d'utilisateur réel nommé. C'est la règle 7,
+  chiffrée.
+- **Les deux produits réellement publiés — BurkinaCollect et Problem-to-Projects —
+  ont zéro PR ouverte.** L'effort est inversement corrélé à l'usage. C'est la règle 1
+  et la règle 2 dans la même ligne.
+- **29 dépôts chez l'hébergeur, 25 au registre.** `ambition` (poussé le 26 à 00h30),
+  `combine` (le 23) et le dépôt de profil `dosteeve2-hash` (le 26 à 02h12) n'y figurent
+  nulle part. Trois dépôts apparus ou remués en quatre jours pendant que 91 PR attendaient
+  un clic : c'est la règle 3 et la règle 7 prises en flagrant délit. **Règle 38.**
+- **Aucun des 25 fichiers d'état ne nomme un premier utilisateur réel.** Vérifié le
+  26 septembre par recherche sur les 25 fichiers : une seule occurrence du mot
+  « pilote », et elle désignait du mouvement piloté en JavaScript. Le KPI de sortie de
+  Phase 1 est donc à **0/3**, et il l'était déjà sans que rien ne l'affiche.
+  Désormais affiché : `etat/premier-utilisateur.json`.
+
+### Les deux règles que je ne peux pas appliquer seul
+
+La règle 2 (« à qui on vend ») et la règle 7 (« ne pas continuer par coût engagé »)
+demandent toutes deux de **choisir** et d'**abandonner**. Les deux appartiennent à
+Steeve — §3 interdit de fermer une PR, d'abandonner un dépôt ou de réécrire la vision.
+La question est **Q6**, réécrite le 26 septembre avec ces mesures.
+
+En attendant sa réponse, l'ordre de priorité du §5 est lu avec une contrainte de plus :
+
+> **Sur un projet sans premier utilisateur réel nommé, ne jamais descendre au niveau 6.**
+> Réparer, oui. Documenter, oui. Ajouter une fonctionnalité, non.
+
+Cette contrainte ne bloque aucun travail en cours : les niveaux 1 à 5 restent ouverts
+partout.
+
+---
+
 ## 6. Qualité — le seuil de non-régression
 
 Une PR draft n'est pas une excuse pour du travail bâclé. Avant tout push :

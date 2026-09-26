@@ -1,0 +1,159 @@
+{
+ "_doc": "Le KPI de sortie de la Phase 1 est : TROIS logiciels en production UTILISES par des entreprises africaines reelles. Ce fichier repond a une seule question, projet par projet : qui est le premier utilisateur reel, nomme ? Tant que la valeur est null, le projet ne compte pas dans le KPI, quel que soit son etat technique. Cree le 2026-09-26 en appliquant la regle 2 de Steeve (ne pas construire avant de savoir a qui on vend).",
+ "mesure_le": "2026-09-26",
+ "methode": "Recherche de 'premier client', 'premier utilisateur', 'client pilote', 'pilote', 'utilisateur reel', 'entreprise cliente', 'PME cliente' sur les 25 fichiers d'etat et sur registry.json. UNE seule occurrence trouvee, dans mon-portfolio-2.json, et elle designait du 'mouvement pilote en JavaScript' — sans rapport. Aucun nom d'entreprise, aucun nom de personne, aucun pilote nulle part.",
+ "kpi_phase_1": {
+  "cible": 3,
+  "atteint": 0,
+  "commentaire": "0/3. Ce n'est pas une regression : c'etait deja le cas, rien ne l'affichait. « Deploye sur Vercel » n'est pas « utilise par une entreprise reelle » — CLAUDE.md, Partie II. Mesure du 26 : 29 depots chez l'hebergeur, dont trois hors registre — le denominateur grandit pendant que le numerateur reste a 0."
+ },
+ "constat_central": "L'effort est inversement correle a l'usage. 57 des 91 PR ouvertes (63 %) portent sur comptrack (21), taama (18) et mifa-life-shop (18), aucun n'ayant d'utilisateur reel nomme. Les DEUX produits reellement publies — burkinacollect et problem-to-projects-africa — ont ZERO PR ouverte.",
+ "ce_que_je_ne_peux_pas_faire": "Nommer un utilisateur a la place de Steeve, et abandonner un projet. Les deux sont a lui : Q6, reecrite le 2026-09-26.",
+ "regle_appliquee_en_attendant": "Sur un projet dont premier_utilisateur_reel est null, ne jamais descendre au niveau 6 du §5 (nouvelles fonctionnalites). Reparer et documenter restent ouverts.",
+ "exclus_du_compte": {
+  "llm-africain-agent-ai": "depot VIDE — aucun commit",
+  "steevedo-github-io": "depot ENTIEREMENT VIDE",
+  "steeve-donald": "coquille vide — cree, jamais utilise",
+  "desktop-tutorial": "tutoriel d'installation GitHub Desktop, pas un projet"
+ },
+ "projets": {
+  "african-hybrid-agent": {
+   "premier_utilisateur_reel": null,
+   "pr_ouvertes_au_2026_09_20": 5,
+   "verdict_au_dernier_passage": "🔴 tronc fige + CI structurellement rouge"
+  },
+  "agrotrack-bf": {
+   "premier_utilisateur_reel": null,
+   "pr_ouvertes_au_2026_09_20": 2,
+   "verdict_au_dernier_passage": "🟠 ne casse plus, n'est pas en service. Le 500 de 25 jours est termine depuis la fusion de la #19 ; il manque toujours les deux variables Supabase (Q21).",
+   "proximite_du_kpi": "Ne casse plus depuis la fusion du 16, mais n'est pas en service : il attend deux variables d'environnement (Q21)."
+  },
+  "binary-search-tree-java": {
+   "premier_utilisateur_reel": null,
+   "pr_ouvertes_au_2026_09_20": "non recense",
+   "verdict_au_dernier_passage": "🔴 la branche chore/cleanup NE COMPILE PAS — ne pas la fusionner en l'etat"
+  },
+  "burkinacollect": {
+   "premier_utilisateur_reel": null,
+   "pr_ouvertes_au_2026_09_20": 0,
+   "verdict_au_dernier_passage": "🟠 l'application est publiee ; le README promet NEUF fonctionnalites pour DEUX pages",
+   "proximite_du_kpi": "PUBLIE et joignable. Le README promet neuf fonctionnalites pour deux pages (Q12). Zero PR ouverte."
+  },
+  "comptrack": {
+   "premier_utilisateur_reel": null,
+   "pr_ouvertes_au_2026_09_20": 21,
+   "verdict_au_dernier_passage": "🔴 GitHub et Vercel ne designent pas le meme tronc — et ce qui est livre n'a aucune connexion"
+  },
+  "donald": {
+   "premier_utilisateur_reel": null,
+   "pr_ouvertes_au_2026_09_20": "non recense",
+   "verdict_au_dernier_passage": "🟡 sain et sans risque, mais ce n'est pas un projet — c'est un tiroir"
+  },
+  "duka-boutique": {
+   "premier_utilisateur_reel": null,
+   "pr_ouvertes_au_2026_09_20": 2,
+   "verdict_au_dernier_passage": "🟠 le correctif fusionne hier n'est PAS sur le tronc — il attend dans la #11, qui est prete"
+  },
+  "forja": {
+   "premier_utilisateur_reel": null,
+   "pr_ouvertes_au_2026_09_20": 8,
+   "verdict_au_dernier_passage": "🔴 tronc casse"
+  },
+  "indubot-afrika": {
+   "premier_utilisateur_reel": null,
+   "pr_ouvertes_au_2026_09_20": 2,
+   "verdict_au_dernier_passage": "🟢"
+  },
+  "livestock-os-legacy": {
+   "premier_utilisateur_reel": null,
+   "pr_ouvertes_au_2026_09_20": "non recense",
+   "verdict_au_dernier_passage": "🟢 le depot le mieux construit du portefeuille — mais sans lint, sans tests, sans CI"
+  },
+  "livestockos": {
+   "premier_utilisateur_reel": null,
+   "pr_ouvertes_au_2026_09_20": 1,
+   "verdict_au_dernier_passage": "🟢 PREMIERE FUSION DE STEEVE DANS CETTE SERIE — main est vert, verifie sur le main fusionne"
+  },
+  "mifa-life-shop": {
+   "premier_utilisateur_reel": null,
+   "pr_ouvertes_au_2026_09_20": 18,
+   "verdict_au_dernier_passage": "🔴 le tronc ne s'installe pas"
+  },
+  "milltrack": {
+   "premier_utilisateur_reel": null,
+   "pr_ouvertes_au_2026_09_20": 4,
+   "verdict_au_dernier_passage": "🟢"
+  },
+  "mon-portfolio-1": {
+   "premier_utilisateur_reel": null,
+   "pr_ouvertes_au_2026_09_20": "non recense",
+   "verdict_au_dernier_passage": "🟢 sain et dormant — etiquette du registre VERIFIEE ET JUSTE"
+  },
+  "mon-portfolio-2": {
+   "premier_utilisateur_reel": null,
+   "pr_ouvertes_au_2026_09_20": 1,
+   "verdict_au_dernier_passage": "🟢 le premier depot SAIN du portefeuille",
+   "proximite_du_kpi": "Publie, mais c'est un portfolio personnel : il ne se vend a aucune entreprise."
+  },
+  "phone-showcase": {
+   "premier_utilisateur_reel": null,
+   "pr_ouvertes_au_2026_09_20": 0,
+   "verdict_au_dernier_passage": "🟢 TERMINE — la #1 est fusionnee, zero PR ouverte, CI en place"
+  },
+  "problem-to-projects-africa": {
+   "premier_utilisateur_reel": null,
+   "pr_ouvertes_au_2026_09_20": 0,
+   "verdict_au_dernier_passage": "🔴 la branche qui tourne en production n'a aucune intelligence artificielle, et celle qui l'a n'a jamais ete livree",
+   "proximite_du_kpi": "PUBLIE. La branche qui tourne n'a aucune IA, celle qui l'a dort (Q13). Zero PR ouverte."
+  },
+  "sahel-commerce-ai": {
+   "premier_utilisateur_reel": null,
+   "pr_ouvertes_au_2026_09_20": 1,
+   "verdict_au_dernier_passage": "🟠 le hors-ligne existait, le RETOUR en ligne manquait — corrige par ma PR #2"
+  },
+  "taama": {
+   "premier_utilisateur_reel": null,
+   "pr_ouvertes_au_2026_09_20": 18,
+   "verdict_au_dernier_passage": "🔴 18 PR ouvertes, 0 fusionnee, toutes fusionnables — et le tronc a perdu le site public",
+   "proximite_du_kpi": "Declare en production par le §5. 18 PR ouvertes, 0 fusionnee, et le tronc a perdu le site public (Q14)."
+  },
+  "ueemt-tokat": {
+   "premier_utilisateur_reel": null,
+   "pr_ouvertes_au_2026_09_20": 6,
+   "verdict_au_dernier_passage": "🟡 tronc sain depuis la fusion de ma #14 ; 6 PR ouvertes dont 4 visent une branche MORTE"
+  },
+  "valuechain-connect": {
+   "premier_utilisateur_reel": null,
+   "pr_ouvertes_au_2026_09_20": 2,
+   "verdict_au_dernier_passage": "🟢"
+  }
+ },
+ "depots_hors_registre_2026_09_26": {
+  "_doc": "Mesure du 2026-09-26 par list_repos chez l'hebergeur, pas par lecture du registre. L'hebergeur en compte 29 ; registry.json en decrit 25 (+ forge-afrika, le QG lui-meme, qui n'est pas un projet du registre). TROIS depots n'y figurent nulle part.",
+  "total_chez_l_hebergeur": 29,
+  "total_dans_le_registre": 25,
+  "absents_du_registre": {
+   "ambition": {
+    "dernier_push": "2026-09-26T00:30:31Z",
+    "visibilite": "private",
+    "pr_ouverte": "#1, NON-draft, creee le 2026-09-22 : « COMBINE — l'outil du fonds : dossier verifiable, portefeuille, cercle restreint, passerelle FORGE »",
+    "lu": false,
+    "note": "hors perimetre de cette session — je n'ai pas lu son contenu, seulement son existence et ses dates"
+   },
+   "combine": {
+    "dernier_push": "2026-09-23T21:03:19Z",
+    "visibilite": "private",
+    "lu": false,
+    "note": "hors perimetre de cette session. Le titre de ambition#1 suggere que les deux vont ensemble"
+   },
+   "dosteeve2-hash": {
+    "dernier_push": "2026-09-26T02:12:03Z",
+    "visibilite": "private",
+    "lu": false,
+    "note": "depot de profil GitHub. Pousse NEUF MINUTES apres le reveil du Forge Quotidien du 26 (02h03 UTC)"
+   }
+  },
+  "ce_que_ca_veut_dire": "Trois depots sont apparus ou ont bouge en quatre jours pendant que 91 PR attendaient un clic. C'est la regle 7 de Steeve (« n'insiste pas par cout deja engage ») et sa regle 3 (« l'equipe compte plus que l'idee ») prises en flagrant delit par la mesure. Je ne juge pas si ambition/combine sont de bonnes idees — je n'ai pas lu leur code. Je constate le nombre.",
+  "et_une_autre_session_ecrit": "livestock-os#5 (22 sept) porte la signature d'une AUTRE session que celle-ci (session_01QUfqgnpezD4RqCyNd7Am1d) et cite un repertoire `autopilot/reports/` inconnu de ce depot. Mon silence des 24-25-26 septembre n'est donc PAS l'immobilite du portefeuille."
+ }
+}

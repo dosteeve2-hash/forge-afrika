@@ -1,165 +1,181 @@
 {
-  "_doc": "Priorite generale du lendemain, tous projets confondus. Ecrit par le DIGEST seul (playbook 03). Les loops par projet ont leur propre memoire dans etat/projets/<id>.json et ne touchent jamais ce fichier. Voir AUTOMATION/README.md §4.",
-  "derniere_execution": "2026-09-23",
-  "derniere_routine": "forge quotidien — TAAMA (triage des 18 PR) + veille des troncs passee en cron",
-  "reportes": [],
-  "prochaine_priorite": "NE PAS refaire : recensement des 91 PR (20), sante CI des 17 troncs (21), diagnostic forja (22), triage taama (23 — lire etat/triage-taama.json). CONSTRUIRE. Candidats par ordre : (1) mifa-life-shop — les 66 avertissements react-hooks/* arrives avec Next 16, chantier a part entiere, et le depot s'installe depuis la #46 ; (2) livestockos — 1 PR en brouillon avec 5 conflits anterieurs a mon travail, tronc main @ 23d2c9f, aucune CI ; (3) indubot-afrika ou valuechain-connect, 2 PR chacun, troncs verts. AVANT toute recommandation de fusion : forge-pr-empilees.py (regle 35). Ne pas toucher a comptrack ni ueemt (Q15, Q17). Ne pas supprimer le module tontine de FORJA (Q10). Sur taama : ne PAS resoudre les conflits de la #10 ni fermer les #3-#9 — c'est la decision de Steeve (regle 37).",
-  "pr_ouvertes_suivies": [],
-  "notes": "Architecture en vigueur depuis le 2026-09-06 : une routine quotidienne reveille la session vivante (les loops en sessions separees ne peuvent pas attacher de depot — parametre 'connectors' indisponible pour l'organisation). 24 loops restent desactives. Un a deux projets par jour. 2026-09-08 : premier passage en mode triage (hypothese Q7, non validee) sur FORJA — 12 PR ouvertes, seuil 5.",
-  "tronc": "master",
-  "projets_traites_le_2026_09_07": [
-    "taama (doublon, PR fermee)",
-    "agrotrack-bf (PR #17)"
+ "_doc": "Priorite generale du lendemain, tous projets confondus. Ecrit par le DIGEST seul (playbook 03). Les loops par projet ont leur propre memoire dans etat/projets/<id>.json et ne touchent jamais ce fichier. Voir AUTOMATION/README.md §4.",
+ "derniere_execution": "2026-09-26",
+ "derniere_routine": "forge quotidien — TAAMA (triage des 18 PR) + veille des troncs passee en cron",
+ "reportes": [],
+ "prochaine_priorite": "comptrack puis ueemt-tokat — les deux bloques sur Q15 et Q17, a traiter sans y toucher comme TAAMA le 23.",
+ "pr_ouvertes_suivies": [],
+ "notes": "Architecture en vigueur depuis le 2026-09-06 : une routine quotidienne reveille la session vivante (les loops en sessions separees ne peuvent pas attacher de depot — parametre 'connectors' indisponible pour l'organisation). 24 loops restent desactives. Un a deux projets par jour. 2026-09-08 : premier passage en mode triage (hypothese Q7, non validee) sur FORJA — 12 PR ouvertes, seuil 5.",
+ "tronc": "master",
+ "projets_traites_le_2026_09_07": [
+  "taama (doublon, PR fermee)",
+  "agrotrack-bf (PR #17)"
+ ],
+ "projets_traites_le_2026_09_08": [
+  "valuechain-connect (PR #9)",
+  "indubot-afrika (PR #3)",
+  "forja (TRIAGE)",
+  "milltrack (PR #13)",
+  "african-hybrid-agent (TRIAGE)",
+  "burkinacollect (TRIAGE)",
+  "problem-to-projects-africa (TRIAGE)",
+  "duka-boutique/SUGU (PR #12)",
+  "mifa-life-shop (TRIAGE)"
+ ],
+ "serie_du_2_septembre": {
+  "_doc": "Le meme correctif 'repare le lint + les tests + ajoute la CI' a ete ecrit le 2 septembre sur cinq depots. UNE seule fusion.",
+  "milltrack#12": "FUSIONNEE — tronc vert",
+  "forja#27": "ouverte — tronc rouge depuis un mois",
+  "african-hybrid-agent#7": "ouverte — tronc fige depuis 73 jours",
+  "burkinacollect#4": "EN BROUILLON — contient toute l'application du depot",
+  "problem-to-projects-africa#10": "ouverte — tsc echoue sans elle",
+  "duka-boutique#11": "ouverte — 0 test executable sans elle",
+  "mifa_life_shop#46": "ouverte — le depot ne s'installe meme pas sans elle (npm ci echoue)",
+  "taama#35": "ouverte — une suite de tests entiere bloquee sans elle",
+  "comptrack#38": "ouverte — eslint ne demarre meme pas sans elle",
+  "mon-portfolio-2.0#9": "FUSIONNEE le 2 septembre — je ne l'avais pas vu avant le 10",
+  "phone-showcase#1": "ouverte — eslint ne demarre pas sans elle",
+  "_compte_juste": "DOUZE depots, DEUX fusions (milltrack#12 et mon-portfolio-2.0#9).",
+  "ueemt-tokat#14": "ouverte — le tronc ne BUILD PAS sans elle"
+ },
+ "projets_traites_le_2026_09_09": [
+  "taama (TRIAGE)",
+  "comptrack (TRIAGE)"
+ ],
+ "regles_de_triage": [
+  "1. Lister TOUTES les PR ouvertes du depot, pas seulement les miennes.",
+  "2. Regarder la DATE du dernier commit du tronc : tronc qui avance sans ses PR => FERMER ; tronc arrete => FUSIONNER.",
+  "3. Verifier que le tronc est VERT, et d'abord qu'il S'INSTALLE (npm ci, pas npm install).",
+  "4. Regarder ce que la branche par defaut contient REELLEMENT (BurkinaCollect : 2 fichiers).",
+  "5. Verifier s'il y a PLUSIEURS troncs et s'ils ont un ANCETRE COMMUN (TAAMA : main est un commit orphelin).",
+  "6. Ne pas confondre technique et intention (SUGU fait son responsive en media queries, pas en Tailwind).",
+  "7. Verifier ce qu'un workflow FAIT, pas qu'il existe (MIFA Life : modele Azure de GitHub, rouge depuis toujours).",
+  "8. Chercher les catch VIDES autour d'une ecriture (BurkinaCollect et SUGU le meme jour).",
+  "9. Chercher les CHAINES de PR imbriquees avec git merge-base --is-ancestor (MIFA Life : une chaine de NEUF).",
+  "10. Verifier SON PROPRE ENVIRONNEMENT avant d'accuser le depot (comptrack : sparse checkout a 16%, git status 'clean').",
+  "11. Verifier quelle branche une PR VISE, pas seulement ce qu'elle contient (CompTrack : 17 PR visent une branche qui n'est pas le tronc).",
+  "12. 'Jamais traite par le loop' n'est pas 'a l'abandon' — un projet fini n'a besoin que d'une fusion (Phone Showcase).",
+  "13. Un garde-fou peut etre vert ET aveugle : demander quelle panne il laisse passer, et la provoquer pour de vrai (Portfolio 2.0).",
+  "14. Lire les OUTILS exposes a un agent IA, pas seulement son endpoint : sans limite c'est un probleme de cout, sans limite ET avec des outils d'ecriture c'est un probleme d'integrite (Sahel Commerce AI).",
+  "15. Chercher `const client = new X(process.env...)` au niveau module : instancier un client d'API au chargement casse le build de quiconque n'a pas le secret, CI comprise (UEEMT-Tokat).",
+  "16. Un controle de sante verifie L'ETIQUETTE du registre autant que le depot : 'doublon presume' a range en tier 3 le produit le plus avance du portefeuille (livestock-os).",
+  "17. Le playbook peut avoir raison sans etre suivi : pendant six jours les loops ont ajoute leurs questions A LA FIN de QUESTIONS.md alors que 00-protocole §4 dit 'en haut' et 03-digest §4 'sous la section En attente'. La fin du fichier, c'etait la section des questions RESOLUES. Douze questions en attente y ont ete classees comme traitees. Quand une regle ecrite n'est pas tenue, c'est un controle CI qu'il faut, pas une regle de plus.",
+  "18. Verifier ce que le SYSTEME fait, pas ce que sa documentation dit qu'il fait : 26 des 29 Routines etaient eteintes depuis le 6 septembre, et la PR #9, le README et CLAUDE.md decrivaient depuis huit jours une architecture remplacee le lendemain de son ecriture. Une seule commande (list_triggers) le montrait ; personne ne l'avait lancee. Meme classe d'erreur que QUESTIONS.md la veille : l'ecrit et le reel divergent en silence.",
+  "19. Une branche du MEME NOM issue de la MEME campagne de nettoyage peut etre juste sur un depot et fausse sur son voisin : chore/cleanup etait correcte sur Mon-Portfolio- le 14 (recommandee a la fusion) et CASSEE sur binary-search-tree-java le 15 — elle avait extrait, parmi deux TreeGUI.java divergents du ZIP, celui qui ne compile pas. Generaliser depuis le voisin aurait fait fusionner du code mort. La seule facon de savoir est de L'EXECUTER : compiler, lancer les tests, pas lire le diff.",
+  "20. Du code livre en archive compressee (.zip, .rar) n'est pas du code versionne : ni diff, ni blame, ni recherche, ni revue — et les artefacts de build y voyagent avec. DEUX des quatre dernieres archives du portefeuille le font (binary-search-tree-java en ZIP, Donald en RAR). Le RAR est en plus proprietaire : aucun outil ne l'ouvrait dans la session.",
+  "21. NE JAMAIS diagnostiquer la TOPOLOGIE d'un historique depuis un clone superficiel. Sur --depth N, git presente la frontiere du clone comme des RACINES et merge-base renvoie AUCUN : tout a l'air orphelin. C'est ainsi que j'ai conclu le 9 septembre que le tronc de TAAMA etait un commit orphelin et que 17 PR sur 18 etaient infusionnables — et recommande d'en fermer 15. En clone complet : une seule racine, et les 18 PR ont un ancetre commun. Avant toute affirmation sur des racines, des ancetres communs ou des histoires disjointes : cloner SANS --depth, ou verifier `git rev-parse --is-shallow-repository`.",
+  "22. La branche par defaut GitHub et la branche de PRODUCTION de l'hebergeur sont deux reglages independants. Ne jamais deduire l'un de l'autre. Sur CompTrack, GitHub dit feat/comptrack-v1 et Vercel dit main : les 6 deploiements target=production viennent tous de main, aucun de v1. J'ai passe six jours a appeler v1 « le tronc » et a compter 17 PR comme mal ciblees alors qu'elles visaient la seule branche qui livre. Avant de nommer un tronc : lire la branche par defaut du depot ET les deploiements target=production de l'hebergeur. Si les deux divergent, le tronc est INDETERMINE, et c'est une question pour Steeve, pas une deduction.",
+  "23. Deux motifs a verifier sur CHAQUE depot visite, avant de construire autre chose. (a) AUTHENTIFICATION : le tronc a-t-il une page de connexion ET un garde ? Quatre fois sur quatre en septembre la reponse etait non — CompTrack main (rien), CompTrack v1 (la porte, pas le mur), MillTrack master (un TODO en commentaire), indubot-afrika (BetterAuth installe, /dashboard sans session ni middleware). A chaque fois le code existait, fini, dans une PR jamais fusionnee. (b) PREFERS-REDUCED-MOTION : chercher gsap, lenis, requestAnimationFrame et les tweens de valeurs. Une regle CSS generale donne l'air d'une couverture complete ; elle agit sur des DUREES, donc pas sur le mouvement pilote en JS — qui est justement le plus envahissant. Sur le portfolio comme sur indubot, tout respectait le reglage SAUF ce que le CSS ne peut pas atteindre. Et Motion ne coupe pas de lui-meme une animation infinie : son reglage automatique n'agit que sous <MotionConfig reducedMotion=\"user\">. RESULTATS AU 15/09, a ne pas refaire : verifie et NEGATIF sur duka-boutique (SUGU) — son 001_init.sql active RLS sur les 9 tables, et surtout AUCUN fichier n'importe @/lib/supabase : la couche serveur existe mais n'est jamais appelee, l'app tourne en localStorage. Ce n'est pas un trou, c'est de l'echafaudage mort ; son CLAUDE.md:75 enonce pourtant « toujours getUser() ». Et sur sahel-commerce-ai : pas d'auth non plus, mais c'est deja Q16, avec son hypothese ecrite. Le compte du motif reste donc a QUATRE, pas cinq. Compter juste : une verification negative est un resultat, pas un echec.",
+  "24. Une regle de garde-fou trop grossiere fait des degats, et le garde-fou est la pour te le dire. Sur indubot, ma premiere version de check-mouvement accusait use-scheduled-tooltip.ts, qui utilise requestAnimationFrame comme un ETRANGLEUR A UN COUP : il regroupe des mises a jour en une par image et ne se replanifie jamais. Rien n'y bouge. Corriger LA REGLE, pas le fichier accuse — et ajouter une provocation qui verifie l'ABSENCE de faux positif, pas seulement la presence de vrais positifs. Un garde-fou se prouve dans les deux sens.",
+  "25. Deux pannes peuvent se proteger l'une l'autre. AgroTrack BF repondait 500 en production depuis 25 jours, et personne ne l'a vu parce que la veille de production censee le signaler etait elle-meme morte depuis 2 jours (Q20). Quand une surveillance tombe, le compte a rebours commence sur TOUT ce qu'elle surveillait : verifier a la main les 13 URLs de production des que la veille echoue, et ne pas attendre qu'elle reparte. Corollaire vecu : Vercel get_runtime_errors n'a rien remonte sur 24h alors que le 500 etait reproductible a la demande — l'absence d'erreur dans un agregateur ne prouve rien.",
+  "26. Le NOM d'un projet chez l'hebergeur ne dit pas quel depot il sert. Le projet Vercel « burkinacollect » sert african-hybrid-agent depuis le 5 juin 2026 : l'URL burkinacollect.vercel.app affiche « Aisha — Agent IA Africain ». Consequence, je repondais « non deploye » a Q11 depuis huit jours pour un produit qui tourne en public. Avant d'affirmer qu'un depot est deploye ou non : lire le champ `link` du projet chez l'hebergeur ET le githubCommitRepo de ses deploiements, jamais le nom du projet. Meme famille que la regle 22 : une seule source consultee donne une reponse fausse avec l'apparence de la certitude.",
+  "27. Un ORDRE DE FUSION se prouve en fusionnant. Le 16 septembre, mon fichier d'etat de livestockos et le corps de ma PR #10 recommandaient « ensuite la #9 » sur un raisonnement correct — sa CI a besoin d'une base verte — sans avoir jamais lance git merge. La #9 ne se fusionne pas : 5 conflits, et ils sont ANTERIEURS a mon travail (verifie des deux cotes de ma fusion). L'etape 2 praticable etait la #8. Meme famille que la regle 24 : une recommandation qu'on n'execute pas ne vaut pas plus qu'un garde-fou qu'on n'execute pas.",
+  "28. Une fusion EN LOT transforme les PR soeurs en conflits. Le 16 septembre Steeve a fusionne 15 PR en six minutes ; les 5 restantes sont toutes devenues « dirty », non parce qu'elles etaient mauvaises mais parce que leur base avait bouge sous elles. Le motif est mecanique : deux PR du meme depot qui ajoutent chacune un script a package.json et une etape a la CI entrent toujours en conflit sur ces deux fichiers, quoi qu'elles fassent par ailleurs. Consequence pratique : apres tout lot, reprendre les PR restantes AVANT toute autre chose, et ne jamais ecrire dans un corps de PR que deux PR « se fusionnent dans n'importe quel ordre » sans avoir teste les deux ordres.",
+  "29. Une FUSION NE LIVRE PAS FORCEMENT. Verifier ou un merge a ATTERRI, pas seulement qu'il a eu lieu. Deux cas rencontres le meme jour, le 17 septembre, parmi les 15 PR fusionnees la veille : (a) SUGU #12 etait EMPILEE sur la branche de la #11 — fusionnee, elle est allee dans cette branche, et le correctif de vente perdue n'a jamais touche master ; (b) CompTrack #39 visait feat/comptrack-v1, dont le deploiement porte target: null — les cinq deploiements de production viennent de main. Dans les deux cas GitHub affiche « merged », l'onglet se ferme, et rien n'atteint l'utilisateur. Le seul controle qui le dit : chercher le correctif SUR LE TRONC apres coup, et lire le target du deploiement. Famille des regles 22 et 28.",
+  "30. COMPTER DANS LES DEPOTS, PAS DANS SES NOTIFICATIONS. Le 16 septembre j'ai annonce « quinze PR fusionnees » — dans le journal, le digest, le corps de la PR #10 et cinq check-ins. C'etait SEIZE : ueemt-tokat #14 a ete fusionnee a 15h00:20 UTC, dans la meme vague, et je ne l'ai pas vue parce que je n'etais pas abonne a ce depot. Un decompte borne par ses abonnements n'est pas un decompte. Corollaire de la regle 29 : verifier l'etat DANS le depot, jamais depuis le flux d'evenements qui, lui, ne couvre que ce qu'on surveille deja.",
+  "31. UN RECENSEMENT SE FAIT SUR LE TRONC, PAS SUR LA BRANCHE PAR DEFAUT. Le 19 septembre, en appliquant enfin la regle 30 — compter dans les depots — mon script a compte les fusions sur la branche par DEFAUT de chaque depot. Trois depots manquaient encore : livestockos (defaut feat/animaux-rapports, tronc main), forge-afrika (defaut docs/readme-premium, tronc master) et duka-boutique (dont la PR n'avait atteint aucun tronc). C'est la regle 22 qui se venge A L'INTERIEUR du correctif de la regle 30. Le decompte est passe de 15 a 16 a 29. Corollaire : quand on corrige une erreur de mesure, verifier que le correctif ne reproduit pas une erreur deja nommee ailleurs.",
+  "32. UNE RECOMMANDATION HONOREE EST AUSSI PERIMEE QU'UNE AFFIRMATION REFUTEE. Le 16e controle CI verifie qu'une affirmation refutee ne survit pas dans son propre fichier. Le 19 j'ai trouve le defaut SYMETRIQUE, que rien ne couvrait : cinq fichiers d'etat portaient encore « a fusionner », « fusionnable en l'etat », « a fusionner AVANT tout le reste » pour des PR fusionnees le 16 (burkinacollect#4, mifa#46, phone-showcase#1, problem-to-projects#10, ueemt#14). Rien n'etait faux — c'etait vrai le jour ou je l'ai ecrit. Mais un lecteur, moi demain compris, repartait avec une liste de travail deja faite. Une recommandation sans son resultat est une dette de lecture. Tout bloc verification_pr_NN porte desormais un SUITE_DONNEE, et un 17e controle refuse le contraire.",
+  "33. UNE PR FUSIONNEE N'EST PAS UN PORTE-CONSIGNES. La PR ueemt#14 se terminait par « A faire de ton cote : revoquer un jeton ». Elle a ete fusionnee le 16 ; la consigne est partie avec elle. Elle n'etait ni dans QUESTIONS.md, ni dans le fichier d'etat, nulle part ailleurs que dans le corps d'une PR close — donc suivie par personne pendant trois jours. Ce qu'une PR laisse A FAIRE doit sortir de son corps AVANT qu'elle ne soit fusionnee. Corollaire verifie le meme jour : la consigne etait sans objet, le jeton ayant expire 12 h apres son emission, 97 jours plus tot. Ne pas suivre une action, c'est aussi ne pas savoir qu'on peut la fermer.",
+  "34. UN GARDE-FOU QUI NE REGARDE QUE LES BLOCS BIEN NOMMES SE CONTOURNE EN RENOMMANT SON BLOC. Le 16e controle verifiait qu'une affirmation refutee ne survit pas dans son fichier — mais il n'inspectait que les blocs nommes CORRECTION*. Le 20 septembre j'ai pose quatre affirmations refutees dans des blocs nommes MESURE_2026_09_20 : le controle ne les voyait pas du tout, et il a affiche vert. Je l'ai contourne SANS LE VOULOIR, ce qui est la pire facon de l'apprendre — un attaquant aurait eu a y penser, moi non. Elargi : le signal est le CHAMP `affirmation_refutee`, pas le nom du bloc. Il a immediatement trouve les quatre, toutes reelles. Corollaire general : quand un controle filtre par convention de nommage, la convention est la faille.",
+  "35. UNE FUSION QUI NE VISE PAS LE TRONC DEPENSE LE CLIC SANS RIEN LIVRER — ET LE CLIC EST LA RESSOURCE RARE. Mesure du 20 septembre : sur 91 PR ouvertes, 11 n'atteindraient pas leur tronc. Trois sont EMPILEES sur la tete d'une autre PR ouverte (mifa#47 et #48 sur la #45, african-hybrid-agent#5 sur la #4, egalite de SHA verifiee), quatre visent `dev` chez ueemt (branche morte, Q17), quatre visent `feat/comptrack-v1` qui n'a jamais rien mis en production. C'est le piege qui a coute sa correction a duka-boutique#12 le 16. Outil : AUTOMATION/scripts/forge-pr-empilees.py, verifie en rejouant l'etat du 15 septembre — il signale bien duka#12, et ne produit aucun faux positif. A lancer AVANT de recommander une fusion.",
+  "36. UNE PR PLUS ANCIENNE QUE LE TRONC NE DUPLIQUE PAS : ELLE DEFAIT. TAAMA#26 apportait trois fichiers, dont deux deja presents sur main — j'allais ecrire « doublon, fermable », le motif de milltrack#3. Mesure : main a 49 lignes d'error.tsx, la PR en a 41 et renomme « [TAAMA] » en « [Taama] » ; main utilise les composants partages SkeletonStats/SkeletonTableRow, la PR les remplace par des div inline. La branche est PLUS VIEILLE que le tronc. La fusionner ecraserait du travail livre. Un doublon ne coute rien, une regression coute le travail qu'elle efface — donc comparer les VERSIONS, jamais la seule presence d'un chemin de fichier.",
+  "37. UNE PR ABSORBEE PAR UNE AUTRE N'EST PAS FERMABLE : ELLE EST CONDITIONNELLE. Sur TAAMA, #3 ⊂ #4 ⊂ #5 ⊂ #6 ⊂ #7 ⊂ #8 ⊂ #9 ⊂ #10, chaine complete prouvee par merge-base --is-ancestor sur clone complet. Ces sept ne se ferment « sans rien perdre » que SI la #10 est fusionnee ; si elle ne l'est jamais, les fermer perd tout. La decision porte sur le sur-ensemble, pas sur les membres. C'est la nuance exacte qui manquait a ma recommandation du 15 septembre, celle qui aurait fait fermer quinze PR reelles.",
+  "38. LE REGISTRE N'EST PAS LE COMPTE : COMPTER LES DEPOTS CHEZ L'HEBERGEUR, JAMAIS DANS LE FICHIER. Le 26 septembre, registry.json decrivait 25 projets et j'aurais ecrit « 25 depots » pour la vingtieme fois. list_repos en renvoie 29 : `ambition` (pousse le 26 a 00h30), `combine` (le 23) et le depot de profil `dosteeve2-hash` (le 26 a 02h12) n'y figurent nulle part. Un registre est un instantane du jour ou on l'a ecrit — la meme faute que la regle 32, appliquee non a une recommandation mais au perimetre lui-meme. Corollaire : le denominateur du KPI de Phase 1 grandit sans que personne le decide.",
+  "39. MON SILENCE N'EST PAS L'IMMOBILITE DU PORTEFEUILLE. J'allais ecrire « rien n'a bouge les 24, 25 et 26 septembre » parce que MA session n'avait rien fait. Faux : `ambition` a recu un push le 26 a 00h30, le depot de profil le 26 a 02h12, et livestock-os#5 — ouverte le 22 — porte la signature d'une AUTRE session (session_01QUfqgnpezD4RqCyNd7Am1d) et cite un repertoire `autopilot/reports/` que ce depot ne connait pas. Avant de declarer un jour perdu, mesurer les push du portefeuille, pas ses propres commits.",
+  "40. UN INVENTAIRE DE MES PROPRES PR POURRIT COMME UN AUTRE. Je portais « 12 PR a moi, toutes vertes » depuis plusieurs jours ; une recherche par auteur en donne 20 ouvertes depuis le 2 septembre, dont trois que je ne suivais pas du tout (livestock-os#5, ambition#1, Mifa#47 et #48). Le chiffre le plus facile a ne jamais reverifier est celui dont on est l'auteur."
+ ],
+ "projets_traites_le_2026_09_10": [
+  "mon-portfolio-2 (PR #10)",
+  "phone-showcase (TRIAGE)"
+ ],
+ "projets_traites_le_2026_09_12": [
+  "sahel-commerce-ai (PR #1)",
+  "ueemt-tokat (TRIAGE)"
+ ],
+ "loop_manque_2026_09_11": "Le Forge Quotidien du 11 septembre n'a pas eu lieu : la routine a sonne, la session dormait, la chaine de check-in s'est interrompue avec elle. Limite connue de l'architecture a session unique. Rien perdu, aucune PR n'avait bouge.",
+ "projets_traites_le_2026_09_13": [
+  "livestock-os-legacy (CONTROLE DE SANTE)",
+  "llm-africain-agent-ai (CONTROLE DE SANTE — depot vide)"
+ ],
+ "questions_restructurees_2026_09_13": {
+  "constat": "12 des 16 questions en attente vivaient sous le titre '✅ Questions résolues'",
+  "cause": "chaque loop ajoutait sa question en fin de fichier ; la fin du fichier etait la section des resolues",
+  "corrige": "section resolues deplacee en fin, 6 questions anciennes numerotees Q1-Q6, sommaire de 16 lignes en tete",
+  "garde_fou": "AUTOMATION/scripts/forge-verifier-questions.py, 15e controle CI",
+  "non_touche": "le trou Q8/Q9 : dix fichiers d'etat et de rapports pointent deja vers Q10-Q18",
+  "chiffre_corrige": "16 questions en attente, pas 18 — annonce a tort les jours precedents"
+ },
+ "routines_verifiees_2026_09_14": {
+  "total_recurrentes": 29,
+  "actives": 3,
+  "active_forge": "🔨 Forge Quotidien — session vivante (cron 3 2 * * * UTC, session persistante, 2 projets/jour)",
+  "active_veille": "Veille quotidienne — ecosysteme FORGE (cron 0 6 * * * UTC) — EN ECHEC, FAILED en 9s le 13/09, modele claude-fable-5",
+  "active_autre": "System health check (0 12 * * *) — pas une routine FORGE",
+  "eteintes": "les 26 loops par depot + digest + revue strategique, eteints le 6 septembre, next_run_at fige au 7",
+  "rien_modifie": "aucune Routine rallumee, eteinte ni reconfiguree — Q19 et Q20 posees"
+ },
+ "projets_traites_le_2026_09_14": [
+  "steevedo-github-io",
+  "mon-portfolio-1"
+ ],
+ "projets_traites_le_2026_09_15": [
+  "binary-search-tree-java",
+  "donald",
+  "steeve-donald",
+  "desktop-tutorial"
+ ],
+ "tour_complet_2026_09_15": {
+  "fait": "Les 25 projets du registre ont un fichier d'etat et un diagnostic date. Tour boucle en onze jours, du 5 au 15 septembre.",
+  "depots_sans_contenu_reel": [
+   "llm-africain-agent-ai (TOTALEMENT vide)",
+   "steevedo-github-io (TOTALEMENT vide)",
+   "steeve-donald (1 commit, README de 2 lignes)",
+   "desktop-tutorial (1 commit, README d'origine GitHub Desktop)"
   ],
-  "projets_traites_le_2026_09_08": [
-    "valuechain-connect (PR #9)",
-    "indubot-afrika (PR #3)",
-    "forja (TRIAGE)",
-    "milltrack (PR #13)",
-    "african-hybrid-agent (TRIAGE)",
-    "burkinacollect (TRIAGE)",
-    "problem-to-projects-africa (TRIAGE)",
-    "duka-boutique/SUGU (PR #12)",
-    "mifa-life-shop (TRIAGE)"
+  "portefeuille_reel": "21 projets, pas 25",
+  "diagnostic_de_fond": "Le code ne manque nulle part. Ce sont les decisions qui manquent : des dizaines de PR ouvertes dont dix de la serie du 2 septembre, deux depots a troncs sans ancetre commun, trois branches par defaut mal placees."
+ },
+ "priorite_du_jour_suivant": "african-hybrid-agent n'est PLUS le chantier suivant : la limite de debit que j'allais verifier est deja ecrite dans la PR #7 depuis le 2 septembre, et ce qui manque est une decision de Steeve (Q11). Prendre problem-to-projects-africa (08/09, deux applications sans ancetre commun, Q13). Appliquer les regles 23 et 26 avant de construire. Et tant que Q20 n'a pas de reponse, refaire le tour des URLs de production une fois par jour.",
+ "projets_traites_le_2026_09_17": [
+  "duka-boutique/SUGU (VERIFICATION — la #12 n'a pas atteint le tronc)",
+  "comptrack (TRIAGE — la #39 n'a pas atteint la production, et main n'a aucune donnee)"
+ ],
+ "projets_traites_le_2026_09_18": [
+  "sahel-commerce-ai (PR #2 — le retour en ligne)",
+  "ueemt-tokat (TRIAGE — dev est morte, Q17 tranchee par la mesure)"
+ ],
+ "projets_traites_le_2026_09_19": [
+  "RECENSEMENT PORTEFEUILLE (29 fusions le 16, pas 15 — Q11 close)",
+  "burkinacollect (VERIFICATION — application publiee, Q12 tient et vaut NEUF)",
+  "phone-showcase (TERMINE — sorti de la rotation active)"
+ ],
+ "projets_traites_le_2026_09_20": [
+  "RECENSEMENT PORTEFEUILLE (91 PR ouvertes, 17 depots, 11 qui ne livreraient rien)",
+  "17 fichiers d'etat corriges a la mesure (4 portaient une affirmation FAUSSE, pas seulement vieille)"
+ ],
+ "projets_traites_le_2026_09_21": [
+  "mifa-life-shop (PR #49 — CI du tronc rouge depuis 5 jours, une ligne)",
+  "TOUR DE SANTE CI (17 troncs : 11 verts, 1 rouge, 5 sans aucune CI)"
+ ],
+ "projets_traites_le_2026_09_22": [
+  "forja (PR #28 — la page d'accueil annonce 0 tonne, 0 acheteur)",
+  "Q10 TRANCHEE : le cafe va bien, mais le depot porte 1 420 lignes du module tontine d'UEEMT, injoignable et en 500"
+ ],
+ "projets_traites_le_2026_09_23": [
+  "taama (TRIAGE des 18 PR — une seule fusionne proprement, sept contenues dans la #10, la #26 regresserait)",
+  "SYSTEME : la chaine de check-ins a casse une 2e fois (22 sept 14h21) — remplacee par un cron recurrent"
+ ],
+ "regles_startup_de_steeve_2026_09_26": {
+  "recu": "Huit regles de fondateur envoyees par Steeve, avec la consigne de les integrer « dans notre maniere d'operer ».",
+  "ou": "playbooks/00-protocole-forge.md §5 bis — chacune traduite en decision, pas citee.",
+  "contrainte_ajoutee": "Sur un projet dont premier_utilisateur_reel est null, ne jamais descendre au niveau 6 du §5 (nouvelles fonctionnalites). Reparer, documenter, mettre en CI restent ouverts.",
+  "mesures_qu_elles_ont_declenchees": [
+   "Aucun des 21 projets reels n'a d'utilisateur reel nomme : cherche sur les 25 fichiers d'etat et sur le registre. KPI de Phase 1 = 0/3, desormais affiche dans etat/premier-utilisateur.json.",
+   "57 des 91 PR ouvertes (63 %) portent sur comptrack, taama et mifa-life-shop — aucun n'a d'utilisateur nomme.",
+   "Les deux SEULS produits publies (burkinacollect, problem-to-projects-africa) ont ZERO PR ouverte. L'effort est inversement correle a l'usage.",
+   "29 depots chez l'hebergeur contre 25 au registre (regle 38)."
   ],
-  "serie_du_2_septembre": {
-    "_doc": "Le meme correctif 'repare le lint + les tests + ajoute la CI' a ete ecrit le 2 septembre sur cinq depots. UNE seule fusion.",
-    "milltrack#12": "FUSIONNEE — tronc vert",
-    "forja#27": "ouverte — tronc rouge depuis un mois",
-    "african-hybrid-agent#7": "ouverte — tronc fige depuis 73 jours",
-    "burkinacollect#4": "EN BROUILLON — contient toute l'application du depot",
-    "problem-to-projects-africa#10": "ouverte — tsc echoue sans elle",
-    "duka-boutique#11": "ouverte — 0 test executable sans elle",
-    "mifa_life_shop#46": "ouverte — le depot ne s'installe meme pas sans elle (npm ci echoue)",
-    "taama#35": "ouverte — une suite de tests entiere bloquee sans elle",
-    "comptrack#38": "ouverte — eslint ne demarre meme pas sans elle",
-    "mon-portfolio-2.0#9": "FUSIONNEE le 2 septembre — je ne l'avais pas vu avant le 10",
-    "phone-showcase#1": "ouverte — eslint ne demarre pas sans elle",
-    "_compte_juste": "DOUZE depots, DEUX fusions (milltrack#12 et mon-portfolio-2.0#9).",
-    "ueemt-tokat#14": "ouverte — le tronc ne BUILD PAS sans elle"
-  },
-  "projets_traites_le_2026_09_09": [
-    "taama (TRIAGE)",
-    "comptrack (TRIAGE)"
-  ],
-  "regles_de_triage": [
-    "1. Lister TOUTES les PR ouvertes du depot, pas seulement les miennes.",
-    "2. Regarder la DATE du dernier commit du tronc : tronc qui avance sans ses PR => FERMER ; tronc arrete => FUSIONNER.",
-    "3. Verifier que le tronc est VERT, et d'abord qu'il S'INSTALLE (npm ci, pas npm install).",
-    "4. Regarder ce que la branche par defaut contient REELLEMENT (BurkinaCollect : 2 fichiers).",
-    "5. Verifier s'il y a PLUSIEURS troncs et s'ils ont un ANCETRE COMMUN (TAAMA : main est un commit orphelin).",
-    "6. Ne pas confondre technique et intention (SUGU fait son responsive en media queries, pas en Tailwind).",
-    "7. Verifier ce qu'un workflow FAIT, pas qu'il existe (MIFA Life : modele Azure de GitHub, rouge depuis toujours).",
-    "8. Chercher les catch VIDES autour d'une ecriture (BurkinaCollect et SUGU le meme jour).",
-    "9. Chercher les CHAINES de PR imbriquees avec git merge-base --is-ancestor (MIFA Life : une chaine de NEUF).",
-    "10. Verifier SON PROPRE ENVIRONNEMENT avant d'accuser le depot (comptrack : sparse checkout a 16%, git status 'clean').",
-    "11. Verifier quelle branche une PR VISE, pas seulement ce qu'elle contient (CompTrack : 17 PR visent une branche qui n'est pas le tronc).",
-    "12. 'Jamais traite par le loop' n'est pas 'a l'abandon' — un projet fini n'a besoin que d'une fusion (Phone Showcase).",
-    "13. Un garde-fou peut etre vert ET aveugle : demander quelle panne il laisse passer, et la provoquer pour de vrai (Portfolio 2.0).",
-    "14. Lire les OUTILS exposes a un agent IA, pas seulement son endpoint : sans limite c'est un probleme de cout, sans limite ET avec des outils d'ecriture c'est un probleme d'integrite (Sahel Commerce AI).",
-    "15. Chercher `const client = new X(process.env...)` au niveau module : instancier un client d'API au chargement casse le build de quiconque n'a pas le secret, CI comprise (UEEMT-Tokat).",
-    "16. Un controle de sante verifie L'ETIQUETTE du registre autant que le depot : 'doublon presume' a range en tier 3 le produit le plus avance du portefeuille (livestock-os).",
-    "17. Le playbook peut avoir raison sans etre suivi : pendant six jours les loops ont ajoute leurs questions A LA FIN de QUESTIONS.md alors que 00-protocole §4 dit 'en haut' et 03-digest §4 'sous la section En attente'. La fin du fichier, c'etait la section des questions RESOLUES. Douze questions en attente y ont ete classees comme traitees. Quand une regle ecrite n'est pas tenue, c'est un controle CI qu'il faut, pas une regle de plus.",
-    "18. Verifier ce que le SYSTEME fait, pas ce que sa documentation dit qu'il fait : 26 des 29 Routines etaient eteintes depuis le 6 septembre, et la PR #9, le README et CLAUDE.md decrivaient depuis huit jours une architecture remplacee le lendemain de son ecriture. Une seule commande (list_triggers) le montrait ; personne ne l'avait lancee. Meme classe d'erreur que QUESTIONS.md la veille : l'ecrit et le reel divergent en silence.",
-    "19. Une branche du MEME NOM issue de la MEME campagne de nettoyage peut etre juste sur un depot et fausse sur son voisin : chore/cleanup etait correcte sur Mon-Portfolio- le 14 (recommandee a la fusion) et CASSEE sur binary-search-tree-java le 15 — elle avait extrait, parmi deux TreeGUI.java divergents du ZIP, celui qui ne compile pas. Generaliser depuis le voisin aurait fait fusionner du code mort. La seule facon de savoir est de L'EXECUTER : compiler, lancer les tests, pas lire le diff.",
-    "20. Du code livre en archive compressee (.zip, .rar) n'est pas du code versionne : ni diff, ni blame, ni recherche, ni revue — et les artefacts de build y voyagent avec. DEUX des quatre dernieres archives du portefeuille le font (binary-search-tree-java en ZIP, Donald en RAR). Le RAR est en plus proprietaire : aucun outil ne l'ouvrait dans la session.",
-    "21. NE JAMAIS diagnostiquer la TOPOLOGIE d'un historique depuis un clone superficiel. Sur --depth N, git presente la frontiere du clone comme des RACINES et merge-base renvoie AUCUN : tout a l'air orphelin. C'est ainsi que j'ai conclu le 9 septembre que le tronc de TAAMA etait un commit orphelin et que 17 PR sur 18 etaient infusionnables — et recommande d'en fermer 15. En clone complet : une seule racine, et les 18 PR ont un ancetre commun. Avant toute affirmation sur des racines, des ancetres communs ou des histoires disjointes : cloner SANS --depth, ou verifier `git rev-parse --is-shallow-repository`.",
-    "22. La branche par defaut GitHub et la branche de PRODUCTION de l'hebergeur sont deux reglages independants. Ne jamais deduire l'un de l'autre. Sur CompTrack, GitHub dit feat/comptrack-v1 et Vercel dit main : les 6 deploiements target=production viennent tous de main, aucun de v1. J'ai passe six jours a appeler v1 « le tronc » et a compter 17 PR comme mal ciblees alors qu'elles visaient la seule branche qui livre. Avant de nommer un tronc : lire la branche par defaut du depot ET les deploiements target=production de l'hebergeur. Si les deux divergent, le tronc est INDETERMINE, et c'est une question pour Steeve, pas une deduction.",
-    "23. Deux motifs a verifier sur CHAQUE depot visite, avant de construire autre chose. (a) AUTHENTIFICATION : le tronc a-t-il une page de connexion ET un garde ? Quatre fois sur quatre en septembre la reponse etait non — CompTrack main (rien), CompTrack v1 (la porte, pas le mur), MillTrack master (un TODO en commentaire), indubot-afrika (BetterAuth installe, /dashboard sans session ni middleware). A chaque fois le code existait, fini, dans une PR jamais fusionnee. (b) PREFERS-REDUCED-MOTION : chercher gsap, lenis, requestAnimationFrame et les tweens de valeurs. Une regle CSS generale donne l'air d'une couverture complete ; elle agit sur des DUREES, donc pas sur le mouvement pilote en JS — qui est justement le plus envahissant. Sur le portfolio comme sur indubot, tout respectait le reglage SAUF ce que le CSS ne peut pas atteindre. Et Motion ne coupe pas de lui-meme une animation infinie : son reglage automatique n'agit que sous <MotionConfig reducedMotion=\"user\">. RESULTATS AU 15/09, a ne pas refaire : verifie et NEGATIF sur duka-boutique (SUGU) — son 001_init.sql active RLS sur les 9 tables, et surtout AUCUN fichier n'importe @/lib/supabase : la couche serveur existe mais n'est jamais appelee, l'app tourne en localStorage. Ce n'est pas un trou, c'est de l'echafaudage mort ; son CLAUDE.md:75 enonce pourtant « toujours getUser() ». Et sur sahel-commerce-ai : pas d'auth non plus, mais c'est deja Q16, avec son hypothese ecrite. Le compte du motif reste donc a QUATRE, pas cinq. Compter juste : une verification negative est un resultat, pas un echec.",
-    "24. Une regle de garde-fou trop grossiere fait des degats, et le garde-fou est la pour te le dire. Sur indubot, ma premiere version de check-mouvement accusait use-scheduled-tooltip.ts, qui utilise requestAnimationFrame comme un ETRANGLEUR A UN COUP : il regroupe des mises a jour en une par image et ne se replanifie jamais. Rien n'y bouge. Corriger LA REGLE, pas le fichier accuse — et ajouter une provocation qui verifie l'ABSENCE de faux positif, pas seulement la presence de vrais positifs. Un garde-fou se prouve dans les deux sens.",
-    "25. Deux pannes peuvent se proteger l'une l'autre. AgroTrack BF repondait 500 en production depuis 25 jours, et personne ne l'a vu parce que la veille de production censee le signaler etait elle-meme morte depuis 2 jours (Q20). Quand une surveillance tombe, le compte a rebours commence sur TOUT ce qu'elle surveillait : verifier a la main les 13 URLs de production des que la veille echoue, et ne pas attendre qu'elle reparte. Corollaire vecu : Vercel get_runtime_errors n'a rien remonte sur 24h alors que le 500 etait reproductible a la demande — l'absence d'erreur dans un agregateur ne prouve rien.",
-    "26. Le NOM d'un projet chez l'hebergeur ne dit pas quel depot il sert. Le projet Vercel « burkinacollect » sert african-hybrid-agent depuis le 5 juin 2026 : l'URL burkinacollect.vercel.app affiche « Aisha — Agent IA Africain ». Consequence, je repondais « non deploye » a Q11 depuis huit jours pour un produit qui tourne en public. Avant d'affirmer qu'un depot est deploye ou non : lire le champ `link` du projet chez l'hebergeur ET le githubCommitRepo de ses deploiements, jamais le nom du projet. Meme famille que la regle 22 : une seule source consultee donne une reponse fausse avec l'apparence de la certitude.",
-    "27. Un ORDRE DE FUSION se prouve en fusionnant. Le 16 septembre, mon fichier d'etat de livestockos et le corps de ma PR #10 recommandaient « ensuite la #9 » sur un raisonnement correct — sa CI a besoin d'une base verte — sans avoir jamais lance git merge. La #9 ne se fusionne pas : 5 conflits, et ils sont ANTERIEURS a mon travail (verifie des deux cotes de ma fusion). L'etape 2 praticable etait la #8. Meme famille que la regle 24 : une recommandation qu'on n'execute pas ne vaut pas plus qu'un garde-fou qu'on n'execute pas.",
-    "28. Une fusion EN LOT transforme les PR soeurs en conflits. Le 16 septembre Steeve a fusionne 15 PR en six minutes ; les 5 restantes sont toutes devenues « dirty », non parce qu'elles etaient mauvaises mais parce que leur base avait bouge sous elles. Le motif est mecanique : deux PR du meme depot qui ajoutent chacune un script a package.json et une etape a la CI entrent toujours en conflit sur ces deux fichiers, quoi qu'elles fassent par ailleurs. Consequence pratique : apres tout lot, reprendre les PR restantes AVANT toute autre chose, et ne jamais ecrire dans un corps de PR que deux PR « se fusionnent dans n'importe quel ordre » sans avoir teste les deux ordres.",
-    "29. Une FUSION NE LIVRE PAS FORCEMENT. Verifier ou un merge a ATTERRI, pas seulement qu'il a eu lieu. Deux cas rencontres le meme jour, le 17 septembre, parmi les 15 PR fusionnees la veille : (a) SUGU #12 etait EMPILEE sur la branche de la #11 — fusionnee, elle est allee dans cette branche, et le correctif de vente perdue n'a jamais touche master ; (b) CompTrack #39 visait feat/comptrack-v1, dont le deploiement porte target: null — les cinq deploiements de production viennent de main. Dans les deux cas GitHub affiche « merged », l'onglet se ferme, et rien n'atteint l'utilisateur. Le seul controle qui le dit : chercher le correctif SUR LE TRONC apres coup, et lire le target du deploiement. Famille des regles 22 et 28.",
-    "30. COMPTER DANS LES DEPOTS, PAS DANS SES NOTIFICATIONS. Le 16 septembre j'ai annonce « quinze PR fusionnees » — dans le journal, le digest, le corps de la PR #10 et cinq check-ins. C'etait SEIZE : ueemt-tokat #14 a ete fusionnee a 15h00:20 UTC, dans la meme vague, et je ne l'ai pas vue parce que je n'etais pas abonne a ce depot. Un decompte borne par ses abonnements n'est pas un decompte. Corollaire de la regle 29 : verifier l'etat DANS le depot, jamais depuis le flux d'evenements qui, lui, ne couvre que ce qu'on surveille deja.",
-    "31. UN RECENSEMENT SE FAIT SUR LE TRONC, PAS SUR LA BRANCHE PAR DEFAUT. Le 19 septembre, en appliquant enfin la regle 30 — compter dans les depots — mon script a compte les fusions sur la branche par DEFAUT de chaque depot. Trois depots manquaient encore : livestockos (defaut feat/animaux-rapports, tronc main), forge-afrika (defaut docs/readme-premium, tronc master) et duka-boutique (dont la PR n'avait atteint aucun tronc). C'est la regle 22 qui se venge A L'INTERIEUR du correctif de la regle 30. Le decompte est passe de 15 a 16 a 29. Corollaire : quand on corrige une erreur de mesure, verifier que le correctif ne reproduit pas une erreur deja nommee ailleurs.",
-    "32. UNE RECOMMANDATION HONOREE EST AUSSI PERIMEE QU'UNE AFFIRMATION REFUTEE. Le 16e controle CI verifie qu'une affirmation refutee ne survit pas dans son propre fichier. Le 19 j'ai trouve le defaut SYMETRIQUE, que rien ne couvrait : cinq fichiers d'etat portaient encore « a fusionner », « fusionnable en l'etat », « a fusionner AVANT tout le reste » pour des PR fusionnees le 16 (burkinacollect#4, mifa#46, phone-showcase#1, problem-to-projects#10, ueemt#14). Rien n'etait faux — c'etait vrai le jour ou je l'ai ecrit. Mais un lecteur, moi demain compris, repartait avec une liste de travail deja faite. Une recommandation sans son resultat est une dette de lecture. Tout bloc verification_pr_NN porte desormais un SUITE_DONNEE, et un 17e controle refuse le contraire.",
-    "33. UNE PR FUSIONNEE N'EST PAS UN PORTE-CONSIGNES. La PR ueemt#14 se terminait par « A faire de ton cote : revoquer un jeton ». Elle a ete fusionnee le 16 ; la consigne est partie avec elle. Elle n'etait ni dans QUESTIONS.md, ni dans le fichier d'etat, nulle part ailleurs que dans le corps d'une PR close — donc suivie par personne pendant trois jours. Ce qu'une PR laisse A FAIRE doit sortir de son corps AVANT qu'elle ne soit fusionnee. Corollaire verifie le meme jour : la consigne etait sans objet, le jeton ayant expire 12 h apres son emission, 97 jours plus tot. Ne pas suivre une action, c'est aussi ne pas savoir qu'on peut la fermer.",
-    "34. UN GARDE-FOU QUI NE REGARDE QUE LES BLOCS BIEN NOMMES SE CONTOURNE EN RENOMMANT SON BLOC. Le 16e controle verifiait qu'une affirmation refutee ne survit pas dans son fichier — mais il n'inspectait que les blocs nommes CORRECTION*. Le 20 septembre j'ai pose quatre affirmations refutees dans des blocs nommes MESURE_2026_09_20 : le controle ne les voyait pas du tout, et il a affiche vert. Je l'ai contourne SANS LE VOULOIR, ce qui est la pire facon de l'apprendre — un attaquant aurait eu a y penser, moi non. Elargi : le signal est le CHAMP `affirmation_refutee`, pas le nom du bloc. Il a immediatement trouve les quatre, toutes reelles. Corollaire general : quand un controle filtre par convention de nommage, la convention est la faille.",
-    "35. UNE FUSION QUI NE VISE PAS LE TRONC DEPENSE LE CLIC SANS RIEN LIVRER — ET LE CLIC EST LA RESSOURCE RARE. Mesure du 20 septembre : sur 91 PR ouvertes, 11 n'atteindraient pas leur tronc. Trois sont EMPILEES sur la tete d'une autre PR ouverte (mifa#47 et #48 sur la #45, african-hybrid-agent#5 sur la #4, egalite de SHA verifiee), quatre visent `dev` chez ueemt (branche morte, Q17), quatre visent `feat/comptrack-v1` qui n'a jamais rien mis en production. C'est le piege qui a coute sa correction a duka-boutique#12 le 16. Outil : AUTOMATION/scripts/forge-pr-empilees.py, verifie en rejouant l'etat du 15 septembre — il signale bien duka#12, et ne produit aucun faux positif. A lancer AVANT de recommander une fusion.",
-    "36. UNE PR PLUS ANCIENNE QUE LE TRONC NE DUPLIQUE PAS : ELLE DEFAIT. TAAMA#26 apportait trois fichiers, dont deux deja presents sur main — j'allais ecrire « doublon, fermable », le motif de milltrack#3. Mesure : main a 49 lignes d'error.tsx, la PR en a 41 et renomme « [TAAMA] » en « [Taama] » ; main utilise les composants partages SkeletonStats/SkeletonTableRow, la PR les remplace par des div inline. La branche est PLUS VIEILLE que le tronc. La fusionner ecraserait du travail livre. Un doublon ne coute rien, une regression coute le travail qu'elle efface — donc comparer les VERSIONS, jamais la seule presence d'un chemin de fichier.",
-    "37. UNE PR ABSORBEE PAR UNE AUTRE N'EST PAS FERMABLE : ELLE EST CONDITIONNELLE. Sur TAAMA, #3 ⊂ #4 ⊂ #5 ⊂ #6 ⊂ #7 ⊂ #8 ⊂ #9 ⊂ #10, chaine complete prouvee par merge-base --is-ancestor sur clone complet. Ces sept ne se ferment « sans rien perdre » que SI la #10 est fusionnee ; si elle ne l'est jamais, les fermer perd tout. La decision porte sur le sur-ensemble, pas sur les membres. C'est la nuance exacte qui manquait a ma recommandation du 15 septembre, celle qui aurait fait fermer quinze PR reelles."
-  ],
-  "projets_traites_le_2026_09_10": [
-    "mon-portfolio-2 (PR #10)",
-    "phone-showcase (TRIAGE)"
-  ],
-  "projets_traites_le_2026_09_12": [
-    "sahel-commerce-ai (PR #1)",
-    "ueemt-tokat (TRIAGE)"
-  ],
-  "loop_manque_2026_09_11": "Le Forge Quotidien du 11 septembre n'a pas eu lieu : la routine a sonne, la session dormait, la chaine de check-in s'est interrompue avec elle. Limite connue de l'architecture a session unique. Rien perdu, aucune PR n'avait bouge.",
-  "projets_traites_le_2026_09_13": [
-    "livestock-os-legacy (CONTROLE DE SANTE)",
-    "llm-africain-agent-ai (CONTROLE DE SANTE — depot vide)"
-  ],
-  "questions_restructurees_2026_09_13": {
-    "constat": "12 des 16 questions en attente vivaient sous le titre '✅ Questions résolues'",
-    "cause": "chaque loop ajoutait sa question en fin de fichier ; la fin du fichier etait la section des resolues",
-    "corrige": "section resolues deplacee en fin, 6 questions anciennes numerotees Q1-Q6, sommaire de 16 lignes en tete",
-    "garde_fou": "AUTOMATION/scripts/forge-verifier-questions.py, 15e controle CI",
-    "non_touche": "le trou Q8/Q9 : dix fichiers d'etat et de rapports pointent deja vers Q10-Q18",
-    "chiffre_corrige": "16 questions en attente, pas 18 — annonce a tort les jours precedents"
-  },
-  "routines_verifiees_2026_09_14": {
-    "total_recurrentes": 29,
-    "actives": 3,
-    "active_forge": "🔨 Forge Quotidien — session vivante (cron 3 2 * * * UTC, session persistante, 2 projets/jour)",
-    "active_veille": "Veille quotidienne — ecosysteme FORGE (cron 0 6 * * * UTC) — EN ECHEC, FAILED en 9s le 13/09, modele claude-fable-5",
-    "active_autre": "System health check (0 12 * * *) — pas une routine FORGE",
-    "eteintes": "les 26 loops par depot + digest + revue strategique, eteints le 6 septembre, next_run_at fige au 7",
-    "rien_modifie": "aucune Routine rallumee, eteinte ni reconfiguree — Q19 et Q20 posees"
-  },
-  "projets_traites_le_2026_09_14": [
-    "steevedo-github-io",
-    "mon-portfolio-1"
-  ],
-  "projets_traites_le_2026_09_15": [
-    "binary-search-tree-java",
-    "donald",
-    "steeve-donald",
-    "desktop-tutorial"
-  ],
-  "tour_complet_2026_09_15": {
-    "fait": "Les 25 projets du registre ont un fichier d'etat et un diagnostic date. Tour boucle en onze jours, du 5 au 15 septembre.",
-    "depots_sans_contenu_reel": [
-      "llm-africain-agent-ai (TOTALEMENT vide)",
-      "steevedo-github-io (TOTALEMENT vide)",
-      "steeve-donald (1 commit, README de 2 lignes)",
-      "desktop-tutorial (1 commit, README d'origine GitHub Desktop)"
-    ],
-    "portefeuille_reel": "21 projets, pas 25",
-    "diagnostic_de_fond": "Le code ne manque nulle part. Ce sont les decisions qui manquent : des dizaines de PR ouvertes dont dix de la serie du 2 septembre, deux depots a troncs sans ancetre commun, trois branches par defaut mal placees."
-  },
-  "priorite_du_jour_suivant": "african-hybrid-agent n'est PLUS le chantier suivant : la limite de debit que j'allais verifier est deja ecrite dans la PR #7 depuis le 2 septembre, et ce qui manque est une decision de Steeve (Q11). Prendre problem-to-projects-africa (08/09, deux applications sans ancetre commun, Q13). Appliquer les regles 23 et 26 avant de construire. Et tant que Q20 n'a pas de reponse, refaire le tour des URLs de production une fois par jour.",
-  "projets_traites_le_2026_09_17": [
-    "duka-boutique/SUGU (VERIFICATION — la #12 n'a pas atteint le tronc)",
-    "comptrack (TRIAGE — la #39 n'a pas atteint la production, et main n'a aucune donnee)"
-  ],
-  "projets_traites_le_2026_09_18": [
-    "sahel-commerce-ai (PR #2 — le retour en ligne)",
-    "ueemt-tokat (TRIAGE — dev est morte, Q17 tranchee par la mesure)"
-  ],
-  "projets_traites_le_2026_09_19": [
-    "RECENSEMENT PORTEFEUILLE (29 fusions le 16, pas 15 — Q11 close)",
-    "burkinacollect (VERIFICATION — application publiee, Q12 tient et vaut NEUF)",
-    "phone-showcase (TERMINE — sorti de la rotation active)"
-  ],
-  "projets_traites_le_2026_09_20": [
-    "RECENSEMENT PORTEFEUILLE (91 PR ouvertes, 17 depots, 11 qui ne livreraient rien)",
-    "17 fichiers d'etat corriges a la mesure (4 portaient une affirmation FAUSSE, pas seulement vieille)"
-  ],
-  "projets_traites_le_2026_09_21": [
-    "mifa-life-shop (PR #49 — CI du tronc rouge depuis 5 jours, une ligne)",
-    "TOUR DE SANTE CI (17 troncs : 11 verts, 1 rouge, 5 sans aucune CI)"
-  ],
-  "projets_traites_le_2026_09_22": [
-    "forja (PR #28 — la page d'accueil annonce 0 tonne, 0 acheteur)",
-    "Q10 TRANCHEE : le cafe va bien, mais le depot porte 1 420 lignes du module tontine d'UEEMT, injoignable et en 500"
-  ],
-  "projets_traites_le_2026_09_23": [
-    "taama (TRIAGE des 18 PR — une seule fusionne proprement, sept contenues dans la #10, la #26 regresserait)",
-    "SYSTEME : la chaine de check-ins a casse une 2e fois (22 sept 14h21) — remplacee par un cron recurrent"
-  ]
+  "ce_que_je_n_ai_pas_fait": "Aucun script ecrit aujourd'hui. La regle 6 dit que le goulot n'est pas le code : y repondre par un 19e controle CI aurait ete la contredire en l'appliquant.",
+  "renvoye_a_steeve": "Q6, reecrite et reduite a trois lignes a remplir. Les regles 2 et 7 demandent de choisir et d'abandonner : les deux sont §3, donc a lui."
+ }
 }

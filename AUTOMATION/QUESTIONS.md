@@ -16,12 +16,21 @@
 
 ## 📋 Les 19 questions en un coup d'œil
 
-Trois d'entre elles commandent tout le reste : **Q1** (quel tronc fait foi), **Q2**
-(les métriques sont-elles réelles) et **Q19** (quelle architecture d'automatisation).
-Trois urgences techniques : **Q21**, AgroTrack BF répond **500 en production depuis
-vingt-cinq jours** et seul toi peux le remettre en service ; **Q20**, la surveillance de
-production est elle-même en panne, ce qui explique que personne ne l'ait vu ; et **Q15**,
-le CompTrack livré n'a aucune page de connexion. Les autres peuvent attendre sans rien bloquer.
+**Celle qui compte le plus est Q6** — trois lignes à remplir, et elle décide de tout ce
+que le système fabrique. Le 26 septembre tes huit règles l'ont tranchée : le KPI de sortie
+de Phase 1 est mesuré à **0/3**, et 63 % des PR ouvertes portent sur des produits sans
+acheteur nommé.
+
+Trois autres commandent la mécanique : **Q1** (quel tronc fait foi), **Q2** (les métriques
+sont-elles réelles) et **Q19** (quelle architecture d'automatisation). Deux urgences
+techniques restent : **Q20**, la surveillance de production échoue encore chaque matin
+(vérifié : dernier passage en échec le 25 septembre) ; et **Q15**, le CompTrack livré n'a
+aucune page de connexion. Les autres peuvent attendre sans rien bloquer.
+
+> **Corrigé le 26 septembre.** Ce paragraphe annonçait « AgroTrack BF répond 500 en
+> production depuis vingt-cinq jours ». C'est faux depuis la fusion du 16 septembre :
+> il ne casse plus, il attend seulement deux variables d'environnement. La prose
+> contredisait sa propre ligne de tableau depuis dix jours.
 
 | # | Sujet | Ce qu'elle décide | Hypothèse appliquée en attendant |
 |---|---|---|---|
@@ -30,7 +39,7 @@ le CompTrack livré n'a aucune page de connexion. Les autres peuvent attendre sa
 | Q3 | ⏰ 05h00 Turquie ou Burkina ? | l'heure des 27 routines | Turquie (02h00 UTC) |
 | Q4 | 🐄 `livestockos` vs `livestock-os` | lequel des deux est le produit | `livestockos` — **contredite depuis par Q18** |
 | Q5 | 🤖 Fusionner `LLM-africain-agent-AI` ? | le sort d'un dépôt vide | `african-hybrid-agent` est le vivant |
-| Q6 | 🎯 25 dépôts, une seule personne | concentrer ou tout garder | la rotation couvre tout, l'ordre reste ouvert |
+| **Q6** | 🎯 **Trois produits, trois acheteurs — trois lignes à remplir** | le KPI de sortie de Phase 1, mesuré à **0/3** le 26 septembre | pas de nouvelle fonctionnalité sur un projet sans utilisateur nommé ; rien fermé, rien abandonné |
 | Q7 | 🧹 Construire quand 5 PR attendent déjà ? | le mode triage — **modification du protocole, non appliquée** | seuil à 5, en attente de ton accord |
 | Q10 | ☕ FORJA fait-il encore de l'export de café ? | 11 PR à fermer plutôt qu'à fusionner | le tronc a raison |
 | Q12 | 📄 Le README de BurkinaCollect décrit un produit absent | réécrire le README ou construire le produit | README d'abord, rien modifié |
@@ -147,17 +156,63 @@ l'ancien est en tier 3. Une fusion sera proposée en revue du dimanche.
 
 ---
 
-### Q6 — 🎯 STRATÉGIE — 25 dépôts, une seule personne. On concentre ? (2026-09-05)
-**Contexte :** le site du QG annonce 10 filiales dont 6 « Actif ». Le registre compte
-25 dépôts. Le KPI de Phase 1 en demande **3 vraiment finis**.
-**Enjeu :** c'est la décision la plus lourde du projet. Le modèle Dangote comme le modèle
-coréen disent la même chose : concentrer d'abord, répliquer ensuite. Étaler l'effort sur
-13 projets tier 1 risque de n'en finir aucun.
-**Hypothèse retenue :** la rotation couvre tous les tier 1, **mais** l'ordre de priorité
-(`00-protocole-forge.md §5`) fait passer ce qui est cassé ou proche de la production avant
-les nouvelles fonctionnalités. En pratique, les projets les plus avancés avanceront le
-plus vite. La revue du dimanche te proposera une concentration explicite dès que les
-données de terrain le justifieront.
+### Q6 — 🎯 STRATÉGIE — 29 dépôts, une seule personne. On concentre ? (2026-09-05, **réécrite le 26 septembre avec tes huit règles**)
+
+**Ce qui a changé.** Le 5 septembre, cette question disait : « la revue du dimanche te
+proposera une concentration explicite dès que les données de terrain le justifieront ».
+Les données sont là, et tes propres règles la tranchent — « ne construis pas avant de
+savoir à qui tu vends » et « n'insiste pas parce que tu as déjà passé du temps dessus ».
+
+**Les quatre mesures.**
+
+1. **91 PR ouvertes ; 57 (63 %) sur trois dépôts** — comptrack 21, taama 18,
+   mifa-life-shop 18. Aucun des trois n'a d'utilisateur réel nommé.
+2. **Les deux produits réellement publiés ont zéro PR ouverte** — BurkinaCollect et
+   Problem-to-Projects. L'effort est inversement corrélé à l'usage.
+3. **29 dépôts existent ; le registre en décrit 25.** `ambition` a reçu un push le
+   26 septembre à 00h30, `combine` le 23, le dépôt de profil le 26 à 02h12. Trois dépôts
+   apparus ou remués **en quatre jours**, pendant que 91 PR attendaient un clic. Je ne les
+   ai pas lus — ils sont hors du périmètre de cette session et je n'ajoute pas un dépôt que
+   tu n'as pas demandé — et je ne juge pas s'ils sont de bonnes idées. Je constate le nombre.
+4. **Aucun des 25 fichiers d'état ne nomme un premier utilisateur réel.** Cherché le
+   26 septembre sur les 25 fichiers et sur le registre. Le KPI de sortie de Phase 1
+   est à **0/3** — il l'était déjà, rien ne l'affichait. C'est désormais affiché dans
+   `etat/premier-utilisateur.json`.
+
+**Ce que je ne peux pas faire à ta place, et pourquoi.** Nommer l'acheteur, et abandonner
+un projet. Le §3 du protocole m'interdit de fermer une PR, d'abandonner un dépôt ou de
+réécrire la vision — et c'est bien ainsi : ces deux décisions sont irréversibles là où
+tout le reste de mon travail est annulable.
+
+**Ce que je te demande, concrètement — trois lignes à remplir.** Pas un choix de
+stratégie, juste trois noms :
+
+```
+Produit 1 : __________  →  premier utilisateur visé : __________
+Produit 2 : __________  →  premier utilisateur visé : __________
+Produit 3 : __________  →  premier utilisateur visé : __________
+Et pour les 18 autres : gel (rien de neuf, réparations seulement) / abandon / statu quo ?
+```
+
+**Classement par proximité mesurée** — pour t'aider, pas pour décider :
+
+| Projet | Où il en est | Ce qui manque pour un premier utilisateur |
+|---|---|---|
+| **BurkinaCollect** | publié, joignable, 0 PR ouverte | le README promet 9 fonctionnalités pour 2 pages (**Q12**) |
+| **Problem-to-Projects** | publié, 0 PR ouverte | la branche livrée n'a pas l'IA ; celle qui l'a dort (**Q13**) |
+| **AgroTrack BF** | ne casse plus depuis le 16 | deux variables d'environnement — action de production, donc toi (**Q21**) |
+| **TAAMA** | déclaré en production | 18 PR dont une seule fusionnable, et le site public perdu (**Q14**) |
+| CompTrack | 21 PR, tronc contesté | on ne sait pas quel tronc fait foi (**Q15**) |
+
+**Hypothèse retenue** — elle n'abandonne rien et ne gèle aucune réparation :
+
+> Sur tout projet dont `premier_utilisateur_reel` est `null`, je ne descends plus au
+> niveau 6 du §5 (nouvelles fonctionnalités). Je répare, je documente, je mets en CI.
+> Je n'ajoute rien.
+
+Aucune PR n'est fermée, aucun dépôt n'est touché, et le travail en cours continue :
+les niveaux 1 à 5 restent ouverts partout.
+
 **Réponse de Steeve :** _(en attente)_
 
 ---
