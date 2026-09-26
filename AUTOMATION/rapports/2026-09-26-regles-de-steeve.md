@@ -142,6 +142,46 @@ aujourd'hui ».
 
 ---
 
+## 🔧 Et un chantier fini : CompTrack — PR #41
+
+La règle 6 dit que le goulot n'est pas le code. Une fois les mesures écrites, restait à
+trouver le seul travail de code **non bloqué et non déjà fait** du portefeuille. Il y en
+avait exactement un.
+
+**Le tronc de CompTrack qui livre la production n'avait aucun filet.** `git remote show origin`
+donne `HEAD branch: feat/comptrack-v1` — la règle 22 en direct — mais `main` la dépasse de
+**38 commits** et c'est de `main` que partent les déploiements. Et `main` n'a **aucun fichier
+`.github`** : zéro run de CI depuis la création du dépôt, sur 23 routes en service.
+
+Ma #38 apportait bien une CI, mais sur `feat/comptrack-v1`. **Même fusionnée, le tronc qui
+livre resterait sans filet.** C'était le seul des cinq troncs sans CI dont la PR visait la
+mauvaise branche — forja a la #27, taama la #35, livestockos la #9, duka-boutique la #11.
+
+**`next lint` était inutilisable en CI** : sans configuration ESLint, il ouvre un
+questionnaire interactif et attend le clavier. Ce n'est pas un lint qui échoue, c'est un lint
+qui n'a jamais tourné. Une fois branché, il trouve **6 erreurs** — cinq `any` (que `CLAUDE.md`
+interdit) et une apostrophe droite en JSX, corrigée avec l'apostrophe française `’`. Aucune
+règle désactivée.
+
+Et typer le tooltip a révélé un défaut que `any` masquait : `fcfa(e.value)` pouvait recevoir
+`undefined`. Les entrées sans valeur numérique sont écartées, **sans `?? 0`** — afficher
+« 0 FCFA » pour une valeur absente est le défaut de FORJA du 22, et un chiffre faux est pire
+qu'un chiffre absent.
+
+**PR #41** vers `main` : lint 6 → 0, `tsc` 0, **64/64 tests**, build 0, 23 routes. Trois
+sabotages, trois rouges. **Elle ne tranche pas Q15** : elle ne choisit pas quel tronc est le
+produit, elle protège celui qui est déjà en ligne.
+
+### Une erreur de mesure, à mon compte
+
+Mon premier `tsc` affichait huit erreurs et j'ai lu « code 0 » — qui était l'état de sortie de
+**`tail`**, pas de `tsc`, parce que j'avais mis la commande dans un tube. Les huit erreurs
+venaient d'un `.next/` laissé par un build d'un autre jour dans ce clone ; `.next` n'est pas
+suivi par git, donc une CI sur checkout neuf ne les voit jamais. Deux fautes en une mesure :
+lire l'état de sortie d'un tube, et prendre un artefact local pour l'état du dépôt.
+
+---
+
 ## Demain
 
 Reprendre la rotation là où elle s'est arrêtée — **comptrack** et **ueemt-tokat** sont les

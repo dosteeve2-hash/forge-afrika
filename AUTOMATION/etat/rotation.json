@@ -3,7 +3,7 @@
  "derniere_execution": "2026-09-26",
  "derniere_routine": "forge quotidien — TAAMA (triage des 18 PR) + veille des troncs passee en cron",
  "reportes": [],
- "prochaine_priorite": "comptrack puis ueemt-tokat — les deux bloques sur Q15 et Q17, a traiter sans y toucher comme TAAMA le 23.",
+ "prochaine_priorite": "ueemt-tokat (non traite depuis le 18) puis un des deux produits PUBLIES — burkinacollect ou problem-to-projects-africa — qui sont les plus proches du KPI et les seuls a zero PR ouverte. Les deux sont bloques sur Q12/Q13 : chercher la part du chantier qui ne traverse pas la question (regle 43).",
  "pr_ouvertes_suivies": [],
  "notes": "Architecture en vigueur depuis le 2026-09-06 : une routine quotidienne reveille la session vivante (les loops en sessions separees ne peuvent pas attacher de depot — parametre 'connectors' indisponible pour l'organisation). 24 loops restent desactives. Un a deux projets par jour. 2026-09-08 : premier passage en mode triage (hypothese Q7, non validee) sur FORJA — 12 PR ouvertes, seuil 5.",
  "tronc": "master",
@@ -83,7 +83,9 @@
   "38. LE REGISTRE N'EST PAS LE COMPTE : COMPTER LES DEPOTS CHEZ L'HEBERGEUR, JAMAIS DANS LE FICHIER. Le 26 septembre, registry.json decrivait 25 projets et j'aurais ecrit « 25 depots » pour la vingtieme fois. list_repos en renvoie 29 : `ambition` (pousse le 26 a 00h30), `combine` (le 23) et le depot de profil `dosteeve2-hash` (le 26 a 02h12) n'y figurent nulle part. Un registre est un instantane du jour ou on l'a ecrit — la meme faute que la regle 32, appliquee non a une recommandation mais au perimetre lui-meme. Corollaire : le denominateur du KPI de Phase 1 grandit sans que personne le decide.",
   "39. MON SILENCE N'EST PAS L'IMMOBILITE DU PORTEFEUILLE. J'allais ecrire « rien n'a bouge les 24, 25 et 26 septembre » parce que MA session n'avait rien fait. Faux : `ambition` a recu un push le 26 a 00h30, le depot de profil le 26 a 02h12, et livestock-os#5 — ouverte le 22 — porte la signature d'une AUTRE session (session_01QUfqgnpezD4RqCyNd7Am1d) et cite un repertoire `autopilot/reports/` que ce depot ne connait pas. Avant de declarer un jour perdu, mesurer les push du portefeuille, pas ses propres commits.",
   "40. UN INVENTAIRE DE MES PROPRES PR POURRIT COMME UN AUTRE. Je portais « 12 PR a moi, toutes vertes » depuis plusieurs jours ; une recherche par auteur en donne 20 ouvertes depuis le 2 septembre, dont trois que je ne suivais pas du tout (livestock-os#5, ambition#1, Mifa#47 et #48). Le chiffre le plus facile a ne jamais reverifier est celui dont on est l'auteur.",
-  "41. UN ZERO NON MESURE RESSEMBLE A UN ZERO MESURE. `etat/sante.json` portait date=null, projets={} et « critique: 0, majeur: 0, mineur: 0 » depuis sa creation : le scan du playbook 02 n'a jamais tourne. Lu vite, il annonce un portefeuille sain le jour ou 5 troncs sont sans CI, 1 est rouge, 91 PR attendent et le KPI de Phase 1 est a 0/3. Remplace par des null, avec un avertissement : des null se remarquent, des zeros se croient. Corollaire de la regle 19 — un compteur a zero doit dire s'il a ete mesure."
+  "41. UN ZERO NON MESURE RESSEMBLE A UN ZERO MESURE. `etat/sante.json` portait date=null, projets={} et « critique: 0, majeur: 0, mineur: 0 » depuis sa creation : le scan du playbook 02 n'a jamais tourne. Lu vite, il annonce un portefeuille sain le jour ou 5 troncs sont sans CI, 1 est rouge, 91 PR attendent et le KPI de Phase 1 est a 0/3. Remplace par des null, avec un avertissement : des null se remarquent, des zeros se croient. Corollaire de la regle 19 — un compteur a zero doit dire s'il a ete mesure.",
+  "42. NE JAMAIS LIRE L'ETAT DE SORTIE D'UN TUBE. `npx tsc --noEmit 2>&1 | tail -8; echo $?` affiche l'etat de `tail`, donc 0, meme quand tsc echoue. J'ai annonce « code tsc: 0 » sous huit erreurs TS2307 affichees juste au-dessus. Rediriger vers un fichier, lire l'etat, puis afficher le fichier. Et les huit erreurs elles-memes venaient d'un `.next/` laisse par un build d'un autre jour dans le clone : `.next` n'est pas suivi par git, donc une CI sur checkout neuf ne les voit jamais — un artefact local n'est pas l'etat du depot. Corollaire de la regle 21 (un clone superficiel fausse la racine) : le repertoire de travail ment aussi.",
+  "43. « C'EST LA DECISION QUI BLOQUE » MERITE D'ETRE TESTE COMME UNE MESURE. `sante-ci-troncs.json` concluait le 21 septembre que pour comptrack « c'est Q15 qui bloque, pas le code ». Vrai de la #38, qui vise la mauvaise branche. Faux du tronc : rien n'interdisait d'apporter une CI a `main` directement — proteger ce qui est deja en ligne n'est pas choisir quel tronc est le produit. Cinq jours a croire bloque ce qui etait faisable le jour meme. Quand une question de Steeve semble bloquer un chantier, chercher la part du chantier qui ne la traverse pas."
  ],
  "projets_traites_le_2026_09_10": [
   "mon-portfolio-2 (PR #10)",
@@ -178,5 +180,11 @@
   ],
   "ce_que_je_n_ai_pas_fait": "Aucun script ecrit aujourd'hui. La regle 6 dit que le goulot n'est pas le code : y repondre par un 19e controle CI aurait ete la contredire en l'appliquant.",
   "renvoye_a_steeve": "Q6, reecrite et reduite a trois lignes a remplir. Les regles 2 et 7 demandent de choisir et d'abandonner : les deux sont §3, donc a lui."
+ },
+ "projets_traites_le_2026_09_26": {
+  "regles_de_steeve": "Huit regles integrees au §5 bis. Mesures declenchees : KPI Phase 1 = 0/3, 63 % des PR sur des produits sans acheteur, 29 depots contre 25 au registre.",
+  "comptrack": "PR #41 — CI sur `main`, le tronc qui LIVRE. La #38 visait feat/comptrack-v1 : meme fusionnee, main restait sans filet. lint 6 -> 0, tsc 0, 64/64, build 0, 3 sabotages rouges. Q15 non tranchee.",
+  "veille_des_troncs": "20 reveils non traites depuis le 23 (file de notifications bloquee). Tour fait le 26 : 11/11 troncs inchanges, ecrireLocal toujours absent de duka-boutique/master.",
+  "corrige_chez_moi": "En-tete de QUESTIONS.md (AgroTrack « 500 depuis 25 jours », faux depuis le 16) ; etat/sante.json (« 0 critique » jamais mesure -> null) ; sante-ci-troncs.json (comptrack)."
  }
 }
