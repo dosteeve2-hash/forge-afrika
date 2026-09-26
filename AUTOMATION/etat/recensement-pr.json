@@ -36,7 +36,9 @@
           4
         ]
       },
-      "NOTE_TRONC": "Piege a repetition. GitHub designe `feat/comptrack-v1` comme branche par DEFAUT ; Vercel designe `main` comme branche de PRODUCTION — les 6 deploiements target=production en viennent tous, aucun de v1 (mesure le 15 septembre, regle 22). C'est `main` qui livre, donc c'est `main` le tronc. Le 20 septembre mon propre script a d'abord repris `feat/comptrack-v1` depuis le champ `tronc` du fichier d'etat et a declare que les 17 PR visant `main` « ne livreraient rien » : l'exact contraire. Corrige avant publication. Q15 reste ouverte sur ce qu'il faut FAIRE des deux branches."
+      "NOTE_TRONC": "Piege a repetition. GitHub designe `feat/comptrack-v1` comme branche par DEFAUT ; Vercel designe `main` comme branche de PRODUCTION — les 6 deploiements target=production en viennent tous, aucun de v1 (mesure le 15 septembre, regle 22). C'est `main` qui livre, donc c'est `main` le tronc. Le 20 septembre mon propre script a d'abord repris `feat/comptrack-v1` depuis le champ `tronc` du fichier d'etat et a declare que les 17 PR visant `main` « ne livreraient rien » : l'exact contraire. Corrige avant publication. Q15 reste ouverte sur ce qu'il faut FAIRE des deux branches.",
+      "tronc_qui_livre": "main (38 commits devant feat/comptrack-v1, qui est le HEAD GitHub) — tete au 2026-09-26 : 5f0a2f3",
+      "ma_pr_ci": "#41 vers main (26 sept). La #38 vise feat/comptrack-v1 et n'est pas reciblee (Q15)."
     },
     "taama": {
       "tronc": "main",
