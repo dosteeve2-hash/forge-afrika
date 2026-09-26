@@ -1,7 +1,7 @@
 {
   "projet": "ueemt-tokat",
   "tier": 2,
-  "derniere_execution": "2026-09-18",
+  "derniere_execution": "2026-09-26",
   "mode": "TRIAGE (7 PR ouvertes)",
   "verdict": "🟡 tronc sain depuis la fusion de ma #14 ; 6 PR ouvertes dont 4 visent une branche MORTE",
   "tronc": "main @ 3c0c098. La CI existe depuis la fusion de la #14 le 16 septembre ; avant elle, le depot n'en avait pas et le build echouait sans les secrets. 14 branches. Mesure le 2026-09-20.",
@@ -84,5 +84,12 @@
     "la_verite": "la CI existe depuis la fusion de la #14 le 16 septembre. Le champ `tronc` de ce fichier la disait absente cinq jours de trop.",
     "pr_ouvertes": 6,
     "repartition": "2 visent main (#12, #11) · 4 visent `dev` (#8, #7, #6, #5), branche morte mesuree le 18 — 0 commit unique, 33 de retard. Q17."
+  },
+  "MESURE_2026_09_26_16h": {
+    "tronc_a_bouge": "main 3c0c098 -> f9c299e. La PR #15 « Module La Main — palette navy/gold/cyan + statut retard » a ete fusionnee a 14h08 UTC. Elle n'est pas de moi.",
+    "ou_la_fusion_a_atterri": "Verifie (regle 29) : `src/app/tontine/` porte 13 fichiers sur origin/main. Le module est bien livre.",
+    "effet_sur_les_PR_soeurs": "Teste EN FUSIONNANT (regles 27 et 28) : #11 (logos historiques) fusionne proprement ; #12 (photo fondateur) est DESORMAIS EN CONFLIT sur 1 fichier — consequence mecanique de la fusion du 26. Aucune des deux n'est de moi : signalees, pas touchees (§3).",
+    "consequence_pour_Q10": "FORJA porte une COPIE de ce module — 8 fichiers, 1 420 lignes, injoignable, et /tontine y renvoie 500 en production (mesure le 22). L'original vient de gagner 5 fichiers et la palette FORGE. L'ecart se creuse : le module vivant est ici, la copie de FORJA est morte. Cela ne tranche pas Q10, qui reste la decision de Steeve, mais cela la rend plus facile.",
+    "ma_pr_14": "Fusionnee le 16. Je n'ai plus aucune PR ouverte sur ce depot."
   }
 }
