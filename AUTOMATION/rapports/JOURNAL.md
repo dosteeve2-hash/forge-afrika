@@ -68,3 +68,19 @@ system prompt propre. C'était dans mon propre fichier d'état depuis le 16 sept
 ne l'avais pas relu. → **règle 47**. Et **règle 48** : un module sans importeur n'est pas
 une fonctionnalité.
 Le dépôt s'appelle désormais `Problem-to-Projects-Africa` ; l'ancien nom redirige.
+
+## 2026-09-27 · 12h22 UTC — COMBINE est visitable, et je l'avais déclaré impossible
+Après le tour de veille, j'ai testé ce que je croyais hors de portée : le connecteur Vercel
+**passe** là où le proxy du conteneur répond 403. Une prévisualisation **READY** sert
+COMBINE depuis le 26 septembre 12h43 UTC — produite par mon propre correctif de `lib/db.ts`,
+36 minutes après l'échec que je citais pour dire que rien ne marchait. PR **combine#3**,
+CI 3/3 verte, parcours navigateur inclus.
+`https://combine-a4awxupzq-dosteeve2-8163s-projects.vercel.app` — Steeve y accède connecté
+à son compte Vercel ; un visiteur extérieur tombe sur l'authentification Vercel. La
+production depuis `main` reste **BLOCKED** (configuration d'équipe) et `DATABASE_URL` n'est
+posé nulle part : tout ce qui touche la base échouera. Q21, et les quatre gestes restants
+sont les siens.
+→ **règle 49** (le refus du proxy n'est pas celui de la session) et **règle 50** (une
+prévisualisation READY n'est pas un site public).
+Au passage : COMBINE est enfin **dans le registre** (26e projet), et j'ai corrigé mon
+comptage — **six** PR ouvertes et vertes, pas cinq (règle 40).

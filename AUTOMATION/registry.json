@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "derniere_maj": "2026-09-05",
+  "derniere_maj": "2026-09-27",
   "owner": "dosteeve2-hash",
   "_doc": "Registre central de TOUS les projets de Steeve. Chaque projet a SON PROPRE loop (une Routine Claude dediee) dont l'horaire est dans le champ 'loop'. Un loop = une session entiere pour un seul depot. 'tier' 1=coeur Phase 1 (quotidien), 2=vitrine/business (hebdomadaire), 3=archive (mensuel). Les horaires sont en UTC ; Steeve est a Tokat (UTC+3). 'a_confirmer'=true : description deduite, a corriger par le loop apres lecture reelle du repo.",
   "projets": [
@@ -196,7 +196,8 @@
         "cron_utc": "43 3 * * *",
         "heure_utc": "03:43",
         "heure_turquie": "06:43"
-      }
+      },
+      "_renomme_2026_09_27": "Le depot s'appelait problem-to-projects-africa ; l'ancien nom redirige."
     },
     {
       "id": "mon-portfolio-2",
@@ -459,6 +460,27 @@
       "a_confirmer": false,
       "verifie_2026_09_15": "Ce n'est pas un projet : c'est le tutoriel d'installation de GitHub Desktop. README d'origine mot pour mot, ligne 6 jamais remplie. Branche 'Donald' au MEME SHA que main (verifie). Depot PRIVE. A supprimer.",
       "ne_pas_recontroler": "Aucun contenu reel : un controle mensuel n'y produit rien."
+    },
+    {
+      "id": "combine",
+      "repo": "dosteeve2-hash/combine",
+      "nom": "COMBINE",
+      "tier": 1,
+      "phase": 1,
+      "categorie": "financement",
+      "url": "https://combine-a4awxupzq-dosteeve2-8163s-projects.vercel.app",
+      "_url_note": "Previsualisation de la branche claude/deployer-vercel (PR #3), protegee par Vercel Authentication : Steeve y accede connecte a son compte, le public non. La production depuis main est BLOCKED au niveau de la configuration d'equipe.",
+      "mission": "Reunir au meme endroit les porteurs de projets africains, les incubateurs qui les accompagnent et les financeurs qui les cherchent.",
+      "ambition": "Faire passer un prototype au capital : dossier horodate et verifiable, appels, evaluations, export bailleur, portefeuille de participations, passerelle FORGE.",
+      "spec": "MISE-EN-LIGNE.md (dans le depot combine)",
+      "_ajoute_le": "2026-09-27 — le depot existe depuis le 26 septembre, 12e filiale de lib/constants.ts. Absent du registre jusqu'ici : c'est la regle 38, le registre n'est pas le compte.",
+      "loop": {
+        "frequence": "quotidien",
+        "cron_utc": "33 4 * * *",
+        "heure_utc": "04:33",
+        "heure_turquie": "07:33",
+        "_note": "Creneau de PLANNING, pas une Routine. Les 26 loops sont eteints depuis le 6 septembre (Q19) et seule la session vivante tourne : ce champ dit quand COMBINE passerait si Steeve les rallumait, il ne rallume rien. Le controle du registre exige qu'un projet tier 1 soit quotidien ; ce creneau 04h33 UTC etait libre."
+      }
     }
   ],
   "_source_verite": "Les missions, noms et URLs des filiales viennent de lib/constants.ts (FILIALES_FORGE) sur la branche master — source de verite du site QG. Les metriques qui y figurent (utilisateurs, transactions, CA) n'ont PAS ete reprises ici : leur caractere reel ou illustratif reste a confirmer par Steeve (cf. QUESTIONS.md).",
