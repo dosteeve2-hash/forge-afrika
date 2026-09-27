@@ -53,5 +53,21 @@
     "mesure_le": "2026-09-21",
     "methode": "API GitHub Actions, list_workflow_runs filtre sur le tronc reel — pas sur la branche par defaut (regle 31)",
     "detail": "AUCUNE CI sur master — zero run mesure le 21 septembre. C'est la #11 qui en apporterait une, et c'est aussi elle qui livrerait enfin ecrireLocal."
+  },
+  "MESURE_2026_09_27": {
+    "production": "EN LIGNE : duka-kappa.vercel.app, domaine verifie depuis le 25 juillet. Deploiement de production READY depuis master @ c10e0e7 du 10 aout. Projet Vercel nomme « duka » (regle 52 : le nom ne dit pas le depot — verifie par repoUrl). Le code servi est exactement celui qui perd la vente.",
+    "mecanisme_de_la_vente_perdue": {
+      "ou": "lib/storage.ts, fonction update, au tronc",
+      "defaut_1": "l'ecriture localStorage est un effet de bord place DANS l'updater de setValue. React peut rejouer un updater ; ce n'est pas un endroit pour une entree-sortie.",
+      "defaut_2": "le catch est MUET. Stockage plein, navigation privee, quota depasse : la vente n'existe plus que dans la memoire de React. Le commercant voit son recu, l'imprime, et la vente disparait a la fermeture de l'onglet. Le commentaire l'admet — « data stays in memory for this session » — sans que rien ne le dise a l'ecran.",
+      "pourquoi_c_est_grave": "VISION.md §4 : stockage plein est un CAS NOMINAL, pas un cas limite. Sur un Android d'entree de gamme, ce n'est pas rare."
+    },
+    "correctif_deja_ecrit_PR_11": {
+      "ouverte_le": "2 septembre 2026 — 25 jours",
+      "contenu": "lib/persistance.ts (109 l., ecrireLocal + signalerEchec), lib/storage.ts (valeur en useRef, ecriture hors updater), components/AlerteStockage.tsx (53 l., l'echec devient VISIBLE), __tests__/persistance.test.ts (75 l.), .github/workflows/ci.yml — la premiere CI de ce depot",
+      "verifie_le_2026_09_27": "CI de la PR verte. Fusion testee sur le tronc courant (regle 27) : zero conflit, EN AVANCE RAPIDE, la branche contient master. L'arbre fusionne passe lint, tsc --noEmit, 80 tests en 4 fichiers, et build.",
+      "note": "le titre dit « 0 -> 64 » tests ; la branche en porte 80 depuis qu'elle a absorbe la #12."
+    },
+    "ce_qu_il_y_a_a_faire": "RIEN A CODER. Une fusion. C'est le seul cas de toute ma file ou une fusion repare quelque chose qu'un commercant reel perdrait. Je n'ai ouvert aucune PR de plus sur ce depot : en ajouter une neuvieme pendant que celle-ci attend serait ajouter au probleme."
   }
 }

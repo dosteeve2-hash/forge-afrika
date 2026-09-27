@@ -112,3 +112,18 @@ Deux bonus de la route de santé : le corpus a **428 fragments réels** (23 sour
 crédibilité 83,8), et `hasLlmKey: false` — l'agent répond sans modèle, par synthèse locale.
 → **règle 52** : le nom d'un projet Vercel ne dit pas quel dépôt il sert.
 À Steeve : renommer le projet, ou un projet par dépôt. Interdit pour moi (§3 règle 6).
+
+## 2026-09-27 · 20h05 UTC — SUGU : la vente perdue sert en production depuis le 10 août
+Quinze troncs inchangés, `ecrireLocal` toujours absent. Donc SUGU en entier. Mesuré par le
+connecteur Vercel : **`duka-kappa.vercel.app`** est en ligne depuis le 25 juillet, son
+déploiement de production vient de `master` @ `c10e0e7` **du 10 août**, et ce tronc n'a
+**aucune CI**. Le code servi est exactement celui qui perd la vente : l'écriture
+`localStorage` est un effet de bord placé dans l'updater de `setValue`, avec un `catch` muet
+— stockage plein, la vente reste en mémoire, le reçu s'imprime, et tout disparaît à la
+fermeture de l'onglet. `VISION.md §4` appelle ça un **cas nominal**.
+Le correctif est écrit depuis le **2 septembre** : PR **#11** (`ecrireLocal`,
+`signalerEchec`, `AlerteStockage` qui rend l'échec visible, 75 lignes de tests, et la
+première CI du dépôt). Vérifié aujourd'hui : CI verte, fusion en **avance rapide sans
+conflit** sur le tronc courant, et l'arbre fusionné passe lint, types, **80 tests** et build.
+**Rien à coder.** Une fusion, et un commerçant cesse de perdre une vente. 25 jours d'attente.
+Aucune PR ouverte de plus sur ce dépôt : ce serait ajouter au problème décrit.
