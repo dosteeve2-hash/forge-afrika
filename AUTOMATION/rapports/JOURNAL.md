@@ -84,3 +84,17 @@ sont les siens.
 prévisualisation READY n'est pas un site public).
 Au passage : COMBINE est enfin **dans le registre** (26e projet), et j'ai corrigé mon
 comptage — **six** PR ouvertes et vertes, pas cinq (règle 40).
+
+## 2026-09-27 · 16h05 UTC — african-hybrid-agent : le cache répondait à côté
+Rien n'avait bougé sur les quatorze troncs, `ecrireLocal` toujours absent (13e jour). Donc
+mesure du projet inscrit : **african-hybrid-agent**, le plus complet du portefeuille
+(217 fichiers, 55 tests). Son verbe de métier est là, et sa **limite de débit est conforme**
+à `CLAUDE.md` — 20 requêtes/heure, citée en commentaire, compteur partagé quand Redis répond.
+Mais sa clé de cache tronquait le base64 des messages à 32 caractères, soit 24 octets, soit
+exactement `[{"role":"user","content` : **la question tombait hors de la clé**. Dans une
+session, la 1re réponse était servie à toutes les suivantes pendant 24 h, avec
+`fromCache: true`. Trouvé en calculant la clé sur deux questions — identiques toutes les
+deux. Invisible en CI : sans Redis, le cache ne fait rien.
+Corrigé en **PR draft #8** (condensé SHA-256 de la conversation + mode + options, 5 tests).
+**`/api/chat` n'a jamais été sollicité.** → **règle 51**.
+Sept PR ouvertes maintenant, toutes vertes.

@@ -58,5 +58,28 @@
     "pr_ouvertes": 5,
     "EMPILEE": "#5 a pour base `feat/improvements-0629`, qui est exactement la TETE de la #4 (egalite de SHA 12e94045 verifiee). La fusionner la verserait dans la #4, pas dans main.",
     "ordre_de_fusion": "fusionner la #4 d'abord, puis la #5 — ou recibler la #5 sur main."
+  },
+  "MESURE_2026_09_27": {
+    "tronc": "main @ f99cc32, inchange",
+    "le_verbe_du_metier": "Repondre avec des sources : /api/chat -> lib/agent/orchestrator -> RAG (embeddings, retrieve, corpus) -> reponse + citations, avec journal d'audit, cache Redis et repli 'local-synthesis' quand aucun modele n'est joignable. C'est le projet le plus complet du portefeuille : 217 fichiers, 55 tests, 5 suites.",
+    "la_limite_de_debit_EST_CONFORME": "AI_RATE_LIMIT = { limit: 20, windowSeconds: 3600 } dans lib/rate-limit.ts, appliquee des la premiere ligne de POST /api/chat, avec un commentaire qui cite la regle CLAUDE.md. Compteur Redis partage quand Redis repond (shared: true), repli en memoire par instance sinon (shared: false) — l'ecart est signale a l'appelant, pas cache. Rien a corriger.",
+    "DEFAUT_TROUVE_ET_CORRIGE": {
+      "ce_que_c_etait": "La cle de cache d'un tour de chat tronquait le base64 du JSON des messages a 32 caracteres. Ces 32 caracteres ne couvrent que 24 octets, soit '[{\"role\":\"user\",\"content' : le texte de la question tombait ENTIEREMENT hors de la cle.",
+      "consequence": "Dans une session donnee, la premiere reponse etait servie a toutes les questions suivantes pendant 24 h (ttl 86400), avec fromCache: true. Sur un agent dont le metier est de repondre avec des sources, c'est la panne la plus grave, et la plus silencieuse : une reponse bien formee arrive quand meme.",
+      "pourquoi_personne_ne_l_a_vue": "Sans Redis, getFromCache renvoie null et setInCache false : le cache est inerte en local et en CI. Le defaut n'existe qu'en production.",
+      "verification": "Calcul de la cle sur deux questions differentes : identiques, W3sicm9sZSI6InVzZXIiLCJjb250ZW50 les deux. Pas un raisonnement, une mesure.",
+      "correctif": "PR draft #8, branche claude/cache-qui-repond-a-cote : condense SHA-256 de la conversation entiere + mode + options, dans lib/cache/chat-cache-key.ts, avec 5 tests dont celui qui verrouille la regression. tsc, lint, 55 tests et build passent.",
+      "api_chat_JAMAIS_SOLLICITE": "Le defaut a ete etabli par lecture et par calcul de la cle. Aucun appel a /api/chat : le tester depenserait le credit que la limite protege."
+    },
+    "reste_a_voir": "lib/cache/redis.ts l.108 et 116 encodent la cle de recherche en base64 sans tronquer : pas de defaut, mais longueur non bornee. Signale dans la PR #8, hors de son perimetre.",
+    "mes_pr": [
+      {
+        "numero": 8,
+        "branche": "claude/cache-qui-repond-a-cote",
+        "tete": "582fe27",
+        "etat": "draft ouverte",
+        "objet": "la cle de cache effacait la question"
+      }
+    ]
   }
 }
