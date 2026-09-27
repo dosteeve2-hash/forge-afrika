@@ -1,9 +1,9 @@
 {
  "_doc": "Priorite generale du lendemain, tous projets confondus. Ecrit par le DIGEST seul (playbook 03). Les loops par projet ont leur propre memoire dans etat/projets/<id>.json et ne touchent jamais ce fichier. Voir AUTOMATION/README.md §4.",
  "derniere_execution": "2026-09-27",
- "derniere_routine": "forge quotidien — TAAMA (triage des 18 PR) + veille des troncs passee en cron",
+ "derniere_routine": "veille des troncs 12h05 — aucun des 13 troncs n'a bouge, donc chantier de rotation : problem-to-projects-africa mesure a la regle 45",
  "reportes": [],
- "prochaine_priorite": "problem-to-projects-africa — le second des deux produits reputes publies. Verifier de la meme facon que pour burkinacollect : chercher le VERBE du metier dans le code avant de le croire fonctionnel (regle 45). Q13 dit que la branche livree n'a pas l'IA ; mesurer ce qu'elle a.",
+ "prochaine_priorite": "Vider la file des PR draft avant de mesurer un projet de plus. Cinq sont ouvertes et VERTES : forge-afrika#10, Problem-to-Projects-Africa#11, burkinacollect#5, comptrack#41, dosteeve2-hash#3. Aucune n'attend de travail de ma part — elles attendent un clic de Steeve. Tant qu'elles s'empilent, chaque mesure de plus produit une PR de plus et zero changement dans le portefeuille (regle 40). Si Steeve n'a rien fusionne : le projet suivant du tour est african-hybrid-agent, en n'oubliant pas de NE JAMAIS solliciter /api/chat.",
  "pr_ouvertes_suivies": [],
  "notes": "Architecture en vigueur depuis le 2026-09-06 : une routine quotidienne reveille la session vivante (les loops en sessions separees ne peuvent pas attacher de depot — parametre 'connectors' indisponible pour l'organisation). 24 loops restent desactives. Un a deux projets par jour. 2026-09-08 : premier passage en mode triage (hypothese Q7, non validee) sur FORJA — 12 PR ouvertes, seuil 5.",
  "tronc": "master",
@@ -88,7 +88,9 @@
   "43. « C'EST LA DECISION QUI BLOQUE » MERITE D'ETRE TESTE COMME UNE MESURE. `sante-ci-troncs.json` concluait le 21 septembre que pour comptrack « c'est Q15 qui bloque, pas le code ». Vrai de la #38, qui vise la mauvaise branche. Faux du tronc : rien n'interdisait d'apporter une CI a `main` directement — proteger ce qui est deja en ligne n'est pas choisir quel tronc est le produit. Cinq jours a croire bloque ce qui etait faisable le jour meme. Quand une question de Steeve semble bloquer un chantier, chercher la part du chantier qui ne la traverse pas.",
   "44. UN DEPLOIEMENT « BLOCKED » N'EST PAS UN DEPLOIEMENT « ERROR ». Sur combine, les previews echouent au build sur DATABASE_URL absent (lisible dans le journal), mais le deploiement de PRODUCTION depuis main est BLOCKED et n'a AUCUN evenement de build : il n'a jamais compile. Son errorLink pointe vers troubleshoot-project-collaboration#team-configuration. Lire le journal de build d'un deploiement bloque ne donne rien et fait croire a tort que la cause est la meme que celle des previews. Verifier l'etat (`state`) avant de chercher une cause dans les journaux.",
   "45. UN DEPOT SAIN N'EST PAS UN PRODUIT QUI MARCHE. BurkinaCollect passe lint, typecheck, 8 tests et build — tout est vert, et il ne collecte rien : zero <form>, zero <input>, zero fetch dans tout src/. Les contrôles verifient que le code ecrit fonctionne, jamais qu'il existe. Pour juger un produit, chercher d'abord le verbe de son metier dans le code (un collecteur a un formulaire, une boutique a un panier, une compta a une ecriture) — pas l'etat de sa CI.",
-  "46. TOUT TITRE COMMENCANT PAR # EST UNE QUESTION DANS QUESTIONS.md. Le 16e controle lit `ligne.startswith('###')` : `####` est attrape aussi. J'ai devine deux fois avant de lire la regle du script. Lire le garde-fou avant de contourner son refus, et se conformer a sa convention (gras pour un sous-titre) plutot que de l'elargir — un controle qui refuse fait son travail."
+  "46. TOUT TITRE COMMENCANT PAR # EST UNE QUESTION DANS QUESTIONS.md. Le 16e controle lit `ligne.startswith('###')` : `####` est attrape aussi. J'ai devine deux fois avant de lire la regle du script. Lire le garde-fou avant de contourner son refus, et se conformer a sa convention (gras pour un sous-titre) plutot que de l'elargir — un controle qui refuse fait son travail.",
+  "47. AVANT D'ECRIRE QU'UNE CHOSE MANQUE, CHERCHER SI ELLE EXISTE SUR UNE AUTRE LIGNEE DU MEME DEPOT. J'ai annote lib/ai/ de problem-to-projects-africa en disant qu'aucun rate limit ni delimiteur XML n'existait « dans ce depot ». Faux : master detient le SDK Anthropic, 4 contextes pays, Zod, 5 requetes/minute par IP et un system prompt constant — et c'etait ecrit dans mon propre fichier d'etat depuis le 16 septembre. Sur un depot a deux racines sans ancetre commun, « ca n'existe pas » ne veut dire que « pas sur la branche que je regarde ». Relire le fichier d'etat du depot AVANT d'ecrire une absence, pas apres.",
+  "48. UN MODULE SANS IMPORTEUR N'EST PAS UNE FONCTIONNALITE. lib/sync/sync-service.ts fait 200 lignes, vise 9 endpoints dont aucun n'existe, et rien dans src/ ne l'importe : l'offline-first du produit est dans l'intention, pas dans le service. Corollaire de la regle 45 : apres avoir trouve le verbe du metier, chercher QUI L'APPELLE (grep -rn '<module>' src en excluant le module lui-meme) et si la route visee existe (find src/app -name route.ts). Une page sans lien entrant et un fetch vers une route absente sont le meme defaut : du code qui ne peut pas s'executer."
  ],
  "projets_traites_le_2026_09_10": [
   "mon-portfolio-2 (PR #10)",
@@ -208,7 +210,8 @@
   "base_a_bouge": "master ddf59cc -> cb84b51 : la PR #13 (photo sur telephone + section certifications) a ete fusionnee a 10h15. Elle n'est pas de moi.",
   "ma_pr_11": "Testee EN FUSIONNANT sur le nouveau master (regle 27) : fusion propre, zero conflit. Et le resultat fusionne est vert — lint, tsc, check-messages, check-motion, build. Le garde-fou check-motion que la #11 apporte ne casse pas sur les fichiers de la #13 (aucun nouvel import gsap/lenis). Rien a corriger : elle attend un clic."
  },
- "projets_traites_le_2026_09_27": {
-  "burkinacollect": "Mesure : le produit ne collecte rien. PR #5 retire une note mensongere sur un backoff inexistant. Q12 reecrite — elle sous-estimait le probleme : ce n'est pas le README, c'est le site."
- }
+ "projets_traites_le_2026_09_27": [
+  "comptrack (veille 08h : le tronc a bouge, ce n'etait pas une fusion mais un push direct de Steeve ; PR #41 retestee par fusion, zero conflit)",
+  "problem-to-projects-africa, renomme Problem-to-Projects-Africa (regle 45 : le verbe du metier EST la et marche — /intake -> /api/recommend -> moteur deterministe -> /results, persiste dans Supabase. Trois chemins morts annotes en PR draft #11, rien supprime. Mon affirmation sur lib/ai/ corrigee dans l'heure : la couche de generation existe sur master, c'est Q13.)"
+ ]
 }
