@@ -126,5 +126,11 @@
       "verifie_le": "2026-09-26",
       "quoi": "PR #41 ouverte vers main, draft, verte en local (lint 0, tsc 0, 64/64, build 0)."
     }
+  },
+  "MESURE_2026_09_27": {
+    "tronc_a_bouge": "main 5f0a2f3 -> e5518e3, le 27 a 09h04 heure de Turquie. Ce n'est PAS une fusion de PR : c'est un push direct de Steeve sur son propre tronc — « docs: add Golden Prompt, AI security rules and Karpathy principles », CLAUDE.md et specs/GOLDEN_PROMPT.md, 28 lignes ajoutees.",
+    "ce_que_ca_dit": "Steeve propage sa doctrine (principes Karpathy, regles de securite IA) dans les CLAUDE.md de ses depots, pas seulement dans celui du QG.",
+    "effet_sur_ma_PR_41": "Teste EN FUSIONNANT sur le nouveau tronc (regle 27) : zero conflit, et l'arbre fusionne passe lint, tsc, tests et build. Rien a corriger. Elle attend toujours un clic.",
+    "verifie_le": "2026-09-27"
   }
 }
