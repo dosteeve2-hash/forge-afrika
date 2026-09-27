@@ -1,7 +1,7 @@
 {
   "projet": "burkinacollect",
-  "derniere_execution": "2026-09-19",
-  "verdict": "🟠 l'application est publiee ; le README promet NEUF fonctionnalites pour DEUX pages",
+  "derniere_execution": "2026-09-27",
+  "verdict": "🔴 le site est une plaquette : zero <form>, zero <input>, zero fetch dans tout src/. Le hook hors-ligne est teste, annonce sur /about, et branche a rien.",
   "depot_public": true,
   "tronc": "main @ a4ec55b — 17 fichiers depuis la fusion de la #4. Etait a 2 fichiers jusqu'au 16 septembre.",
   "constat_central": "L'application (17 fichiers, Next.js 16) vit dans la PR #4, ouverte le 2 septembre et laissee EN BROUILLON. Le README de main promet six fonctionnalites (dashboard, form builder, sync queue, agents, carte, dashboard superviseur) dont AUCUNE n'existe dans aucune branche : la branche la plus avancee a deux routes, / et /about. Le README affiche meme son logo via public/favicon.ico, fichier absent de main — le logo est casse sur la page GitHub.",
@@ -34,7 +34,7 @@
     }
   },
   "non_verifie": "burkinacollect.vercel.app : le proxy reseau de la session bloque ce domaine. Si Vercel construit depuis la branche par defaut, il ne peut pas y avoir d'application — main n'a pas de package.json.",
-  "prochain_chantier": "Fermer la #3 (absorbee). Puis Q12 : corriger le tableau « Fonctionnalites » ou construire — c'est une parole publique, donc celle de Steeve (protocole §3 regle 10). Rien a construire ici tant qu'il n'a pas tranche.",
+  "prochain_chantier": "Ne rien construire ici sans Q12. Si Steeve choisit A (aligner le site sur la realite), c'est sa parole a ecrire. S'il choisit B (construire le formulaire), c'est le chantier qui ferait de BurkinaCollect un vrai candidat au KPI — brancher useOfflineSync sur un formulaire reel.",
   "dette_connue": [
     "README.md decrit six fonctionnalites qui n'existent nulle part — a corriger, mais c'est la parole de Steeve (protocole §3 regle 10), je ne l'ai pas touche.",
     "public/favicon.ico reference par le README mais absent de main.",
@@ -65,5 +65,20 @@
     "tronc_reel": "main @ a4ec55b — le champ `tronc` etait EXACT",
     "pr_ouvertes": 0,
     "consequence": "la #3 a ete fermee ou fusionnee depuis. Zero PR ouverte : ce depot attend une decision sur son README (Q12), pas un clic."
+  },
+  "MESURE_2026_09_27": {
+    "tronc": "main @ a4ec55b, clone complet (is-shallow false)",
+    "pages": "deux — / et /about",
+    "formulaires": "AUCUN. Cherche <form>, <input>, <textarea>, fetch( dans tout src/ : zero occurrence.",
+    "hook_hors_ligne": "hooks/useOfflineSync.ts — 8 tests, solide (file locale, ecoute de `online`, rejeu auto, items epuises conserves). MAIS aucune page ne l'importe. Seuls les tests l'utilisent.",
+    "chiffres_en_dur": "src/app/page.tsx affiche « 500+ Collecteurs formes », « 1 200+ Formulaires crees », « 35 Regions couvertes » comme des faits, sur un site public, pour un produit sans formulaire.",
+    "a_verifier_par_steeve": "« 35 regions » ne correspond a aucun decoupage du Burkina que je connaisse (13 regions, 17 depuis 2024 ; 45 provinces). Je ne peux pas verifier depuis cette session.",
+    "sante_technique": "lint OK, typecheck OK, 8 tests OK, build OK. Le depot est sain — ce sont les AFFIRMATIONS qui sont fausses, pas le code.",
+    "affirmation_refutee": "BurkinaCollect etait compte parmi les deux seuls produits PUBLIES, donc les plus proches du KPI de Phase 1. C'est faux : publie n'est pas fonctionnel. Un produit qui ne collecte rien n'aura pas d'utilisateur reel.",
+    "suite_donnee": {
+      "etat_de_la_pr": "OUVERTE",
+      "verifie_le": "2026-09-27",
+      "quoi": "PR #5 — retire la note « exponential backoff retry » qui decrivait une protection inexistante. Rien d'autre touche : le contenu public est Q12, donc a Steeve."
+    }
   }
 }

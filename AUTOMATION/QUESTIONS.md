@@ -42,7 +42,7 @@ aucune page de connexion. Les autres peuvent attendre sans rien bloquer.
 | **Q6** | 🎯 **Trois produits, trois acheteurs — trois lignes à remplir** | le KPI de sortie de Phase 1, mesuré à **0/3** le 26 septembre | pas de nouvelle fonctionnalité sur un projet sans utilisateur nommé ; rien fermé, rien abandonné |
 | Q7 | 🧹 Construire quand 5 PR attendent déjà ? | le mode triage — **modification du protocole, non appliquée** | seuil à 5, en attente de ton accord |
 | Q10 | ☕ FORJA fait-il encore de l'export de café ? | 11 PR à fermer plutôt qu'à fusionner | le tronc a raison |
-| Q12 | 📄 Le README de BurkinaCollect décrit un produit absent | réécrire le README ou construire le produit | README d'abord, rien modifié |
+| **Q12** | 📄 **BurkinaCollect ne collecte rien** — zéro `<form>`, zéro `<input>`, zéro `fetch` dans tout `src/` | aligner le site sur la réalité, ou construire le produit | site inchangé, rien modifié |
 | **Q13** | 🌿 Problem to Projects Africa : la branche livrée n'a pas l'intelligence | 61 fichiers dormants, dont toute la génération IA et 4 contextes pays | `main` reste le tronc, **rien porté** |
 | Q14 | 🏭 TAAMA : le site public doit-il revenir ? | restaurer `/tarifs` et `/demo` depuis les PR #10/#12 | oui, à restaurer |
 | **Q15** | 🧾 CompTrack : une vitrine tourne, le produit non | faire servir `v1`, ou assumer que c'est un prototype | aucune — je ne tranche pas |
@@ -311,35 +311,66 @@ Elle se fusionne sans rien décider d'autre.
 
 ---
 
-### Q12 — Le README de BurkinaCollect décrit un produit qui n'existe pas (2026-09-08)
+### Q12 — BurkinaCollect ne collecte rien (2026-09-08, **remesurée le 27 septembre**)
 
-Le dépôt est **public**. *(Mis à jour le 19 : depuis la fusion de la #4 le 16 septembre, `main` porte **17 fichiers** et l'application est en ligne. Le point n° 1 ci-dessous — la perte silencieuse de soumissions — est **corrigé sur le tronc**.)*
+> **Cette question sous-estimait le problème, et de loin.** Elle parlait du README. Le
+> décalage n'est pas dans le README : il est dans le site lui-même, qui est public.
 
-Ce README présente pourtant un produit fini — badges Next.js 16 / React 19 / TypeScript /
-Tailwind, un lien « 🌍 Voir le site live » vers `burkinacollect.vercel.app`, et six
-fonctionnalités : dashboard opérationnel, form builder, sync queue offline, gestion des agents,
-carte des zones, dashboard superviseur. **Aucune n'existe.** *(Revu le 19 : le tableau en présente **neuf**, pas six — j'avais compté court. Et la **PR #4 a été fusionnée le 16** : l'application est publiée, avec deux routes, `/` et `/about`. Le décalage est donc plus visible qu'avant, pas moins — un visiteur clique et trouve deux pages là où le tableau en promet neuf.)*
+**Mesuré le 27 septembre sur `main` (a4ec55b), pas supposé :**
 
-Ce n'est pas une question technique, c'est une question de parole publique — donc la tienne.
+| Ce que j'ai cherché | Ce que j'ai trouvé |
+|---|---|
+| `<form>` dans tout `src/` | **aucun** |
+| `<input>`, `<textarea>` | **aucun** |
+| `fetch(` | **aucun** |
+| pages | **deux** — `/` et `/about` |
+| qui importe `useOfflineSync` | **personne** — seulement les tests |
+
+**BurkinaCollect ne collecte rien.** Les deux pages sont une plaquette commerciale. Le
+seul code métier du dépôt, le hook de synchronisation hors-ligne, est testé (8 tests),
+annoncé sur `/about` — « Offline — Hook useOfflineSync maison » — et **branché à rien**.
+
+C'est le motif de la tontine de FORJA, en pire : là-bas le module mort était injoignable
+et personne ne l'annonçait. Ici, la page d'à-propos le présente aux visiteurs.
+
+**Les trois chiffres de la page d'accueil.**
+
+```
+500+     Collecteurs formés
+1 200+   Formulaires créés
+35       Régions couvertes
+```
+
+Ils sont en dur dans `src/app/page.tsx` et affichés comme des faits sur un site public,
+pour un produit qui n'a **aucun formulaire**. C'est **Q2** (les métriques sont
+illustratives) appliqué non plus à une vitrine interne mais à la promesse publique d'un
+produit.
+
+⚠️ **Un point à vérifier de ton côté :** « 35 régions couvertes » ne correspond à aucun
+découpage administratif du Burkina Faso que je connaisse — le pays compte 13 régions
+(17 depuis la réforme de 2024) et 45 provinces. Je ne peux pas vérifier depuis cette
+session, mais le chiffre semble ne renvoyer à rien.
+
+**Ce que ça change pour la Phase 1.**
+
+BurkinaCollect était, avec Problem-to-Projects, l'un des **deux seuls produits publiés** et
+donc l'un des plus proches du KPI de sortie. La mesure le retire de cette liste : un
+produit qui ne collecte rien n'aura pas d'utilisateur réel, quelle que soit sa vitrine.
 
 | | Quoi | Effet |
 |---|---|---|
-| **A. Corriger le README** | décrire ce qui existe, et déplacer les six fonctionnalités dans une section « feuille de route » | le dépôt redevient honnête tout de suite ; la promesse reste lisible, mais datée |
-| **B. Construire ce que le README annonce** | six fonctionnalités à écrire | c'est un vrai chantier, pas une correction ; entre-temps le décalage reste public |
-| **C. Rendre le dépôt privé le temps de rattraper** | | tu perds la vitrine, qui est peut-être ce à quoi elle sert |
+| **A** | Aligner le site sur ce qui existe, et déplacer les promesses dans une feuille de route datée | honnête tout de suite ; la vision reste lisible |
+| **B** | Construire le formulaire de collecte et brancher `useOfflineSync` | c'est **le produit**, pas une correction. Une semaine de travail au moins |
+| **C** | Rendre le dépôt privé le temps de rattraper | tu perds la vitrine, qui est peut-être son seul rôle aujourd'hui |
 
-**Hypothèse retenue : A**, puis B au rythme des loops. **Je n'ai rien modifié** : réécrire la
-promesse publique d'un projet est ta parole, pas la mienne — même limite que `PROJECT.md` et
-`VISION.md` (`00-protocole-forge.md §3`, règle 10).
+**Hypothèse retenue : A**, et **je n'ai rien modifié**. Réécrire la promesse publique d'un
+produit est ta parole, pas la mienne (`00-protocole-forge.md §3`, règle 10). Les trois
+chiffres et la mention « Offline » sur `/about` sont du contenu public : je les signale,
+je ne les touche pas.
 
-⚠️ **Indépendamment de Q12, deux choses sont urgentes et sans ambiguïté :**
-
-1. Le seul code de `main`, `useOfflineSync.ts`, **perd des soumissions terrain en silence** — un
-   item qui épuise ses `MAX_RETRIES` est effacé de `localStorage` sans avoir été envoyé et sans
-   trace. Pour un outil de collecte offline-first, c'est le pire défaut possible.
-2. La **PR #4** corrige exactement cela, publie l'application et ajoute une CI. Je l'ai vérifiée :
-   lint 0, 6/6 tests, build 3 routes. **Elle est en brouillon depuis le 2 septembre** — c'est
-   probablement la seule raison pour laquelle personne ne l'a regardée.
+**Ce que j'ai corrigé, parce que ce n'est pas du contenu public :** le hook se terminait
+par « `// v1.1 - exponential backoff retry` » alors qu'aucun backoff n'existe. Note
+retirée, pas de fonctionnalité ajoutée — **PR #5**, lint/types/8 tests/build verts.
 
 **Réponse de Steeve :** _(en attente)_
 
