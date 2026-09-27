@@ -98,3 +98,17 @@ deux. Invisible en CI : sans Redis, le cache ne fait rien.
 Corrigé en **PR draft #8** (condensé SHA-256 de la conversation + mode + options, 5 tests).
 **`/api/chat` n'a jamais été sollicité.** → **règle 51**.
 Sept PR ouvertes maintenant, toutes vertes.
+
+## 2026-09-27 · 16h18 UTC — `burkinacollect.vercel.app` sert african-hybrid-agent
+Un commentaire de bot parlant d'un déploiement « burkinacollect » sur ma PR de
+*african-hybrid-agent* n'avait aucun sens. Vérifié : **aucun** projet Vercel n'est lié au
+dépôt `burkinacollect`, et le **seul** projet lié à `african-hybrid-agent` porte le nom
+`burkinacollect` — domaine compris. `GET burkinacollect.vercel.app/api/health` répond 200,
+sans authentification : `{"ok":true,"corpusChunks":428,"sourceFiles":23,"avgCredibility":83.8,"hasLlmKey":false}`.
+Donc : **BurkinaCollect n'est publié nulle part** (il ne collecte rien ET n'a aucun
+déploiement), et **l'agent EST publié**, sous le nom d'un autre produit. Mon « les deux
+produits réellement publiés » du 26 est corrigé dans `premier-utilisateur.json`.
+Deux bonus de la route de santé : le corpus a **428 fragments réels** (23 sources,
+crédibilité 83,8), et `hasLlmKey: false` — l'agent répond sans modèle, par synthèse locale.
+→ **règle 52** : le nom d'un projet Vercel ne dit pas quel dépôt il sert.
+À Steeve : renommer le projet, ou un projet par dépôt. Interdit pour moi (§3 règle 6).

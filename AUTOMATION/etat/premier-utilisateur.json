@@ -20,7 +20,8 @@
     "african-hybrid-agent": {
       "premier_utilisateur_reel": null,
       "pr_ouvertes_au_2026_09_20": 5,
-      "verdict_au_dernier_passage": "🔴 tronc fige + CI structurellement rouge"
+      "verdict_au_dernier_passage": "🔴 tronc fige + CI structurellement rouge",
+      "MESURE_2026_09_27": "EST publie, publiquement, a l'adresse burkinacollect.vercel.app — sous le nom d'un autre produit. Corpus reel de 428 fragments, 23 sources, credibilite 83.8, hasLlmKey false (repli local-synthesis). Limite de debit conforme a CLAUDE.md. Defaut de cache grave corrige en PR draft #8."
     },
     "agrotrack-bf": {
       "premier_utilisateur_reel": null,
@@ -37,7 +38,8 @@
       "premier_utilisateur_reel": null,
       "pr_ouvertes_au_2026_09_20": 0,
       "verdict_au_dernier_passage": "🟠 l'application est publiee ; le README promet NEUF fonctionnalites pour DEUX pages",
-      "proximite_du_kpi": "REMESURE LE 2026-09-27 : ne collecte rien. Zero <form>, zero <input>, zero fetch dans tout src/. Les deux pages sont une plaquette ; le hook hors-ligne n'est branche a aucune page. Ce projet SORT de la liste des plus proches du KPI."
+      "proximite_du_kpi": "REMESURE LE 2026-09-27 : ne collecte rien. Zero <form>, zero <input>, zero fetch dans tout src/. Les deux pages sont une plaquette ; le hook hors-ligne n'est branche a aucune page. Ce projet SORT de la liste des plus proches du KPI.",
+      "CORRECTION_2026_09_27": "« l'application est publiee » est FAUX. Aucun projet Vercel n'est lie a ce depot ; burkinacollect.vercel.app sert african-hybrid-agent. Ce depot ne collecte rien ET n'est deploye nulle part."
     },
     "comptrack": {
       "premier_utilisateur_reel": null,
@@ -155,5 +157,17 @@
     },
     "ce_que_ca_veut_dire": "Trois depots sont apparus ou ont bouge en quatre jours pendant que 91 PR attendaient un clic. C'est la regle 7 de Steeve (« n'insiste pas par cout deja engage ») et sa regle 3 (« l'equipe compte plus que l'idee ») prises en flagrant delit par la mesure. Je ne juge pas si ambition/combine sont de bonnes idees — je n'ai pas lu leur code. Je constate le nombre.",
     "et_une_autre_session_ecrit": "livestock-os#5 (22 sept) porte la signature d'une AUTRE session que celle-ci (session_01QUfqgnpezD4RqCyNd7Am1d) et cite un repertoire `autopilot/reports/` inconnu de ce depot. Mon silence des 24-25-26 septembre n'est donc PAS l'immobilite du portefeuille."
+  },
+  "CORRECTION_2026_09_27_qui_est_vraiment_publie": {
+    "affirmation_refutee": "« les DEUX produits reellement publies — burkinacollect et problem-to-projects-africa »",
+    "ou_elle_vivait": "champ constat_central de ce fichier, ecrit le 26 septembre, et le verdict de burkinacollect (« l'application est publiee »)",
+    "ce_qui_est_vrai": "burkinacollect n'est publie NULLE PART, et burkinacollect.vercel.app sert african-hybrid-agent. Verifie par le connecteur Vercel : (1) aucun projet Vercel n'est lie au depot dosteeve2-hash/burkinacollect (list_projects repoUrl -> 0 resultat) ; (2) le SEUL projet lie a african-hybrid-agent s'appelle « burkinacollect » (prj_dqG6WMQ3qiJBDe1KMgzuyKeuKlRq) ; (3) son deploiement de production vient de african-hybrid-agent main @ f99cc32 ; (4) le domaine burkinacollect.vercel.app pointe sur ce projet ; (5) GET https://burkinacollect.vercel.app/api/health repond 200 sans authentification : {\"ok\":true,\"corpusChunks\":428,\"sourceFiles\":23,\"avgCredibility\":83.8,\"hasLlmKey\":false} — c'est la route de sante de l'agent, burkinacollect n'a pas de route /api/health.",
+    "consequence_pour_le_kpi": "Le compte des produits publics ne change pas de total mais change de NOMS : problem-to-projects-africa et african-hybrid-agent sont en ligne ; burkinacollect ne l'est pas. Le KPI Phase 1 reste 0/3 : aucun des deux n'a d'utilisateur reel nomme.",
+    "ce_que_l_agent_a_vraiment_en_production": {
+      "corpus": "428 fragments issus de 23 fichiers sources, credibilite moyenne 83.8 — le RAG a de la matiere, pas une coquille",
+      "hasLlmKey": "false. Aucune cle de modele en production : chaque reponse passe par le repli 'local-synthesis'. L'agent repond depuis son corpus, sans modele.",
+      "consequence": "Le defaut de cache corrige en PR #8 frappait donc des reponses de synthese locale, pas des reponses de modele. Meme gravite pour l'utilisateur : dans une session, la 2e question recevait la reponse de la 1re pendant 24 h."
+    },
+    "ce_qui_appartient_a_steeve": "Renommer le projet Vercel (« burkinacollect » -> « african-hybrid-agent ») ou creer un projet propre pour chacun des deux depots. C'est une configuration de projet : interdit pour moi (§3 regle 6). Tant que ce n'est pas fait, l'adresse publique de l'agent promet une application de collecte."
   }
 }
