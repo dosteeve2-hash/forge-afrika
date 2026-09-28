@@ -14,9 +14,13 @@
 
 ---
 
-## 📋 Les 19 questions en un coup d'œil
+## 📋 Les 20 questions en un coup d'œil
 
-**Celle qui compte le plus est Q6** — trois lignes à remplir, et elle décide de tout ce
+**Depuis le 28 septembre, Q23 passe devant tout** : plus aucun déploiement de production
+n'aboutit depuis le 26, donc fusionner ne met plus rien en ligne. Tant qu'elle tient, les
+autres réponses changent le dépôt et pas le service.
+
+**Celle qui compte le plus sur le fond reste Q6** — trois lignes à remplir, et elle décide de tout ce
 que le système fabrique. Le 26 septembre tes huit règles l'ont tranchée : le KPI de sortie
 de Phase 1 est mesuré à **0/3**, et 63 % des PR ouvertes portent sur des produits sans
 acheteur nommé.
@@ -53,6 +57,7 @@ aucune page de connexion. Les autres peuvent attendre sans rien bloquer.
 | **Q21** | 🌾 AgroTrack BF : il ne casse plus, il n'est pas en service | poser deux variables — et en changer une troisième avant | aucune — poser une variable est une action de production |
 | **Q20** | 🚨 La veille de production échoue chaque matin | la seule surveillance des 13 URLs en production | aucune action — le modèle d'une Routine ne se change pas sans toi |
 | Q22 | 📶 Sahel : ce qui est écrit hors ligne ne remonte jamais | la moitié « se synchronise » de la doctrine | C tant que c'est une démo — se répond avec Q16 |
+| **Q23** | 🚨 Depuis le 26 septembre, rien ne monte en production | si une fusion met quelque chose en ligne, ou rien du tout | réglage de compte à toi ; je ne tente aucun redéploiement |
 
 > **Q4 et Q18 se contredisent.** Q4 (5 septembre) supposait `livestockos` vivant ; Q18
 > (13 septembre) a établi par lecture du code que `livestock-os` est plus récent, sans
@@ -812,6 +817,45 @@ savoir **qui** écrit, une file d'attente rejoue des ventes sans propriétaire.
 
 **Ce que je n'ai pas fait :** aucune file, aucun rejeu. C'est une architecture, et elle
 touche au schéma comme Q16.
+
+**Réponse de Steeve :** _(en attente)_
+
+---
+
+### Q23 — 🚨 PRODUCTION — Depuis le 26 septembre, rien ne monte plus en ligne (2026-09-28)
+**Contexte :** les trois derniers déploiements de production tentés dans le portefeuille
+sont tous `BLOCKED`, avec le même lien d'erreur fourni par Vercel
+(`troubleshoot-project-collaboration#team-configuration`) :
+
+| Quand (UTC) | Projet | Ce qui devait monter | État |
+|---|---|---|---|
+| 26 sept 10h15 | portfolio | ta photo sur téléphone | **READY** — le dernier qui passe |
+| 26 sept 12h07 | combine | `main` @ 65f7cbd | **BLOCKED** |
+| 26 sept 14h08 | ueemt-tokat | le module Tontine « La Main » (#15) | **BLOCKED** |
+| 27 sept 06h04 | comptrack | **ton push** Golden Prompt + règles IA | **BLOCKED** |
+
+Les **prévisualisations** fonctionnent normalement — vérifié le 27 et le 28 sur quatre
+dépôts. Le blocage ne touche que la production.
+
+**Enjeu :** il passe devant toute la file de PR. Fusionner aujourd'hui fait atterrir le code
+sur le tronc, mais le déploiement qui suit est bloqué et le site continue de servir l'ancien
+build. Concrètement : fusionner `duka-boutique#11` ne rendrait pas la vente aux commerçants,
+et le module Tontine d'UEEMT reste invisible bien qu'il soit fusionné depuis le 26.
+
+**Ce que je ne peux pas te dire :** la cause. `get_team` n'expose ni le plan ni l'état de
+facturation, et le lien d'erreur pointe vers un réglage d'équipe lisible sur ton tableau de
+bord, pas d'ici. Je préfère l'écrire que d'inventer une cause plausible.
+
+**Hypothèse retenue :** c'est un réglage de compte ou de plan que toi seul peux lever. Je
+continue donc à préparer et vérifier les PR normalement, mais je ne présente plus aucune
+fusion comme « mettant quelque chose en ligne » tant que le blocage tient. Aucune tentative
+de redéploiement de ma part.
+
+**Ce que je n'ai pas fait, et qui t'appartient :** ouvrir le tableau de bord Vercel, lire la
+raison, la lever. Relancer un déploiement de production ou changer un réglage d'équipe est
+interdit par `00-protocole-forge.md §3` règle 6. Dès que le premier déploiement repasse en
+`READY`, je peux vérifier les pages moi-même — le connecteur Vercel me le permet depuis le
+27 septembre (règle 49).
 
 **Réponse de Steeve :** _(en attente)_
 

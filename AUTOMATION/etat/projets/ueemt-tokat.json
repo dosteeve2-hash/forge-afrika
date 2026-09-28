@@ -1,7 +1,7 @@
 {
   "projet": "ueemt-tokat",
   "tier": 2,
-  "derniere_execution": "2026-09-26",
+  "derniere_execution": "2026-09-28",
   "mode": "TRIAGE (7 PR ouvertes)",
   "verdict": "🟡 tronc sain depuis la fusion de ma #14 ; 6 PR ouvertes dont 4 visent une branche MORTE",
   "tronc": "main @ 3c0c098. La CI existe depuis la fusion de la #14 le 16 septembre ; avant elle, le depot n'en avait pas et le build echouait sans les secrets. 14 branches. Mesure le 2026-09-20.",
@@ -91,5 +91,10 @@
     "effet_sur_les_PR_soeurs": "Teste EN FUSIONNANT (regles 27 et 28) : #11 (logos historiques) fusionne proprement ; #12 (photo fondateur) est DESORMAIS EN CONFLIT sur 1 fichier — consequence mecanique de la fusion du 26. Aucune des deux n'est de moi : signalees, pas touchees (§3).",
     "consequence_pour_Q10": "FORJA porte une COPIE de ce module — 8 fichiers, 1 420 lignes, injoignable, et /tontine y renvoie 500 en production (mesure le 22). L'original vient de gagner 5 fichiers et la palette FORGE. L'ecart se creuse : le module vivant est ici, la copie de FORJA est morte. Cela ne tranche pas Q10, qui reste la decision de Steeve, mais cela la rend plus facile.",
     "ma_pr_14": "Fusionnee le 16. Je n'ai plus aucune PR ouverte sur ce depot."
+  },
+  "MESURE_2026_09_28": {
+    "production_BLOQUEE": "Le tronc main porte f9c299e — PR #15, module Tontine « La Main ». Son deploiement de production du 26 sept 14h08 UTC est BLOCKED (meme errorLink). Le site sert encore 3c0c098, la PR #14. LE MODULE TONTINE N'EXISTE PAS POUR UN VISITEUR.",
+    "pourquoi_c_est_le_pire_cas": "C'est le seul depot du portefeuille ou une fusion DEJA FAITE est restee invisible. Les autres attendent une fusion ; celui-ci attend un deploiement. Et c'est le projet communaute : ses utilisateurs sont des personnes que Steeve connait a Tokat, et une tontine est un objet de confiance.",
+    "rien_a_coder": "Aucune PR ouverte de ma part. Le code est bon et deja sur le tronc. Q17 reste ouverte par ailleurs (dev morte, #8 a fermer, #11 a recibler, 4 PR en conflit) : je n'y touche pas."
   }
 }

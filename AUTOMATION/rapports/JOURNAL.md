@@ -127,3 +127,20 @@ première CI du dépôt). Vérifié aujourd'hui : CI verte, fusion en **avance r
 conflit** sur le tronc courant, et l'arbre fusionné passe lint, types, **80 tests** et build.
 **Rien à coder.** Une fusion, et un commerçant cesse de perdre une vente. 25 jours d'attente.
 Aucune PR ouverte de plus sur ce dépôt : ce serait ajouter au problème décrit.
+
+## 2026-09-28 · Forge Quotidien — rien ne monte en production depuis le 26 septembre
+Trois déploiements de production tentés dans le portefeuille depuis le **26 septembre
+12h00 UTC**, trois **`BLOCKED`**, même `errorLink` (`team-configuration`) : `combine` (26 à
+12h07), `ueemt-tokat` (26 à 14h08 — **le module Tontine « La Main »**), `comptrack` (27 à
+06h04 — **le push de Steeve**). Le dernier passé est le portfolio, le 26 à 10h15. Les
+**prévisualisations** marchent : le blocage ne touche que la production. → **Q23**, et
+**règle 53** : une prévisualisation verte ne dit rien de la production.
+**Correction de ce que j'ai dit hier soir** : fusionner `duka-boutique#11` ne rendrait pas
+la vente aux commerçants aujourd'hui — le déploiement serait bloqué. Le blocage passe devant
+la file.
+Carte de production mesurée dépôt par dépôt (`etat/carte-production.json`, méthode règle 52
+par `repoUrl`) : **11 produits servent leur tronc à jour, 3 sont BLOCKED, 3 n'ont aucun
+projet Vercel** (burkinacollect, livestockos, sahel-commerce-ai).
+Deux projets du jour : **comptrack** (son push n'est pas en ligne) et **ueemt-tokat** (une
+fusion déjà faite restée invisible — le seul cas du portefeuille). **Aucune PR ouverte
+aujourd'hui**, la file reste à huit.
