@@ -144,3 +144,25 @@ projet Vercel** (burkinacollect, livestockos, sahel-commerce-ai).
 Deux projets du jour : **comptrack** (son push n'est pas en ligne) et **ueemt-tokat** (une
 fusion déjà faite restée invisible — le seul cas du portefeuille). **Aucune PR ouverte
 aujourd'hui**, la file reste à huit.
+
+## 2026-09-28 — Design et motion entrent dans la stratégie (playbook 05)
+Steeve a demandé d'intégrer cinq plugins vus en vidéo. Vérifié avant d'y croire : **quatre
+existent sous d'autres noms**, un n'existe pas. `designs-drift` porte à lui seul trois des
+cinq promesses (règles Vercel, 121 marques de référence, awesome-design-md) ; `playwright`
+existe mais **je l'ai déjà** (Chromium est dans le conteneur) ; « Image to Code » n'existe
+pas — l'équivalent est `Figma`, inutile tant qu'il n'y a pas de fichier Figma.
+Écrit `AUTOMATION/playbooks/05-design-et-motion.md` : le **budget de motion** (transform et
+opacity seulement, 120–320 ms, `prefers-reduced-motion`, pas de 2e bibliothèque, contenu
+jamais dépendant d'une animation), la **boucle de captures**, la boucle de goût (extraire
+des règles chiffrées, jamais recopier une page), et les jetons avant les composants.
+La tension est dite en §0 : les références premium sont dessinées pour un MacBook sur
+fibre ; notre cible est un Android d'entrée de gamme. Atteindre leur soin **sous notre
+contrainte**, c'est plus dur — et c'est ça qui fait la différence.
+Écrit et **testé pour de vrai** `AUTOMATION/scripts/forge-captures.sh` : 360×640 et
+1280×800, thèmes clair et sombre, passe `reduced-motion`, erreurs de console. Le test a
+trouvé un bug de portée dans mon propre script (`suffixe`) que `bash -n` ne voyait pas →
+**règle 54**. Après correction : 12 captures, erreurs détectées sur une page volontairement
+cassée, et j'ai regardé une capture pour m'en assurer.
+Branché au `§5` du protocole (le design d'une surface vue par un acheteur est **niveau 4**,
+pas 7 ; une animation qui ignore `reduced-motion` est **niveau 3**) et à `CLAUDE.md`.
+→ **règle 55** : un design ne se juge pas sur un écran 27 pouces.

@@ -54,6 +54,28 @@ middleware.ts           # Protection /dashboard
 4. Les `"use client"` sont UNIQUEMENT pour les composants avec hooks/animations
 5. Server Components par défaut, Client Components si nécessaire
 
+## Design & motion — les cinq règles non négociables
+
+Détail complet : `AUTOMATION/playbooks/05-design-et-motion.md`. Elles découlent de la
+doctrine terrain (`VISION.md §4`), pas du goût : la cible est un Android d'entrée de gamme
+en 2G/3G.
+
+1. **On n'anime que `transform` et `opacity`.** Jamais `width`, `height`, `top`, `left`,
+   `margin`, `box-shadow` ou `filter` dans une boucle — ça rame sur un téléphone, et ça ne
+   se voit pas sur nos machines.
+2. **120–200 ms** pour un retour d'action, **200–320 ms** pour une transition, au-delà de
+   400 ms seulement pour un hero joué une fois. Une animation premium est courte, pas lente.
+3. **`prefers-reduced-motion: reduce` coupe tout le non-essentiel.** Une media query, et
+   c'est fait.
+4. **Jamais une deuxième bibliothèque d'animation dans un dépôt** (`framer-motion` ici,
+   `gsap` dans african-hybrid-agent). Le CSS d'abord : un `@keyframes` coûte 0 Ko de JS.
+5. **Le contenu ne dépend jamais d'une animation.** Pas d'apparition qui masque le texte,
+   pas de rideau qui bloque la saisie.
+
+Et on **regarde** : `./AUTOMATION/scripts/forge-captures.sh` capture chaque page en
+360×640 et 1280×800, thèmes clair et sombre, passe `reduced-motion`, et relève les erreurs
+de console. **Ne jamais déclarer un écran propre sans avoir regardé sa capture.**
+
 ## Variables d'environnement requises
 ```
 NEXT_PUBLIC_SUPABASE_URL=

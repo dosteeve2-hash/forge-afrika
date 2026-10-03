@@ -113,6 +113,20 @@ Quand le temps ou les tokens manquent — et ils manqueront — tranche dans cet
 
 Ne descends jamais au niveau 6 sur un projet dont le niveau 1 est rouge.
 
+**Où se range le design (ajouté le 2026-09-28).** Le niveau 7 — « refactor esthétique » —
+reste juste pour l'esthétique interne. Il est faux pour les surfaces qu'un acheteur
+regarde : le site du QG, le portfolio, une page de vente, l'écran de caisse d'un
+commerçant. Là, le design **est** le produit, donc **niveau 4** : c'est ce qui décroche un
+premier utilisateur réel. Et une animation qui coûte de la batterie ou ignore
+`prefers-reduced-motion` est une **violation de doctrine, niveau 3**.
+
+Polir un écran qui existe n'est pas une nouvelle fonctionnalité : c'est autorisé même sans
+premier utilisateur nommé (§5 bis). Ajouter un écran pour avoir plus de choses à animer
+reste le niveau 6, donc interdit sur un projet sans acheteur nommé.
+
+Le budget de motion, la boucle de captures et la checklist sont dans
+`AUTOMATION/playbooks/05-design-et-motion.md`. **Le lire avant tout travail de design.**
+
 ---
 
 ## 5 bis. Les huit règles de Steeve (2026-09-26)
