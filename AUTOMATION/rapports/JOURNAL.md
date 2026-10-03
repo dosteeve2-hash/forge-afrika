@@ -309,3 +309,37 @@ il deviendra sans effet dès que la #49 atterrira. Vérifié avant de pousser : 
 **90/90 tests**, build réussi.
 
 Il reste une fusion, et elle appartient à Steeve.
+
+## 2026-10-03 (veille de 20h06) — Campagne « Vitrine honnête » de Steeve sur cinq produits
+
+Quatre troncs ont bougé d'un coup : `taama/main` → `bd4229d`, `comptrack/main` → `cfb2263`,
+`forja/master` → `7e163d7`, `milltrack/master` → `9acd188`, après `indubot-afrika` plus tôt.
+Toutes la même PR : **« Vitrine honnête : retire chiffres et témoignages inventés »**. Steeve
+a nettoyé les cinq vitrines publiques le même soir.
+
+**Conflits créés sur mes PR : un seul**, `comptrack#38` — et après vérification il n'est
+même pas de ce soir : ni sa base `feat/comptrack-v1` (figée au 26 septembre) ni sa tête
+n'avaient bougé. Les sept autres (taama #35 #38, comptrack #41 #43, forja #27 #28,
+milltrack #15) sont `mergeable: true`.
+
+**Le correctif TAAMA rejoué sur le nouveau tronc**, parce que sa base avait changé :
+`git am --3way` applique proprement ; 117 tests ; **176/176 avec la #35 simulée** ; lint
+**identique à la base nue** (9 erreurs, 9 avertissements — le tronc est passé de 13 à 9
+avertissements, pas moi) ; tsc 174 des deux côtés, aucun dans mes fichiers ; build vert et
+**0 décompte figé** dans le HTML prérendu. Il tient. Toujours non poussé : règle 60.
+
+**`comptrack#38` résolu, et la fusion a révélé deux choses que personne ne voyait :**
+
+- **59 tests cassés sur la base.** `vitest.config.ts` ne déclarait aucun `setupFiles`, donc
+  `vitest.setup.ts` n'était jamais chargé et aucun matcher jest-dom n'était enregistré :
+  chaque `toBeInTheDocument()` remontait en « Invalid Chai property ». Deux lignes, et
+  **151/151**.
+- **Le lint ne tournait pas du tout sur la base** — `Cannot find module '@sentry/nextjs'`,
+  absent de ses dépendances. Ma branche l'apporte, ESLint s'exécute enfin, et révèle 6
+  erreurs dans `previsions/page.tsx`, toutes traitées. **0 erreur**.
+
+**Ce que je n'ai pas tranché :** `DashboardCharts.tsx:8` importe trois constantes que
+`lib/data.ts` n'exporte plus — la base a retiré ses données simulées. Le défaut **est sur la
+base**, masqué jusqu'ici par le plantage Sentry qui arrivait plus tôt. Le réparer suppose de
+savoir si ce tableau de bord doit désormais lire des données réelles : décision produit, pas
+résolution de conflit. Dit dans le message de commit, pas enterré.

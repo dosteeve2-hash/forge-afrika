@@ -107,5 +107,15 @@
     "ordre_de_fusion": "la #35 d'abord, ce correctif ensuite — c'est ce que mesure le 176/176. Je n'ai volontairement pas retouche __tests__/InventairePage.test.tsx, que la #35 modifie, pour ne pas refaire son travail (incident de la #36).",
     "bloque_par": "Q26 — add_repo(taama, access=push) refuse le 3 octobre. Pas contourne. Patch dans AUTOMATION/correctifs-en-attente/taama-peremption-horloge-reelle.patch"
   },
-  "triage_toujours_valide_le_2026_10_03": "Le triage du 23 septembre n'a PAS ete refait, et c'est volontaire : main @ afb5f4c n'a pas bouge depuis le 16 septembre, donc AUTOMATION/etat/triage-taama.json est exact tel quel. Un quatrieme triage aurait produit le meme fichier. Ce qui manque a TAAMA est une decision sur la #35 et la #10, pas une mesure de plus."
+  "triage_toujours_valide_le_2026_10_03": "Le triage du 23 septembre n'a PAS ete refait, et c'est volontaire : main @ afb5f4c n'a pas bouge depuis le 16 septembre, donc AUTOMATION/etat/triage-taama.json est exact tel quel. Un quatrieme triage aurait produit le meme fichier. Ce qui manque a TAAMA est une decision sur la #35 et la #10, pas une mesure de plus.",
+  "REVALIDATION_2026_10_03_SOIR": {
+    "pourquoi": "main est passe de afb5f4c a bd4229d le 3 octobre a 18h53 — fusion de la #39 « Vitrine honnete », campagne de Steeve sur cinq produits. Le patch de peremption devait etre rejoue contre cette base.",
+    "git_am_3way": "applique proprement, code 0",
+    "tests": "117 passent (inchange) ; InventairePage ne se charge toujours pas — defaut de hoisting que repare la #35",
+    "avec_35_simulee": "176 / 176, 11 suites — inchange",
+    "lint": "9 erreurs 9 avertissements avec le correctif, IDENTIQUE a la base nue bd4229d (le tronc est passe de 13 a 9 avertissements, pas moi)",
+    "tsc": "174 diagnostics avec comme sans le correctif, aucun dans les fichiers touches",
+    "build": "reussi, et 0 decompte fige dans .next/server/app/inventaire.html",
+    "conclusion": "Le correctif tient sur le nouveau tronc. Toujours NON POUSSE sur taama : Steeve a refuse add_repo(taama, push) le matin meme, et je ne contourne pas ce refus (regle 60). C'est Q26."
+  }
 }

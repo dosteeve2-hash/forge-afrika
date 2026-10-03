@@ -1,6 +1,6 @@
 {
   "projet": "comptrack",
-  "derniere_execution": "2026-09-28",
+  "derniere_execution": "2026-10-03",
   "verdict": "🟠 main (le tronc qui LIVRE) a enfin une PR de CI qui le vise : ma #41. Le tronc GitHub par defaut reste feat/comptrack-v1 — Q15 intacte.",
   "tronc": "INDETERMINE. GitHub : feat/comptrack-v1 (branche par defaut). Vercel : main (branche de production). Q15 doit trancher.",
   "pr_ouvertes_du_depot": [
@@ -137,5 +137,13 @@
     "production_BLOQUEE": "Le dernier deploiement de production (main @ e5518e3, le push de Steeve du 27 sept 09h04 Turquie) est BLOCKED, 27 sept 06h04 UTC, errorLink team-configuration. Le site sert encore le build precedent, 5f0a2f3. Son commit est sur le tronc, la CI est verte, et le site public ne l'a jamais vu.",
     "ma_PR_41": "toujours ouverte, verte, sans conflit, retestee par fusion le 27 (lint, tsc, test, build OK). Mais a dire honnetement : la fusionner aujourd'hui ameliore le depot, pas le service, puisque le deploiement qui suivrait serait bloque.",
     "ce_qui_appartient_a_steeve": "Q23 : lever le blocage. La cause n'est pas mesurable d'ici."
+  },
+  "PR38_RESOLUE_2026_10_03": {
+    "conflit": "package.json et le verrou, sur les devDependencies. Ni la base ni la tete n'avaient bouge ce soir : le conflit etait anterieur, pas une consequence des fusions « Vitrine honnete ».",
+    "resolution": "les trois paquets de ma branche conserves, @testing-library/dom pris de la base, jest-dom a la version la plus recente (^7.0.0). Verrou regenere par npm install --package-lock-only.",
+    "DECOUVERTE_59_TESTS": "vitest.config.ts ne declarait aucun setupFiles : vitest.setup.ts n'etait jamais charge, aucun matcher jest-dom enregistre, chaque toBeInTheDocument remontait en « Invalid Chai property ». Mesure : base seule 59 echecs/151, ma branche avant 54, apres 151/151.",
+    "DECOUVERTE_LINT": "npm run lint ne tournait PAS sur la base — Cannot find module '@sentry/nextjs', absent de ses dependances. Ma branche l'apporte, le lint s'execute, et revele 6 erreurs dans previsions/page.tsx, toutes traitees. Lint : 0 erreur, 12 avertissements.",
+    "RESTE_CASSE_ET_NON_TRANCHE": "app/(dashboard)/dashboard/DashboardCharts.tsx:8 importe donneesMensuelles et topCategoriesDepenses que lib/data.ts n'exporte plus — la base a retire ses 7 constantes de donnees simulees. Le defaut est SUR LA BASE, masque par le plantage Sentry plus precoce. Le reparer suppose de savoir si ce tableau de bord doit lire des donnees reelles : decision produit, pas resolution de conflit.",
+    "pousse": "7f6117e"
   }
 }
