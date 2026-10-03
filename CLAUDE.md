@@ -65,10 +65,17 @@ en 2G/3G.
    se voit pas sur nos machines.
 2. **120–200 ms** pour un retour d'action, **200–320 ms** pour une transition, au-delà de
    400 ms seulement pour un hero joué une fois. Une animation premium est courte, pas lente.
-3. **`prefers-reduced-motion: reduce` coupe tout le non-essentiel.** Une media query, et
-   c'est fait.
-4. **Jamais une deuxième bibliothèque d'animation dans un dépôt** (`framer-motion` ici,
-   `gsap` dans african-hybrid-agent). Le CSS d'abord : un `@keyframes` coûte 0 Ko de JS.
+3. **`prefers-reduced-motion: reduce` coupe tout le non-essentiel.** ⚠️ Une media query
+   **ne suffit pas** : framer-motion écrit des styles en ligne, que le CSS n'arrête pas.
+   Il en faut trois, et elles sont en place depuis le 3 octobre — `MotionConfig
+   reducedMotion="user"` dans le layout, Lenis et sa boucle rAF coupés dans
+   `SmoothScroll`, et la media query en fin de `globals.css`.
+4. **Jamais une deuxième bibliothèque d'animation dans un dépôt.** Le CSS d'abord : un
+   `@keyframes` coûte 0 Ko de JS. ⚠️ Mesuré le 3 octobre, ce dépôt en embarque **trois** —
+   `framer-motion`, `gsap` + `@gsap/react`, et `lenis`. La version du 28 septembre de cette
+   règle affirmait « `framer-motion` ici, `gsap` dans african-hybrid-agent » : c'était faux,
+   et écrit sans vérifier. Prix sur la landing : **94 Ko gzip sur 278**. Retirer la
+   deuxième est **Q25**, et appartient à Steeve.
 5. **Le contenu ne dépend jamais d'une animation.** Pas d'apparition qui masque le texte,
    pas de rideau qui bloque la saisie.
 
