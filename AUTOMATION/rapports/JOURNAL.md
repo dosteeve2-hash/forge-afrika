@@ -206,3 +206,44 @@ filet `noscript` ne marchait pas, sur une mesure faite contre un binaire qui ne 
 contenait pas.
 → **règle 57** : une capture pleine page d'un site à révélations est vide par construction ;
 le vide ne prouve rien, mais il doit déclencher la mesure `javaScriptEnabled: false`.
+
+## 2026-10-03 (veille de 04h05) — Zéro tronc n'a bougé, et la production de MIFA Life est figée depuis 17 jours
+
+**Les 16 troncs : 0 mouvement.** `ecrireLocal` toujours absent de `duka-boutique/master`
+(`c10e0e7`) — et j'ai failli annoncer le contraire : mon test était écrit
+`if git grep -l … | head -3; then`, où le code testé est celui de `head`, qui réussit
+toujours. **Règle 58.** Refait sans tuyau : 0 fichier.
+
+**Deux de mes 27 PR sont rouges**, `Mifa_Life_shop` #49 et #45. Leur contrôle de code
+« Lint, tests & build » est **vert** ; ce qui échoue, ce sont trois contrôles Netlify qui
+ne sont que trois facettes d'un seul déploiement raté. La #12, plus ancienne, passe ces
+mêmes trois contrôles — donc ils ne sont pas cassés globalement.
+
+**Cause racine, lue dans le journal Netlify :** un gitlink (mode 160000) à
+`Mes pages html/.claude/worktrees/charming-neumann-3e17c2` — une worktree Claude Code
+commitée par erreur — sans aucun `.gitmodules` (404 vérifié). Netlify échoue au stade
+« preparing repo », avant le build.
+
+**Et c'est une récidive.** `3e0d92a` avait corrigé exactement ça le 2 septembre. La fusion
+de la #29, le 16 septembre à 15h02:51, a réimporté le commit `5423b92` **daté du 12
+juillet**, antérieur au correctif. Le garde-fou `.gitignore` posé le 2 septembre a survécu
+(ligne 46) et n'a servi à rien : un `.gitignore` n'enlève pas de l'index un chemin déjà
+suivi. **Règle 59.**
+
+**Ce que ça coûte, mesuré :** la production de `mifalife` est le déploiement `6aaaaf6d` du
+16 septembre 15h02, commit `01c6604`. Les fusions des **#23, #29 et #30 ne sont jamais
+montées en ligne**. Dix-sept jours sur un produit tier 1 « Actif », invisibles parce que
+les contrôles Netlify n'apparaissent que sur les PR.
+
+C'est le même commit `5423b92` qui avait cassé le lint et que ma #49 corrigeait le
+21 septembre. Je regardais le lint ; je n'ai pas vu le sous-module à côté.
+
+**Correctif porté et vérifié en première main :** `git submodule update --init --recursive`
+rend **128 sur `main`** avec le message exact de Netlify, **0 sur la branche corrigée**.
+Une ligne. Non poussé — même permission manquante que pour TAAMA, **Q26** couvre
+maintenant les deux.
+
+**Non confirmé, et je ne l'affirme pas :** le journal du déploiement vivant porte
+« Lighthouse … Status code: 500 » sur `/`. Le proxy de ma session refuse le tunnel vers
+`mifalife.netlify.app` (403, comme vers tout hôte hors connecteur), donc je n'ai pas pu
+vérifier. À revoir dès que la production se débloque.

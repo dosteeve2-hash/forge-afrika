@@ -63,7 +63,7 @@ aucune page de connexion. Les autres peuvent attendre sans rien bloquer.
 | **Q23** | 🚨 Depuis le 26 septembre, rien ne monte en production | si une fusion met quelque chose en ligne, ou rien du tout | réglage de compte à toi ; je ne tente aucun redéploiement |
 | **Q24** | 🚨 La session a dormi 4 jours, 4 matins perdus | le débit réel du système : 2 projets en 9 jours | A, statu quo — B et C sont des actions sur des Routines |
 | **Q25** | 📱 Le QG sert 278 Ko de JS et cache son texte | ce que voit un investisseur sur un Android en 2G | je garde les 3 bibliothèques, je ne touche pas au rendu |
-| **Q26** | 🔑 Le correctif TAAMA est prêt, je ne peux pas le pousser | un vaccin périmé affiché « ⚠ 24j » en production | le patch attend dans `AUTOMATION/correctifs-en-attente/` |
+| **Q26** | 🔑 Deux correctifs prêts, je ne peux pousser ni l'un ni l'autre | un vaccin périmé affiché « ⚠ 24j », et MIFA Life figée depuis 17 jours | les deux patchs attendent dans `AUTOMATION/correctifs-en-attente/` |
 
 > **Q4 et Q18 se contredisent.** Q4 (5 septembre) supposait `livestockos` vivant ; Q18
 > (13 septembre) a établi par lecture du code que `livestock-os` est plus récent, sans
@@ -952,7 +952,7 @@ défilement inertiel, « non » si la texture actuelle est ce que tu veux montre
 
 ---
 
-### Q26 — 🔑 PERMISSION — Le correctif de TAAMA est prêt et je ne peux pas le pousser (2026-10-03)
+### Q26 — 🔑 PERMISSION — Deux correctifs vérifiés attendent une permission, pas du travail (2026-10-03)
 
 `add_repo(owner="dosteeve2-hash", repo="taama", access="push")` m'a été **refusé** ce matin
 par le contrôle de permissions de la session. Je n'ai pas cherché à contourner : ni par
@@ -974,9 +974,36 @@ git fetch origin main && git checkout -b fix/expiration-horloge-reelle origin/ma
 git am < taama-peremption-horloge-reelle.patch
 ```
 
-**Mon hypothèse retenue :** je garde le patch ici et je le re-vérifie à chaque tour tant
-que le tronc de TAAMA ne bouge pas. S'il bouge, je rejoue la vérification avant de te le
+---
+
+**Second patch, trouvé à la veille de 04h05 : `Mifa_Life_shop`.**
+
+La production de MIFA Life est **figée depuis le 16 septembre à 15h02**. Netlify échoue au
+stade « preparing repo », avant même le build :
+
+```
+Error checking out submodules: fatal: No url found for submodule path
+'Mes pages html/.claude/worktrees/charming-neumann-3e17c2' in .gitmodules
+```
+
+Une worktree Claude Code a été commitée comme gitlink, sans `.gitmodules`. **Ce défaut
+avait déjà été corrigé le 2 septembre** (`3e0d92a`) ; il est revenu le 16 septembre par la
+fusion de la #29, qui portait un commit du 12 juillet, antérieur au correctif.
+
+Ce que ça coûte : les fusions des **#23, #29 et #30 ne sont jamais montées en ligne**. Un
+produit tier 1 déclaré « Actif » n'a reçu aucune mise à jour depuis 17 jours, et rien ne
+l'affichait — les contrôles Netlify n'apparaissent que sur les PR, jamais sur le tronc.
+
+Reproduit en première main : `git submodule update --init --recursive` rend **128 sur
+`main`**, avec le message exact de Netlify, et **0 sur la branche corrigée**. Le correctif
+est d'une ligne : `AUTOMATION/correctifs-en-attente/mifa-life-sous-module-fantome.patch`.
+
+**Mon hypothèse retenue :** je garde les deux patchs ici et je les re-vérifie à chaque tour
+tant que les troncs ne bougent pas. S'ils bougent, je rejoue la vérification avant de te les
 proposer encore.
+
+**Ce que ça te demande :** l'accès en écriture à `taama` et à `Mifa_Life_shop`, ou tu
+appliques les deux patchs toi-même. C'est la même ligne pour les deux.
 
 **Réponse de Steeve :** _(en attente)_
 

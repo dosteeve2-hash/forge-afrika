@@ -1,7 +1,7 @@
 {
   "projet": "mifa-life-shop",
   "nom": "MIFA Life",
-  "derniere_execution": "2026-09-19",
+  "derniere_execution": "2026-10-03",
   "mode": "TRIAGE (22 PR ouvertes)",
   "verdict": "🔴 le tronc ne s'installe pas",
   "tronc": "main, dernier commit f3991a8 du 10 aout, 38 pages, 30 branches",
@@ -99,5 +99,21 @@
     "pr": "#49, brouillon, ouverte le 21 septembre",
     "verification_negative_FCFA": "Avant de chercher, j'ai controle le point le plus probable pour une boutique : le formatage des montants. Partout Intl.NumberFormat('fr-FR') ou toLocaleString('fr-FR'), AUCUNE decimale. Les seuls .toFixed() portent sur une note d'avis (4.3 ★) et des revenus en milliers (128K FCFA) — legitimes. La doctrine XOF est respectee. Ne pas y revenir (regle 23).",
     "reste_a_faire": "66 avertissements react-hooks/* arrives avec Next 16, passes en avertissement par la #46 avec justification. Chantier a part entiere. Et les #47/#48 restent empilees sur la #45."
+  },
+  "VEILLE_2026_10_03": {
+    "constat": "La production de MIFA Life est FIGEE depuis le 16 septembre 15h02, et personne ne pouvait le voir.",
+    "cause_racine": "Un gitlink (mode 160000) a 'Mes pages html/.claude/worktrees/charming-neumann-3e17c2' — une worktree Claude Code commitee par erreur — sans aucun .gitmodules dans le depot (404 verifie). Netlify echoue au stade « preparing repo », avant le build.",
+    "recidive": "Ce defaut avait DEJA ete corrige le 2 septembre par 3e0d92a. Il est revenu le 16 septembre a 15h02:51 par la fusion de la #29, qui portait le commit 5423b92 date du 12 juillet, anterieur au correctif. Une branche restee ouverte deux mois a reintroduit un defaut repare.",
+    "le_garde_fou_a_echoue": "Le .gitignore du 2 septembre a survecu (ligne 46 : .claude/worktrees/) et n'a servi a rien : un .gitignore n'enleve pas de l'index un chemin deja suivi. Contre la resurrection d'un gitlink par une fusion, .gitignore n'est PAS une protection.",
+    "cout_mesure": {
+      "production_vivante": "deploiement 6aaaaf6d du 16 septembre 15h02, commit 01c6604 — la fusion de la #13",
+      "jamais_montees_en_ligne": "les fusions des #23, #29 et #30, toutes posterieures",
+      "duree": "17 jours au 3 octobre, sur un produit tier 1 declare « Actif »",
+      "pourquoi_invisible": "les controles Netlify n'apparaissent que sur les PR ; main n'en porte aucun. Seul « Lint, tests & build » tourne sur le tronc."
+    },
+    "reproduit_en_premiere_main": "git submodule update --init --recursive : code 128 sur main avec le message EXACT de Netlify, code 0 sur la branche corrigee.",
+    "correctif": "AUTOMATION/correctifs-en-attente/mifa-life-sous-module-fantome.patch — retire le gitlink de l'index, une ligne, aucun fichier applicatif touche. NON POUSSE (Q26).",
+    "signal_non_confirme": "Le journal du deploiement vivant porte « Lighthouse was unable to reliably load the page you requested (Status code: 500) » sur '/'. Je n'ai PAS pu le confirmer : le proxy de ma session refuse le tunnel vers mifalife.netlify.app (403), comme vers tout hote hors connecteur. A verifier des que la production se debloque — ne pas l'affirmer avant.",
+    "lien_avec_mes_pr": "Mes PR #49 et #45 sont rouges UNIQUEMENT a cause de ce defaut du tronc : leur controle de code « Lint, tests & build » est vert. La #12, plus ancienne que 5423b92, passe les trois controles Netlify — c'est ce qui prouve qu'ils ne sont pas casses globalement."
   }
 }
