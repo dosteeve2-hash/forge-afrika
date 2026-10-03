@@ -296,3 +296,16 @@ conclu de `add_repo(taama, push)` refusé que « je ne peux pas pousser » : vra
 
 → **règle 60** : un refus porte sur ce qui a été refusé, pas sur tout ce qui y ressemble —
 et il tient quand même.
+
+**Suite du soir — la #51 est verte, et c'est la preuve.** Sur `f1daf7f` : `Lint, tests &
+build` **succès**, `Redirect rules` **succès**, `Header rules` **succès**, `Pages changed`
+neutre. Les trois contrôles Netlify qui échouaient sur chaque PR de MIFA depuis le
+16 septembre passent, et la préversion `deploy-preview-51--mifalife.netlify.app` se
+construit — c'est exactement l'étape qui mourait au stade « preparing repo ».
+
+Le rouge de `Lint, tests & build` n'était pas ce diff : c'est l'erreur unique de `main` que
+ma #49 corrige depuis le 21 septembre. Correctif **porté** dans la #51 plutôt qu'attendre,
+il deviendra sans effet dès que la #49 atterrira. Vérifié avant de pousser : lint 0 erreur,
+**90/90 tests**, build réussi.
+
+Il reste une fusion, et elle appartient à Steeve.
