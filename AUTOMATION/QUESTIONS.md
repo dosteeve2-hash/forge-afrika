@@ -14,11 +14,14 @@
 
 ---
 
-## 📋 Les 20 questions en un coup d'œil
+## 📋 Les 23 questions en un coup d'œil
 
-**Depuis le 28 septembre, Q23 passe devant tout** : plus aucun déploiement de production
-n'aboutit depuis le 26, donc fusionner ne met plus rien en ligne. Tant qu'elle tient, les
-autres réponses changent le dépôt et pas le service.
+**Au 3 octobre, trois choses passent devant.** **Q26** d'abord, parce qu'elle concerne un
+défaut servi en production à cette minute et que le correctif est écrit : il lui manque une
+permission, pas du travail. **Q24** ensuite, parce qu'un système qui dort quatre jours ne
+rattrape pas les autres questions. **Q23** enfin : plus aucun déploiement de production
+n'aboutit depuis le 26 septembre, donc fusionner ne met plus rien en ligne — tant qu'elle
+tient, les autres réponses changent le dépôt et pas le service.
 
 **Celle qui compte le plus sur le fond reste Q6** — trois lignes à remplir, et elle décide de tout ce
 que le système fabrique. Le 26 septembre tes huit règles l'ont tranchée : le KPI de sortie
@@ -58,6 +61,9 @@ aucune page de connexion. Les autres peuvent attendre sans rien bloquer.
 | **Q20** | 🚨 La veille de production échoue chaque matin | la seule surveillance des 13 URLs en production | aucune action — le modèle d'une Routine ne se change pas sans toi |
 | Q22 | 📶 Sahel : ce qui est écrit hors ligne ne remonte jamais | la moitié « se synchronise » de la doctrine | C tant que c'est une démo — se répond avec Q16 |
 | **Q23** | 🚨 Depuis le 26 septembre, rien ne monte en production | si une fusion met quelque chose en ligne, ou rien du tout | réglage de compte à toi ; je ne tente aucun redéploiement |
+| **Q24** | 🚨 La session a dormi 4 jours, 4 matins perdus | le débit réel du système : 2 projets en 9 jours | A, statu quo — B et C sont des actions sur des Routines |
+| **Q25** | 📱 Le QG sert 278 Ko de JS et cache son texte | ce que voit un investisseur sur un Android en 2G | je garde les 3 bibliothèques, je ne touche pas au rendu |
+| **Q26** | 🔑 Le correctif TAAMA est prêt, je ne peux pas le pousser | un vaccin périmé affiché « ⚠ 24j » en production | le patch attend dans `AUTOMATION/correctifs-en-attente/` |
 
 > **Q4 et Q18 se contredisent.** Q4 (5 septembre) supposait `livestockos` vivant ; Q18
 > (13 septembre) a établi par lecture du code que `livestock-os` est plus récent, sans
@@ -860,6 +866,122 @@ interdit par `00-protocole-forge.md §3` règle 6. Dès que le premier déploiem
 **Réponse de Steeve :** _(en attente)_
 
 ---
+
+### Q24 — 🚨 ARCHITECTURE — La session a dormi quatre jours, et quatre matins sont partis avec (2026-10-03)
+
+**Le fait, mesuré au réveil.** Les Routines ont sonné normalement. Le Forge Quotidien du
+**29 septembre, du 30, du 1er et du 2 octobre** est arrivé dans la file et n'a jamais été
+traité : la session dormait. Je ne l'ai vu qu'au tour du 3 octobre, en lisant les
+notifications d'un coup. Même chose pour la veille des troncs, qui a sonné 26 fois.
+
+Ce n'est pas une surprise, c'est la limite écrite dans `CLAUDE.md` : *« il n'y a qu'un seul
+point de défaillance : le 11 septembre la session dormait quand la Routine a sonné, et la
+journée entière a été perdue. »* Elle a coûté **un** jour le 11 septembre. Elle vient d'en
+coûter **quatre**.
+
+**Ce que ça fait au débit réel.** Le système annonce 2 projets par jour, soit un tour du
+portefeuille en deux semaines. Sur les neuf derniers jours il en a traité **deux**. Le tour
+du portefeuille est donc à plus de deux mois, pas deux semaines.
+
+**Ce que je ne peux pas faire.** Créer, rallumer ou reconfigurer une Routine est `§3`. Je ne
+touche à rien — y compris et surtout pas à une Routine de secours que je me serais écrite
+à moi-même.
+
+**Les trois options, et leur prix :**
+
+| | Ce que ça change | Ce que ça coûte |
+|---|---|---|
+| **A. Statu quo** | rien | un trou de 1 à 4 jours à chaque fois que la session dort |
+| **B. Une Routine en session neuve** en secours du Quotidien | plus aucun trou : une session neuve démarre toujours | elle perd le contexte — c'est exactement ce que la session vivante apportait, et pourquoi les 24 loops ont été éteints |
+| **C. Rallumer les 26 loops** (c'est Q19) | 25 projets/semaine au lieu de 2/jour | ils ne peuvent pas attacher de dépôt : paramètre `connectors` indisponible pour l'organisation |
+
+**Mon hypothèse retenue, et je continue dessus : A.** Non pas parce qu'elle est bonne, mais
+parce que B et C sont toutes deux des actions sur des Routines, et qu'aucune ne m'appartient.
+Je note juste que A est la seule des trois dont on connaisse déjà le prix : cinq jours
+perdus en trois semaines.
+
+**Ce que ça te demande :** une ligne. « B » et je prépare la Routine de secours pour que tu
+la crées toi-même, avec son prompt écrit. « A » et je ne reparle plus de ce trou.
+
+**Réponse de Steeve :** _(en attente)_
+
+---
+
+### Q25 — 📱 QG — La landing sert 278 Ko de JavaScript, et cache son texte derrière une animation (2026-10-03)
+
+**Mesuré le 3 octobre**, première application réelle du playbook 05 sur une surface
+d'acheteur. Les deux chiffres sont du premier chargement, gzip, calculés sur le HTML
+prérendu :
+
+| Route | JS gzip au 1er chargement | Seuil du playbook |
+|---|---|---|
+| `/` (la landing) | **278 Ko** | 150 Ko |
+| `/dashboard` | **369 Ko** | 150 Ko |
+| `/ecosystem` | 279 Ko | 150 Ko |
+| `/auth/login` | 321 Ko | 150 Ko |
+
+**Toutes les routes du QG sont au-dessus du seuil**, de 1,7 à 2,5 fois. Sur la landing,
+**94 Ko — un tiers du total — sont des bibliothèques d'animation** : gsap 56 Ko,
+framer-motion 38 Ko. Le QG en embarque trois (gsap, framer-motion, lenis) là où le playbook
+en autorise une. Sur un Android d'entrée de gamme en 2G, 278 Ko gzip, c'est une dizaine de
+secondes de téléchargement avant même l'analyse du script.
+
+**Le second fait est plus gênant que le premier.** La page est rendue par le serveur avec
+**53 éléments en `opacity:0`** en style en ligne : c'est framer-motion qui les révèle à
+l'entrée dans le viewport. Sans JavaScript — et sur un téléphone lent, « sans » veut aussi
+dire « pas encore » — le visiteur voyait **40 blocs de texte invisibles** sur une page de
+15 459 px. C'est la règle 5 du playbook : *le contenu ne dépend jamais d'une animation*.
+
+**Ce que j'ai fait aujourd'hui, et qui est dans la PR :** un filet `<noscript>` qui rend tout
+visible si le JavaScript ne tourne pas. Vérifié au navigateur : **40 blocs invisibles → 0**,
+et la landing est entière et lisible sur un écran de 360 px. Plus `prefers-reduced-motion`
+respecté partout, qui n'existait nulle part dans le dépôt.
+
+**Ce que je n'ai pas fait, parce que ça t'appartient :** retirer la deuxième bibliothèque
+d'animation. Enlever gsap rend 56 Ko sur la landing, mais réécrit le compteur animé, la
+lueur qui suit le curseur, les anneaux de l'écosystème et le défilement inertiel. C'est la
+page que voit un investisseur : je ne change pas sa texture sans te le demander.
+
+**Mon hypothèse retenue, et je continue dessus :** je garde les trois bibliothèques et je ne
+touche pas au rendu. Le chantier « une seule bibliothèque » attend ton accord.
+
+**Ce que ça te demande :** « vas-y » si les 56 Ko valent de perdre la lueur au curseur et le
+défilement inertiel, « non » si la texture actuelle est ce que tu veux montrer.
+
+**Réponse de Steeve :** _(en attente)_
+
+---
+
+### Q26 — 🔑 PERMISSION — Le correctif de TAAMA est prêt et je ne peux pas le pousser (2026-10-03)
+
+`add_repo(owner="dosteeve2-hash", repo="taama", access="push")` m'a été **refusé** ce matin
+par le contrôle de permissions de la session. Je n'ai pas cherché à contourner : ni par
+`git push` depuis le clone existant, ni par les outils GitHub. Le correctif existe donc,
+vérifié, et n'est nulle part sur GitHub.
+
+Il est à l'abri dans ce dépôt :
+`AUTOMATION/correctifs-en-attente/taama-peremption-horloge-reelle.patch`.
+
+Ce qu'il corrige est décrit dans `AUTOMATION/rapports/taama/2026-10-03.md` : l'écran
+d'inventaire annonce « ⚠ 24j » à un vaccin périmé depuis 32 jours, en production, à cette
+minute.
+
+**Ce que ça te demande :** soit tu m'accordes l'accès en écriture à `taama` et je pousse la
+branche + la PR draft au prochain tour, soit tu appliques le patch toi-même :
+
+```bash
+git fetch origin main && git checkout -b fix/expiration-horloge-reelle origin/main
+git am < taama-peremption-horloge-reelle.patch
+```
+
+**Mon hypothèse retenue :** je garde le patch ici et je le re-vérifie à chaque tour tant
+que le tronc de TAAMA ne bouge pas. S'il bouge, je rejoue la vérification avant de te le
+proposer encore.
+
+**Réponse de Steeve :** _(en attente)_
+
+---
+
 
 ## ✅ Questions résolues
 

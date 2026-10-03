@@ -166,3 +166,43 @@ cassée, et j'ai regardé une capture pour m'en assurer.
 Branché au `§5` du protocole (le design d'une surface vue par un acheteur est **niveau 4**,
 pas 7 ; une animation qui ignore `reduced-motion` est **niveau 3**) et à `CLAUDE.md`.
 → **règle 55** : un design ne se juge pas sur un écran 27 pouces.
+
+## 2026-10-03 — Un vaccin périmé affiché « encore 24 jours », et le playbook design retourné contre le QG
+
+**La session a dormi quatre jours.** Quatre Forge Quotidien (29, 30 septembre, 1er, 2 octobre)
+et vingt-six veilles de troncs ont sonné dans le vide. Lues toutes d'un coup ce matin. Le
+point de défaillance unique de l'architecture, connu et écrit dans `CLAUDE.md`, a coûté un
+jour le 11 septembre et **quatre** cette fois → **Q24**, avec le prix des trois options.
+
+**TAAMA.** La priorité d'hier demandait un quatrième triage. Je ne l'ai pas fait : les trois
+précédents tiennent, le tronc n'a pas bougé (`afb5f4c`), un triage de plus n'aurait rien
+mesuré de neuf. Cherché à la place ce qui était **cassé** et non bloqué, et trouvé :
+`inventaire/page.tsx` calcule toutes les péremptions contre `new Date('2026-08-08')` écrit
+en dur. La page étant prérendue statiquement, la date est gelée dans le HTML servi. Lu
+**sur la production** via le connecteur Vercel : `⚠ 24j · 2026-09` pour un vaccin périmé
+depuis 32 jours. Corrigé — horloge réelle lue après hydratation par `useSyncExternalStore`,
+statuts dérivés et non synchronisés, horloge de test figée au 8 août (vérifié ligne par
+ligne que les 15 statuts écrits à la main y correspondent, donc correctif neutre pour les
+assertions existantes). **117 tests, 176/176 avec la #35 simulée**, lint et tsc à la base.
+**Non poussé** : `add_repo` en écriture sur `taama` refusé. Pas contourné. Patch exporté
+dans `AUTOMATION/correctifs-en-attente/` → **Q26**.
+
+**Le QG.** Première application réelle du playbook 05, et c'est le QG qui le viole le plus.
+Mesuré : **278 Ko gzip de JS sur la landing** (seuil 150), dont **94 Ko de bibliothèques
+d'animation** ; 369 Ko sur le tableau de bord ; **trois** bibliothèques là où la règle 4 en
+autorise une ; `prefers-reduced-motion` **absent du dépôt entier** pour quatre animations en
+boucle infinie ; et **53 éléments rendus par le serveur en `opacity:0`**, soit 40 blocs de
+texte invisibles sans JavaScript. Corrigé : `reduced-motion` respecté partout, une fuite
+réelle (le ticker gsap n'était jamais retiré — `remove(lenis.raf)` retirait une autre
+fonction que celle ajoutée), et un filet `<noscript>`. **40 → 0**, hero complet sur 360 px,
++0,5 Ko. Non corrigé parce que ça appartient à Steeve : retirer gsap → **Q25**.
+
+**Deux affirmations de mon propre playbook étaient fausses** et sont corrigées dedans :
+l'inventaire des bibliothèques de forge-afrika, et « lire le budget JS dans la sortie de
+`next build` » — Next 16 n'imprime pas les colonnes de poids hors terminal interactif.
+
+→ **règle 56** : un serveur de dev encore debout sert l'ancien build. J'ai conclu que mon
+filet `noscript` ne marchait pas, sur une mesure faite contre un binaire qui ne le
+contenait pas.
+→ **règle 57** : une capture pleine page d'un site à révélations est vide par construction ;
+le vide ne prouve rien, mais il doit déclencher la mesure `javaScriptEnabled: false`.

@@ -1,7 +1,7 @@
 {
   "projet": "taama",
-  "derniere_execution": "2026-09-16",
-  "verdict": "🔴 18 PR ouvertes, 0 fusionnee, toutes fusionnables — et le tronc a perdu le site public",
+  "derniere_execution": "2026-10-03",
+  "verdict": "🔴 Un defaut servi en production : l'inventaire calcule les peremptions contre un 8 aout 2026 gele. Corrige et verifie, NON POUSSE (permission refusee, Q26). Et toujours 18 PR ouvertes, 0 fusionnee.",
   "tronc": "main = 30 commits, UNE SEULE racine (66ca73d, 27 juin), pointe 3f8318d du 10 aout. Verifie en clone COMPLET le 15 septembre.",
   "pr_ouvertes_du_depot": [
     "18 PR ouvertes (verifie par l'API le 2026-09-07) : #35 #26 #18 #17 #16 #15 #14 #13 #12 #11 #10 #9 #8 #7 #6 #5 #4 #3",
@@ -10,7 +10,7 @@
   ],
   "mes_pr": [],
   "chantier_en_cours": "",
-  "prochain_chantier": "Fusionner la #35 (verifiee : 110 -> 169 tests) et ma #37 (site public restaure par extraction). Puis relire les 16 restantes UNE PAR UNE contre main : elles sont en retard, pas mortes, et mon triage du 9 les avait toutes ecartees a tort. Ne rien fermer avant cette relecture.",
+  "prochain_chantier": "Pousser le correctif de peremption des que Q26 est repondue. Puis, toujours : fusionner la #35, puis trancher la #10 (site public, Q14).",
   "dette_connue": [
     "18 PR ouvertes, 0 fusionnee, la plus ancienne du 2026-06-29. Le blocage est decisionnel.",
     "#35 verte et prete depuis le 2026-09-02 : elle repare 59 tests morts et ajoute la CI.",
@@ -86,5 +86,26 @@
     "plus_gros_apport_restant": "#18 feat/maintenance-infra — 24 fichiers, 3 823 insertions",
     "rien_touche": "Aucun conflit resolu, aucune PR fermee ni reciblee. Ce sont les PR de Steeve.",
     "donnees": "AUTOMATION/etat/triage-taama.json"
-  }
+  },
+  "DEFAUT_PRODUCTION_2026_10_03": {
+    "fichier": "src/app/(dashboard)/inventaire/page.tsx ligne 54",
+    "cause": "const TODAY_MS = new Date('2026-08-08').getTime() — la page n'a aucune donnee dynamique, Next la prerend au build, la date est donc gelee dans le HTML servi",
+    "mesure_sur_la_production": "https://taama-mu.vercel.app/inventaire contient litteralement « ⚠ 24j · 2026-09 » pour le Vaccin Hepatite B (expiration 2026-09-01), lu le 3 octobre par le connecteur Vercel. Perime depuis 32 jours.",
+    "second_cas": "Insuline Glargine (2026-10-30) affichee verte a 83 jours alors qu'elle est a 26 jours, donc dans la fenetre d'alerte < 30 j.",
+    "ecart": "grandit d'un jour par jour depuis le 8 aout",
+    "correctif": "src/lib/peremption.ts (debutDeJour, joursAvant, useAujourdHui par useSyncExternalStore qui rend null cote serveur) ; statuts derives par useMemo et non synchronises dans un effet ; __tests__/setup.ts fige l'horloge au 8 aout ; __tests__/peremption.test.ts, 7 tests",
+    "pourquoi_le_8_aout_en_test": "verifie ligne par ligne : au 8 aout les 15 statuts ecrits a la main correspondent exactement a ce que recalcule le code. Le correctif est donc neutre pour toutes les assertions existantes.",
+    "verification": {
+      "tests_main_plus_correctif": "117 passent (110 + 7)",
+      "suite_InventairePage": "ne se charge toujours pas — Cannot access 'mockToast' before initialization, defaut de hoisting que repare la #35",
+      "tests_avec_35_simulee": "176 / 176, 11 suites",
+      "lint": "9 erreurs 13 avertissements — exactement la base de main",
+      "tsc": "174 diagnostics avant comme apres, aucun dans les fichiers touches",
+      "build": "reussi, 24 pages statiques",
+      "html_prerendu": "plus aucun decompte fige, seulement des mois"
+    },
+    "ordre_de_fusion": "la #35 d'abord, ce correctif ensuite — c'est ce que mesure le 176/176. Je n'ai volontairement pas retouche __tests__/InventairePage.test.tsx, que la #35 modifie, pour ne pas refaire son travail (incident de la #36).",
+    "bloque_par": "Q26 — add_repo(taama, access=push) refuse le 3 octobre. Pas contourne. Patch dans AUTOMATION/correctifs-en-attente/taama-peremption-horloge-reelle.patch"
+  },
+  "triage_toujours_valide_le_2026_10_03": "Le triage du 23 septembre n'a PAS ete refait, et c'est volontaire : main @ afb5f4c n'a pas bouge depuis le 16 septembre, donc AUTOMATION/etat/triage-taama.json est exact tel quel. Un quatrieme triage aurait produit le meme fichier. Ce qui manque a TAAMA est une decision sur la #35 et la #10, pas une mesure de plus."
 }

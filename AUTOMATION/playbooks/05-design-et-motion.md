@@ -37,17 +37,30 @@ Cinq règles. Elles ne se discutent pas parce qu'elles découlent de la doctrine
    pas une option d'accessibilité décorative : c'est un réglage que des utilisateurs ont
    réellement activé, et l'ignorer donne la nausée à certains. Une seule media query en
    fin de feuille de style, et le travail est fait.
-4. **Jamais une deuxième bibliothèque d'animation dans un dépôt.** `framer-motion` est
-   déjà dans forge-afrika (avec `type: 'spring' as const`, cf. `CLAUDE.md`), `gsap` dans
-   african-hybrid-agent. En ajouter une autre est refusé d'office. Et **le CSS d'abord** :
-   un `@keyframes` plus une `transition` couvrent 90 % des cas pour **0 Ko de JavaScript**.
+4. **Jamais une deuxième bibliothèque d'animation dans un dépôt.** En ajouter une est
+   refusé d'office. Et **le CSS d'abord** : un `@keyframes` plus une `transition` couvrent
+   90 % des cas pour **0 Ko de JavaScript**.
+
+   ⚠️ **Inventaire réel, mesuré le 3 octobre** — la version du 28 septembre de cette règle
+   affirmait « `framer-motion` dans forge-afrika, `gsap` dans african-hybrid-agent ».
+   C'était faux pour forge-afrika, et je ne l'avais pas vérifié avant de l'écrire. Le QG
+   embarque **trois** bibliothèques : `framer-motion` 12, `gsap` 3.15 + `@gsap/react`, et
+   `lenis` pour le défilement inertiel. Prix mesuré sur la landing : **56 Ko gzip de gsap +
+   38 Ko de framer-motion = 94 Ko**, soit un tiers des 278 Ko de la page. La règle est donc
+   déjà violée là où elle a été écrite — ce qui est exactement pourquoi elle existe.
 5. **Le contenu ne dépend jamais d'une animation.** Pas d'apparition qui masque le texte
    jusqu'à la fin, pas de rideau qui bloque la saisie. Offline-first veut dire que le
    contenu arrive d'abord ; l'animation l'accompagne, elle ne le précède pas.
 
-**Le budget JavaScript se mesure, il ne s'estime pas.** `next build` imprime le poids du
-premier chargement pour chaque route. On le lit. Une route de produit qui dépasse
+**Le budget JavaScript se mesure, il ne s'estime pas.** Une route de produit qui dépasse
 **~150 Ko gzip de JS au premier chargement** est un problème à traiter, pas un détail.
+
+⚠️ **`next build` ne suffit pas.** Hors terminal interactif — donc dans cette session comme
+en CI — Next 16 imprime la liste des routes **sans les colonnes de poids**. Lire « la
+sortie de `next build` » ne donne rien. La mesure qui marche, et qui a servi le 3 octobre :
+pour chaque route, prendre les `<script src>` du HTML prérendu
+(`.next/server/app/<route>.html`), les gzipper, les additionner. Vingt lignes de Python,
+reproductibles, et le résultat est le poids réel servi.
 
 Et une animation qui tourne **en boucle, indéfiniment, dans le viewport** est interdite
 sur un écran que l'utilisateur regarde longtemps : c'est de la batterie brûlée pour rien.
@@ -73,6 +86,19 @@ relève les **erreurs de console**. Chromium est déjà dans le conteneur
 
 **Règle de conduite : je ne déclare jamais un écran « propre » sans avoir regardé sa
 capture.** Si je ne peux pas capturer, je le dis — je ne le devine pas.
+
+**Et une passe de plus, ajoutée le 3 octobre : charger la page `javaScriptEnabled: false`,
+puis compter les blocs de texte dont l'`opacity` calculée est nulle.** C'est ce chiffre qui
+dit si le contenu dépend d'une animation (règle 5), et aucune capture normale ne le montre :
+une capture pleine page d'un site à révélations `whileInView` est vide de toute façon, parce
+que rien n'est entré dans le viewport. Sur la landing du QG, la mesure a donné **40 blocs
+invisibles sans JavaScript, 0 après correctif**.
+
+⚠️ **Le piège qui m'a eu ce jour-là.** `forge-captures.sh` laisse son `npm run start`
+tourner sur le port 3100. Le `npm run start` suivant échoue en silence — adresse déjà
+utilisée — et `curl` répond `200` : depuis **l'ancien build**. J'ai mesuré un correctif qui
+n'était pas servi et conclu qu'il ne marchait pas. Avant toute mesure sur 3100 : tuer le
+serveur précédent, ou vérifier dans le HTML servi que le changement y est.
 
 ---
 
