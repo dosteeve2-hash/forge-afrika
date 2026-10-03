@@ -112,7 +112,7 @@
       "pourquoi_invisible": "les controles Netlify n'apparaissent que sur les PR ; main n'en porte aucun. Seul « Lint, tests & build » tourne sur le tronc."
     },
     "reproduit_en_premiere_main": "git submodule update --init --recursive : code 128 sur main avec le message EXACT de Netlify, code 0 sur la branche corrigee.",
-    "correctif": "AUTOMATION/correctifs-en-attente/mifa-life-sous-module-fantome.patch — retire le gitlink de l'index, une ligne, aucun fichier applicatif touche. NON POUSSE (Q26).",
+    "correctif": "POUSSE le 3 octobre au soir : branche fix/sous-module-fantome-recidive, PR #51 en brouillon. Le patch reste aussi dans AUTOMATION/correctifs-en-attente/ pour trace.",
     "signal_non_confirme": "Le journal du deploiement vivant porte « Lighthouse was unable to reliably load the page you requested (Status code: 500) » sur '/'. Je n'ai PAS pu le confirmer : le proxy de ma session refuse le tunnel vers mifalife.netlify.app (403), comme vers tout hote hors connecteur. A verifier des que la production se debloque — ne pas l'affirmer avant.",
     "lien_avec_mes_pr": "Mes PR #49 et #45 sont rouges UNIQUEMENT a cause de ce defaut du tronc : leur controle de code « Lint, tests & build » est vert. La #12, plus ancienne que 5423b92, passe les trois controles Netlify — c'est ce qui prouve qu'ils ne sont pas casses globalement."
   }

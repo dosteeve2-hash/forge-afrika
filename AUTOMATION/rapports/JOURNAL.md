@@ -267,3 +267,32 @@ Je ne les ai pas reciblées : c'est Q17, et recibler une branche est `§3`. La m
 question plus nette, elle ne la tranche pas.
 
 `b3.txt` mis à jour avec la nouvelle tête.
+
+## 2026-10-03 (soir) — Steeve fusionne, un conflit mécanique tombe, et je corrige une prémisse à moi
+
+**`indubot-afrika#5` fusionnée** à 18h52 — mon fond animé mobile — suivie de la **#7**
+(« Vitrine honnête : retire chiffres et témoignages inventés »). Le tronc `master` passe de
+`9bf7619` à `5b60c5b`.
+
+**Conflit mécanique sur la #4**, ma PR navigation mobile et dates. Deux fichiers, et les
+deux conflits sont **purement additifs** : `package.json` oppose mon `check:date` au
+`check:mouvement` arrivé par la #5, et `ci.yml` l'étape de chacun. Ce ne sont pas deux
+versions d'une même chose : l'un vérifie que l'affichage des dates ne dépend pas du fuseau
+du visiteur, l'autre que `prefers-reduced-motion` est respecté. **Les deux sont conservés** —
+prendre un seul côté aurait supprimé un garde-fou de CI en silence, ce qu'une résolution
+« au plus simple » fait très bien. Vérifié sur la branche fusionnée : `check:date` 0,
+`check:mouvement` 0, lint 0, build 0, **8/8 tests**. Poussé en `998f75a`, la #4 est repassée
+`mergeable: true`.
+
+**Et le push a marché.** C'est ce qui m'a fait relire ce que j'avais écrit le matin. J'avais
+conclu de `add_repo(taama, push)` refusé que « je ne peux pas pousser » : vrai pour `taama`,
+**faux en général**. J'ai donc :
+
+- corrigé la prémisse de **Q26** au lieu de la laisser pourrir ;
+- poussé le correctif du sous-module fantôme de MIFA Life en branche + **PR draft #51** —
+  réversible, rien de fusionné, c'est le schéma standard de ce système ;
+- **ne rien poussé sur `taama`**. Cet accès précis a été refusé ce matin, et un chemin
+  technique qui existe par ailleurs ne transforme pas un refus en accord.
+
+→ **règle 60** : un refus porte sur ce qui a été refusé, pas sur tout ce qui y ressemble —
+et il tient quand même.

@@ -1,6 +1,6 @@
 {
   "projet": "indubot-afrika",
-  "derniere_execution": "2026-09-19",
+  "derniere_execution": "2026-10-03",
   "verdict": "🟢",
   "tronc": "master (2026-09-02, correctif CI/lint fusionne)",
   "pr_ouvertes_du_depot": [
@@ -44,5 +44,22 @@
     "tronc_reel": "master @ aaecec1",
     "pr_ouvertes": 2,
     "lesquelles": "#4 et #5, les miennes, toutes deux basees sur la tete actuelle"
+  },
+  "FUSIONS_2026_10_03": {
+    "tronc": "master 9bf7619 → 5b60c5b",
+    "fusionnees_par_steeve_a_18h52": [
+      "#5 claude/fond-anime-mobile (la mienne)",
+      "#7 fix/vitrine-honnete — retire chiffres et temoignages inventes"
+    ],
+    "conflit_mecanique": "La #4 (claude/loop-indubot-2026-09-15) est passee dirty. Deux conflits purement additifs : package.json (check:date ici contre check:mouvement arrive par la #5) et .github/workflows/ci.yml (l'etape de chacun).",
+    "resolution": "Les DEUX gardes conserves. Ce ne sont pas deux versions d'une meme chose : l'un verifie que l'affichage des dates ne depend pas du fuseau, l'autre que prefers-reduced-motion est respecte. Prendre un seul cote aurait supprime un garde-fou de CI en silence.",
+    "verifie": {
+      "check:date": 0,
+      "check:mouvement": 0,
+      "lint": 0,
+      "build": 0,
+      "tests": "8/8"
+    },
+    "pousse": "998f75a. #4 est repassee mergeable:true."
   }
 }

@@ -63,7 +63,7 @@ aucune page de connexion. Les autres peuvent attendre sans rien bloquer.
 | **Q23** | 🚨 Depuis le 26 septembre, rien ne monte en production | si une fusion met quelque chose en ligne, ou rien du tout | réglage de compte à toi ; je ne tente aucun redéploiement |
 | **Q24** | 🚨 La session a dormi 4 jours, 4 matins perdus | le débit réel du système : 2 projets en 9 jours | A, statu quo — B et C sont des actions sur des Routines |
 | **Q25** | 📱 Le QG sert 278 Ko de JS et cache son texte | ce que voit un investisseur sur un Android en 2G | je garde les 3 bibliothèques, je ne touche pas au rendu |
-| **Q26** | 🔑 Deux correctifs prêts, je ne peux pousser ni l'un ni l'autre | un vaccin périmé affiché « ⚠ 24j », et MIFA Life figée depuis 17 jours | les deux patchs attendent dans `AUTOMATION/correctifs-en-attente/` |
+| **Q26** | 🔑 TAAMA : tu as refusé l'accès, je n'ai pas contourné | un vaccin périmé affiché « ⚠ 24j » en production | le patch attend ; MIFA, lui, est parti en draft `#51` |
 
 > **Q4 et Q18 se contredisent.** Q4 (5 septembre) supposait `livestockos` vivant ; Q18
 > (13 septembre) a établi par lecture du code que `livestock-os` est plus récent, sans
@@ -952,7 +952,7 @@ défilement inertiel, « non » si la texture actuelle est ce que tu veux montre
 
 ---
 
-### Q26 — 🔑 PERMISSION — Deux correctifs vérifiés attendent une permission, pas du travail (2026-10-03)
+### Q26 — 🔑 PERMISSION — Le correctif de TAAMA attend ta décision, pas du travail (2026-10-03)
 
 `add_repo(owner="dosteeve2-hash", repo="taama", access="push")` m'a été **refusé** ce matin
 par le contrôle de permissions de la session. Je n'ai pas cherché à contourner : ni par
@@ -1002,8 +1002,29 @@ est d'une ligne : `AUTOMATION/correctifs-en-attente/mifa-life-sous-module-fantom
 tant que les troncs ne bougent pas. S'ils bougent, je rejoue la vérification avant de te les
 proposer encore.
 
-**Ce que ça te demande :** l'accès en écriture à `taama` et à `Mifa_Life_shop`, ou tu
-appliques les deux patchs toi-même. C'est la même ligne pour les deux.
+---
+
+**⚠️ Correction du soir : ma prémisse était trop large.**
+
+J'ai écrit ce matin « je ne peux pas pousser ». C'était vrai de `taama` et **faux en
+général**. Ce qui a été refusé, c'est l'outil `add_repo` sur `taama` ; un `git push` sur une
+branche passe, comme l'a montré la résolution de `indubot-afrika#4` ce soir.
+
+**Conséquence appliquée :** le correctif MIFA Life est poussé et ouvert en brouillon —
+**`Mifa_Life_shop#51`**. Branche et PR draft, rien de fusionné, entièrement réversible :
+c'est le schéma standard de ce système, pas une permission élargie.
+
+**Conséquence NON appliquée :** je n'ai rien poussé sur `taama`. Tu as refusé cet accès
+précis ce matin, et un chemin technique qui existe par ailleurs ne transforme pas un refus
+en accord. Le patch reste dans `AUTOMATION/correctifs-en-attente/`.
+
+**Ce que ça te demande :** un mot sur `taama`. Soit « vas-y » et je pousse la branche + la
+PR draft au prochain tour, soit tu appliques le patch toi-même :
+
+```bash
+git fetch origin main && git checkout -b fix/expiration-horloge-reelle origin/main
+git am < taama-peremption-horloge-reelle.patch
+```
 
 **Réponse de Steeve :** _(en attente)_
 
