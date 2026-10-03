@@ -247,3 +247,23 @@ maintenant les deux.
 « Lighthouse … Status code: 500 » sur `/`. Le proxy de ma session refuse le tunnel vers
 `mifalife.netlify.app` (403, comme vers tout hôte hors connecteur), donc je n'ai pas pu
 vérifier. À revoir dès que la production se débloque.
+
+## 2026-10-03 (veille de 08h05) — Un tronc a bougé : `ueemt-tokat`, et `dev` est maintenant mesurée comme strictement absorbée
+
+`ueemt-tokat/main` : `f9c299e → 0e54d6a`. Fusion de la **#16** ce matin à 07h21 UTC
+(`feat/sondages-2026-10-03`, sondages du groupe et choix de date de réunion). C'est un
+commit de Steeve.
+
+**Conflits créés : aucun.** Les six PR ouvertes du dépôt (#5, #6, #7, #8, #11, #12) sont
+toutes `mergeable: true` après la fusion. Rien à résoudre, rien à pousser.
+
+**La mesure qui compte, refaite à cette occasion :** `main` a **37 commits d'avance** sur
+`dev`, et `dev` n'en a **aucun** que `main` n'ait pas. Son dernier commit date du
+**26 juillet**, il y a 69 jours. `dev` n'est donc pas seulement « morte » comme le disait
+Q17 : elle est **strictement absorbée**. Les quatre PR qui la visent (#5 à #8) ne
+livreraient rien du tout, même fusionnées.
+
+Je ne les ai pas reciblées : c'est Q17, et recibler une branche est `§3`. La mesure rend la
+question plus nette, elle ne la tranche pas.
+
+`b3.txt` mis à jour avec la nouvelle tête.

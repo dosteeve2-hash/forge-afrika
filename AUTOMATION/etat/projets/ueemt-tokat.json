@@ -1,7 +1,7 @@
 {
   "projet": "ueemt-tokat",
   "tier": 2,
-  "derniere_execution": "2026-09-28",
+  "derniere_execution": "2026-10-03",
   "mode": "TRIAGE (7 PR ouvertes)",
   "verdict": "🟡 tronc sain depuis la fusion de ma #14 ; 6 PR ouvertes dont 4 visent une branche MORTE",
   "tronc": "main @ 3c0c098. La CI existe depuis la fusion de la #14 le 16 septembre ; avant elle, le depot n'en avait pas et le build echouait sans les secrets. 14 branches. Mesure le 2026-09-20.",
@@ -96,5 +96,16 @@
     "production_BLOQUEE": "Le tronc main porte f9c299e — PR #15, module Tontine « La Main ». Son deploiement de production du 26 sept 14h08 UTC est BLOCKED (meme errorLink). Le site sert encore 3c0c098, la PR #14. LE MODULE TONTINE N'EXISTE PAS POUR UN VISITEUR.",
     "pourquoi_c_est_le_pire_cas": "C'est le seul depot du portefeuille ou une fusion DEJA FAITE est restee invisible. Les autres attendent une fusion ; celui-ci attend un deploiement. Et c'est le projet communaute : ses utilisateurs sont des personnes que Steeve connait a Tokat, et une tontine est un objet de confiance.",
     "rien_a_coder": "Aucune PR ouverte de ma part. Le code est bon et deja sur le tronc. Q17 reste ouverte par ailleurs (dev morte, #8 a fermer, #11 a recibler, 4 PR en conflit) : je n'y touche pas."
+  },
+  "VEILLE_2026_10_03_08h05": {
+    "tronc_a_bouge": "main f9c299e → 0e54d6a. Fusion de la #16 (feat/sondages-2026-10-03, « sondages du groupe + choix de date de reunion ») le 3 octobre a 07h21 UTC. C'est un commit de Steeve, pas de moi.",
+    "conflits_crees": "AUCUN. Les six PR ouvertes (#5 #6 #7 #8 #11 #12) sont toutes mergeable:true apres la fusion. Rien a resoudre.",
+    "dev_mesure_a_nouveau": {
+      "main_en_avance_de": 37,
+      "dev_en_avance_de": 0,
+      "dernier_commit_de_dev": "0e08d38, 26 juillet 2026 — 69 jours",
+      "ce_que_ca_veut_dire": "dev n'est pas seulement morte : elle est STRICTEMENT ABSORBEE par main. Elle ne contient pas un seul commit que main n'ait pas. Les quatre PR #5 #6 #7 #8 qui la visent fusionneraient donc dans une branche sans contenu propre, 37 commits en retard — elles ne livreraient rien du tout."
+    },
+    "ce_que_je_n_ai_pas_fait": "Recibler ces quatre PR sur main. C'est Q17 et c'est §3 : recibler une branche ne se fait pas sans l'accord de Steeve. La mesure ci-dessus rend la question plus nette, elle ne la tranche pas."
   }
 }
