@@ -12,8 +12,8 @@ const ATOUTS = [
   },
   {
     icon: TrendingUp,
-    titre: "Croissance prouvée",
-    desc: "10 filiales fondées, 6 en production, 5 000+ utilisateurs actifs. Chaque vertical génère des revenus récurrents dès le lancement.",
+    titre: "Exécution déjà engagée",
+    desc: "Huit logiciels métier déjà en ligne (élevage, coopératives, transformation, export, comptabilité). Prochaine étape : les premiers clients pilotes.",
     color: "#D4AF37",
   },
   {
