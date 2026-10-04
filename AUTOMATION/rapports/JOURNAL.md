@@ -37,3 +37,338 @@
 | 2026-09-16 | forge quotidien | **AgroTrack BF répond 500 en production, depuis vingt-cinq jours** — et personne ne l'a vu parce que la veille qui aurait dû le dire est morte depuis le 14 : **les deux pannes se protègent l'une l'autre**. Cause reproduite et non déduite : sans les deux variables Supabase, `/` → 200 et `/dashboard` → 500, `Your project's URL and Key are required`. `process.env.X!` ne ment qu'au vérificateur de types ; à l'exécution `@supabase/ssr` lève **dans** `createClient()`, donc **avant** que le layout ait pu appeler `getUser()` et rediriger. Une variable oubliée emportait les **seize** pages. **PR #19** : ferme au lieu de casser, prouvé dans les deux sens (307 + bannière sans variables ; 307 nu et aucune bannière avec). Elle ne remet pas le produit en service — poser les variables est une action de production, **Q21**. **`livestock-os`**, jamais touché, bloqué par Q18 : règle 23 appliquée car elle vaut quelle que soit la réponse. Les deux volets passent, et c'est **la seule authentification complète du portefeuille** — garde, validation réelle dans le layout, et une route de publication qui prend le nom de l'éleveur dans la **session**, jamais dans la requête. Le défaut était ailleurs : le graphique de cheptel dessinait **trois** courbes pour **quatre** espèces, et **les volailles étaient comptées chaque mois sans jamais être affichées** — les données de démo en contiennent trois. Invisible faute de lint (il ne démarrait pas : `next lint` supprimé en Next 16, et FlatCompat produisait « Converting circular structure to JSON », exactement ce que j'avais prédit dans le commit de CompTrack #38), faute de type contraignant, faute de tests. **PR #3** : clés dérivées du type, graphique qui boucle, table de couleurs exhaustive, lint réanimé, premiers tests et première CI du dépôt. **Corrigé chez moi :** le verdict de `taama.json` portait encore « tronc orphelin » — j'avais ajouté la correction le 15 sans nettoyer les quatre champs qui racontaient l'erreur ; même chose sur `comptrack.json`. **16ᵉ contrôle CI**, avec quatre provocations. **Et deux fois la règle 19 m'a évité une fausse affirmation** : sur agrotrack comme sur SUGU, ma première hypothèse était « encore un tronc sans authentification », et les deux fois elle était fausse. Le compte reste à **quatre**. | [digest](./2026-09-16-digest.md) · [agrotrack](./agrotrack-bf/2026-09-16.md) · [livestock-os](./livestock-os-legacy/2026-09-16.md) |
 | 2026-09-16 | veille de production — à la main | **La veille étant morte (Q20), j'ai fait le tour moi-même, et il a trouvé quelque chose que huit jours de notes avaient manqué.** `https://burkinacollect.vercel.app/` répond **200** et sert **« Aisha — Agent IA Africain »** — pas BurkinaCollect. Le projet Vercel s'appelait bien `burkinacollect` à l'origine (son plus ancien déploiement, du 25 mai, vient de ce dépôt), mais il a été **relié à `african-hybrid-agent` le 5 juin** ; sa production date du **24 juin**, depuis `main @ e20281b6`. **Mon hypothèse de Q11 — « African Hybrid Agent n'est pas déployé » — était donc fausse depuis huit jours.** Deux conséquences opposées : **BurkinaCollect n'a aucun déploiement** (l'URL à son nom sert autre chose, ce qui s'ajoute à Q12), et **le tronc déployé est antérieur à la PR #7**, celle qui pose la limite de débit sur `/api/chat` — l'endpoint public tourne donc sans limite côté code, sur un dépôt **public**. Je n'ai **pas** sollicité `/api/chat` : le tester consommerait le crédit de Steeve, c'est-à-dire l'abus même que je signale. **Règle 26** : le nom d'un projet chez l'hébergeur ne dit pas quel dépôt il sert — lire `link` et le `githubCommitRepo` des déploiements, jamais le nom. Même famille que la règle 22. **Et cette vérification m'a évité de perdre une journée** : ma note de rotation de ce matin disait « african-hybrid-agent — vérifier la limite de débit avant tout le reste ». Elle est écrite depuis le 2 septembre, dans la PR #7, non fusionnée. Rotation corrigée. | [q11](./../QUESTIONS.md) · [african-hybrid-agent](./../etat/projets/african-hybrid-agent.json) |
 | 2026-09-16 | ⚠️ correction majeure | **Problem to Projects Africa : la branche qui tourne ne sait pas générer de projet, et celle qui le sait n'a jamais été livrée.** Le 8 septembre j'ai écrit qu'il fallait « récupérer de `master` **les trois fichiers qui n'existent nulle part ailleurs** » avant d'archiver. Faux d'un facteur vingt : `git diff --name-status` donne **61 des 80 fichiers de `master` absents de `main`**. Parmi eux, les quatre de `src/lib/ai/` (SDK `@anthropic-ai/sdk`, modèle `claude-opus-4-5`) et les six de `src/lib/context/` — **Burkina, Mali, Sénégal, Côte d'Ivoire**. PPA est un générateur de projets : c'est le produit, pas de la décoration. Sur `main`, `src/lib/ai/provider.ts` existe aussi mais est **mort** — aucun import de `@/lib/ai`, `registerProvider` jamais appelé, **aucun SDK d'IA dans `package.json`** (même motif que SUGU le 15 : de l'échafaudage complet que personne n'appelle). **Cause de mon erreur : j'ai listé ce que `master` avait de *visible* en propre — un logo, deux fichiers de doc — et pris cet échantillon pour le total, sans compter le diff.** Laquelle tourne : mesuré, pas déduit (**règle 22**, écrite la veille après m'être trompé là-dessus sur CompTrack) — **tous** les déploiements `target: production` viennent de `main` ; `master` n'a jamais produit que des prévisualisations. Les deux racines restent réelles, revérifié en **clone complet** (`--is-shallow-repository` = `false`, règle 21). Et la couche d'IA de `master` est **saine** : limite de débit présente (5 req/min par IP), `safeParse` Zod, `SYSTEM_PROMPT` constant avec le texte utilisateur dans le message *user* — son problème n'est pas sa qualité, c'est qu'elle n'a jamais été livrée. **Rien porté :** porter ces dix fichiers, c'est précisément la décision que **Q13** pose à Steeve. **Leçon : une divergence se compte avec `git diff --name-status`, jamais à l'œil.** | [ppa](./problem-to-projects-africa/2026-09-16.md) · [état](./../etat/projets/problem-to-projects-africa.json) |
+| 2026-09-16 | 🎉 **le goulot a cédé** | **Steeve a fusionné QUINZE PR en six minutes, de 15h00 à 15h06 UTC**, sur onze dépôts — après onze jours à zéro fusion. Dont **forge-afrika #9**, la PR de ce système : cette branche est donc repartie de `master @ 1d0183d`, l'historique fusionné n'étant jamais empilé. **Et AgroTrack BF est sorti de sa panne de vingt-cinq jours** : la #19 redéployée, `/dashboard` répond **200** et redirige vers `/auth/login?raison=non-configure` avec la bannière qui nomme les deux variables manquantes. Il ferme au lieu de casser ; il n'est **pas** en service, les variables restent **Q21**. **La réparation a rendu visible un défaut que le 500 cachait** : la page de connexion **imprimait le mot de passe du compte de démonstration en clair**. Sans Supabase il ne vaut rien — mais à la seconde où Steeve répondra à Q21, c'est un identifiant valide affiché publiquement. **PR #20**, à fusionner **avant** de poser les variables ; et la valeur affichée est **brûlée**, `DEMO_PASSWORD` doit être neuve. C'est le défaut exact que j'avais refusé de reprendre de la #2 de MillTrack — il était déjà sur ce tronc-là, invisible. **Les cinq PR restantes sont toutes passées en conflit** — non parce qu'elles étaient mauvaises, mais parce que leur base avait bougé sous elles (**règle 28** : deux PR qui ajoutent chacune un script à `package.json` et une étape à la CI se disputent toujours ces deux fichiers). Les cinq sont résolues, vérifiées et repoussées : **milltrack #15** (la déconnexion descend dans `DashboardNav`, donc elle existe enfin **dans le tiroir mobile** — 198/198, les 5 sabotages rejoués, et le sabotage « liste noire » produit maintenant **8** échecs au lieu de 6, la liste blanche couvrant les pages ajoutées depuis), **indubot #4** (le badge « Bientôt » de la #2 replié dans le composant partagé, donc visible aussi dans le tiroir), **indubot #5**, **Portfolio #11** (les trois garde-fous cohabitent), **valuechain #10**. **Deux fois mes propres affirmations sont tombées.** (1) Mon corps de PR #4 disait « aucun fichier commun avec la #3 » : faux — j'avais comparé les fichiers source sans regarder `ci.yml` ni `package.json`, que toute PR apportant un garde-fou modifie. (2) Sur `livestockos`, mon ordre de fusion recommandait « ensuite la #9 » : elle ne se fusionne **pas**, 5 conflits — et ils sont **antérieurs** à mon travail, vérifié des deux côtés de ma fusion. **Règle 27 : un ordre de fusion se prouve en fusionnant.** Enfin, **le garde-fou du mouvement réduit d'indubot a laissé passer deux sabotages** avant d'être corrigé : il acceptait `useReducedMotion` (présent dans le fichier pour la surcouche) puis le simple **import** de `@/lib/mouvement` (qui survit au retrait de l'appel, le fichier important aussi `surChangementDeMouvement`). Il exige désormais un **appel**. Six provocations, six conformes. | [agrotrack](./../etat/projets/agrotrack-bf.json) · [indubot](./../etat/projets/indubot-afrika.json) · [livestockos](./../etat/projets/livestockos.json) · [règles](./../etat/rotation.json) |
+| 2026-09-17 | forge quotidien — vérification | **Deux des quinze PR fusionnées hier n'ont rien livré.** **SUGU** : la #12 (« une vente non enregistrée ne s'affiche plus comme enregistrée ») était **empilée** sur la branche de la #11 — la fusionner l'a versée là, et `ecrireLocal` est **absent de `master`**. Le correctif est à une fusion des commerçants, et la #11 porte désormais les deux travaux : vérifiée sur la branche réelle, fusion propre, **80/80**, lint 0, build vert. Un clic suffit. **CompTrack** : la #39 visait `feat/comptrack-v1`, dont le déploiement porte `target: null` — les **cinq** déploiements de production viennent de `main`, dont la fusion de la #40 par Steeve hier à 19h32. Le garde ne protège pas le site servi. **Mais j'allais me tromper pour la troisième fois** : j'avais écrit les 9 et 15 septembre que le tableau de bord exposait « paie, déclarations fiscales, trésorerie, bilan ». Faux — `@supabase` est dans `package.json` et **aucun fichier ne l'importe**, aucun `fetch`, aucun `createClient`, les chiffres sont des tableaux en dur. **Il n'y a pas de salaires exposés : il n'y a pas de salaires.** Même motif que SUGU le 15 et AgroTrack le 16 : de l'échafaudage mort pris pour une faille, trois fois en trois jours. **Q15 réécrite** autour de la vraie décision — ce ne sont pas deux troncs concurrents mais une **vitrine** qui tourne et un **produit** qui ne tourne pas. Rien construit ni porté : le garde sur `main` ne protégerait rien, et le poser trancherait Q15 à la place de Steeve. **Règle 29 : une fusion ne livre pas forcément — vérifier où le merge a atterri, pas seulement qu'il a eu lieu.** | [digest](./2026-09-17-digest.md) · [sugu](./duka-boutique/2026-09-17.md) · [comptrack](./comptrack/2026-09-17.md) |
+| 2026-09-18 | forge quotidien | **Sahel Commerce AI : l'application ne revenait jamais en ligne.** `VISION.md §4` demande « fonctionne sans connexion **et se synchronise quand elle revient** » — il manquait le retour. `lib/api.js` portait un booléen `demoMode` passé à `true` au premier échec réseau et **jamais remis à `false`** : sur un Android d'entrée de gamme en 2G/3G, **une coupure de cinq secondes basculait l'application sur les données du téléphone pour toute la session**, et la bannière restait affichée puisque `refresh()` ne tournait qu'au montage. **PR #2** : `lib/reseau.js` testable hors React, attente qui double, plafond à 5 min (la démo déployée n'a aucun backend — sans plafond elle sonderait à vide indéfiniment), écoute de `online`, et une erreur **métier** compte enfin comme « backend joignable ». Frontend sans **aucun** test ni lanceur → 10 tests, CI étendue, 4 sabotages conformes. **Trois fois j'ai failli écrire un défaut inexistant** : le précache d'`/icon.svg` (le fichier existe), la vente hors ligne perdue (`localStorage` persiste et la bannière le dit), le `NaN FCFA` (les six sites arrondissent bien). **UEEMT-Tokat, triage** : `dev` est **entièrement contenue dans `main`** — 0 commit unique, 33 de retard, figée au 26 juillet — donc **Q17 est tranchée par la mesure**, et **quatre des six PR visent une branche morte**. La **#8 est fermable** (déjà absorbée par la #9), la **#11 fusionnable proprement**, les quatre autres en conflit. Rien fermé ni reciblé : ce sont les PR de Steeve. **⚠️ Correction : seize fusions le 16, pas quinze** — UEEMT #14 est passée à 15h00:20 UTC et je ne l'ai pas vue **parce que je n'étais pas abonné à ce dépôt**. Mon décompte venait de mes notifications, pas des dépôts. **Règle 30**, corollaire de la 29. **Q22** ouverte : ce qui est écrit hors ligne sur Sahel ne remonte jamais au serveur — architecture, se répond avec Q16. | [digest](./2026-09-18-digest.md) · [sahel](./sahel-commerce-ai/2026-09-18.md) · [ueemt](./ueemt-tokat/2026-09-18.md) |
+| 2026-09-19 | forge quotidien — recensement | **Steeve a fusionné VINGT-NEUF PR le 16 septembre, pas quinze ni seize.** En appliquant enfin ma propre règle 30 — compter dans les dépôts, pas dans ses notifications — j'en ai trouvé **treize de plus** ; et mon script de recensement a d'abord reproduit la règle 22 en comptant sur la **branche par défaut**, manquant encore `livestockos`, `forge-afrika` et `duka-boutique` (**règle 31** : quand on corrige une erreur de mesure, vérifier que le correctif ne reproduit pas une erreur déjà nommée). Dix-neuf dépôts, six minutes. **✅ Q11 EST CLOSE — et c'est Steeve qui l'a fermée le 16 à 15h00:00 UTC, sa deuxième fusion**, pendant que je la portais en tête de cinq check-ins comme « urgente, sans réponse ». Vérifié dans les deux sens sans solliciter l'endpoint : `AI_RATE_LIMIT = { limit: 20, windowSeconds: 3600 }` dans `src/lib/rate-limit.ts` de `main`, et un déploiement `target: production` depuis ce commit. **Ce n'est pas lui qui n'a pas répondu, c'est moi qui n'ai pas regardé.** Les fusions ont aussi débloqué à mon insu : **burkinacollect #4** (l'application est publiée, `main` passe de 2 à 17 fichiers, la perte silencieuse de soumissions corrigée sur le tronc), **PPA #10** (`tsc` passe, les deux `@ts-nocheck` partis), **Mifa #46** (le dépôt s'installe à nouveau), **phone-showcase #1** (terminé, zéro PR ouverte), **forja #4 et #5** (dont j'ignorais l'existence), **indubot #2** (c'est elle qui a créé les conflits de mes #4 et #5). **Une seule des trente n'a rien livré** : `duka-boutique#12`, versée dans la branche de la #11 — `ecrireLocal` reste absent de `master`, la vente perdue n'est toujours pas corrigée pour les commerçants. **Q12 revue** : j'ai failli me corriger à tort — la feuille de route du README est en cases non cochées, ce qui est honnête, mais le tableau au-dessus présente **neuf** fonctionnalités comme des faits (je disais six) pour une application de **deux pages**, sous un lien « Voir le site live », sur un dépôt public. **La vérification protège dans les deux sens.** | [digest](./2026-09-19-digest.md) · [recensement](./2026-09-19-recensement-fusions.md) · [burkinacollect](./burkinacollect/2026-09-19.md) · [phone-showcase](./phone-showcase/2026-09-19.md) |
+| 2026-09-19 | contrôle — règles 32 et 33 | **Cinq fichiers d'état recommandaient encore de fusionner des PR fusionnées depuis trois jours.** `mifa#46` « à fusionner AVANT tout le reste », `burkinacollect#4`, `ueemt#14` « sans elle rien ne peut vérifier ce dépôt », `PPA#10`, `phone-showcase#1` — toutes passées le 16 entre 14h59 et 15h03. **Aucune de ces phrases n'était fausse** : elles étaient vraies le jour où je les ai écrites. C'est le défaut **symétrique** de celui que couvre le 16ᵉ contrôle : celui-là traque l'affirmation *réfutée* qui survit, celui-ci la recommandation *honorée* qui survit. Même effet — on repart avec une liste de travail déjà faite. **Règle 32**, et un **17ᵉ contrôle** (`forge-verifier-suites.py`, trois provocations, trois rouges) qui exige un `SUITE_DONNEE` daté sous chaque bloc `verification_pr_NN`. État lu dans l'API GitHub, pas dans le tableau du recensement — un tableau recopié n'est pas une mesure. **Et la vérification m'a retenu une fois de plus** : `comptrack#38`, `forja#27` et `taama#35` semblaient relever du même nettoyage, elles sont **ouvertes** ; les nettoyer aurait effacé trois recommandations valides. Leurs bases ayant bougé, la règle 28 s'appliquait — vérifié **en fusionnant** (règle 27) sur clones complets (règle 21) : **les trois fusionnent proprement**, les fusions du 16 ne les ont pas cassées. Réserve maintenue sur la #38 : verte et fusionnable n'est pas utile, elle vise `feat/comptrack-v1` qui n'a jamais rien mis en production (`main` a 38 commits d'avance) — règle 29 par anticipation, suspendue à Q15. **Enfin, un jeton que personne ne suivait.** La PR `ueemt#14` se terminait par « ⚠️ À faire de ton côté : révoquer un jeton » — un `VERCEL_OIDC_TOKEN` commité dans `3f75d8d`, toujours lisible dans l'historique d'un dépôt public puisque `git rm --cached` ne réécrit pas le passé. Fusionnée le 16, **la consigne est partie avec elle** : ni dans `QUESTIONS.md`, ni dans le fichier d'état, nulle part ailleurs que dans le corps d'une PR close. Elle disait « très probablement expiré — **à vérifier plutôt qu'à supposer** » ; personne n'avait vérifié. Fait aujourd'hui en lisant la seule revendication `exp` du JWT, en local, sans jamais écrire ni afficher le jeton, sans contacter aucun service : émis le 13 juin à 17h06, expiré le 14 juin à 05h06 — **durée de vie 12 h, mort depuis 97 jours. Aucune révocation nécessaire.** **Règle 33 : une PR fusionnée n'est pas un porte-consignes** — ce qu'elle laisse à faire doit sortir de son corps avant la fusion ; et ne pas suivre une action, c'est aussi ne pas savoir qu'on peut **la fermer**. | [rapport](./2026-09-19-suites-et-jeton.md) · [règles](./../etat/rotation.json) · [ueemt](./../etat/projets/ueemt-tokat.json) |
+| 2026-09-20 | forge quotidien — recensement des PR | **Onze PR sur quatre-vingt-onze ne livreraient rien si Steeve les fusionnait.** La priorité de la veille — relire les fichiers d'état avant tout diagnostic — a produit un recensement complet : **91 PR ouvertes sur 17 dépôts**, daté dans `etat/recensement-pr.json`. **Trois sont EMPILÉES sur la tête d'une autre PR ouverte** : `mifa#47` et `#48` sur la #45, `african-hybrid-agent#5` sur la #4 — vérifié par **égalité exacte de SHA** (`e90b936`, `12e94045`), pas par ressemblance de nom. Les fusionner les verserait dans ces PR-là : c'est exactement ce qui a coûté sa correction à `duka-boutique#12` le 16, et `ecrireLocal` est toujours absent de `master`. **Huit autres ne visent pas leur tronc** : `ueemt#8 #7 #6 #5` sur `dev` (morte, Q17) et `comptrack#38 #36 #30 #8` sur `feat/comptrack-v1` (jamais de production, Q15) — **ma #38 en fait partie**. Outil : `forge-pr-empilees.py`, éprouvé non par une provocation synthétique mais **en rejouant l'état de duka-boutique au 15 septembre** : il signale bien la #12, la veille du clic perdu, et ne produit aucun faux positif. **Quatre fichiers d'état portaient une affirmation devenue FAUSSE**, pas seulement vieille : « 73 jours d'immobilité » (african-hybrid-agent — `main` a bougé le 16, c'est la fusion qui a fermé Q11), « aucune CI » (ueemt — elle existe depuis la #14), « 20 PR, AUCUNE fusionnée » (comptrack — 21, dont deux fusionnées), « 6 PR ouvertes » (milltrack — 4). **Trois dépôts sont à zéro PR** : PPA, BurkinaCollect, phone-showcase ; ils n'attendent plus un clic mais une décision. **Deux fois mes propres outils m'ont pris en faute.** (1) Mon script d'audit a **reproduit la règle 22 à l'intérieur de l'outil censé prévenir la règle 29** : il lisait `feat/comptrack-v1` depuis le champ `tronc` et annonçait que les 17 PR visant `main` « ne livreraient rien » — l'exact contraire, les six déploiements de production viennent tous de `main`. Corrigé avant publication. (2) **J'ai contourné mon 16ᵉ contrôle sans le vouloir** : il n'inspectait que les blocs nommés `CORRECTION*`, j'ai posé mes quatre réfutations du jour dans des blocs `MESURE_*`, et il affichait **vert**. Élargi au **champ** `affirmation_refutee` plutôt qu'au nom du bloc, il a trouvé les quatre aussitôt — toutes réelles, toutes en haut de leur fichier, l'erreur exacte du 15 septembre. Couverture 7 → 11. **Règle 34 : quand un contrôle filtre par convention de nommage, la convention est la faille.** **Et la vérification m'a encore retenu** : `taama.json` annonce 18 PR ouvertes, la mesure en donne 18 — la #37 a été créée après le 7 septembre puis fusionnée le 16. J'allais corriger un compteur exact. **18ᵉ contrôle** sur la cohérence et la datation du recensement. Les 18 passent. | [digest](./2026-09-20-digest.md) · [recensement](./2026-09-20-recensement-pr.md) · [données](./../etat/recensement-pr.json) |
+| 2026-09-21 | forge quotidien | **La CI que j'ai installée sur Mifa Life Shop a tenu quatre minutes ; elle est rouge depuis cinq jours.** `main` est rouge depuis le 16 septembre à 15h04, pour **une seule erreur de lint** : le lien « Retour au profil » de la page Paramètres était une ancre HTML `<a href="/profil">` au lieu d'un `<Link>` — la **seule** des 318 fichiers suivis, donc un oubli ponctuel et un correctif d'une ligne. Ce que la règle protège compte ici : une ancre vers une page interne provoque une navigation document complète, là où `<Link>` fait une transition côté client ; sur un Android d'entrée de gamme en 2G (`VISION.md §4`), revenir sur une page déjà visitée **retéléchargeait toute la coque de l'application**. **Comment c'est passé inaperçu** : le commit fautif (`5423b92`) est arrivé par la **PR #29**, fusionnée à 15h02:51, dont le run de CI a été **ANNULÉ 18 secondes plus tard** par la fusion de la #30 (`cancel-in-progress`) ; le run survivant, celui de la #30, a échoué. **Ce n'est PAS un défaut de configuration** — quand cinq PR sont fusionnées en 90 secondes, seul l'état final mérite vérification, et il a été vérifié, et il a échoué. **Le garde-fou a parfaitement fonctionné. Personne n'a regardé le résultat.** C'est exactement la fonction de la veille quotidienne, morte depuis le 14 — **Q20**. Le run vert juste avant, à 14h59, est celui de ma **#46**, la PR qui installe cette CI. → **PR #49** : lint 1 erreur → 0, tests 90/90, build code 0, aucune règle désactivée et **aucun test ajouté** — la règle de lint qui a trouvé le défaut *est* le garde-fou, lui en ajouter un second serait du code qui n'a pas besoin d'exister. **Puis la vraie question : combien d'autres troncs sont rouges sans que personne le sache ?** Tour des **dix-sept troncs**, mesurés sur le tronc réel et non la branche par défaut (règle 31) : **11 verts, 1 rouge, et CINQ sans aucune CI** — forja, taama, livestockos, duka-boutique, comptrack. **Et chacun des cinq a une PR ouverte qui lui en apporterait une ; les cinq sont non fusionnées** (forja#27, taama#35, livestockos#9, duka-boutique#11, comptrack#38). Le cas de CompTrack mérite d'être dit : **même fusionnée, ma #38 laisserait sans filet le tronc qui livre**, puisqu'elle vise `feat/comptrack-v1` — ce n'est pas le code qui bloque, c'est **Q15**. **Vérification négative sur Mifa** : avant de chercher, j'ai contrôlé le formatage FCFA, le point le plus probable pour une boutique — partout `Intl.NumberFormat('fr-FR')` ou `toLocaleString('fr-FR')`, **aucune décimale** ; les seuls `.toFixed()` portent sur une note d'avis et des revenus en milliers. La doctrine XOF est respectée (règle 23). | [digest](./2026-09-21-digest.md) · [santé CI](./2026-09-21-sante-ci-troncs.md) · [mifa](./mifa-life-shop/2026-09-21.md) · [données](./../etat/sante-ci-troncs.json) |
+| 2026-09-22 | forge quotidien | **La page d'accueil de FORJA annonce « 0 tonne de café tracée, 0 acheteur connecté » — et le dépôt contient un second produit qui n'est pas le sien.** Dans le HTML servi par `forja-pied.vercel.app` : `0+ Tonnes de café tracées`, `0+ Acheteurs connectés`, `0 pays`, `0%`. `AnimatedCounter` écrit **littéralement `0`** dans le balisage ; seul un tween GSAP déclenché par `useInView` côté client le remplace. Sur un Android d'entrée de gamme en 2G (`VISION.md §4`), c'est ce qu'un acheteur international voit pendant plusieurs secondes sur une plateforme d'export — **un chiffre faux est pire qu'un chiffre absent**. C'est le **défaut exact corrigé sur Mon-Portfolio-2.0 le 15 septembre** (« 0 projets ») : deuxième dépôt, même composant, même cause. → **PR #28**, 3 tests dont **un garde-fou contre un correctif trop zélé** (`end={0}` doit rester `0`) ; provocation rejouée avec le zéro du tronc → 2 échecs sur 3, le troisième étant ce garde-fou. **Ordre de fusion prouvé en fusionnant** (règle 27) : les #27 et #28 touchent le même fichier, **les deux ordres passent proprement**, et la combinaison donne **0 erreur de lint et 151/151 tests**, contre 12 erreurs, 5 échecs et aucune CI aujourd'hui. **Je n'ai pas réécrit la #27** — elle attend un clic depuis le 2 septembre, et ma note de la veille l'interdisait. **Q10 tranchée par la mesure, et la question était mal posée** : je demandais si FORJA fait *encore* du café ; **le café va très bien** (page d'accueil 200 et cohérente, treize pages, 3 959 lignes, documents d'export en dollars). **Mais `src/app/tontine/` existe : 8 fichiers, 1 420 lignes, et c'est le module d'UEEMT** — en-têtes « UEEMT Tontine Groupes Privés », nav affichant « UEEMT », alors que `ueemt-tokat/main` porte l'original complet (13 fichiers + 2 migrations Supabase). Il est **injoignable** (aucun lien dans tout le dépôt, grep exhaustif), **non fonctionnel** (il interroge `tontine_groups`/`tontine_members` ; les migrations de FORJA sont `waitlist`, `lots`, `profils`), il redirige vers `/connexion` **qui n'existe pas dans FORJA mais existe chez UEEMT**, et **en production `/tontine` renvoie 500**. **Ce que ça ne casse PAS, vérifié** : seuls ces 5 fichiers importent le client Supabase serveur — le café n'en dépend pas, contrairement à AgroTrack le 16 où le même `process.env.X!` avait emporté seize pages. **Rien touché** : supprimer 1 420 lignes est une décision, pas un correctif, et une coopérative de café peut légitimement vouloir une tontine. **Motif qui dort** : `lib/supabase/server.ts` porte le défaut d'AgroTrack ; le jour où une page café utilisera ce client, elle tombera pareil. **Vérifications négatives** : `DocumentExport` formate à 2 décimales mais des **dollars**, pour des documents d'export — légitime ; `DeviseWidget` est un convertisseur multi-devises. J'ai failli nommer deux faux défauts (règle 23). | [digest](./2026-09-22-digest.md) · [forja](./forja/2026-09-22.md) · [Q10](./../QUESTIONS.md) |
+| 2026-09-23 | forge quotidien — triage | **Sur les dix-huit PR de TAAMA, une seule se fusionne, et une autre défait du travail déjà livré.** Mesuré sur un **clone complet** (`is-shallow` = false, 32 commits sur `main`) et **en fusionnant**, pas en lisant — la précaution existe parce que le 15 septembre un clone superficiel m'a fait recommander de fermer quinze PR « sans rien perdre ». **#35, la mienne, est la SEULE propre** : elle débloque une suite de tests entière (110 → 169), corrige 9 erreurs de lint et apporte la **première CI du dépôt** ; à fusionner d'abord, car après elle chaque fusion suivante est vérifiée. **Sept PR sont contenues dans la #10** — `#3 ⊂ #4 ⊂ #5 ⊂ #6 ⊂ #7 ⊂ #8 ⊂ #9 ⊂ #10`, chaîne **complète** prouvée maillon par maillon puis de chacune vers la #10 par `merge-base --is-ancestor`. **Mais elles ne sont « fermables sans rien perdre » QUE si la #10 est fusionnée** ; si elle ne l'est jamais, les fermer perd tout. **La décision porte sur le sur-ensemble, pas sur les membres** — c'est exactement la nuance qui manquait le 15 septembre. **Règle 37.** **La #26 ne dupliquerait pas : elle déferait.** Elle apporte trois fichiers, dont `error.tsx` et `loading.tsx` qui existent déjà sur `main` en versions **plus récentes** — 49 lignes contre 41, et elle renomme « [TAAMA] » en « [Taama] » ; `main` utilise les composants partagés `SkeletonStats`/`SkeletonTableRow`, la #26 les remplace par des `div` inline. **La branche est plus ancienne que le tronc.** J'allais écrire « doublon, fermable », le motif de `milltrack#3` : faux, et l'écart compte — un doublon ne coûte rien, une régression coûte le travail qu'elle écrase. **Règle 36 : comparer les VERSIONS, jamais la seule présence d'un chemin de fichier.** **#18** est le plus gros apport réel restant (24 fichiers, 3 823 insertions). **Rien touché** : aucun conflit résolu, aucune PR fermée ni reciblée — ce sont les PR de Steeve, et résoudre huit fichiers sur la #10 reviendrait à refaire son travail sans savoir ce qu'il veut garder. **⚠️ Et le système a cassé une deuxième fois** : ma chaîne de check-ins s'est interrompue le **22 septembre à 14h21** — le tour a sonné sans être traité, donc ceux de 18h20 et 22h20 n'ont jamais eu lieu et les réveils de nuit n'ont jamais été posés. Le Forge Quotidien a sonné quand même, **parce que c'est un vrai cron**. Deuxième fois en cinq jours après le 18, et c'est le défaut exact que je signalais dans chacun de mes propres messages — **une consigne ne répare pas une architecture fragile**. Remplacée par un **cron récurrent** toutes les 4 h, dont le prompt ne contient **aucun état figé** : il lit `b3.txt`, `recensement-pr.json` et les fichiers d'état, sans quoi il pourrirait (règle 32). | [digest](./2026-09-23-digest.md) · [taama](./taama/2026-09-23.md) · [données](./../etat/triage-taama.json) |
+| 2026-09-26 | tes huit règles | **Tes huit règles de fondateur sont entrées dans le protocole (§5 bis), et la première mesure qu'elles déclenchent est dure : le KPI de sortie de Phase 1 est à 0/3, et personne ne l'affichait.** Cherché « premier client », « client pilote », « utilisateur réel », « entreprise cliente » sur les **25 fichiers d'état et sur le registre** : **une seule occurrence dans tout le système**, et elle désignait du « mouvement *piloté* en JavaScript ». **Aucun des 21 projets réels n'a d'utilisateur réel nommé** — c'était déjà vrai, rien ne le montrait ; c'est désormais affiché projet par projet dans `etat/premier-utilisateur.json`. **Ta règle 7 (« n'insiste pas par coût déjà engagé ») chiffrée** : **57 des 91 PR ouvertes — 63 %** — portent sur comptrack (21), taama (18) et mifa-life-shop (18), dont aucun n'a d'acheteur nommé ; et **les deux SEULS produits réellement publiés, BurkinaCollect et Problem-to-Projects, ont ZÉRO PR ouverte.** **L'effort est inversement corrélé à l'usage** — c'est la phrase la plus dure du dossier et elle tient en une division. **Ta règle 6 (« avance sans coder ») appliquée à moi-même : je n'ai écrit AUCUN script aujourd'hui.** Répondre à « le goulot n'est pas le code » par un 19ᵉ contrôle CI aurait été la contredire en prétendant l'appliquer. **⚠️ Et deux comptes que je répétais faux.** (1) **29 dépôts chez l'hébergeur, 25 au registre** : `ambition` (poussé le 26 à 00h30), `combine` (le 23) et le dépôt de profil `dosteeve2-hash` (le 26 à 02h12) n'y figurent nulle part — j'allais écrire « 25 dépôts » pour la vingtième fois. **Trois dépôts apparus ou remués en quatre jours pendant que 91 PR attendaient un clic** : ta règle 3 et ta règle 7 prises en flagrant délit par la mesure. Je ne les ai **pas lus** — hors périmètre de cette session, et je n'ajoute pas un dépôt que tu n'as pas demandé. **Règle 38 : compter les dépôts chez l'hébergeur, jamais dans le fichier.** (2) Je portais **« 12 PR à moi, toutes vertes »** ; une recherche par auteur en donne **20 ouvertes depuis le 2 septembre**, dont **trois que je ne suivais pas du tout** (`livestock-os#5`, `ambition#1`, `Mifa#47`/`#48`). **Règle 40 : le chiffre le plus facile à ne jamais revérifier est celui dont on est l'auteur.** **Et j'allais déclarer trois jours perdus** : faux — `livestock-os#5` porte la signature d'une **autre session** (`…QUfqgnpezD4RqCyNd7Am1d`) et cite un répertoire `autopilot/reports/` inconnu ici. **Règle 39 : mon silence n'est pas l'immobilité du portefeuille.** Ce qui reste vrai : **aucun digest les 24, 25 et 26** de ma part, la Routine ayant pourtant sonné chaque matin ; et **Q20 échoue encore** (dernier passage `FAILED` le 25 à 06h16, douze jours sans surveillance des 13 URLs). **Corrigé dans mes propres fichiers** : l'en-tête de `QUESTIONS.md` annonçait depuis dix jours « AgroTrack répond 500 en production depuis vingt-cinq jours » — faux depuis la fusion du 16, et la prose contredisait sa propre ligne de tableau (**règle 32**, appliquée à moi). **Rien fermé, rien abandonné, aucun dépôt touché.** **Q6 réécrite** et réduite à **trois lignes à remplir** — trois produits, trois premiers utilisateurs visés, et le sort des 18 autres ; elle prend la tête du fichier devant Q1 et Q19, parce que nommer l'acheteur et abandonner un projet sont les deux seules décisions de tout ce système qui ne s'annulent pas. **Hypothèse appliquée en attendant, qui ne gèle aucune réparation** : sur un projet sans utilisateur réel nommé, je ne descends plus au niveau 6 du §5 — je répare, je documente, je mets en CI, je n'ajoute rien. | [digest](./2026-09-26-regles-de-steeve.md) · [KPI](./../etat/premier-utilisateur.json) · [§5 bis](./../playbooks/00-protocole-forge.md) · [Q6](./../QUESTIONS.md) |
+| 2026-09-26 | comptrack — la CI sur le bon tronc | **Le tronc de CompTrack qui livre la production n'avait aucun filet, et la PR qui en apportait un visait la mauvaise branche.** `git remote show origin` donne `HEAD branch: feat/comptrack-v1` — **regle 22 en direct** — mais `main` la depasse de **38 commits** et c'est de `main` que partent les deploiements. Et `main` n'a **AUCUN fichier `.github`** : zero run de CI depuis la creation du depot, sur **23 routes en service**. Ma #38 apporte bien une CI, mais sur `feat/comptrack-v1` : **meme fusionnee, le tronc qui livre resterait sans filet**. C'etait le seul des cinq troncs sans CI dont la PR visait la mauvaise branche (forja #27, taama #35, livestockos #9, duka #11 visent bien le leur). **`next lint` etait inutilisable en CI** : sans configuration ESLint il ouvre un questionnaire interactif et attend le clavier — ce n'est pas un lint qui echoue, c'est un lint qui **n'a jamais tourne**, et personne ne pouvait le savoir sans l'executer. Branche, il trouve **6 erreurs**, toutes dans `previsions/page.tsx`, **aucune regle desactivee** : cinq `any` (que `CLAUDE.md` interdit explicitement) et une apostrophe droite en JSX, corrigee avec l'apostrophe typographique francaise `’` — la regle est satisfaite ET le texte devient correct en francais. **Un defaut latent que `any` masquait** : typer le tooltip a montre que `fcfa(e.value)` pouvait recevoir `undefined` ; les entrees sans valeur numerique sont ecartees, **sans `?? 0`** — afficher « 0 FCFA » pour une valeur absente est le defaut releve sur FORJA le 22, et un chiffre faux est pire qu'un chiffre absent. → **PR #41** vers `main` : lint 6 → 0, `tsc` 0, **64/64**, build 0, 23 routes, **trois sabotages trois rouges**. **Elle ne tranche pas Q15** : elle ne choisit pas quel tronc est le produit, elle protege celui qui est deja en ligne — et la #38 n'est pas reciblee. **⚠️ Deux fautes de mesure a mon compte.** (1) Mon premier `tsc` affichait huit erreurs `TS2307` et j'ai annonce « code tsc: 0 » : c'etait l'etat de sortie de **`tail`**, pas de `tsc`, parce que la commande etait dans un tube. **Regle 42.** Les huit erreurs venaient d'un `.next/` laisse par un build d'un autre jour dans ce clone — `.next` n'est pas suivi par git, donc une CI sur checkout neuf ne les voit jamais : un artefact local n'est pas l'etat du depot. (2) **`sante-ci-troncs.json` concluait le 21 que « c'est Q15 qui bloque, pas le code ».** Vrai de la #38, **faux du tronc** : rien n'interdisait d'apporter une CI a `main` sans trancher quel tronc est le produit. **Cinq jours a croire bloque ce qui etait faisable le jour meme. Regle 43 : quand une question de Steeve semble bloquer un chantier, chercher la part du chantier qui ne la traverse pas.** **Veille des troncs** : 20 reveils non traites depuis le 23 (file de notifications saturee), tour fait ce matin — **11/11 troncs inchanges**, et `ecrireLocal` **toujours absent** de `duka-boutique/master` : dixieme jour sans la correction de la vente perdue. | [rapport](./comptrack/2026-09-26.md) · [digest](./2026-09-26-regles-de-steeve.md) · [PR #41](https://github.com/dosteeve2-hash/comptrack/pull/41) |
+| 2026-09-26 | COMBINE — de la CI rouge à la fusion | **Steeve a fusionné COMBINE : le prototype est sur `main`, et sa CI était verte pour la première fois de son histoire.** Le code existait entièrement — 97 fichiers, ~19 300 lignes — mais dormait dans `combine#1`. Sa CI était rouge sur « Parcours navigateur », **et ce n'est pas le parcours qui échouait** : il passe ses 70 vérifications sans un échec. C'est l'étape suivante, l'audit d'accessibilité, qui mourait avant de commencer — **la revue de sécurité avait posé deux garde-fous sur le semeur de démo (`COMBINE_ALLOW_DEMO_SEED`, `COMBINE_DEMO_PASSWORD` de 16 caractères) que le workflow n'a jamais été mis à jour pour satisfaire.** Le garde-fou était bon ; c'est la CI qui ne lui répondait pas. Corrigé sur l'étape et non sur le job, pour que rien d'autre ne puisse semer une base par inadvertance. **Et derrière ce premier défaut s'en cachait un second, réel** : `connecter()` ouvrait `/connexion` en `domcontentloaded`, qui rend la main **avant l'hydratation de React** — le formulaire est un composant client, donc le clic ne déclenchait rien et **aucune requête ne partait**, ce que confirmait l'absence de tout `POST /api/auth/sign-in/email` dans le journal. Mesuré, deux connexions de suite : **`domcontentloaded` (179 ms, 103 ms) → les deux échouent ; `load` (323 ms, 409 ms) → les deux réussissent.** La première connexion ne passait que parce que le serveur compilait encore la page pendant trois secondes ; une fois compilée, toutes les suivantes perdaient la course. **Le compte investisseur n'y était pour rien : il était le deuxième.** `parcours.mjs` attendait déjà `networkidle` — le script qui marche faisait déjà la bonne chose, on s'aligne sur lui. Résultat : 93 tests, 70 vérifications de parcours, **20 passages d'axe et zéro violation WCAG 2.1 AA**. **⚠️ Et je me suis trompé une fois, publiquement.** Mon premier commit affirmait que l'échec de l'investisseur était « un artefact de ma séquence locale » et que la CI trancherait. **Elle a tranché : c'était faux**, elle échouait au même endroit et au même message. Corrigé dans le commit suivant plutôt que laissé passer. **Ce qui reste, et qui n'est pas du code.** Les previews échouent au build sur `DATABASE_URL est absent. at lib/db.ts:5:9` — le garde-fou de `lib/db.ts` fait son travail, il manque les variables sur Vercel. Mais **le déploiement de PRODUCTION depuis `main` est `BLOCKED`, pas `ERROR`, et n'a AUCUN événement de build** : il n'a jamais compilé, et son `errorLink` pointe vers *troubleshoot-project-collaboration#team-configuration*. **Règle 44 : un déploiement bloqué n'a pas de journal, et chercher sa cause dans les journaux fait croire à tort que c'est la même que celle des previews.** J'avais aussi dit à Steeve qu'il fallait « connecter Vercel » : **c'était déjà fait**. Et `MISE-EN-LIGNE.md`, le mode d'emploi de sa propre mise en ligne, affirmait encore trois choses fausses — dépôt distant vide, aucun déploiement lancé, aucun test navigateur possible. Réécrit sur des faits mesurés. **Une autre session travaille en parallèle** sur une branche `claude/deployer-vercel` : son commit dit que le connecteur Vercel répond 403 sur `projectEnvVars` (constaté de mon côté aussi) et que la CLI authentifiée au nom de Steeve est le seul chemin. **Ne pas dupliquer.** **Veille des troncs** : `Mon-Portfolio-2.0/master` a bougé (`ddf59cc → cb84b51`), la #13 ayant été fusionnée — pas la mienne. Ma **#11 testée EN FUSIONNANT** sur le nouveau tronc (règle 27) : **zéro conflit, et l'arbre fusionné est vert** (lint, tsc, check-messages, check-motion, build). Le garde-fou `check-motion` qu'elle apporte ne casse sur aucun fichier de la #13 — aucun nouvel import `gsap`/`lenis`. Elle n'attend qu'un clic. `ecrireLocal` **toujours absent** de `duka-boutique/master`. **Deux loops créées**, en sessions fraîches par tir — la session vivante a saturé deux fois aujourd'hui, 20 réveils perdus. Réserve signalée : les deux créations avertissent qu'elles ne transportent aucun connecteur. | [PR combine#1](https://github.com/dosteeve2-hash/combine/pull/1) · [règles](./../etat/rotation.json) |
+| 2026-09-27 | burkinacollect | **BurkinaCollect ne collecte rien — zéro `<form>`, zéro `<input>`, zéro `fetch(` dans tout `src/`.** C'était, avec Problem-to-Projects, l'un des **deux seuls produits publiés**, donc parmi les plus proches du KPI de sortie de Phase 1. **La mesure l'en retire.** Les deux pages (`/` et `/about`) sont une plaquette commerciale ; le seul code métier du dépôt — `hooks/useOfflineSync.ts`, solide et couvert par 8 tests — **n'est importé par aucune page**. Seuls les tests l'utilisent. C'est le motif de la tontine de FORJA **en pire** : là-bas le module mort était injoignable et personne ne l'annonçait ; ici `/about` le présente aux visiteurs — « Offline — Hook useOfflineSync maison ». **Et la page d'accueil affiche trois chiffres comme des faits**, en dur, sur un site public, pour un produit sans un seul formulaire : « 500+ Collecteurs formés », « 1 200+ Formulaires créés », « 35 Régions couvertes ». C'est **Q2** appliqué non plus à une vitrine interne mais à la promesse publique d'un produit. ⚠️ « 35 régions » ne correspond à aucun découpage administratif du Burkina que je connaisse — 13 régions (17 depuis 2024), 45 provinces : **à vérifier par Steeve**, je ne peux pas depuis cette session. **Le dépôt est pourtant techniquement sain** : lint, typecheck, 8 tests et build tous verts. **Règle 45 : un dépôt sain n'est pas un produit qui marche** — les contrôles vérifient que le code écrit fonctionne, jamais qu'il existe. Pour juger un produit, chercher d'abord **le verbe de son métier** dans le code (un collecteur a un formulaire, une boutique a un panier) et non l'état de sa CI. **Corrigé — PR #5** : le hook se terminait par `// v1.1 - exponential backoff retry` alors qu'**aucun backoff n'existe** ; cherché `setTimeout`, `delay`, `backoff`, `Math.pow`, les deux seules correspondances étaient le mot « file d'**attente** » et la note elle-même. **Note retirée, fonctionnalité NON ajoutée** — sur un projet sans utilisateur réel nommé, le §5 bis autorise à réparer, pas à ajouter. Rien d'autre touché : les trois chiffres et la mention d'`/about` sont du contenu public, donc la parole de Steeve (§3, règle 10). **Q12 réécrite** : elle parlait du README, le problème est le site lui-même. **⚠️ Et une erreur de méthode, la mienne** : j'ai écrit mes sous-titres en `###` puis en `####`, le contrôle a refusé les deux — dans ce fichier **tout titre commençant par `#` est lu comme une question** (`startswith('###')`). J'ai lu la règle du script plutôt que de deviner une troisième fois, et je me suis conformé à sa convention au lieu d'élargir le garde-fou. **Règle 46.** Deuxième fois en deux jours qu'un de mes propres contrôles m'arrête — c'est son travail. | [rapport](./burkinacollect/2026-09-27.md) · [PR #5](https://github.com/dosteeve2-hash/burkinacollect/pull/5) · [Q12](./../QUESTIONS.md) |
+
+## 2026-09-27 · 12h05 UTC — veille des troncs : rien n'a bougé, donc j'ai mesuré PPA
+Les treize troncs sont inchangés, `ecrireLocal` toujours absent de `duka-boutique/master`
+(13e jour), et mes cinq PR sont vertes. Tour silencieux, donc chantier de rotation :
+**problem-to-projects-africa**, le second des deux produits réputés publiés, vérifié à la
+règle 45. Bonne nouvelle pour une fois — **le verbe de son métier est là et il marche** :
+`/intake` → `/api/recommend` → moteur déterministe de 709 lignes → `/results`, persisté
+dans Supabase quand l'utilisateur est connecté. Rien à corriger sur ce parcours.
+Trois chemins parallèles, eux, existent en code et pas en service : `lib/sync/` (aucun
+importeur, aucune des 9 routes visées n'existe), `lib/ai/` (aucun importeur sur `main`),
+et `app/results-enhanced/` (page orpheline dont les deux actions pointent vers des routes
+absentes). Annotés, rien supprimé — **PR draft #11**.
+J'ai écrit une fausseté dans le premier commit et je l'ai corrigée dans l'heure : la
+couche de génération **existe déjà**, sur la lignée `master`, avec son rate limit et son
+system prompt propre. C'était dans mon propre fichier d'état depuis le 16 septembre et je
+ne l'avais pas relu. → **règle 47**. Et **règle 48** : un module sans importeur n'est pas
+une fonctionnalité.
+Le dépôt s'appelle désormais `Problem-to-Projects-Africa` ; l'ancien nom redirige.
+
+## 2026-09-27 · 12h22 UTC — COMBINE est visitable, et je l'avais déclaré impossible
+Après le tour de veille, j'ai testé ce que je croyais hors de portée : le connecteur Vercel
+**passe** là où le proxy du conteneur répond 403. Une prévisualisation **READY** sert
+COMBINE depuis le 26 septembre 12h43 UTC — produite par mon propre correctif de `lib/db.ts`,
+36 minutes après l'échec que je citais pour dire que rien ne marchait. PR **combine#3**,
+CI 3/3 verte, parcours navigateur inclus.
+`https://combine-a4awxupzq-dosteeve2-8163s-projects.vercel.app` — Steeve y accède connecté
+à son compte Vercel ; un visiteur extérieur tombe sur l'authentification Vercel. La
+production depuis `main` reste **BLOCKED** (configuration d'équipe) et `DATABASE_URL` n'est
+posé nulle part : tout ce qui touche la base échouera. Q21, et les quatre gestes restants
+sont les siens.
+→ **règle 49** (le refus du proxy n'est pas celui de la session) et **règle 50** (une
+prévisualisation READY n'est pas un site public).
+Au passage : COMBINE est enfin **dans le registre** (26e projet), et j'ai corrigé mon
+comptage — **six** PR ouvertes et vertes, pas cinq (règle 40).
+
+## 2026-09-27 · 16h05 UTC — african-hybrid-agent : le cache répondait à côté
+Rien n'avait bougé sur les quatorze troncs, `ecrireLocal` toujours absent (13e jour). Donc
+mesure du projet inscrit : **african-hybrid-agent**, le plus complet du portefeuille
+(217 fichiers, 55 tests). Son verbe de métier est là, et sa **limite de débit est conforme**
+à `CLAUDE.md` — 20 requêtes/heure, citée en commentaire, compteur partagé quand Redis répond.
+Mais sa clé de cache tronquait le base64 des messages à 32 caractères, soit 24 octets, soit
+exactement `[{"role":"user","content` : **la question tombait hors de la clé**. Dans une
+session, la 1re réponse était servie à toutes les suivantes pendant 24 h, avec
+`fromCache: true`. Trouvé en calculant la clé sur deux questions — identiques toutes les
+deux. Invisible en CI : sans Redis, le cache ne fait rien.
+Corrigé en **PR draft #8** (condensé SHA-256 de la conversation + mode + options, 5 tests).
+**`/api/chat` n'a jamais été sollicité.** → **règle 51**.
+Sept PR ouvertes maintenant, toutes vertes.
+
+## 2026-09-27 · 16h18 UTC — `burkinacollect.vercel.app` sert african-hybrid-agent
+Un commentaire de bot parlant d'un déploiement « burkinacollect » sur ma PR de
+*african-hybrid-agent* n'avait aucun sens. Vérifié : **aucun** projet Vercel n'est lié au
+dépôt `burkinacollect`, et le **seul** projet lié à `african-hybrid-agent` porte le nom
+`burkinacollect` — domaine compris. `GET burkinacollect.vercel.app/api/health` répond 200,
+sans authentification : `{"ok":true,"corpusChunks":428,"sourceFiles":23,"avgCredibility":83.8,"hasLlmKey":false}`.
+Donc : **BurkinaCollect n'est publié nulle part** (il ne collecte rien ET n'a aucun
+déploiement), et **l'agent EST publié**, sous le nom d'un autre produit. Mon « les deux
+produits réellement publiés » du 26 est corrigé dans `premier-utilisateur.json`.
+Deux bonus de la route de santé : le corpus a **428 fragments réels** (23 sources,
+crédibilité 83,8), et `hasLlmKey: false` — l'agent répond sans modèle, par synthèse locale.
+→ **règle 52** : le nom d'un projet Vercel ne dit pas quel dépôt il sert.
+À Steeve : renommer le projet, ou un projet par dépôt. Interdit pour moi (§3 règle 6).
+
+## 2026-09-27 · 20h05 UTC — SUGU : la vente perdue sert en production depuis le 10 août
+Quinze troncs inchangés, `ecrireLocal` toujours absent. Donc SUGU en entier. Mesuré par le
+connecteur Vercel : **`duka-kappa.vercel.app`** est en ligne depuis le 25 juillet, son
+déploiement de production vient de `master` @ `c10e0e7` **du 10 août**, et ce tronc n'a
+**aucune CI**. Le code servi est exactement celui qui perd la vente : l'écriture
+`localStorage` est un effet de bord placé dans l'updater de `setValue`, avec un `catch` muet
+— stockage plein, la vente reste en mémoire, le reçu s'imprime, et tout disparaît à la
+fermeture de l'onglet. `VISION.md §4` appelle ça un **cas nominal**.
+Le correctif est écrit depuis le **2 septembre** : PR **#11** (`ecrireLocal`,
+`signalerEchec`, `AlerteStockage` qui rend l'échec visible, 75 lignes de tests, et la
+première CI du dépôt). Vérifié aujourd'hui : CI verte, fusion en **avance rapide sans
+conflit** sur le tronc courant, et l'arbre fusionné passe lint, types, **80 tests** et build.
+**Rien à coder.** Une fusion, et un commerçant cesse de perdre une vente. 25 jours d'attente.
+Aucune PR ouverte de plus sur ce dépôt : ce serait ajouter au problème décrit.
+
+## 2026-09-28 · Forge Quotidien — rien ne monte en production depuis le 26 septembre
+Trois déploiements de production tentés dans le portefeuille depuis le **26 septembre
+12h00 UTC**, trois **`BLOCKED`**, même `errorLink` (`team-configuration`) : `combine` (26 à
+12h07), `ueemt-tokat` (26 à 14h08 — **le module Tontine « La Main »**), `comptrack` (27 à
+06h04 — **le push de Steeve**). Le dernier passé est le portfolio, le 26 à 10h15. Les
+**prévisualisations** marchent : le blocage ne touche que la production. → **Q23**, et
+**règle 53** : une prévisualisation verte ne dit rien de la production.
+**Correction de ce que j'ai dit hier soir** : fusionner `duka-boutique#11` ne rendrait pas
+la vente aux commerçants aujourd'hui — le déploiement serait bloqué. Le blocage passe devant
+la file.
+Carte de production mesurée dépôt par dépôt (`etat/carte-production.json`, méthode règle 52
+par `repoUrl`) : **11 produits servent leur tronc à jour, 3 sont BLOCKED, 3 n'ont aucun
+projet Vercel** (burkinacollect, livestockos, sahel-commerce-ai).
+Deux projets du jour : **comptrack** (son push n'est pas en ligne) et **ueemt-tokat** (une
+fusion déjà faite restée invisible — le seul cas du portefeuille). **Aucune PR ouverte
+aujourd'hui**, la file reste à huit.
+
+## 2026-09-28 — Design et motion entrent dans la stratégie (playbook 05)
+Steeve a demandé d'intégrer cinq plugins vus en vidéo. Vérifié avant d'y croire : **quatre
+existent sous d'autres noms**, un n'existe pas. `designs-drift` porte à lui seul trois des
+cinq promesses (règles Vercel, 121 marques de référence, awesome-design-md) ; `playwright`
+existe mais **je l'ai déjà** (Chromium est dans le conteneur) ; « Image to Code » n'existe
+pas — l'équivalent est `Figma`, inutile tant qu'il n'y a pas de fichier Figma.
+Écrit `AUTOMATION/playbooks/05-design-et-motion.md` : le **budget de motion** (transform et
+opacity seulement, 120–320 ms, `prefers-reduced-motion`, pas de 2e bibliothèque, contenu
+jamais dépendant d'une animation), la **boucle de captures**, la boucle de goût (extraire
+des règles chiffrées, jamais recopier une page), et les jetons avant les composants.
+La tension est dite en §0 : les références premium sont dessinées pour un MacBook sur
+fibre ; notre cible est un Android d'entrée de gamme. Atteindre leur soin **sous notre
+contrainte**, c'est plus dur — et c'est ça qui fait la différence.
+Écrit et **testé pour de vrai** `AUTOMATION/scripts/forge-captures.sh` : 360×640 et
+1280×800, thèmes clair et sombre, passe `reduced-motion`, erreurs de console. Le test a
+trouvé un bug de portée dans mon propre script (`suffixe`) que `bash -n` ne voyait pas →
+**règle 54**. Après correction : 12 captures, erreurs détectées sur une page volontairement
+cassée, et j'ai regardé une capture pour m'en assurer.
+Branché au `§5` du protocole (le design d'une surface vue par un acheteur est **niveau 4**,
+pas 7 ; une animation qui ignore `reduced-motion` est **niveau 3**) et à `CLAUDE.md`.
+→ **règle 55** : un design ne se juge pas sur un écran 27 pouces.
+
+## 2026-10-03 — Un vaccin périmé affiché « encore 24 jours », et le playbook design retourné contre le QG
+
+**La session a dormi quatre jours.** Quatre Forge Quotidien (29, 30 septembre, 1er, 2 octobre)
+et vingt-six veilles de troncs ont sonné dans le vide. Lues toutes d'un coup ce matin. Le
+point de défaillance unique de l'architecture, connu et écrit dans `CLAUDE.md`, a coûté un
+jour le 11 septembre et **quatre** cette fois → **Q24**, avec le prix des trois options.
+
+**TAAMA.** La priorité d'hier demandait un quatrième triage. Je ne l'ai pas fait : les trois
+précédents tiennent, le tronc n'a pas bougé (`afb5f4c`), un triage de plus n'aurait rien
+mesuré de neuf. Cherché à la place ce qui était **cassé** et non bloqué, et trouvé :
+`inventaire/page.tsx` calcule toutes les péremptions contre `new Date('2026-08-08')` écrit
+en dur. La page étant prérendue statiquement, la date est gelée dans le HTML servi. Lu
+**sur la production** via le connecteur Vercel : `⚠ 24j · 2026-09` pour un vaccin périmé
+depuis 32 jours. Corrigé — horloge réelle lue après hydratation par `useSyncExternalStore`,
+statuts dérivés et non synchronisés, horloge de test figée au 8 août (vérifié ligne par
+ligne que les 15 statuts écrits à la main y correspondent, donc correctif neutre pour les
+assertions existantes). **117 tests, 176/176 avec la #35 simulée**, lint et tsc à la base.
+**Non poussé** : `add_repo` en écriture sur `taama` refusé. Pas contourné. Patch exporté
+dans `AUTOMATION/correctifs-en-attente/` → **Q26**.
+
+**Le QG.** Première application réelle du playbook 05, et c'est le QG qui le viole le plus.
+Mesuré : **278 Ko gzip de JS sur la landing** (seuil 150), dont **94 Ko de bibliothèques
+d'animation** ; 369 Ko sur le tableau de bord ; **trois** bibliothèques là où la règle 4 en
+autorise une ; `prefers-reduced-motion` **absent du dépôt entier** pour quatre animations en
+boucle infinie ; et **53 éléments rendus par le serveur en `opacity:0`**, soit 40 blocs de
+texte invisibles sans JavaScript. Corrigé : `reduced-motion` respecté partout, une fuite
+réelle (le ticker gsap n'était jamais retiré — `remove(lenis.raf)` retirait une autre
+fonction que celle ajoutée), et un filet `<noscript>`. **40 → 0**, hero complet sur 360 px,
++0,5 Ko. Non corrigé parce que ça appartient à Steeve : retirer gsap → **Q25**.
+
+**Deux affirmations de mon propre playbook étaient fausses** et sont corrigées dedans :
+l'inventaire des bibliothèques de forge-afrika, et « lire le budget JS dans la sortie de
+`next build` » — Next 16 n'imprime pas les colonnes de poids hors terminal interactif.
+
+→ **règle 56** : un serveur de dev encore debout sert l'ancien build. J'ai conclu que mon
+filet `noscript` ne marchait pas, sur une mesure faite contre un binaire qui ne le
+contenait pas.
+→ **règle 57** : une capture pleine page d'un site à révélations est vide par construction ;
+le vide ne prouve rien, mais il doit déclencher la mesure `javaScriptEnabled: false`.
+
+## 2026-10-03 (veille de 04h05) — Zéro tronc n'a bougé, et la production de MIFA Life est figée depuis 17 jours
+
+**Les 16 troncs : 0 mouvement.** `ecrireLocal` toujours absent de `duka-boutique/master`
+(`c10e0e7`) — et j'ai failli annoncer le contraire : mon test était écrit
+`if git grep -l … | head -3; then`, où le code testé est celui de `head`, qui réussit
+toujours. **Règle 58.** Refait sans tuyau : 0 fichier.
+
+**Deux de mes 27 PR sont rouges**, `Mifa_Life_shop` #49 et #45. Leur contrôle de code
+« Lint, tests & build » est **vert** ; ce qui échoue, ce sont trois contrôles Netlify qui
+ne sont que trois facettes d'un seul déploiement raté. La #12, plus ancienne, passe ces
+mêmes trois contrôles — donc ils ne sont pas cassés globalement.
+
+**Cause racine, lue dans le journal Netlify :** un gitlink (mode 160000) à
+`Mes pages html/.claude/worktrees/charming-neumann-3e17c2` — une worktree Claude Code
+commitée par erreur — sans aucun `.gitmodules` (404 vérifié). Netlify échoue au stade
+« preparing repo », avant le build.
+
+**Et c'est une récidive.** `3e0d92a` avait corrigé exactement ça le 2 septembre. La fusion
+de la #29, le 16 septembre à 15h02:51, a réimporté le commit `5423b92` **daté du 12
+juillet**, antérieur au correctif. Le garde-fou `.gitignore` posé le 2 septembre a survécu
+(ligne 46) et n'a servi à rien : un `.gitignore` n'enlève pas de l'index un chemin déjà
+suivi. **Règle 59.**
+
+**Ce que ça coûte, mesuré :** la production de `mifalife` est le déploiement `6aaaaf6d` du
+16 septembre 15h02, commit `01c6604`. Les fusions des **#23, #29 et #30 ne sont jamais
+montées en ligne**. Dix-sept jours sur un produit tier 1 « Actif », invisibles parce que
+les contrôles Netlify n'apparaissent que sur les PR.
+
+C'est le même commit `5423b92` qui avait cassé le lint et que ma #49 corrigeait le
+21 septembre. Je regardais le lint ; je n'ai pas vu le sous-module à côté.
+
+**Correctif porté et vérifié en première main :** `git submodule update --init --recursive`
+rend **128 sur `main`** avec le message exact de Netlify, **0 sur la branche corrigée**.
+Une ligne. Non poussé — même permission manquante que pour TAAMA, **Q26** couvre
+maintenant les deux.
+
+**Non confirmé, et je ne l'affirme pas :** le journal du déploiement vivant porte
+« Lighthouse … Status code: 500 » sur `/`. Le proxy de ma session refuse le tunnel vers
+`mifalife.netlify.app` (403, comme vers tout hôte hors connecteur), donc je n'ai pas pu
+vérifier. À revoir dès que la production se débloque.
+
+## 2026-10-03 (veille de 08h05) — Un tronc a bougé : `ueemt-tokat`, et `dev` est maintenant mesurée comme strictement absorbée
+
+`ueemt-tokat/main` : `f9c299e → 0e54d6a`. Fusion de la **#16** ce matin à 07h21 UTC
+(`feat/sondages-2026-10-03`, sondages du groupe et choix de date de réunion). C'est un
+commit de Steeve.
+
+**Conflits créés : aucun.** Les six PR ouvertes du dépôt (#5, #6, #7, #8, #11, #12) sont
+toutes `mergeable: true` après la fusion. Rien à résoudre, rien à pousser.
+
+**La mesure qui compte, refaite à cette occasion :** `main` a **37 commits d'avance** sur
+`dev`, et `dev` n'en a **aucun** que `main` n'ait pas. Son dernier commit date du
+**26 juillet**, il y a 69 jours. `dev` n'est donc pas seulement « morte » comme le disait
+Q17 : elle est **strictement absorbée**. Les quatre PR qui la visent (#5 à #8) ne
+livreraient rien du tout, même fusionnées.
+
+Je ne les ai pas reciblées : c'est Q17, et recibler une branche est `§3`. La mesure rend la
+question plus nette, elle ne la tranche pas.
+
+`b3.txt` mis à jour avec la nouvelle tête.
+
+## 2026-10-03 (soir) — Steeve fusionne, un conflit mécanique tombe, et je corrige une prémisse à moi
+
+**`indubot-afrika#5` fusionnée** à 18h52 — mon fond animé mobile — suivie de la **#7**
+(« Vitrine honnête : retire chiffres et témoignages inventés »). Le tronc `master` passe de
+`9bf7619` à `5b60c5b`.
+
+**Conflit mécanique sur la #4**, ma PR navigation mobile et dates. Deux fichiers, et les
+deux conflits sont **purement additifs** : `package.json` oppose mon `check:date` au
+`check:mouvement` arrivé par la #5, et `ci.yml` l'étape de chacun. Ce ne sont pas deux
+versions d'une même chose : l'un vérifie que l'affichage des dates ne dépend pas du fuseau
+du visiteur, l'autre que `prefers-reduced-motion` est respecté. **Les deux sont conservés** —
+prendre un seul côté aurait supprimé un garde-fou de CI en silence, ce qu'une résolution
+« au plus simple » fait très bien. Vérifié sur la branche fusionnée : `check:date` 0,
+`check:mouvement` 0, lint 0, build 0, **8/8 tests**. Poussé en `998f75a`, la #4 est repassée
+`mergeable: true`.
+
+**Et le push a marché.** C'est ce qui m'a fait relire ce que j'avais écrit le matin. J'avais
+conclu de `add_repo(taama, push)` refusé que « je ne peux pas pousser » : vrai pour `taama`,
+**faux en général**. J'ai donc :
+
+- corrigé la prémisse de **Q26** au lieu de la laisser pourrir ;
+- poussé le correctif du sous-module fantôme de MIFA Life en branche + **PR draft #51** —
+  réversible, rien de fusionné, c'est le schéma standard de ce système ;
+- **ne rien poussé sur `taama`**. Cet accès précis a été refusé ce matin, et un chemin
+  technique qui existe par ailleurs ne transforme pas un refus en accord.
+
+→ **règle 60** : un refus porte sur ce qui a été refusé, pas sur tout ce qui y ressemble —
+et il tient quand même.
+
+**Suite du soir — la #51 est verte, et c'est la preuve.** Sur `f1daf7f` : `Lint, tests &
+build` **succès**, `Redirect rules` **succès**, `Header rules` **succès**, `Pages changed`
+neutre. Les trois contrôles Netlify qui échouaient sur chaque PR de MIFA depuis le
+16 septembre passent, et la préversion `deploy-preview-51--mifalife.netlify.app` se
+construit — c'est exactement l'étape qui mourait au stade « preparing repo ».
+
+Le rouge de `Lint, tests & build` n'était pas ce diff : c'est l'erreur unique de `main` que
+ma #49 corrige depuis le 21 septembre. Correctif **porté** dans la #51 plutôt qu'attendre,
+il deviendra sans effet dès que la #49 atterrira. Vérifié avant de pousser : lint 0 erreur,
+**90/90 tests**, build réussi.
+
+Il reste une fusion, et elle appartient à Steeve.
+
+## 2026-10-03 (veille de 20h06) — Campagne « Vitrine honnête » de Steeve sur cinq produits
+
+Quatre troncs ont bougé d'un coup : `taama/main` → `bd4229d`, `comptrack/main` → `cfb2263`,
+`forja/master` → `7e163d7`, `milltrack/master` → `9acd188`, après `indubot-afrika` plus tôt.
+Toutes la même PR : **« Vitrine honnête : retire chiffres et témoignages inventés »**. Steeve
+a nettoyé les cinq vitrines publiques le même soir.
+
+**Conflits créés sur mes PR : un seul**, `comptrack#38` — et après vérification il n'est
+même pas de ce soir : ni sa base `feat/comptrack-v1` (figée au 26 septembre) ni sa tête
+n'avaient bougé. Les sept autres (taama #35 #38, comptrack #41 #43, forja #27 #28,
+milltrack #15) sont `mergeable: true`.
+
+**Le correctif TAAMA rejoué sur le nouveau tronc**, parce que sa base avait changé :
+`git am --3way` applique proprement ; 117 tests ; **176/176 avec la #35 simulée** ; lint
+**identique à la base nue** (9 erreurs, 9 avertissements — le tronc est passé de 13 à 9
+avertissements, pas moi) ; tsc 174 des deux côtés, aucun dans mes fichiers ; build vert et
+**0 décompte figé** dans le HTML prérendu. Il tient. Toujours non poussé : règle 60.
+
+**`comptrack#38` résolu, et la fusion a révélé deux choses que personne ne voyait :**
+
+- **59 tests cassés sur la base.** `vitest.config.ts` ne déclarait aucun `setupFiles`, donc
+  `vitest.setup.ts` n'était jamais chargé et aucun matcher jest-dom n'était enregistré :
+  chaque `toBeInTheDocument()` remontait en « Invalid Chai property ». Deux lignes, et
+  **151/151**.
+- **Le lint ne tournait pas du tout sur la base** — `Cannot find module '@sentry/nextjs'`,
+  absent de ses dépendances. Ma branche l'apporte, ESLint s'exécute enfin, et révèle 6
+  erreurs dans `previsions/page.tsx`, toutes traitées. **0 erreur**.
+
+**Ce que je n'ai pas tranché :** `DashboardCharts.tsx:8` importe trois constantes que
+`lib/data.ts` n'exporte plus — la base a retiré ses données simulées. Le défaut **est sur la
+base**, masqué jusqu'ici par le plantage Sentry qui arrivait plus tôt. Le réparer suppose de
+savoir si ce tableau de bord doit désormais lire des données réelles : décision produit, pas
+résolution de conflit. Dit dans le message de commit, pas enterré.
+
+## 2026-10-04 — FORJA et MillTrack : dans les deux cas, le correctif existe et attend un clic
+
+**FORJA.** Tronc remesuré à neuf sur `7e163d7` : **aucune CI**, 12 erreurs de lint, 5 tests
+en échec. Identique au 22 septembre — la campagne « Vitrine honnête » n'a touché aucun de
+ces points. **Rouge depuis le 10 août, 55 jours**, et rien ne l'a signalé parce qu'il n'y a
+pas de CI : les deux défauts se tiennent. Ma #27 répare tout mais avait **6 commits de
+retard**. GitHub la disait `mergeable: true` — la leçon de comptrack hier soir est qu'une
+fusion propre ne garantit pas un résultat qui marche, donc j'ai fusionné `master` dedans
+(sans conflit) et vérifié le **résultat** : lint **0 erreur**, **148/148**, build 18 pages,
+CI apportée. Poussé `2deedcc`. Au passage, le commit de Steeve d'hier a supprimé les
+« 0+ Tonnes de café tracées » que j'avais signalées le 22 — traité.
+
+**MillTrack.** Tronc **sain** et le plus propre du portefeuille : lint 0, **180/180**, CI qui
+tourne. Le manque n'est pas la qualité, c'est la sécurité : **aucune authentification**, les
+onze pages du tableau de bord ouvertes à qui connaît l'URL. **Troisième** logiciel de gestion
+du portefeuille dans ce cas après CompTrack `main` et `v1` — le motif est que les PR d'auth
+restent ouvertes. Ma #15 : **0/11 → 11/11 pages protégées**, 180 → **198 tests**, build
+21 routes, après fusion de `master` sans conflit. Poussé `dd8bc6f`.
+
+J'ai regardé au-delà de « les tests passent » : `garde-acces.test.ts` ferme les onze pages
+nommément, refuse qu'un préfixe public en ouvre un autre (`/authentification-interne` fermé
+alors que `/auth` est public), garde la page demandée dans la redirection, et porte une
+régression explicite contre un matcher `/dashboard/:path*` qui laissait tout ouvert. **Un
+garde qui ne garde rien est pire qu'un garde absent : il rassure.**
+
+Le motif du jour, et il est le même des deux côtés : le travail est fait, vérifié, et attend
+un clic. Quatre PR dans ce cas ce matin — `forja#27`, `milltrack#15`, `Mifa_Life_shop#51`,
+et `comptrack#38` pour sa part réparée.

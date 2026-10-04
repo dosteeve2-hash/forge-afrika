@@ -1,7 +1,7 @@
 {
   "projet": "taama",
-  "derniere_execution": "2026-09-15",
-  "verdict": "🔴 18 PR ouvertes, 0 fusionnee, toutes fusionnables — et le tronc a perdu le site public",
+  "derniere_execution": "2026-10-03",
+  "verdict": "🔴 Un defaut servi en production : l'inventaire calcule les peremptions contre un 8 aout 2026 gele. Corrige et verifie, NON POUSSE (permission refusee, Q26). Et toujours 18 PR ouvertes, 0 fusionnee.",
   "tronc": "main = 30 commits, UNE SEULE racine (66ca73d, 27 juin), pointe 3f8318d du 10 aout. Verifie en clone COMPLET le 15 septembre.",
   "pr_ouvertes_du_depot": [
     "18 PR ouvertes (verifie par l'API le 2026-09-07) : #35 #26 #18 #17 #16 #15 #14 #13 #12 #11 #10 #9 #8 #7 #6 #5 #4 #3",
@@ -10,7 +10,7 @@
   ],
   "mes_pr": [],
   "chantier_en_cours": "",
-  "prochain_chantier": "Fusionner la #35 (verifiee : 110 -> 169 tests) et ma #37 (site public restaure par extraction). Puis relire les 16 restantes UNE PAR UNE contre main : elles sont en retard, pas mortes, et mon triage du 9 les avait toutes ecartees a tort. Ne rien fermer avant cette relecture.",
+  "prochain_chantier": "Pousser le correctif de peremption des que Q26 est repondue. Puis, toujours : fusionner la #35, puis trancher la #10 (site public, Q14).",
   "dette_connue": [
     "18 PR ouvertes, 0 fusionnee, la plus ancienne du 2026-06-29. Le blocage est decisionnel.",
     "#35 verte et prete depuis le 2026-09-02 : elle repare 59 tests morts et ajoute la CI.",
@@ -39,7 +39,17 @@
     "tests_main_seul": "1 SUITE ENTIERE bloquee au chargement (__tests__/InventairePage.test.tsx), 110 tests",
     "tests_avec_35": "169 / 169, 10 suites",
     "build_avec_35": "passe, 20 routes",
-    "ci": "aucune sur main ; la #35 l'apporte"
+    "ci": "aucune sur main ; la #35 l'apporte",
+    "SUITE_DONNEE": {
+      "etat_de_la_pr": "OUVERTE",
+      "verifie_le": "2026-09-19",
+      "base": "main",
+      "base_enregistree_dans_la_pr": "3f8318d",
+      "tete_de_base_aujourd_hui": "afb5f4c",
+      "retard": "2 commits — dont la fusion de #37 le 16 septembre",
+      "fusion_a_blanc": "PROPRE — aucun conflit, teste le 19 en clone complet. La recommandation TIENT TOUJOURS.",
+      "precision_sur_la_correction_du_15": "Le bloc CORRECTION_MAJEURE_2026_09_15 dit « 3f8318d n'est pas une racine : c'est la TETE de main ». Le point de fond — ce commit a un parent, main a une seule racine — reste EXACT. Mais 3f8318d n'est plus la tete de main depuis le 16 : c'est afb5f4c. Precision, pas refutation."
+    }
   },
   "mon_erreur_du_2026_09_07": "J'ai traite TAAMA le 7 septembre, corrige mon compte de PR (5 -> 18) et ferme un doublon — mais je n'ai PAS vu que le tronc etait un commit orphelin, donc que les PR que je comptais etaient inertes. J'ai compte une pile sans verifier qu'elle tenait debout. La regle n°5 du 8 septembre est arrivee un jour trop tard pour TAAMA.",
   "lecon": "Compter les PR ouvertes ne dit rien de leur fusionnabilite. Un tronc peut avoir ete remplace par un commit orphelin, et toutes les PR qui le visent deviennent alors decoratives. Et l'inverse du reflexe est vrai aussi : j'ai failli conclure que les 17 etaient redondantes parce que le tableau de bord etait sauve — c'aurait fait perdre le site public entier, qui n'existe que la.",
@@ -52,5 +62,60 @@
     "verifie_aussi": "Problem to Projects Africa : meme affirmation, mais VRAIE — deux racines reelles (8bea3ad du 8 juin, c2bcef3 du 14 mars) et merge-base AUCUN meme en clone complet. Ce diagnostic-la tient.",
     "affirmation_refutee": "commit ORPHELIN",
     "nettoyage_2026_09_16": "Le 15 j'avais ajoute ce bloc de correction SANS nettoyer verdict, tronc, constat_central et prochain_chantier, qui portaient encore l'affirmation refutee. Un lecteur pressé — ou moi demain — lisait le haut du fichier et repartait avec le diagnostic faux. Corrige le 16, et un 16e controle CI verifie desormais qu'une affirmation refutee ne survit nulle part dans son propre fichier."
+  },
+  "fusions_du_16_septembre": "Steeve a fusionne #37 le 16 septembre entre 15h00 et 15h06 UTC, dans un lot de QUINZE PR sur onze depots. Premier deblocage du goulot depuis le 2 septembre.",
+  "MESURE_2026_09_20": {
+    "tronc_reel": "main @ afb5f4c",
+    "cite_dans_ce_fichier": "66ca73d — c'est la RACINE, pas la tete ; et 3f8318d, qui etait la tete jusqu'au 16",
+    "pr_ouvertes": 18,
+    "compteur_du_fichier": "18 — EXACT. La #37 a ete creee apres le 7 septembre puis fusionnee le 16, le total n'a pas bouge. J'ai failli le 'corriger' a tort.",
+    "toutes_visent": "main"
+  },
+  "CI_DU_TRONC_2026_09_21": {
+    "etat": "AUCUNE",
+    "mesure_le": "2026-09-21",
+    "methode": "API GitHub Actions, list_workflow_runs filtre sur le tronc reel — pas sur la branche par defaut (regle 31)",
+    "detail": "AUCUNE CI sur main — zero run mesure le 21 septembre. C'est la #35 qui en apporterait une."
+  },
+  "TRIAGE_2026_09_23": {
+    "mesure": "18 PR, chacune testee EN FUSIONNANT sur clone complet (32 commits sur main, is-shallow = false)",
+    "une_seule_propre": "#35, la mienne — 1 d'avance, 2 de retard. Elle apporte la PREMIERE CI du depot. A fusionner d'abord.",
+    "chaine_prouvee": "#3 ⊂ #4 ⊂ #5 ⊂ #6 ⊂ #7 ⊂ #8 ⊂ #9 ⊂ #10, complete, par merge-base --is-ancestor",
+    "nuance_capitale": "Ces sept ne sont fermables QUE si la #10 est fusionnee. La decision porte sur la #10. C'est la nuance qui manquait le 15 septembre. Regle 37.",
+    "la_26_REGRESSE": "Elle apporte 3 fichiers ; error.tsx et loading.tsx existent deja sur main en versions PLUS RECENTES (49 vs 41 lignes ; composants partages vs div inline). La fusionner deferait du travail livre. Seul LOVABLE_PROTOCOL.md est neuf. Regle 36.",
+    "plus_gros_apport_restant": "#18 feat/maintenance-infra — 24 fichiers, 3 823 insertions",
+    "rien_touche": "Aucun conflit resolu, aucune PR fermee ni reciblee. Ce sont les PR de Steeve.",
+    "donnees": "AUTOMATION/etat/triage-taama.json"
+  },
+  "DEFAUT_PRODUCTION_2026_10_03": {
+    "fichier": "src/app/(dashboard)/inventaire/page.tsx ligne 54",
+    "cause": "const TODAY_MS = new Date('2026-08-08').getTime() — la page n'a aucune donnee dynamique, Next la prerend au build, la date est donc gelee dans le HTML servi",
+    "mesure_sur_la_production": "https://taama-mu.vercel.app/inventaire contient litteralement « ⚠ 24j · 2026-09 » pour le Vaccin Hepatite B (expiration 2026-09-01), lu le 3 octobre par le connecteur Vercel. Perime depuis 32 jours.",
+    "second_cas": "Insuline Glargine (2026-10-30) affichee verte a 83 jours alors qu'elle est a 26 jours, donc dans la fenetre d'alerte < 30 j.",
+    "ecart": "grandit d'un jour par jour depuis le 8 aout",
+    "correctif": "src/lib/peremption.ts (debutDeJour, joursAvant, useAujourdHui par useSyncExternalStore qui rend null cote serveur) ; statuts derives par useMemo et non synchronises dans un effet ; __tests__/setup.ts fige l'horloge au 8 aout ; __tests__/peremption.test.ts, 7 tests",
+    "pourquoi_le_8_aout_en_test": "verifie ligne par ligne : au 8 aout les 15 statuts ecrits a la main correspondent exactement a ce que recalcule le code. Le correctif est donc neutre pour toutes les assertions existantes.",
+    "verification": {
+      "tests_main_plus_correctif": "117 passent (110 + 7)",
+      "suite_InventairePage": "ne se charge toujours pas — Cannot access 'mockToast' before initialization, defaut de hoisting que repare la #35",
+      "tests_avec_35_simulee": "176 / 176, 11 suites",
+      "lint": "9 erreurs 13 avertissements — exactement la base de main",
+      "tsc": "174 diagnostics avant comme apres, aucun dans les fichiers touches",
+      "build": "reussi, 24 pages statiques",
+      "html_prerendu": "plus aucun decompte fige, seulement des mois"
+    },
+    "ordre_de_fusion": "la #35 d'abord, ce correctif ensuite — c'est ce que mesure le 176/176. Je n'ai volontairement pas retouche __tests__/InventairePage.test.tsx, que la #35 modifie, pour ne pas refaire son travail (incident de la #36).",
+    "bloque_par": "Q26 — add_repo(taama, access=push) refuse le 3 octobre. Pas contourne. Patch dans AUTOMATION/correctifs-en-attente/taama-peremption-horloge-reelle.patch"
+  },
+  "triage_toujours_valide_le_2026_10_03": "Le triage du 23 septembre n'a PAS ete refait, et c'est volontaire : main @ afb5f4c n'a pas bouge depuis le 16 septembre, donc AUTOMATION/etat/triage-taama.json est exact tel quel. Un quatrieme triage aurait produit le meme fichier. Ce qui manque a TAAMA est une decision sur la #35 et la #10, pas une mesure de plus.",
+  "REVALIDATION_2026_10_03_SOIR": {
+    "pourquoi": "main est passe de afb5f4c a bd4229d le 3 octobre a 18h53 — fusion de la #39 « Vitrine honnete », campagne de Steeve sur cinq produits. Le patch de peremption devait etre rejoue contre cette base.",
+    "git_am_3way": "applique proprement, code 0",
+    "tests": "117 passent (inchange) ; InventairePage ne se charge toujours pas — defaut de hoisting que repare la #35",
+    "avec_35_simulee": "176 / 176, 11 suites — inchange",
+    "lint": "9 erreurs 9 avertissements avec le correctif, IDENTIQUE a la base nue bd4229d (le tronc est passe de 13 a 9 avertissements, pas moi)",
+    "tsc": "174 diagnostics avec comme sans le correctif, aucun dans les fichiers touches",
+    "build": "reussi, et 0 decompte fige dans .next/server/app/inventaire.html",
+    "conclusion": "Le correctif tient sur le nouveau tronc. Toujours NON POUSSE sur taama : Steeve a refuse add_repo(taama, push) le matin meme, et je ne contourne pas ce refus (regle 60). C'est Q26."
   }
 }

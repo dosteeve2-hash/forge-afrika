@@ -1,10 +1,10 @@
 {
   "projet": "milltrack",
-  "derniere_execution": "2026-09-15",
-  "verdict": "🟢",
+  "derniere_execution": "2026-10-04",
+  "verdict": "🟡 le tronc est le plus propre du portefeuille — et ses onze pages sont ouvertes a qui connait l URL.",
   "tronc": "master — sain : lint 0, 124 tests, build 13 routes, CI presente",
   "pr_ouvertes_du_depot": [
-    "6 PR ouvertes au 15 septembre, dont 3 a moi.",
+    "4 PR ouvertes au 2026-09-20 (mesure API) : #15 (la mienne), #3, #2, #1. Les #13 et #14 ont ete fusionnees le 16 septembre.",
     "#3 (30 juil) quality improvements — error.tsx et loading.tsx DEJA sur le tronc (verifie : presents mais differents), ne reste qu'un LOVABLE_PROTOCOL.md",
     "#2 (18 juil) sprint14 fournisseurs+parametres — 26 commits de retard, 3 CONFLITS reels avec master : clients/page.tsx, production/page.tsx, (dashboard)/layout.tsx",
     "#1 (13 juil) auth complete v2 — 12 de ses 13 fichiers sont IDENTIQUES AU BIT PRES a ceux de la #2 ; le 13e, SidebarNav.tsx, differe de +8/-1 (la #2 ajoute 3 entrees de nav). Entierement absorbee par la #2."
@@ -22,7 +22,7 @@
     "authentification": "AUCUNE au tronc. app/(dashboard)/dashboard/page.tsx porte encore '// TODO: replace with real Supabase getUser() call' en commentaire."
   },
   "note_portefeuille": "MillTrack a FUSIONNE le 2 septembre la PR #12 (repare tests + lint + ajoute la CI). FORJA a la meme PR (#27) toujours ouverte. Meme correctif, deux destins : l'un a un tronc vert, l'autre un tronc rouge. C'est la demonstration la plus nette que le goulot est la fusion.",
-  "prochain_chantier": "La #15 a porte l'authentification ; il reste a etendre lib/persistance-locale.ts (PR #14) aux pages encore en MOCK_*, une PR par page. Les conflits de la #2 sur clients/ et production/ appartiennent a Steeve : le tronc a construit ses propres versions depuis juillet.",
+  "prochain_chantier": "rapports/page.tsx rend une liste en grille de 5 colonnes au lieu d un <table> — meme defaut mobile que celui corrige ailleurs. Et tout est encore MOCK_*.",
   "dette_connue": [
     "rapports/page.tsx : liste rendue en grille de 5 colonnes au lieu d'un <table> — meme defaut mobile, demande une restructuration.",
     "Aucune donnee reelle : tout est MOCK_*. Ni base, ni authentification.",
@@ -35,5 +35,35 @@
     "build_casse": "Le tronc est en Next 16, qui a renomme middleware.ts en proxy.ts et REFUSE le build quand les deux existent. La #2 apporte un middleware.ts ; le tronc a deja un proxy.ts. Fusionner la #2 telle quelle casse le build — rencontre pour de vrai en essayant, pas deduit.",
     "mot_de_passe_en_clair": "La page de connexion de la #2 imprime un identifiant et un mot de passe de demonstration dans la page. Non repris dans la #15."
   },
-  "motif_du_portefeuille": "Troisieme logiciel de gestion du portefeuille dont le tronc n'a aucune authentification, apres CompTrack (main) et CompTrack (v1, qui a la porte mais pas le mur). Ce n'est pas un oubli isole : c'est ce qui arrive quand les PR qui apportent l'auth ne sont jamais fusionnees."
+  "motif_du_portefeuille": "Troisieme logiciel de gestion du portefeuille dont le tronc n'a aucune authentification, apres CompTrack (main) et CompTrack (v1, qui a la porte mais pas le mur). Ce n'est pas un oubli isole : c'est ce qui arrive quand les PR qui apportent l'auth ne sont jamais fusionnees.",
+  "fusions_du_16_septembre": "Steeve a fusionne #13, #14 le 16 septembre entre 15h00 et 15h06 UTC, dans un lot de QUINZE PR sur onze depots. Premier deblocage du goulot depuis le 2 septembre.",
+  "pr_restante_apres_le_lot": "#15 — conflit resolu et repousse le 16 a 18h35 : master avait gagne DashboardNav (extrait par la #13). La deconnexion descend dans DashboardNav, donc elle existe aussi dans le TIROIR mobile, ce que ma version d'origine ne faisait pas. 198/198, lint 0, tsc 0, build vert, les 5 sabotages rejoues.",
+  "MESURE_2026_09_20": {
+    "tronc_reel": "master @ 3b9480b",
+    "pr_ouvertes": 4,
+    "affirmation_refutee": "6 PR ouvertes au 15 septembre, dont 3 a moi.",
+    "la_verite": "4 ouvertes : #15 (la mienne), #3, #2, #1. Les #13 et #14 ont ete fusionnees le 16.",
+    "toutes_visent": "master"
+  },
+  "MESURE_2026_10_04": {
+    "tronc": "master @ 9acd188",
+    "lint": "0 erreur, 0 avertissement",
+    "tests": "180 / 180, 13 fichiers",
+    "ci": "presente et elle tourne",
+    "rien_de_casse": "oui"
+  },
+  "LE_VRAI_MANQUE": "Aucune authentification sur le tronc. Les onze pages du tableau de bord (lots, machines, stocks, production, clients, commandes...) sont accessibles a qui connait l URL. Troisieme logiciel de gestion du portefeuille dans ce cas apres CompTrack main et CompTrack v1.",
+  "CHANTIER_2026_10_04": {
+    "quoi": "La #15 apporte le garde ; elle avait 2 commits de retard.",
+    "fusion": "master fusionne dans la branche, SANS conflit",
+    "resultat_fusionne_verifie": {
+      "pages_protegees": "0/11 -> 11/11",
+      "tests": "180 -> 198",
+      "lint": "0",
+      "build": "reussi, 21 routes"
+    },
+    "verifie_au_dela_des_tests_qui_passent": "garde-acces.test.ts ferme les ONZE pages nommement ; refuse qu un prefixe public en ouvre un autre (/authentification-interne reste ferme alors que /auth est public) ; traite /lots/ comme /lots ; garde la page demandee dans la redirection ; et porte une regression explicite contre un matcher /dashboard/:path* qui laissait les onze pages ouvertes. Un garde qui ne garde rien est pire qu un garde absent : il rassure.",
+    "pousse": "dd8bc6f",
+    "corps_de_pr": "reecrit avec la mesure du jour"
+  }
 }

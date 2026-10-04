@@ -129,6 +129,28 @@ jobs:
         run: |
           python3 AUTOMATION/scripts/forge-verifier-corrections.py
 
+      - name: Suites — toute recommandation de fusion porte son résultat
+        run: |
+          python3 AUTOMATION/scripts/forge-verifier-suites.py
+
+      - name: Recensement des PR — cohérent, daté, et l'audit tourne
+        run: |
+          python3 - <<'PYEOF'
+          import json, sys, pathlib, re
+          d = json.loads(pathlib.Path('AUTOMATION/etat/recensement-pr.json').read_text())
+          if not re.match(r'^\d{4}-\d{2}-\d{2}$', d.get('mesure_le', '')):
+              print("::error::recensement-pr.json sans date de mesure"); sys.exit(1)
+          somme = sum(v['pr_ouvertes'] for v in d['depots'].values())
+          if somme != d['total_pr_ouvertes']:
+              print(f"::error::total annonce {d['total_pr_ouvertes']} != somme reelle {somme}"); sys.exit(1)
+          for pid, v in d['depots'].items():
+              n = sum(len(x) for x in v['par_base'].values())
+              if n != v['pr_ouvertes']:
+                  print(f"::error::{pid} annonce {v['pr_ouvertes']} PR, en detaille {n}"); sys.exit(1)
+          print(f"OK — {somme} PR, mesurees le {d['mesure_le']}")
+          PYEOF
+          python3 AUTOMATION/scripts/forge-pr-empilees.py
+
       - name: Sécurité — aucun secret dans le dépôt
         run: |
           if git grep -InE '(AKIA[0-9A-Z]{16}|sk-[A-Za-z0-9]{20,}|ghp_[A-Za-z0-9]{30,}|-----BEGIN (RSA |OPENSSH |EC )?PRIVATE KEY-----)' -- . ; then

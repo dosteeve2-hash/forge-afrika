@@ -1,0 +1,339 @@
+From 5fce6e37cf2f4e81e2c260e97ae44c9995d71ff4 Mon Sep 17 00:00:00 2001
+From: Claude <claude@anthropic.com>
+Date: Sat, 3 Oct 2026 02:34:43 +0000
+Subject: [PATCH] =?UTF-8?q?L'inventaire=20annon=C3=A7ait=2024=20jours=20?=
+ =?UTF-8?q?=C3=A0=20un=20vaccin=20p=C3=A9rim=C3=A9=20depuis=20un=20mois?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+`src/app/(dashboard)/inventaire/page.tsx` calculait toutes les péremptions
+contre `TODAY_MS = new Date('2026-08-08')`. La page n'ayant aucune donnée
+dynamique, Next la prérend statiquement : ce 8 août était donc gelé dans le
+HTML servi, et le restait.
+
+Mesuré le 3 octobre sur https://taama-mu.vercel.app/inventaire :
+le Vaccin Hépatite B 10µg (expiration 2026-09-01) y affiche « ⚠ 24j · 2026-09 »
+alors qu'il est périmé depuis 32 jours. L'Insuline Glargine (2026-10-30)
+s'affiche verte alors qu'elle est à 27 jours, donc dans la fenêtre d'alerte.
+L'écart grandit d'un jour par jour.
+
+Sur un inventaire de médicaments, c'est la réponse la plus coûteuse qu'un
+écran puisse donner.
+
+Ce que fait ce correctif :
+
+- `src/lib/peremption.ts` — `debutDeJour`, `joursAvant` et le hook
+  `useAujourdHui`. Le jour est lu par `useSyncExternalStore`, qui rend `null`
+  côté serveur : le HTML prérendu ne contient donc plus aucun décompte, et
+  aucune date de build ne peut s'y figer à nouveau. Vérifié dans
+  `.next/server/app/inventaire.html` : plus un seul « ⚠ Nj ».
+- La normalisation à minuit évite qu'un lot expirant demain affiche 0 jour
+  l'après-midi et 1 jour le matin.
+- Les statuts du jeu de données étaient écrits à la main et contredisaient
+  désormais le badge d'expiration. Ils sont dérivés du jour courant par
+  `useMemo` — dérivés, pas synchronisés dans un effet.
+- `__tests__/setup.ts` fige l'horloge des tests au 8 août 2026, la date contre
+  laquelle toutes les assertions existantes ont été écrites. Seul `Date` est
+  simulé, les minuteries restent réelles. C'est la dette « tests dépendants du
+  temps » du dossier TAAMA, traitée à la racine.
+- `__tests__/peremption.test.ts` — 7 tests, dont un qui échouerait si la date
+  redevenait une constante du fichier.
+
+Vérifié sur clone complet :
+- tests : 117 passent (110 + 7) ; la suite `InventairePage` ne se charge
+  toujours pas sur `main` — c'est le défaut de hoisting que répare la #35.
+- avec la #35 simulée : **176 / 176**, 11 suites. Les deux correctifs sont
+  compatibles ; fusionner la #35 d'abord.
+- lint : 9 erreurs, 13 avertissements — exactement la base de `main`.
+- tsc : 174 diagnostics avant comme après, aucun dans les fichiers touchés.
+- build : réussi, 24 pages statiques.
+
+Co-authored-by: Claude <claude@anthropic.com>
+Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01KRdisdKYV8j7GJRg3w6BdU
+---
+ __tests__/peremption.test.ts            | 54 ++++++++++++++++++++++
+ __tests__/setup.ts                      | 21 +++++++++
+ src/app/(dashboard)/inventaire/page.tsx | 59 ++++++++++++++++---------
+ src/lib/peremption.ts                   | 50 +++++++++++++++++++++
+ 4 files changed, 163 insertions(+), 21 deletions(-)
+ create mode 100644 __tests__/peremption.test.ts
+ create mode 100644 src/lib/peremption.ts
+
+diff --git a/__tests__/peremption.test.ts b/__tests__/peremption.test.ts
+new file mode 100644
+index 0000000..4357da6
+--- /dev/null
++++ b/__tests__/peremption.test.ts
+@@ -0,0 +1,54 @@
++import { describe, it, expect, afterEach, vi } from 'vitest'
++import { debutDeJour, joursAvant } from '../src/lib/peremption'
++
++afterEach(() => { vi.useRealTimers() })
++
++describe('debutDeJour', () => {
++  it('ramene n\'importe quelle heure a minuit du meme jour', () => {
++    const matin = new Date('2026-10-03T06:12:00').getTime()
++    const soir  = new Date('2026-10-03T23:59:59').getTime()
++    expect(debutDeJour(matin)).toBe(debutDeJour(soir))
++  })
++
++  it('ne confond pas deux jours voisins', () => {
++    const avant = debutDeJour(new Date('2026-10-03T23:59:59').getTime())
++    const apres = debutDeJour(new Date('2026-10-04T00:00:01').getTime())
++    expect(apres - avant).toBe(86_400_000)
++  })
++})
++
++describe('joursAvant', () => {
++  const REFERENCE = new Date('2026-10-03T14:30:00').getTime()
++
++  it('compte les jours restants sans dependre de l\'heure de consultation', () => {
++    expect(joursAvant('2026-10-30', REFERENCE)).toBe(27)
++    expect(joursAvant('2026-10-30', new Date('2026-10-03T00:00:01').getTime())).toBe(27)
++  })
++
++  it('rend un nombre negatif pour un lot deja perime', () => {
++    expect(joursAvant('2026-09-01', REFERENCE)).toBe(-32)
++  })
++
++  it('rend 0 le jour meme de l\'expiration', () => {
++    expect(joursAvant('2026-10-03', REFERENCE)).toBe(0)
++  })
++
++  /**
++   * Le defaut corrige : la page portait `TODAY_MS = new Date('2026-08-08')`.
++   * Le Vaccin Hepatite B (expiration 2026-09-01) s'affichait donc « 24 j »
++   * pour toujours, y compris un mois apres sa peremption.
++   */
++  it('ne reste pas colle au 8 aout 2026', () => {
++    const geleAu8Aout = new Date('2026-08-08').getTime()
++    expect(joursAvant('2026-09-01', geleAu8Aout)).toBe(24)
++    expect(joursAvant('2026-09-01', new Date('2026-10-03').getTime())).toBe(-32)
++  })
++
++  it('suit l\'horloge du systeme, pas une constante du fichier', () => {
++    vi.useFakeTimers()
++    vi.setSystemTime(new Date('2027-01-01T09:00:00'))
++    expect(joursAvant('2026-09-01', Date.now())).toBeLessThan(0)
++    vi.setSystemTime(new Date('2026-08-01T09:00:00'))
++    expect(joursAvant('2026-09-01', Date.now())).toBeGreaterThan(0)
++  })
++})
+diff --git a/__tests__/setup.ts b/__tests__/setup.ts
+index f149f27..c384b9a 100644
+--- a/__tests__/setup.ts
++++ b/__tests__/setup.ts
+@@ -1 +1,22 @@
+ import "@testing-library/jest-dom/vitest";
++import { beforeEach, afterEach, vi } from "vitest";
++
++/**
++ * Le 8 aout 2026 etait code en dur dans l'ecran d'inventaire : les assertions
++ * de cette suite ont toutes ete ecrites contre ce jour-la. L'ecran lit
++ * desormais l'horloge reelle ; c'est donc ici, et seulement ici, que la date
++ * se fige — sinon la suite changerait de resultat chaque matin.
++ *
++ * Seul `Date` est simule : les minuteries restent reelles, pour qu'aucun
++ * `await` ne reste suspendu.
++ */
++export const AUJOURD_HUI_DE_TEST = new Date("2026-08-08T09:00:00");
++
++beforeEach(() => {
++  vi.useFakeTimers({ toFake: ["Date"] });
++  vi.setSystemTime(AUJOURD_HUI_DE_TEST);
++});
++
++afterEach(() => {
++  vi.useRealTimers();
++});
+diff --git a/src/app/(dashboard)/inventaire/page.tsx b/src/app/(dashboard)/inventaire/page.tsx
+index 153102d..dd78c9f 100644
+--- a/src/app/(dashboard)/inventaire/page.tsx
++++ b/src/app/(dashboard)/inventaire/page.tsx
+@@ -6,6 +6,7 @@ import {
+ } from 'recharts';
+ import { toast } from 'sonner';
+ import { Package, AlertTriangle, AlertCircle, Plus, X, Search } from 'lucide-react';
++import { joursAvant, useAujourdHui } from '@/lib/peremption';
+ 
+ /* ── Palette ─────────────────────────────────────────────────────────────── */
+ const NAVY   = '#0A1628';
+@@ -51,11 +52,6 @@ const INITIAL: MedicamentStock[] = [
+ ];
+ 
+ /* ── Helpers ─────────────────────────────────────────────────────────────── */
+-const TODAY_MS = new Date('2026-08-08').getTime();
+-
+-function daysUntil(d: string): number {
+-  return Math.floor((new Date(d).getTime() - TODAY_MS) / 86400000);
+-}
+ 
+ function statutColor(s: MedicamentStock['statut']): string {
+   if (s === 'En stock')    return GREEN;
+@@ -64,10 +60,12 @@ function statutColor(s: MedicamentStock['statut']): string {
+   return TEXT3;
+ }
+ 
+-function recomputeStatut(qty: number, seuil: number, exp: string): MedicamentStock['statut'] {
+-  if (daysUntil(exp) < 0) return 'Expiré';
+-  if (qty === 0)           return 'Rupture';
+-  if (qty < seuil)         return 'Stock faible';
++function recomputeStatut(
++  qty: number, seuil: number, exp: string, aujourdHuiMs: number,
++): MedicamentStock['statut'] {
++  if (joursAvant(exp, aujourdHuiMs) < 0) return 'Expiré';
++  if (qty === 0)                         return 'Rupture';
++  if (qty < seuil)                       return 'Stock faible';
+   return 'En stock';
+ }
+ 
+@@ -82,7 +80,11 @@ function Badge({ label, color }: { label: string; color: string }) {
+ }
+ 
+ function ExpBadge({ dateStr }: { dateStr: string }) {
+-  const d = daysUntil(dateStr);
++  const aujourdHui = useAujourdHui();
++  // Avant le montage on ne connait pas le jour : on affiche le mois, sans
++  // compte a rebours. Un mois juste vaut mieux qu'un decompte faux.
++  if (aujourdHui === null) return <Badge label={dateStr.slice(0, 7)} color={TEXT3} />;
++  const d = joursAvant(dateStr, aujourdHui);
+   const color = d < 0 ? RED : d < 30 ? ORANGE : GREEN;
+   const label = d < 0
+     ? `Expiré (${dateStr.slice(0, 7)})`
+@@ -360,41 +362,56 @@ export default function InventairePage() {
+        | { type: 'nouveau' }
+   >(null);
+ 
++  const aujourdHui = useAujourdHui();
++
++  /* Les statuts du jeu de depart sont ecrits a la main : un lot peut etre
++     perime depuis sans que sa ligne le dise. On les derive du jour courant
++     plutot que de les stocker — sinon la colonne Statut contredit le badge
++     Expiration juste a cote. */
++  const lignes = useMemo(() => aujourdHui === null ? data : data.map(m => {
++    const statut = recomputeStatut(m.quantiteStock, m.seuilAlerte, m.dateExpiration, aujourdHui);
++    return statut === m.statut ? m : { ...m, statut };
++  }), [data, aujourdHui]);
++
+   /* KPIs */
+-  const ruptures    = useMemo(() => data.filter(m => m.statut === 'Rupture').length,     [data]);
+-  const faibles     = useMemo(() => data.filter(m => m.statut === 'Stock faible').length, [data]);
+-  const valeurStock = useMemo(() => data.reduce((s, m) => s + m.quantiteStock * m.prixAchat, 0), [data]);
+-  const bientotExp  = useMemo(() => data.filter(m => { const d = daysUntil(m.dateExpiration); return d >= 0 && d < 30; }), [data]);
++  const ruptures    = useMemo(() => lignes.filter(m => m.statut === 'Rupture').length,      [lignes]);
++  const faibles     = useMemo(() => lignes.filter(m => m.statut === 'Stock faible').length,  [lignes]);
++  const valeurStock = useMemo(() => lignes.reduce((s, m) => s + m.quantiteStock * m.prixAchat, 0), [lignes]);
++  const bientotExp  = useMemo(() => aujourdHui === null ? [] : lignes.filter(m => {
++    const d = joursAvant(m.dateExpiration, aujourdHui);
++    return d >= 0 && d < 30;
++  }), [lignes, aujourdHui]);
+ 
+   /* Filtered rows */
+   const filtered = useMemo(() =>
+-    data.filter(m =>
++    lignes.filter(m =>
+       (filterCat    === 'Toutes' || m.categorie === filterCat) &&
+       (filterStatut === 'Tous'   || m.statut    === filterStatut) &&
+       (!search || m.nom.toLowerCase().includes(search.toLowerCase()) ||
+                   m.dci.toLowerCase().includes(search.toLowerCase()))
+     ),
+-  [data, filterCat, filterStatut, search]);
++  [lignes, filterCat, filterStatut, search]);
+ 
+   /* BarChart */
+   const chartData = useMemo(() =>
+     CATS.map(cat => ({
+       cat,
+       name:  CAT_SHORT[cat] ?? cat,
+-      total: data.filter(m => m.categorie === cat).reduce((s, m) => s + m.quantiteStock, 0),
++      total: lignes.filter(m => m.categorie === cat).reduce((s, m) => s + m.quantiteStock, 0),
+     })),
+-  [data]);
++  [lignes]);
+ 
+   /* Mutate */
+   const updateStock = (id: string, delta: number) =>
+     setData(prev => prev.map(m => {
+       if (m.id !== id) return m;
+       const qty = Math.max(0, m.quantiteStock + delta);
+-      return { ...m, quantiteStock: qty, statut: recomputeStatut(qty, m.seuilAlerte, m.dateExpiration) };
++      const reference = aujourdHui ?? Date.now();
++      return { ...m, quantiteStock: qty, statut: recomputeStatut(qty, m.seuilAlerte, m.dateExpiration, reference) };
+     }));
+ 
+   /* Banner */
+-  const showBanner = ruptures > 0 || bientotExp.length > 0 || data.some(m => m.statut === 'Expiré');
++  const showBanner = ruptures > 0 || bientotExp.length > 0 || lignes.some(m => m.statut === 'Expiré');
+ 
+   /* Shared styles */
+   const card: React.CSSProperties     = { background: BG2, border: `1px solid ${BORDER}`, borderRadius: 14, padding: 24 };
+@@ -441,7 +458,7 @@ export default function InventairePage() {
+                   {ruptures} rupture{ruptures > 1 ? 's' : ''}
+                 </span>
+               )}
+-              {data.some(m => m.statut === 'Expiré') && (
++              {lignes.some(m => m.statut === 'Expiré') && (
+                 <span style={{ color: ORANGE }}>médicaments expirés détectés</span>
+               )}
+               {bientotExp.length > 0 && (
+diff --git a/src/lib/peremption.ts b/src/lib/peremption.ts
+new file mode 100644
+index 0000000..a13fc20
+--- /dev/null
++++ b/src/lib/peremption.ts
+@@ -0,0 +1,50 @@
++'use client';
++
++import { useSyncExternalStore } from 'react';
++
++/**
++ * Minuit, heure locale, du jour contenant `ms`.
++ *
++ * On normalise au debut de journee pour que « il reste 1 jour » ne depende pas
++ * de l'heure a laquelle le magasinier ouvre l'ecran : sinon un lot expirant
++ * demain affiche 0 jour l'apres-midi et 1 jour le matin.
++ */
++export function debutDeJour(ms: number): number {
++  const d = new Date(ms);
++  d.setHours(0, 0, 0, 0);
++  return d.getTime();
++}
++
++/**
++ * Nombre de jours entiers entre `referenceMs` et une date d'expiration ISO.
++ * Negatif si le lot est deja perime.
++ */
++export function joursAvant(dateISO: string, referenceMs: number): number {
++  return Math.floor((new Date(dateISO).getTime() - debutDeJour(referenceMs)) / 86_400_000);
++}
++
++/**
++ * Le jour courant, lu APRES le montage.
++ *
++ * Cette page n'a aucune donnee dynamique : Next la prerend statiquement au
++ * build. Lire l'horloge pendant le rendu figerait donc la date du build dans
++ * le HTML servi — exactement le defaut que ce module corrige, avec une date
++ * plus recente. Le `null` initial est aussi ce qui garde le premier rendu
++ * identique cote serveur et cote client (meme pattern que `mounted` pour
++ * Recharts, cf. CLAUDE.md).
++ */
++function jamaisNotifie(): () => void {
++  return () => {};
++}
++
++export function useAujourdHui(): number | null {
++  return useSyncExternalStore(
++    jamaisNotifie,
++    // Cote client : stable toute la journee, donc une valeur que React peut
++    // comparer sans boucler.
++    () => debutDeJour(Date.now()),
++    // Cote serveur : aucun jour. Le premier rendu est donc identique des deux
++    // cotes, et aucune date de build ne se retrouve figee dans le HTML.
++    () => null,
++  );
++}
+-- 
+2.43.0
+

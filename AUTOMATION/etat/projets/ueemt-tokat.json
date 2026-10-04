@@ -1,25 +1,111 @@
 {
   "projet": "ueemt-tokat",
   "tier": 2,
-  "derniere_execution": "2026-09-12",
+  "derniere_execution": "2026-10-03",
   "mode": "TRIAGE (7 PR ouvertes)",
-  "verdict": "🔴 le tronc ne se construit pas sans secrets",
-  "tronc": "main, dernier commit 3f75d8d du 29 juillet, 14 branches, aucune CI",
+  "verdict": "🟡 tronc sain depuis la fusion de ma #14 ; 6 PR ouvertes dont 4 visent une branche MORTE",
+  "tronc": "main @ 3c0c098. La CI existe depuis la fusion de la #14 le 16 septembre ; avant elle, le depot n'en avait pas et le build echouait sans les secrets. 14 branches. Mesure le 2026-09-20.",
   "constat_central": "npm run build ECHOUE sur main : src/lib/email.ts construisait le client Resend AU CHARGEMENT DU MODULE (`const resend = new Resend(...)`), et new Resend() leve quand la cle manque. Next.js charge ce module pendant la collecte des donnees de /api/onboarding, et le build s'arrete. Aucune CI ne peut construire ce depot, aucun contributeur sans cle Resend de production non plus.",
-  "sante_du_tronc": {"lint":"131 erreurs, 65 avertissements","tests":"24 / 24","build":"ECHOUE sans RESEND_API_KEY","ci":"aucune"},
+  "sante_du_tronc": {
+    "lint": "131 erreurs, 65 avertissements",
+    "tests": "24 / 24",
+    "build": "ECHOUE sans RESEND_API_KEY",
+    "ci": "aucune"
+  },
   "verification_pr_14": {
-    "lint_main_seul":"131 erreurs",
-    "lint_avec_14":"0 erreur, 65 avertissements",
-    "build_main_seul":"echoue",
-    "build_avec_14":"passe, 38 pages",
-    "tests":"24/24 des deux cotes",
-    "correctif":"construire le client a l'appel (resendClient()) plutot qu'au chargement — exactement le bon geste",
-    "conclusion":"a fusionner ; sans elle rien ne peut verifier ce depot"
+    "lint_main_seul": "131 erreurs",
+    "lint_avec_14": "0 erreur, 65 avertissements",
+    "build_main_seul": "echoue",
+    "build_avec_14": "passe, 38 pages",
+    "tests": "24/24 des deux cotes",
+    "correctif": "construire le client a l'appel (resendClient()) plutot qu'au chargement — exactement le bon geste",
+    "conclusion": "a fusionner ; sans elle rien ne peut verifier ce depot",
+    "SUITE_DONNEE": {
+      "etat_de_la_pr": "FUSIONNEE",
+      "fusionnee_le": "2026-09-16T15:00:21Z",
+      "fusionnee_par": "dosteeve2-hash",
+      "verifie_le": "2026-09-19",
+      "methode": "API GitHub, champ merged=true et merged_at — pas le tableau du recensement, qui n'est qu'une copie",
+      "ce_que_ca_change": "La recommandation « a fusionner ; sans elle rien ne peut verifier ce depot » est HONOREE : le build passe sans secrets et la CI tourne.",
+      "pourquoi_ce_champ_existe": "Sans lui, le bloc ci-dessus se lit comme une recommandation EN ATTENTE. Il l'a ete trois jours de trop. Voir regle 32."
+    }
   },
   "pr_visant_la_mauvaise_branche": "#8, #7, #6, #5 visent `dev`, pas `main`. Motif de CompTrack (regle 11). dev existe mais main a avance jusqu'au 29 juillet : est-ce encore une branche d'integration vivante ou un vestige ? Q17. Rien re-cible ni ferme.",
-  "pr_ouvertes_du_depot": ["#14 (2 sept) 131 lint + build sans secrets + CI — verifiee verte, vise main","#12 photo fondateur — vise main","#11 logos historiques — vise main","#8 #7 #6 #5 (juin-juillet) — visent DEV"],
-  "mes_pr": [],
-  "dette_connue": ["run-log.txt et run-log2.txt : journaux d'execution versionnes, meritent au minimum une ligne de .gitignore","run-fixes.bat, run-fixes-2.bat, run-build-push.bat, run-deploy.ps1 : scripts Windows a la racine — signales, pas touches, ils servent peut-etre","65 avertissements de lint restants apres la #14"],
-  "prochain_chantier": "Fusionner la #14. Puis trancher Q17 (dev vivant ou vestige) avant de relire les quatre PR qui le visent.",
-  "lecon": "Instancier un client d'API au chargement d'un module casse le build de tous ceux qui n'ont pas le secret — y compris la CI. Le geste correct est une fabrique appelee au besoin. A chercher systematiquement : `const client = new X(process.env...)` au niveau module."
+  "pr_ouvertes_du_depot": [
+    "#14 (2 sept) 131 lint + build sans secrets + CI — verifiee verte, vise main",
+    "#12 photo fondateur — vise main",
+    "#11 logos historiques — vise main",
+    "#8 #7 #6 #5 (juin-juillet) — visent DEV"
+  ],
+  "mes_pr": [
+    "#14 (2 sept) — FUSIONNEE le 16 septembre a 15h00:21. Elle a apporte la premiere CI du depot, repare 131 erreurs de lint et rendu le build possible sans secrets de production. Son corps demandait aussi de revoquer un VERCEL_OIDC_TOKEN : verifie le 19, le jeton avait expire 12 h apres son emission, 97 jours plus tot — aucune action necessaire."
+  ],
+  "dette_connue": [
+    "run-log.txt et run-log2.txt : journaux d'execution versionnes, meritent au minimum une ligne de .gitignore",
+    "run-fixes.bat, run-fixes-2.bat, run-build-push.bat, run-deploy.ps1 : scripts Windows a la racine — signales, pas touches, ils servent peut-etre",
+    "65 avertissements de lint restants apres la #14"
+  ],
+  "prochain_chantier": "RIEN CONSTRUIRE : 6 PR ouvertes, au-dela du seuil. Le deblocage est chez Steeve — fermer la #8, recibler la #11 sur main, dire le sort de dev. Les quatre PR en conflit portent du travail reel ; je les resoudrai s'il dit lesquelles comptent.",
+  "lecon": "Instancier un client d'API au chargement d'un module casse le build de tous ceux qui n'ont pas le secret — y compris la CI. Le geste correct est une fabrique appelee au besoin. A chercher systematiquement : `const client = new X(process.env...)` au niveau module.",
+  "q17_tranchee_par_la_mesure": {
+    "mesure_le": "2026-09-18, clone complet",
+    "resultat": "dev est ENTIEREMENT contenu dans main : 0 commit unique, main a 33 commits d'avance. Figee au 26 juillet.",
+    "consequence": "la supprimer ou la repointer ne peut RIEN faire perdre. Reglage GitHub — protocole §3, c'est Steeve.",
+    "impact": "quatre des six PR ouvertes visent cette branche morte."
+  },
+  "triage_des_6_pr": {
+    "#8 gouvernance": "DEJA ABSORBEE dans main via la PR #9 (meme branche, fusionnee). Fermable sans rien perdre.",
+    "#11 logos archives": "vise main, se fusionne PROPREMENT. La seule dans ce cas.",
+    "#5 annonces": "vise dev. 1 fichier en conflit avec main.",
+    "#6 membres filtres": "vise dev. 2 fichiers en conflit.",
+    "#7 cotisations CSV": "vise dev. 3 fichiers en conflit.",
+    "#12 photo fondateur": "vise main. 1 fichier en conflit.",
+    "rien_ferme_ni_recible": "ce sont des PR de Steeve — protocole §3."
+  },
+  "jeton_vercel_oidc_TRANCHE_LE_19": {
+    "de_quoi_il_s_agit": "La PR #14 se terminait par « ⚠️ A faire de ton cote : revoquer un jeton ». .env.production etait suivi par git et contenait un VERCEL_OIDC_TOKEN, commite dans 3f75d8d.",
+    "ce_que_la_fusion_a_ferme": "Le fichier n'est plus suivi : .env.production est ABSENT de l'arbre de main aujourd'hui (verifie le 19). .gitignore le couvre desormais.",
+    "ce_que_la_fusion_n_a_PAS_ferme": "git rm --cached ne reecrit pas l'historique. 3f75d8d est un ANCETRE de main : n'importe qui clonant ce depot public recupere encore le fichier et le jeton.",
+    "la_question_restee_sans_suite": "Personne n'avait verifie si le jeton etait encore vivant. La PR disait « tres probablement deja expire — a verifier plutot qu'a supposer ». Pendant trois jours, personne n'a verifie.",
+    "VERIFIE_LE_19": {
+      "methode": "Lecture LOCALE de la seule revendication exp du JWT. Le jeton n'a jamais ete ecrit sur disque, jamais affiche, et aucun service n'a ete contacte.",
+      "emis_le": "2026-06-13T17:06:26Z",
+      "expire_le": "2026-06-14T05:06:26Z",
+      "duree_de_vie": "12 heures",
+      "conclusion": "EXPIRE DEPUIS 97 JOURS. Aucune revocation n'est necessaire. L'action demandee a Steeve dans la PR #14 est SANS OBJET."
+    },
+    "ce_qui_reste_vrai_malgre_tout": "Le jeton reste lisible dans l'historique public. Il est mort, donc inexploitable — mais l'incident dit que .env.production a ete suivi par git une fois. Le garde-fou est en place (gitignore + controle « Securite — aucun secret dans le depot » en CI) ; rien de plus a faire.",
+    "pourquoi_je_l_ecris_ici": "C'etait une action en attente que PERSONNE ne suivait : ni QUESTIONS.md, ni ce fichier, seulement le corps d'une PR fusionnee. Une PR fusionnee n'est pas un porte-consignes — ce qu'elle laisse a faire doit sortir de son corps. Voir regle 33."
+  },
+  "MESURE_2026_09_20": {
+    "tronc_reel": "main @ 3c0c098",
+    "cite_dans_ce_fichier": "3f75d8d du 29 juillet — base de la #14, fusionnee le 16",
+    "affirmation_refutee": "aucune CI",
+    "la_verite": "la CI existe depuis la fusion de la #14 le 16 septembre. Le champ `tronc` de ce fichier la disait absente cinq jours de trop.",
+    "pr_ouvertes": 6,
+    "repartition": "2 visent main (#12, #11) · 4 visent `dev` (#8, #7, #6, #5), branche morte mesuree le 18 — 0 commit unique, 33 de retard. Q17."
+  },
+  "MESURE_2026_09_26_16h": {
+    "tronc_a_bouge": "main 3c0c098 -> f9c299e. La PR #15 « Module La Main — palette navy/gold/cyan + statut retard » a ete fusionnee a 14h08 UTC. Elle n'est pas de moi.",
+    "ou_la_fusion_a_atterri": "Verifie (regle 29) : `src/app/tontine/` porte 13 fichiers sur origin/main. Le module est bien livre.",
+    "effet_sur_les_PR_soeurs": "Teste EN FUSIONNANT (regles 27 et 28) : #11 (logos historiques) fusionne proprement ; #12 (photo fondateur) est DESORMAIS EN CONFLIT sur 1 fichier — consequence mecanique de la fusion du 26. Aucune des deux n'est de moi : signalees, pas touchees (§3).",
+    "consequence_pour_Q10": "FORJA porte une COPIE de ce module — 8 fichiers, 1 420 lignes, injoignable, et /tontine y renvoie 500 en production (mesure le 22). L'original vient de gagner 5 fichiers et la palette FORGE. L'ecart se creuse : le module vivant est ici, la copie de FORJA est morte. Cela ne tranche pas Q10, qui reste la decision de Steeve, mais cela la rend plus facile.",
+    "ma_pr_14": "Fusionnee le 16. Je n'ai plus aucune PR ouverte sur ce depot."
+  },
+  "MESURE_2026_09_28": {
+    "production_BLOQUEE": "Le tronc main porte f9c299e — PR #15, module Tontine « La Main ». Son deploiement de production du 26 sept 14h08 UTC est BLOCKED (meme errorLink). Le site sert encore 3c0c098, la PR #14. LE MODULE TONTINE N'EXISTE PAS POUR UN VISITEUR.",
+    "pourquoi_c_est_le_pire_cas": "C'est le seul depot du portefeuille ou une fusion DEJA FAITE est restee invisible. Les autres attendent une fusion ; celui-ci attend un deploiement. Et c'est le projet communaute : ses utilisateurs sont des personnes que Steeve connait a Tokat, et une tontine est un objet de confiance.",
+    "rien_a_coder": "Aucune PR ouverte de ma part. Le code est bon et deja sur le tronc. Q17 reste ouverte par ailleurs (dev morte, #8 a fermer, #11 a recibler, 4 PR en conflit) : je n'y touche pas."
+  },
+  "VEILLE_2026_10_03_08h05": {
+    "tronc_a_bouge": "main f9c299e → 0e54d6a. Fusion de la #16 (feat/sondages-2026-10-03, « sondages du groupe + choix de date de reunion ») le 3 octobre a 07h21 UTC. C'est un commit de Steeve, pas de moi.",
+    "conflits_crees": "AUCUN. Les six PR ouvertes (#5 #6 #7 #8 #11 #12) sont toutes mergeable:true apres la fusion. Rien a resoudre.",
+    "dev_mesure_a_nouveau": {
+      "main_en_avance_de": 37,
+      "dev_en_avance_de": 0,
+      "dernier_commit_de_dev": "0e08d38, 26 juillet 2026 — 69 jours",
+      "ce_que_ca_veut_dire": "dev n'est pas seulement morte : elle est STRICTEMENT ABSORBEE par main. Elle ne contient pas un seul commit que main n'ait pas. Les quatre PR #5 #6 #7 #8 qui la visent fusionneraient donc dans une branche sans contenu propre, 37 commits en retard — elles ne livreraient rien du tout."
+    },
+    "ce_que_je_n_ai_pas_fait": "Recibler ces quatre PR sur main. C'est Q17 et c'est §3 : recibler une branche ne se fait pas sans l'accord de Steeve. La mesure ci-dessus rend la question plus nette, elle ne la tranche pas."
+  }
 }

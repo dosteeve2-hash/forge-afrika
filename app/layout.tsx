@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import SmoothScroll from "@/components/SmoothScroll";
+import MotionGlobale from "@/components/MotionGlobale";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-body" });
@@ -31,7 +32,18 @@ export default function RootLayout({
   return (
     <html lang="fr" className={`${inter.variable} ${spaceGrotesk.variable}`}>
       <body className="antialiased">
-        <SmoothScroll>{children}</SmoothScroll>
+        {/* 53 blocs de la page d'accueil sont rendus avec `opacity:0` en style
+            en ligne : c'est framer-motion qui les révèle à l'entrée dans le
+            viewport. Sans JavaScript — et sur un Android d'entrée de gamme en
+            2G, « sans » veut aussi dire « pas encore » — la page reste navy et
+            vide. Le contenu ne doit jamais dépendre d'une animation : règle 5
+            du playbook 05. Ce filet ne coûte rien à ceux qui ont du JS. */}
+        <noscript>
+          <style>{`[style*="opacity:0"]{opacity:1!important;transform:none!important}`}</style>
+        </noscript>
+        <MotionGlobale>
+          <SmoothScroll>{children}</SmoothScroll>
+        </MotionGlobale>
       </body>
     </html>
   );

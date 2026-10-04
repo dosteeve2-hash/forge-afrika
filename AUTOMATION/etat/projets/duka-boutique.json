@@ -1,8 +1,8 @@
 {
   "projet": "duka-boutique",
   "nom": "SUGU",
-  "derniere_execution": "2026-09-08",
-  "verdict": "🟠 tronc qui compile, mais aucun test n'a jamais tourne + perte de donnees silencieuse (corrigee par ma PR #12)",
+  "derniere_execution": "2026-09-17",
+  "verdict": "🟠 le correctif fusionne hier n'est PAS sur le tronc — il attend dans la #11, qui est prete",
   "tronc": "master, dernier commit c10e0e7 du 10 aout",
   "pr_ouvertes_du_depot": [
     "#11 (2 sept) rend la suite executable 0 -> 64, repare le lint, ajoute la CI — verifiee verte par moi",
@@ -27,11 +27,47 @@
     "correctif": "lib/persistance.ts — ecrireLocal() retourne l'echec, distingue quota (codes 22 et 1014 + nom) de indisponible ; registre d'echecs ; banniere role=alert dans AppShell ; ecriture sortie de l'updater de setValue."
   },
   "hypothese_fausse_verifiee": "J'ai compte 0 breakpoint Tailwind partout et ai failli conclure que SUGU n'etait pas utilisable sur telephone. FAUX : le responsive est en media queries CSS dans globals.css — tiroir sous 768px, BottomNav avec bouton central Caisse, grilles repliees, caisse a 2 colonnes sous 480px. C'est le depot le mieux pense pour le mobile du portefeuille. Compter les `md:` mesure une technique, pas une intention.",
-  "prochain_chantier": "Trancher la PR #1 (13 commits de retard, apport principal deja au tronc). Ensuite : SUGU n'a aucune CI tant que la #11 n'est pas fusionnee.",
+  "prochain_chantier": "Attendre la fusion de la #11 — le correctif de vente perdue en depend. Ne pas ouvrir de PR de remplacement : la #11 existe, elle est verte, il lui manque un clic. Une fois fusionnee, le prochain chantier sera SUGU hors ligne (le produit vit entierement en localStorage).",
   "dette_connue": [
     "usePersistedBoutique replie sur la cle `sugu_none_<entite>` si aucune boutique n'est active. AppShell empeche ce cas aujourd'hui ; corriger demanderait de changer la signature. Signale, pas touche.",
     "32 avertissements de lint (surtout <img> au lieu de next/image).",
     "middleware.ts alors que Next 15.5 est en place — a surveiller au passage a Next 16 (forja et milltrack sont deja passes a proxy.ts)."
   ],
-  "lecon": "Deuxieme depot du jour avec le MEME defaut : une ecriture qui echoue et une interface qui dit que tout va bien. BurkinaCollect perdait les soumissions terrain epuisees, SUGU perd les ventes quand le disque est plein. Deux produits, deux sessions differentes, la meme faute. C'est un motif a chercher systematiquement : partout ou un catch est vide autour d'une ecriture."
+  "lecon": "Deuxieme depot du jour avec le MEME defaut : une ecriture qui echoue et une interface qui dit que tout va bien. BurkinaCollect perdait les soumissions terrain epuisees, SUGU perd les ventes quand le disque est plein. Deux produits, deux sessions differentes, la meme faute. C'est un motif a chercher systematiquement : partout ou un catch est vide autour d'une ecriture.",
+  "fusions_du_16_septembre": "Steeve a fusionne #12 le 16 septembre entre 15h00 et 15h06 UTC, dans un lot de QUINZE PR sur onze depots. Premier deblocage du goulot depuis le 2 septembre.",
+  "la_fusion_qui_n_a_pas_livre": {
+    "mesure_le": "2026-09-17",
+    "fait": "la #12 a ete fusionnee le 16 a 15h00, mais sa base etait claude/ci-lint-and-tests (la branche de la #11), pas master.",
+    "consequence": "ecrireLocal est ABSENT de master. Verifie : grep sur master ne rend rien ; git grep sur toutes les branches le trouve uniquement sur claude/ci-lint-and-tests et claude/loop-sugu-2026-09-08. Une vente non enregistree s'affiche donc TOUJOURS comme enregistree pour les utilisateurs.",
+    "la_11_est_prete": "elle porte desormais les deux travaux (3 commits : la CI/tests, le correctif, la fusion de la #12). Verifie sur la branche reelle : se fusionne proprement dans master, 80/80 tests, lint 0 erreur, build vert.",
+    "remede": "un clic sur la #11. Rien d'autre a faire, et surtout pas une PR de remplacement.",
+    "regle": "regle 29"
+  },
+  "MESURE_2026_09_20": {
+    "tronc_reel": "master @ c10e0e7 — INCHANGE depuis le 10 aout",
+    "pr_ouvertes": 2,
+    "toujours_vrai": "`ecrireLocal` reste ABSENT de master, verifie le 20 septembre. La #12 fusionnee le 16 est partie dans la branche de la #11. La vente perdue n'est toujours pas corrigee pour les commercants."
+  },
+  "CI_DU_TRONC_2026_09_21": {
+    "etat": "AUCUNE",
+    "mesure_le": "2026-09-21",
+    "methode": "API GitHub Actions, list_workflow_runs filtre sur le tronc reel — pas sur la branche par defaut (regle 31)",
+    "detail": "AUCUNE CI sur master — zero run mesure le 21 septembre. C'est la #11 qui en apporterait une, et c'est aussi elle qui livrerait enfin ecrireLocal."
+  },
+  "MESURE_2026_09_27": {
+    "production": "EN LIGNE : duka-kappa.vercel.app, domaine verifie depuis le 25 juillet. Deploiement de production READY depuis master @ c10e0e7 du 10 aout. Projet Vercel nomme « duka » (regle 52 : le nom ne dit pas le depot — verifie par repoUrl). Le code servi est exactement celui qui perd la vente.",
+    "mecanisme_de_la_vente_perdue": {
+      "ou": "lib/storage.ts, fonction update, au tronc",
+      "defaut_1": "l'ecriture localStorage est un effet de bord place DANS l'updater de setValue. React peut rejouer un updater ; ce n'est pas un endroit pour une entree-sortie.",
+      "defaut_2": "le catch est MUET. Stockage plein, navigation privee, quota depasse : la vente n'existe plus que dans la memoire de React. Le commercant voit son recu, l'imprime, et la vente disparait a la fermeture de l'onglet. Le commentaire l'admet — « data stays in memory for this session » — sans que rien ne le dise a l'ecran.",
+      "pourquoi_c_est_grave": "VISION.md §4 : stockage plein est un CAS NOMINAL, pas un cas limite. Sur un Android d'entree de gamme, ce n'est pas rare."
+    },
+    "correctif_deja_ecrit_PR_11": {
+      "ouverte_le": "2 septembre 2026 — 25 jours",
+      "contenu": "lib/persistance.ts (109 l., ecrireLocal + signalerEchec), lib/storage.ts (valeur en useRef, ecriture hors updater), components/AlerteStockage.tsx (53 l., l'echec devient VISIBLE), __tests__/persistance.test.ts (75 l.), .github/workflows/ci.yml — la premiere CI de ce depot",
+      "verifie_le_2026_09_27": "CI de la PR verte. Fusion testee sur le tronc courant (regle 27) : zero conflit, EN AVANCE RAPIDE, la branche contient master. L'arbre fusionne passe lint, tsc --noEmit, 80 tests en 4 fichiers, et build.",
+      "note": "le titre dit « 0 -> 64 » tests ; la branche en porte 80 depuis qu'elle a absorbe la #12."
+    },
+    "ce_qu_il_y_a_a_faire": "RIEN A CODER. Une fusion. C'est le seul cas de toute ma file ou une fusion repare quelque chose qu'un commercant reel perdrait. Je n'ai ouvert aucune PR de plus sur ce depot : en ajouter une neuvieme pendant que celle-ci attend serait ajouter au probleme."
+  }
 }

@@ -2,5 +2,12 @@
   "_doc": "Etat de sante machine du dernier scan. Permet a la session du lendemain de detecter une REGRESSION (ce qui a casse depuis hier) et pas seulement un defaut. Voir AUTOMATION/playbooks/02-sentinelle-sante.md.",
   "date": null,
   "projets": {},
-  "synthese": { "critique": 0, "majeur": 0, "mineur": 0, "info": 0 }
+  "synthese": {
+    "critique": null,
+    "majeur": null,
+    "mineur": null,
+    "info": null,
+    "_pourquoi_null": "Aucune mesure. Des null se remarquent ; des zeros se croient."
+  },
+  "_avertissement_2026_09_26": "CE FICHIER N'A JAMAIS ETE REMPLI. date=null, projets={}, et les quatre compteurs de synthese sont a 0 depuis sa creation. Lu vite, il annonce « 0 critique, 0 majeur » — c'est-a-dire l'inverse de la verite : au 2026-09-26 le portefeuille compte 5 troncs sans aucune CI, 1 tronc rouge, 91 PR ouvertes et un KPI de Phase 1 a 0/3. Un zero qui vient d'une absence de mesure ressemble exactement a un zero qui vient d'une mesure. Ne rien conclure d'ici : les mesures reelles sont dans sante-ci-troncs.json (CI des troncs, 2026-09-21), recensement-pr.json (91 PR, 2026-09-20) et premier-utilisateur.json (KPI, 2026-09-26). Le scan machine du playbook 02 n'a jamais tourne."
 }

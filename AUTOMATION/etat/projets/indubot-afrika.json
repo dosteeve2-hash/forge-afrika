@@ -1,6 +1,6 @@
 {
   "projet": "indubot-afrika",
-  "derniere_execution": "2026-09-15",
+  "derniere_execution": "2026-10-03",
   "verdict": "🟢",
   "tronc": "master (2026-09-02, correctif CI/lint fusionne)",
   "pr_ouvertes_du_depot": [
@@ -24,5 +24,42 @@
     "tsc --noEmit signale LayoutProps hors d'un next build — preexistant."
   ],
   "lecon": "Un garde-fou trop grossier fait des degats : ma premiere version accusait use-scheduled-tooltip.ts, qui utilise requestAnimationFrame comme un etrangleur a un coup — rien n'y bouge. J'ai corrige LA REGLE, pas le fichier. Ce qui distingue une animation d'un rappel unique, c'est la recurrence : la fonction passee a rAF se replanifie elle-meme. Une provocation dediee verifie maintenant que le cas a un coup reste vert.",
-  "motif_authentification": "TROUVE LE 15, NON CORRIGE : /dashboard n'appelle aucune session, et il n'y a ni middleware.ts ni proxy.ts. BetterAuth est pourtant installe — /api/auth/[...all] existe. La machinerie est la, le tableau de bord n'est pas derriere. Quatrieme occurrence du motif apres CompTrack main, CompTrack v1 et MillTrack master. Signale dans la PR #5 ; a ouvrir separement si Steeve le veut."
+  "motif_authentification": "TROUVE LE 15, NON CORRIGE : /dashboard n'appelle aucune session, et il n'y a ni middleware.ts ni proxy.ts. BetterAuth est pourtant installe — /api/auth/[...all] existe. La machinerie est la, le tableau de bord n'est pas derriere. Quatrieme occurrence du motif apres CompTrack main, CompTrack v1 et MillTrack master. Signale dans la PR #5 ; a ouvrir separement si Steeve le veut.",
+  "fusions_du_16_septembre": "Steeve a fusionne #3 le 16 septembre entre 15h00 et 15h06 UTC, dans un lot de QUINZE PR sur onze depots. Premier deblocage du goulot depuis le 2 septembre.",
+  "pr_restante_apres_le_lot": "#4 et #5 — conflits resolus et repousses le 16. ATTENTION : les deux ajoutent un script et une etape de CI ; celle qui sera fusionnee en second demandera une fusion de plus. Rien a faire avant.",
+  "CORRECTION_2026_09_16": {
+    "affirmation_refutee": "aucun fichier commun",
+    "ou_elle_vivait": "le corps de ma PR #4, section « Ce que cette PR ne fait pas »",
+    "ce_qu_elle_disait": "« Elle est independante de la PR #3 : aucun fichier commun, les deux se fusionnent dans n'importe quel ordre. »",
+    "ce_qui_est_vrai": "la #3 touche .github/workflows/ci.yml et package.json, et la #4 aussi. Quand Steeve a fusionne la #3, la #4 est passee en conflit sur ces deux fichiers exactement. Elles n'etaient pas independantes.",
+    "pourquoi_je_me_suis_trompe": "j'ai compare les fichiers SOURCE des deux PR et conclu a l'independance sans regarder les fichiers de CONFIGURATION. Or toute PR qui apporte un garde-fou ajoute un script a package.json et une etape a la CI : ce sont precisement les deux fichiers que toutes les PR de ce type se disputent.",
+    "troisieme_fichier": "le conflit sur src/components/dashboard/sidebar.tsx, lui, ne vient pas de la #3 mais de la #2 (README et captures), que je n'avais jamais examinee. Elle rend les modules non implementes desactives avec un badge « Bientot ». Resolu en combinant : le badge vit desormais dans le composant partage, donc il apparait AUSSI dans le tiroir mobile.",
+    "regle": "regle 28"
+  },
+  "fusions_du_16_RECENSEES_LE_19": [
+    "#2 (README et captures) a 15h03:41 UTC, en plus de la #3 — c'est la #2 qui a cree les conflits de mes #4 et #5.",
+    "Recensement complet : VINGT-NEUF fusions le 16 septembre sur dix-neuf depots, pas quinze ni seize. Voir rapports/2026-09-19-recensement-fusions.md."
+  ],
+  "MESURE_2026_09_20": {
+    "tronc_reel": "master @ aaecec1",
+    "pr_ouvertes": 2,
+    "lesquelles": "#4 et #5, les miennes, toutes deux basees sur la tete actuelle"
+  },
+  "FUSIONS_2026_10_03": {
+    "tronc": "master 9bf7619 → 5b60c5b",
+    "fusionnees_par_steeve_a_18h52": [
+      "#5 claude/fond-anime-mobile (la mienne)",
+      "#7 fix/vitrine-honnete — retire chiffres et temoignages inventes"
+    ],
+    "conflit_mecanique": "La #4 (claude/loop-indubot-2026-09-15) est passee dirty. Deux conflits purement additifs : package.json (check:date ici contre check:mouvement arrive par la #5) et .github/workflows/ci.yml (l'etape de chacun).",
+    "resolution": "Les DEUX gardes conserves. Ce ne sont pas deux versions d'une meme chose : l'un verifie que l'affichage des dates ne depend pas du fuseau, l'autre que prefers-reduced-motion est respecte. Prendre un seul cote aurait supprime un garde-fou de CI en silence.",
+    "verifie": {
+      "check:date": 0,
+      "check:mouvement": 0,
+      "lint": 0,
+      "build": 0,
+      "tests": "8/8"
+    },
+    "pousse": "998f75a. #4 est repassee mergeable:true."
+  }
 }
