@@ -343,3 +343,32 @@ avertissements, pas moi) ; tsc 174 des deux côtés, aucun dans mes fichiers ; b
 base**, masqué jusqu'ici par le plantage Sentry qui arrivait plus tôt. Le réparer suppose de
 savoir si ce tableau de bord doit désormais lire des données réelles : décision produit, pas
 résolution de conflit. Dit dans le message de commit, pas enterré.
+
+## 2026-10-04 — FORJA et MillTrack : dans les deux cas, le correctif existe et attend un clic
+
+**FORJA.** Tronc remesuré à neuf sur `7e163d7` : **aucune CI**, 12 erreurs de lint, 5 tests
+en échec. Identique au 22 septembre — la campagne « Vitrine honnête » n'a touché aucun de
+ces points. **Rouge depuis le 10 août, 55 jours**, et rien ne l'a signalé parce qu'il n'y a
+pas de CI : les deux défauts se tiennent. Ma #27 répare tout mais avait **6 commits de
+retard**. GitHub la disait `mergeable: true` — la leçon de comptrack hier soir est qu'une
+fusion propre ne garantit pas un résultat qui marche, donc j'ai fusionné `master` dedans
+(sans conflit) et vérifié le **résultat** : lint **0 erreur**, **148/148**, build 18 pages,
+CI apportée. Poussé `2deedcc`. Au passage, le commit de Steeve d'hier a supprimé les
+« 0+ Tonnes de café tracées » que j'avais signalées le 22 — traité.
+
+**MillTrack.** Tronc **sain** et le plus propre du portefeuille : lint 0, **180/180**, CI qui
+tourne. Le manque n'est pas la qualité, c'est la sécurité : **aucune authentification**, les
+onze pages du tableau de bord ouvertes à qui connaît l'URL. **Troisième** logiciel de gestion
+du portefeuille dans ce cas après CompTrack `main` et `v1` — le motif est que les PR d'auth
+restent ouvertes. Ma #15 : **0/11 → 11/11 pages protégées**, 180 → **198 tests**, build
+21 routes, après fusion de `master` sans conflit. Poussé `dd8bc6f`.
+
+J'ai regardé au-delà de « les tests passent » : `garde-acces.test.ts` ferme les onze pages
+nommément, refuse qu'un préfixe public en ouvre un autre (`/authentification-interne` fermé
+alors que `/auth` est public), garde la page demandée dans la redirection, et porte une
+régression explicite contre un matcher `/dashboard/:path*` qui laissait tout ouvert. **Un
+garde qui ne garde rien est pire qu'un garde absent : il rassure.**
+
+Le motif du jour, et il est le même des deux côtés : le travail est fait, vérifié, et attend
+un clic. Quatre PR dans ce cas ce matin — `forja#27`, `milltrack#15`, `Mifa_Life_shop#51`,
+et `comptrack#38` pour sa part réparée.

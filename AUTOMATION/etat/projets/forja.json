@@ -1,8 +1,8 @@
 {
   "projet": "forja",
-  "derniere_execution": "2026-09-19",
+  "derniere_execution": "2026-10-04",
   "mode": "TRIAGE (hypothese Q7 — 12 PR ouvertes, seuil 5 depasse)",
-  "verdict": "🔴 tronc casse",
+  "verdict": "🔴 tronc rouge depuis 55 jours (10 aout). Ma #27 le repare et est maintenant a jour du tronc du 3 octobre.",
   "tronc": "master, dernier commit 5abfc3c du 2026-08-10",
   "constat_central": "Le tronc de FORJA est ROUGE : 12 erreurs de lint et 5 tests en echec sur __tests__/ClientsPage.test.tsx. Le depot n'a AUCUN dossier .github, donc aucune CI : rien ne l'a jamais signale.",
   "pr_ouvertes_du_depot": [
@@ -55,7 +55,7 @@
     "Migrations : les PR sautent de 001 a 004, les 002 et 003 n'existent nulle part. La suite SQL ne se rejouerait pas.",
     "Convention : la #3 ajoute src/middleware.ts, le tronc est passe a proxy.ts le 10 aout (Next.js 16)."
   ],
-  "prochain_chantier": "RIEN CONSTRUIRE tant que la #27 n'est pas fusionnee : toute nouvelle branche partirait d'un tronc rouge. Une fois fusionnee, FORJA redescend a 11 PR — toujours au-dessus du seuil, donc encore en triage jusqu'a ce que Steeve tranche Q10.",
+  "prochain_chantier": "La #27 est prete au clic. Tant que ce tronc est rouge, toute nouvelle branche part d une base cassee — c est le goulot, pas le nombre de PR. Ensuite : les 19 avertissements (<img> au lieu de next/image sur la landing).",
   "dette_connue": [
     "Aucune CI sur master (c'est precisement ce que la #27 apporte).",
     "20 avertissements de lint restants : <img> au lieu de next/image sur les 3 sections de la landing, variables inutilisees.",
@@ -109,5 +109,26 @@
     },
     "motif_qui_dort": "src/lib/supabase/server.ts porte le defaut d'AgroTrack : process.env.X! ment au verificateur de types, @supabase/ssr leve DANS createServerClient(), avant tout garde-fou. Ne touche que la tontine aujourd'hui. Le jour ou une page cafe utilisera ce client, elle tombera pareil. Signale, pas corrige.",
     "verifications_negatives": "FCFA : DocumentExport formate a 2 decimales mais des DOLLARS, pour des documents d'export — legitime. DeviseWidget est un convertisseur multi-devises, le XOF y passe par maximumFractionDigits: 0 au-dessus de 1 000. Pas de violation. J'ai failli nommer deux faux defauts (regle 23). npm ci : le depot s'installe."
+  },
+  "MESURE_2026_10_04": {
+    "tronc": "master @ 7e163d7 (apres la fusion « Vitrine honnete » du 3 octobre au soir)",
+    "ci": "AUCUNE — zero workflow dans le depot",
+    "lint": "12 erreurs, 17 avertissements",
+    "tests": "5 echecs / 148",
+    "identique_au_22_septembre": "oui — la campagne Vitrine honnete n a touche aucun de ces points",
+    "duree_du_rouge": "depuis le 10 aout, 55 jours, jamais signale faute de CI"
+  },
+  "SIGNALEMENT_TRAITE_PAR_STEEVE": "Le 22 septembre j avais releve « 0+ Tonnes de cafe tracees » et « 0+ Acheteurs connectes » sur la landing. Le commit 162dd8f du 3 octobre supprime TestimonialsSection.tsx en entier (155 lignes) et reecrit StatsSection.tsx. Traite.",
+  "CHANTIER_2026_10_04": {
+    "quoi": "La #27 avait 6 commits de retard. GitHub la disait mergeable:true, mais une fusion propre ne garantit pas un resultat qui marche (lecon de comptrack le 3 octobre).",
+    "fusion": "master fusionne dans la branche, SANS conflit",
+    "resultat_fusionne_verifie": {
+      "lint": "0 erreur, 19 avertissements",
+      "tests": "148 / 148",
+      "build": "reussi, 18 pages statiques",
+      "ci_apportee": "lint + tests + build, sur master et sur chaque PR"
+    },
+    "pousse": "2deedcc",
+    "corps_de_pr": "mis a jour avec ces chiffres, dates"
   }
 }

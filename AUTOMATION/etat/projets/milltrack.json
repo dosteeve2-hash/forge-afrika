@@ -1,7 +1,7 @@
 {
   "projet": "milltrack",
-  "derniere_execution": "2026-09-16",
-  "verdict": "🟢",
+  "derniere_execution": "2026-10-04",
+  "verdict": "🟡 le tronc est le plus propre du portefeuille — et ses onze pages sont ouvertes a qui connait l URL.",
   "tronc": "master — sain : lint 0, 124 tests, build 13 routes, CI presente",
   "pr_ouvertes_du_depot": [
     "4 PR ouvertes au 2026-09-20 (mesure API) : #15 (la mienne), #3, #2, #1. Les #13 et #14 ont ete fusionnees le 16 septembre.",
@@ -22,7 +22,7 @@
     "authentification": "AUCUNE au tronc. app/(dashboard)/dashboard/page.tsx porte encore '// TODO: replace with real Supabase getUser() call' en commentaire."
   },
   "note_portefeuille": "MillTrack a FUSIONNE le 2 septembre la PR #12 (repare tests + lint + ajoute la CI). FORJA a la meme PR (#27) toujours ouverte. Meme correctif, deux destins : l'un a un tronc vert, l'autre un tronc rouge. C'est la demonstration la plus nette que le goulot est la fusion.",
-  "prochain_chantier": "La #15 a porte l'authentification ; il reste a etendre lib/persistance-locale.ts (PR #14) aux pages encore en MOCK_*, une PR par page. Les conflits de la #2 sur clients/ et production/ appartiennent a Steeve : le tronc a construit ses propres versions depuis juillet.",
+  "prochain_chantier": "rapports/page.tsx rend une liste en grille de 5 colonnes au lieu d un <table> — meme defaut mobile que celui corrige ailleurs. Et tout est encore MOCK_*.",
   "dette_connue": [
     "rapports/page.tsx : liste rendue en grille de 5 colonnes au lieu d'un <table> — meme defaut mobile, demande une restructuration.",
     "Aucune donnee reelle : tout est MOCK_*. Ni base, ni authentification.",
@@ -44,5 +44,26 @@
     "affirmation_refutee": "6 PR ouvertes au 15 septembre, dont 3 a moi.",
     "la_verite": "4 ouvertes : #15 (la mienne), #3, #2, #1. Les #13 et #14 ont ete fusionnees le 16.",
     "toutes_visent": "master"
+  },
+  "MESURE_2026_10_04": {
+    "tronc": "master @ 9acd188",
+    "lint": "0 erreur, 0 avertissement",
+    "tests": "180 / 180, 13 fichiers",
+    "ci": "presente et elle tourne",
+    "rien_de_casse": "oui"
+  },
+  "LE_VRAI_MANQUE": "Aucune authentification sur le tronc. Les onze pages du tableau de bord (lots, machines, stocks, production, clients, commandes...) sont accessibles a qui connait l URL. Troisieme logiciel de gestion du portefeuille dans ce cas apres CompTrack main et CompTrack v1.",
+  "CHANTIER_2026_10_04": {
+    "quoi": "La #15 apporte le garde ; elle avait 2 commits de retard.",
+    "fusion": "master fusionne dans la branche, SANS conflit",
+    "resultat_fusionne_verifie": {
+      "pages_protegees": "0/11 -> 11/11",
+      "tests": "180 -> 198",
+      "lint": "0",
+      "build": "reussi, 21 routes"
+    },
+    "verifie_au_dela_des_tests_qui_passent": "garde-acces.test.ts ferme les ONZE pages nommement ; refuse qu un prefixe public en ouvre un autre (/authentification-interne reste ferme alors que /auth est public) ; traite /lots/ comme /lots ; garde la page demandee dans la redirection ; et porte une regression explicite contre un matcher /dashboard/:path* qui laissait les onze pages ouvertes. Un garde qui ne garde rien est pire qu un garde absent : il rassure.",
+    "pousse": "dd8bc6f",
+    "corps_de_pr": "reecrit avec la mesure du jour"
   }
 }
