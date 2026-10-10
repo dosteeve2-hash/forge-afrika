@@ -18,6 +18,10 @@ const anciennesPages = [
   { source: '/auth/login', destination: '/' },
   { source: '/produits/mifa-life', destination: '/produits' },
   { source: '/produits/ueemt-tokat', destination: '/produits' },
+  { source: '/produits/livestockos', destination: '/produits/elevagetrack' },
+  { source: '/produits/agrotrack-bf', destination: '/produits/agrotrack' },
+  { source: '/produits/valuechain-connect', destination: '/produits/agrolink' },
+  { source: '/produits/forja', destination: '/produits/exporttrack' },
 ]
 
 const nextConfig: NextConfig = {

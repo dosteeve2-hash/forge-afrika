@@ -39,6 +39,8 @@ export const ACTIVITES: Record<Activite, string> = {
 export type Produit = {
   slug: string;
   nom: string;
+  // Ancien nom, affiché sur la fiche pour que les visiteurs retrouvent le produit.
+  ancienNom?: string;
   domaine: string;
   niveau: Niveau;
   activites: Activite[];
@@ -78,15 +80,16 @@ export const NIVEAUX: Record<Niveau, { titre: string; description: string }> = {
 
 export const PRODUITS: Produit[] = [
   {
-    slug: "livestockos",
-    nom: "LivestockOS",
+    slug: "elevagetrack",
+    nom: "ÉlevageTrack",
+    ancienNom: "LivestockOS",
     domaine: "Élevage",
     niveau: "prioritaire",
     activites: ["elever"],
     statut: "MVP",
     probleme:
       "Un éleveur sahélien n'a souvent aucun historique écrit de son troupeau. Sans historique, pas de dossier à présenter à une microfinance.",
-    pourQui: "Éleveurs et vétérinaires au Burkina Faso, puis les institutions de microfinance qui leur prêtent.",
+    pourQui: "Éleveurs et vétérinaires, d'abord au Sahel, puis les institutions de microfinance qui leur prêtent.",
     existe: [
       "Inscription et connexion (base Neon Postgres + Better Auth)",
       "Registre du cheptel, suivi santé et ventes",
@@ -103,21 +106,23 @@ export const PRODUITS: Produit[] = [
     demoUrl: "https://livestock-os-ashy.vercel.app",
   },
   {
-    slug: "agrotrack-bf",
-    nom: "AgroTrack BF",
+    slug: "agrotrack",
+    nom: "AgroTrack",
+    ancienNom: "AgroTrack BF",
     domaine: "Agriculture",
     niveau: "developpement",
     activites: ["cultiver"],
     statut: "En développement",
     probleme:
       "Les coopératives agricoles tiennent leurs membres, pesées et paiements sur papier, ce qui rend les rapports aux bailleurs et aux acheteurs lents et fragiles.",
-    pourQui: "Coopératives agricoles au Burkina Faso.",
+    pourQui: "Coopératives et exploitations agricoles, dans n'importe quel pays : l'outil doit s'adapter à celui de l'utilisateur.",
     existe: [
       "Installable sur téléphone (manifeste web). Le mode hors connexion n'est pas encore construit",
       "Authentification et intégration continue (lint, tests, build)",
       "2 modules sur 17 branchés à une base de données",
     ],
     manque: [
+      "Le choix du pays, de la devise et des cultures libres est en cours de construction : l'outil a été conçu pour le Burkina Faso",
       "15 modules restent sur des données de démonstration",
       "Le projet de base de données de production n'est pas configuré",
       "Aucune coopérative utilisatrice à ce jour",
@@ -188,8 +193,9 @@ export const PRODUITS: Produit[] = [
     prochaineEtape: "Valider le besoin auprès d'une minoterie avant tout développement supplémentaire.",
   },
   {
-    slug: "valuechain-connect",
-    nom: "ValueChain Connect",
+    slug: "agrolink",
+    nom: "AgroLink",
+    ancienNom: "ValueChain Connect",
     domaine: "Commerce B2B",
     niveau: "prototype",
     activites: ["vendre"],
@@ -251,8 +257,9 @@ export const PRODUITS: Produit[] = [
     prochaineEtape: "Mis en attente : priorité au produit prioritaire.",
   },
   {
-    slug: "forja",
-    nom: "FORJA",
+    slug: "exporttrack",
+    nom: "ExportTrack",
+    ancienNom: "FORJA",
     domaine: "Export",
     niveau: "prototype",
     activites: ["exporter"],
@@ -294,7 +301,7 @@ export const PRODUITS: Produit[] = [
     manque: ["Tout le produit", "Une conversation avec un vrai transporteur"],
     stack: "—",
     modele: "—",
-    prochaineEtape: "Volontairement bloqué jusqu'au premier client payant de LivestockOS.",
+    prochaineEtape: "Volontairement bloqué jusqu'au premier client payant d'ÉlevageTrack.",
   },
 ];
 

@@ -1,5 +1,7 @@
 # Audit — site et produits Forge Afrika
 
+> **Noms au 10/10/2026** : LivestockOS → ÉlevageTrack · AgroTrack BF → AgroTrack · ValueChain Connect → AgroLink · FORJA → ExportTrack. Ce document garde les anciens noms là où il décrit l'état d'avant.
+
 *Octobre 2026. Sources : code de ce dépôt, projets Vercel et Supabase du compte (lus via leurs API), dépôts des produits, audit fichier par fichier du 22/09/2026 (`ambition/ETAT.md`). Rien ici n'est déduit d'un document marketing.*
 
 ## 1. Ce que le site V1 affichait de faux

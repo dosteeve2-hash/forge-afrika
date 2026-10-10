@@ -7,7 +7,7 @@
 Sept catégories de services pour un fondateur seul, sans entité juridique, c'est de la dispersion. Et chaque heure vendue en services est une heure de moins sur le seul produit qui peut devenir une entreprise (LivestockOS). **Recommandation :** vendre **deux** services au départ — ceux que le portefeuille prouve déjà :
 
 1. **Sites web et pages de présentation** — preuve : ce site, le portfolio, UEEMT-Tokat.
-2. **Applications de gestion / digitalisation** — preuve : LivestockOS (MVP) et AgroTrack BF.
+2. **Applications de gestion / digitalisation** — preuve : ÉlevageTrack (MVP) et AgroTrack.
 
 IA, design, vidéo/UGC restent visibles sur le site, mais **« IA » est marqué pilote** et **vidéo/UGC est marqué « sur demande »**, avec la mention qu'il n'existe ni équipe ni réseau de créateurs. C'est ce que tu as demandé ; je l'ai fait sans l'exagérer.
 

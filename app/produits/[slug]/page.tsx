@@ -31,7 +31,10 @@ export default async function ProduitPage({ params }: Props) {
         <h1 className="font-display text-3xl font-bold text-white sm:text-4xl">{p.nom}</h1>
         <StatutBadge statut={p.statut} />
       </div>
-      <p className="mt-1 text-sm text-gray-400">{p.domaine}</p>
+      <p className="mt-1 text-sm text-gray-400">
+        {p.domaine}
+        {p.ancienNom && <span> · anciennement {p.ancienNom}</span>}
+      </p>
 
       <dl className="mt-8 space-y-6">
         <div>

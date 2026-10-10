@@ -14,7 +14,7 @@ Site : https://forge-afrika.vercel.app
 | Financement externe | **aucun** |
 | Entité juridique | **pas encore immatriculée** |
 | Équipe | le fondateur, seul |
-| Produit le plus avancé | LivestockOS — MVP, aucun utilisateur réel à ce jour |
+| Produit le plus avancé | ÉlevageTrack (ex-LivestockOS) — MVP, aucun utilisateur réel à ce jour |
 
 Le détail produit par produit est dans [`lib/produits.ts`](./lib/produits.ts) (source affichée sur le site) et dans [`docs/strategie/AUDIT-PRODUITS.md`](./docs/strategie/AUDIT-PRODUITS.md).
 
@@ -22,16 +22,19 @@ Le détail produit par produit est dans [`lib/produits.ts`](./lib/produits.ts) (
 
 | Niveau | Produits |
 |---|---|
-| Priorité | LivestockOS (MVP) |
-| MVP / développement | AgroTrack BF · TAAMA · COMBINE (usage interne) |
-| Prototypes | MillTrack · ValueChain Connect · CompTrack · Indubot Afrika · BurkinaCollect · FORJA · SUGU |
+| Priorité | ÉlevageTrack (MVP) |
+| MVP / développement | AgroTrack · TAAMA · COMBINE (usage interne) |
+| Prototypes | MillTrack · AgroLink · CompTrack · Indubot Afrika · BurkinaCollect · ExportTrack · SUGU |
 | Futur | Logistique du froid (concept, aucun code) |
+
+> **Noms (10/10/2026)** : LivestockOS → ÉlevageTrack · AgroTrack BF → AgroTrack · ValueChain Connect → AgroLink · FORJA → ExportTrack. Seuls les noms visibles changent ; les dépôts, projets Vercel et adresses gardent leurs anciens noms jusqu'à l'achat d'un domaine propre.
 
 ## Documents stratégiques
 
 - [Audit du site et des produits](./docs/strategie/AUDIT-PRODUITS.md) — ce qui était faux, ce qui a été corrigé
 - [Domaine et e-mail professionnel](./docs/strategie/DOMAINE-ET-EMAIL.md)
 - [Offre de services et prospection](./docs/strategie/OFFRE-ET-PROSPECTION.md)
+- [Fusion industrie : TAAMA + MillTrack + Indubot](./docs/strategie/FUSION-INDUSTRIE.md) — plan, rien n'est encore fusionné
 - [Claude for Startups — conditions et brouillon](./docs/strategie/ANTHROPIC-CANDIDATURE.md)
 - Vision long terme (texte du fondateur) : [`VISION.md`](./VISION.md), [`PROJECT.md`](./PROJECT.md), [`ROADMAP.md`](./ROADMAP.md). Ce sont des ambitions, pas des faits.
 - [`PRD.md`](./PRD.md) décrit le site V1 (« holding », « filiales ») : historique, remplacé par ce README.

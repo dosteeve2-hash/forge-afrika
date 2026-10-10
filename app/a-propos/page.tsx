@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 const FEUILLE_DE_ROUTE = [
   { phase: "1", titre: "Fondations", etat: "En cours", detail: "Site honnête, données fictives retirées, identité, adresse professionnelle, documentation." },
   { phase: "2", titre: "Première offre commerciale", etat: "En cours", detail: "Services vendables, formulaire de demande, processus de devis, immatriculation." },
-  { phase: "3", titre: "Premier produit", etat: "À venir", detail: "LivestockOS : registre en base, accueil des nouveaux utilisateurs, retours d'usage." },
+  { phase: "3", titre: "Premier produit", etat: "À venir", detail: "ÉlevageTrack : registre en base, accueil des nouveaux utilisateurs, retours d'usage." },
   { phase: "4", titre: "Premiers utilisateurs", etat: "À venir", detail: "Des utilisateurs réels, nommés, jamais simulés." },
   { phase: "5", titre: "Premiers revenus", etat: "À venir", detail: "Tarifs, facturation, contrats, support." },
   { phase: "6", titre: "Croissance", etat: "Plus tard", detail: "Automatisation, équipe, partenaires, autres pays." },

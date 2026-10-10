@@ -33,21 +33,21 @@
 
 **Problem.** Cooperatives, livestock farmers and small processors in Burkina Faso run their operations on paper notebooks, spreadsheets and WhatsApp. Available software is expensive, English-first, priced in dollars and assumes stable connectivity.
 
-**Solution.** Mobile-first web apps in French, priced in FCFA, designed for intermittent connectivity (on-device storage in some products today; server sync not built yet). Current focus: LivestockOS, a herd registry that produces a verifiable, server-timestamped livestock passport a farmer can present to a microfinance institution.
+**Solution.** Mobile-first web apps in French, priced in FCFA, designed for intermittent connectivity (on-device storage in some products today; server sync not built yet). Current focus: ElevageTrack (formerly LivestockOS), a herd registry that produces a verifiable, server-timestamped livestock passport a farmer can present to a microfinance institution.
 
 **Target market.** Livestock farmers, veterinarians and agricultural cooperatives in Burkina Faso first; small agro-processors next.
 
-**Current stage.** Pre-revenue. One MVP (LivestockOS: authentication and verifiable passport live; herd data still stored on-device), several products in development or prototype. No users yet.
+**Current stage.** Pre-revenue. One MVP (ElevageTrack: authentication and verifiable passport live; herd data still stored on-device), several products in development or prototype. No users yet.
 
 **Traction.** Forge Afrika is pre-revenue and has not yet acquired paying customers or active users. No external funding.
 
-**Business model.** Subscription for LivestockOS (free tier up to 20 animals, paid tiers above; pricing under validation). Fixed-price web development projects for services.
+**Business model.** Subscription for ElevageTrack (free tier up to 20 animals, paid tiers above; pricing under validation). Fixed-price web development projects for services.
 
 **Technology.** Next.js, TypeScript, PostgreSQL (Neon), Better Auth, Vercel.
 
 **Claude usage.** Claude Code is the main engineering tool across all repositories: implementation, code review, test writing, accessibility and security audits, documentation. No product integrates the Claude API in production yet. Planned, scoped use: *(only write this once it is actually designed — e.g. structured extraction from cooperative paper records)*.
 
-**Roadmap.** (1) First real user of LivestockOS; (2) persist herd data server-side; (3) first paid service project; (4) incorporation in Burkina Faso.
+**Roadmap.** (1) First real user of ElevageTrack; (2) persist herd data server-side; (3) first paid service project; (4) incorporation in Burkina Faso.
 
 **Why Anthropic / why now.** As a solo founder, Claude multiplies what one person can build and maintain. Program support would let us move from prototypes to a product used by real farmers.
 
