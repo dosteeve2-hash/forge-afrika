@@ -1,64 +1,41 @@
-# FORGE Afrika HQ — Instructions Claude
+# Forge Afrika — site — Instructions Claude
 
-## Vision
-FORGE Afrika est l'**entreprise mère** (le QG) d'un groupe de filiales technologiques panafricaines.
-Ce site est le centre de commande : il doit refléter la structure holding → filiales, jamais un produit isolé.
-Chaque décision technique doit servir la vision : bâtir quelque chose qui dure 100 ans.
+## Ce qu'est ce site
+La vitrine d'une **startup technologique africaine en phase de démarrage**, fondée par
+Steeve Donald Compaoré. Pas une holding, pas un groupe, pas de filiales juridiques :
+le projet n'est pas encore immatriculé.
+
+## Règle de véracité — non négociable
+- Aucun chiffre d'utilisateurs, de clients, de revenu, de transactions, aucun témoignage,
+  logo client, partenaire ou investisseur, tant qu'il n'est pas réel et vérifiable.
+- Le statut de chaque produit vit dans `lib/produits.ts` et nulle part ailleurs.
+  Statuts permis : MVP, En développement, Prototype, Usage interne, Concept.
+- Les faits publics (« avez-vous des clients ? ») vivent dans `lib/site.ts` (`FAITS`).
+  Quand un fait change, on change la phrase.
+- Un lien de démo n'entre dans `lib/produits.ts` que si le domaine est confirmé dans le
+  projet Vercel correspondant (six liens de la V1 pointaient vers des domaines tiers).
 
 ## Stack
-- **Next.js 15 App Router** + TypeScript strict (0 `any`)
-- **Supabase SSR** : TOUJOURS `getUser()`, JAMAIS `getSession()` (sécurité serveur)
-- **Framer Motion** : `type: 'spring' as const` pour éviter les erreurs TypeScript
-- **Charte graphique** : Navy `#0A1628`, Gold `#D4AF37`, Cyan `#00BCD4`
-- **Montants FCFA** : `new Intl.NumberFormat('fr-FR').format(n) + ' FCFA'`
-- **Recharts** : pattern `mounted` avec `useState` pour éviter les erreurs SSR
+- Next.js 16 App Router + TypeScript strict (0 `any`), Tailwind CSS, Vercel
+- Site 100 % statique : pas de base, pas de variable d'environnement, pas de secret
+- Server Components par défaut ; `"use client"` seulement pour `Navbar` et `ContactForm`
+- Charte : Navy `#0A1628`, Gold `#D4AF37`, Cyan `#00BCD4`. Texte secondaire `text-gray-400`
+  minimum (jamais `gray-500` sur navy : < 4,5:1)
+- Montants FCFA : `new Intl.NumberFormat('fr-FR').format(n) + ' FCFA'`
 
-## Filiales de l'écosystème
-Source de vérité : `lib/constants.ts` → `FILIALES_FORGE`.
-
-| Filiale | Secteur | Statut |
-|---------|---------|--------|
-| SUGU | Retail | Actif |
-| MIFA Life | E-commerce | Actif |
-| TAAMA | Industrie | Actif |
-| CompTrack | Finance | Actif |
-| FORJA | Agriculture | Actif |
-| UEEMT-Tokat | Communauté | Actif |
-| AgroTrack BF | Agriculture | En développement |
-| MillTrack | Industrie | En développement |
-| LivestockOS | Élevage | En développement |
-| ValueChain Connect | Commerce | En développement |
-
-## Structure du projet
+## Structure
 ```
-app/
-  page.tsx              # Landing page QG — hero, filiales, organigramme, vision
-  ecosystem/page.tsx    # Grille des 10 filiales + filtres
-  roadmap/page.tsx      # 4 phases + section investisseurs
-  (dashboard)/
-    layout.tsx
-    dashboard/page.tsx  # KPIs + Recharts + sidebar
-  auth/login/page.tsx   # Connexion Supabase
-lib/
-  constants.ts          # Données filiales (FILIALES_FORGE), phases, helpers
-  supabase/
-    client.ts           # Client browser
-    server.ts           # Client server (SSR)
-middleware.ts           # Protection /dashboard
+app/            /, /produits, /produits/[slug], /services, /a-propos, /contact, /confidentialite
+lib/produits.ts produits + statut réel
+lib/services.ts offre de services
+lib/site.ts     e-mail, URL, faits publics
+docs/strategie/ audit, juridique, offre, candidature Anthropic
 ```
 
 ## Règles obligatoires
-1. `npm run build` DOIT passer avec **0 erreurs** avant chaque commit
-2. `Co-authored-by: Claude <claude@anthropic.com>` dans chaque commit message
-3. Pub/sub Supabase Realtime — **JAMAIS de polling**
-4. Les `"use client"` sont UNIQUEMENT pour les composants avec hooks/animations
-5. Server Components par défaut, Client Components si nécessaire
-
-## Variables d'environnement requises
-```
-NEXT_PUBLIC_SUPABASE_URL=
-NEXT_PUBLIC_SUPABASE_ANON_KEY=
-```
+1. `npm run lint` et `npm run build` à 0 erreur avant chaque push
+2. 0 violation axe WCAG 2.1 AA et 0 débordement à 375 px sur chaque page
+3. `Co-authored-by` Claude dans chaque commit
 
 ## Commandes
 ```bash
