@@ -57,5 +57,5 @@ Les fiches complètes (problème, cible, existant, manques, stack, modèle, proc
 
 ## 4. Ce que je n'ai pas pu vérifier
 
-- **Que chaque lien de démo répond aujourd'hui.** Le proxy de ce conteneur bloque `*.vercel.app`. Les domaines sont confirmés par l'API Vercel, pas par un navigateur. → **Ouvrir chaque lien depuis un téléphone avant de partager le site** (Règle #1).
+- ~~Que chaque lien de démo répond~~ → **vérifié le 10/10** : les 9 répondent en 200. Mais 6 pages d'accueil affichent encore des chiffres ou témoignages inventés (MillTrack « 50+ minoteries », ValueChain « des centaines de producteurs », CompTrack « 500+ PME » + 3 témoignages, Indubot étude de cas et équipe nommée, BurkinaCollect « 500+ collecteurs / 35 régions », FORJA « 2 800+ tonnes » + 4 témoignages). Leurs liens sont **retirés du site** jusqu'à ce que leur production soit propre. Les PR « Vitrine honnête » de comptrack et indubot ont pourtant été fusionnées le 03/10 : la production n'a pas suivi.
 - L'état de LivestockOS après le 27/09 (PR tarifs fusionnée ou non). Le site dit « grille prête dans le code mais pas en ligne » : à corriger si elle a été fusionnée.

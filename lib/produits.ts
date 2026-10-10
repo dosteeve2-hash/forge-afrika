@@ -25,6 +25,9 @@ export type Produit = {
   stack: string;
   modele: string;
   prochaineEtape: string;
+  // Lien public seulement si la page en production ne montre aucune donnée
+  // inventée. Six prototypes en ont été retirés le 10/10/2026 : leur page
+  // d'accueil affiche encore des chiffres ou témoignages fictifs.
   demoUrl?: string;
   depot?: string;
 };
@@ -153,7 +156,6 @@ export const PRODUITS: Produit[] = [
     stack: "Next.js, TypeScript, Vercel",
     modele: "Abonnement par usine (hypothèse).",
     prochaineEtape: "Valider le besoin auprès d'une minoterie avant tout développement supplémentaire.",
-    demoUrl: "https://milltrack-two.vercel.app",
   },
   {
     slug: "valuechain-connect",
@@ -168,7 +170,6 @@ export const PRODUITS: Produit[] = [
     stack: "Next.js, TypeScript, Supabase, Vercel",
     modele: "Abonnement ou mise en relation (hypothèse).",
     prochaineEtape: "Mis en attente : priorité au produit prioritaire.",
-    demoUrl: "https://valuechain-connect.vercel.app",
   },
   {
     slug: "comptrack",
@@ -187,7 +188,6 @@ export const PRODUITS: Produit[] = [
     stack: "Next.js, TypeScript, Vercel",
     modele: "Abonnement (hypothèse).",
     prochaineEtape: "Réparer le build avant toute autre évolution.",
-    demoUrl: "https://comptrack-chi.vercel.app",
   },
   {
     slug: "indubot-afrika",
@@ -202,7 +202,6 @@ export const PRODUITS: Produit[] = [
     stack: "Next.js, TypeScript, Vercel",
     modele: "Licence par site (hypothèse).",
     prochaineEtape: "Mis en attente : priorité au produit prioritaire.",
-    demoUrl: "https://indubot-afrika.vercel.app",
   },
   {
     slug: "burkinacollect",
@@ -217,7 +216,6 @@ export const PRODUITS: Produit[] = [
     stack: "Next.js, TypeScript, Vercel",
     modele: "Abonnement par organisation (hypothèse).",
     prochaineEtape: "Mis en attente : priorité au produit prioritaire.",
-    demoUrl: "https://burkinacollect-bf.vercel.app",
   },
   {
     slug: "forja",
@@ -232,7 +230,6 @@ export const PRODUITS: Produit[] = [
     stack: "Next.js, TypeScript, Supabase, Vercel",
     modele: "Abonnement ou frais par lot exporté (hypothèse).",
     prochaineEtape: "Réparer la branche principale avant toute évolution.",
-    demoUrl: "https://forja-pied.vercel.app",
   },
   {
     slug: "sugu",
