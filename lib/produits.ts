@@ -12,11 +12,36 @@ export type Statut =
 
 export type Niveau = "prioritaire" | "developpement" | "prototype" | "futur";
 
+export type Activite =
+  | "cultiver"
+  | "elever"
+  | "transformer"
+  | "vendre"
+  | "comptabilite"
+  | "exporter"
+  | "collecter"
+  | "financer"
+  | "transporter";
+
+// Libellés du sélecteur « Quel outil pour mon activité ? » (/produits).
+export const ACTIVITES: Record<Activite, string> = {
+  cultiver: "Je cultive",
+  elever: "Je fais de l'élevage",
+  transformer: "Je transforme (industrie)",
+  vendre: "Je vends ou j'achète",
+  comptabilite: "Je tiens ma comptabilité",
+  exporter: "J'exporte",
+  collecter: "Je collecte des données",
+  financer: "Je cherche un financement",
+  transporter: "Je transporte",
+};
+
 export type Produit = {
   slug: string;
   nom: string;
   domaine: string;
   niveau: Niveau;
+  activites: Activite[];
   statut: Statut;
   probleme: string;
   pourQui: string;
@@ -57,6 +82,7 @@ export const PRODUITS: Produit[] = [
     nom: "LivestockOS",
     domaine: "Élevage",
     niveau: "prioritaire",
+    activites: ["elever"],
     statut: "MVP",
     probleme:
       "Un éleveur sahélien n'a souvent aucun historique écrit de son troupeau. Sans historique, pas de dossier à présenter à une microfinance.",
@@ -81,6 +107,7 @@ export const PRODUITS: Produit[] = [
     nom: "AgroTrack BF",
     domaine: "Agriculture",
     niveau: "developpement",
+    activites: ["cultiver"],
     statut: "En développement",
     probleme:
       "Les coopératives agricoles tiennent leurs membres, pesées et paiements sur papier, ce qui rend les rapports aux bailleurs et aux acheteurs lents et fragiles.",
@@ -105,6 +132,7 @@ export const PRODUITS: Produit[] = [
     nom: "TAAMA",
     domaine: "Industrie",
     niveau: "developpement",
+    activites: ["transformer"],
     statut: "En développement",
     probleme:
       "Les PME de transformation suivent production, stocks et qualité sur des cahiers, ce qui complique les certifications export.",
@@ -126,6 +154,7 @@ export const PRODUITS: Produit[] = [
     nom: "COMBINE",
     domaine: "Accompagnement de projets",
     niveau: "developpement",
+    activites: ["financer"],
     statut: "Usage interne",
     probleme:
       "Les porteurs de projets ont du mal à présenter un dossier clair et vérifiable aux structures d'accompagnement.",
@@ -148,6 +177,7 @@ export const PRODUITS: Produit[] = [
     nom: "MillTrack",
     domaine: "Industrie",
     niveau: "prototype",
+    activites: ["transformer"],
     statut: "Prototype",
     probleme: "Les minoteries et huileries suivent leur production sans outil dédié.",
     pourQui: "Minoteries, huileries et rizeries.",
@@ -162,6 +192,7 @@ export const PRODUITS: Produit[] = [
     nom: "ValueChain Connect",
     domaine: "Commerce B2B",
     niveau: "prototype",
+    activites: ["vendre"],
     statut: "Prototype",
     probleme: "Producteurs et transformateurs se trouvent difficilement sans intermédiaires.",
     pourQui: "Coopératives productrices et transformateurs de la zone CEDEAO.",
@@ -176,6 +207,7 @@ export const PRODUITS: Produit[] = [
     nom: "CompTrack",
     domaine: "Gestion financière",
     niveau: "prototype",
+    activites: ["comptabilite"],
     statut: "Prototype",
     probleme: "Les TPE suivent recettes, dépenses et factures dans des cahiers ou des tableurs.",
     pourQui: "TPE et PME d'Afrique francophone.",
@@ -193,6 +225,7 @@ export const PRODUITS: Produit[] = [
     nom: "Indubot Afrika",
     domaine: "Industrie",
     niveau: "prototype",
+    activites: ["transformer"],
     statut: "Prototype",
     probleme: "Les unités de production manquent de visibilité sur leurs machines et leurs arrêts.",
     pourQui: "Unités de transformation industrielle.",
@@ -207,6 +240,7 @@ export const PRODUITS: Produit[] = [
     nom: "BurkinaCollect",
     domaine: "Collecte de données",
     niveau: "prototype",
+    activites: ["collecter"],
     statut: "Prototype",
     probleme: "Les enquêtes terrain se font sur papier puis sont ressaisies, avec pertes et erreurs.",
     pourQui: "ONG, projets agricoles et équipes d'enquête terrain.",
@@ -221,6 +255,7 @@ export const PRODUITS: Produit[] = [
     nom: "FORJA",
     domaine: "Export",
     niveau: "prototype",
+    activites: ["exporter"],
     statut: "Prototype",
     probleme: "Les exportateurs de café peinent à documenter la traçabilité de la parcelle au conteneur.",
     pourQui: "Coopératives et exportateurs de café.",
@@ -235,6 +270,7 @@ export const PRODUITS: Produit[] = [
     nom: "SUGU",
     domaine: "Commerce de proximité",
     niveau: "prototype",
+    activites: ["vendre"],
     statut: "Prototype",
     probleme: "Les boutiquiers ne savent pas précisément ce qu'ils vendent, ce qu'il reste en stock et qui leur doit de l'argent.",
     pourQui: "Boutiques de quartier et commerçants du secteur informel. Interface en français, anglais, jula et mooré.",
@@ -250,6 +286,7 @@ export const PRODUITS: Produit[] = [
     nom: "Logistique du froid",
     domaine: "Logistique",
     niveau: "futur",
+    activites: ["transporter"],
     statut: "Concept",
     probleme: "Une part importante des denrées périssables est perdue entre le producteur et le marché faute de chaîne du froid coordonnée.",
     pourQui: "Producteurs, transformateurs et transporteurs frigorifiques.",

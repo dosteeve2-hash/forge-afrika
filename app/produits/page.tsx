@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { NIVEAUX, produitsParNiveau, type Niveau } from "@/lib/produits";
 import ProduitCarte from "@/components/ProduitCarte";
+import ChoisirOutil from "@/components/ChoisirOutil";
 
 export const metadata: Metadata = {
   title: "Produits",
@@ -18,6 +19,10 @@ export default function ProduitsPage() {
         payant. Plutôt que de tout présenter comme lancé, chaque produit affiche ce qui fonctionne vraiment, ce qui
         manque, et la prochaine étape.
       </p>
+
+      <div className="mt-8">
+        <ChoisirOutil />
+      </div>
 
       {ORDRE.map((niveau) => {
         const produits = produitsParNiveau(niveau);
