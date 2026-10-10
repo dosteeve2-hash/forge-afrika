@@ -86,7 +86,7 @@ export const PRODUITS: Produit[] = [
       "Les coopératives agricoles tiennent leurs membres, pesées et paiements sur papier, ce qui rend les rapports aux bailleurs et aux acheteurs lents et fragiles.",
     pourQui: "Coopératives agricoles au Burkina Faso.",
     existe: [
-      "Application web progressive pensée pour fonctionner hors connexion",
+      "Installable sur téléphone (manifeste web). Le mode hors connexion n'est pas encore construit",
       "Authentification et intégration continue (lint, tests, build)",
       "2 modules sur 17 branchés à une base de données",
     ],
@@ -111,7 +111,7 @@ export const PRODUITS: Produit[] = [
     pourQui: "PME de transformation agroalimentaire en Afrique de l'Ouest.",
     existe: [
       "Schéma de base de données complet (production, stocks, qualité)",
-      "Interface complète, auditée pour l'accessibilité (WCAG 2.1 AA)",
+      "Interface complète ; audit d'accessibilité réalisé, correctifs proposés",
     ],
     manque: [
       "La base de données est actuellement en pause : l'application n'est pas utilisable en ligne",
@@ -131,7 +131,7 @@ export const PRODUITS: Produit[] = [
       "Les porteurs de projets ont du mal à présenter un dossier clair et vérifiable aux structures d'accompagnement.",
     pourQui: "Porteurs de projets et structures d'accompagnement (incubateurs). Outil interne pour l'instant.",
     existe: [
-      "Dossier de projet horodaté et vérifiable publiquement",
+      "Dossier de projet horodaté, avec une page de vérification publique codée (pas encore en ligne)",
       "Gestion d'appels à candidatures et évaluation",
       "Intégration continue complète (types, lint, 93 tests, build, parcours navigateur)",
     ],
@@ -181,13 +181,12 @@ export const PRODUITS: Produit[] = [
     pourQui: "TPE et PME d'Afrique francophone.",
     existe: ["Interfaces de transactions, factures et rapports avec données de démonstration"],
     manque: [
-      "Le build du dépôt est actuellement cassé (dépendance manquante)",
       "Pas de base de données branchée",
       "Ce n'est pas un service d'expertise comptable : c'est un logiciel",
     ],
     stack: "Next.js, TypeScript, Vercel",
     modele: "Abonnement (hypothèse).",
-    prochaineEtape: "Réparer le build avant toute autre évolution.",
+    prochaineEtape: "Mis en attente : priorité au produit prioritaire.",
   },
   {
     slug: "indubot-afrika",

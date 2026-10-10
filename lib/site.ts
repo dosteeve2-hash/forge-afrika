@@ -7,7 +7,7 @@ export const SITE = {
   fondateur: "Steeve Donald Compaoré",
   email: "docompaore2@gmail.com",
   github: "https://github.com/dosteeve2-hash",
-  localisation: "Burkina Faso · Turquie",
+  localisation: "Turquie · fondateur burkinabè",
   phrase:
     "Une entreprise technologique africaine en phase de démarrage, qui construit des logiciels et des services numériques pour les entreprises et organisations africaines.",
 };

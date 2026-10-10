@@ -1,7 +1,7 @@
-// Offre de services. Disponibilité réelle : ce que le fondateur peut livrer
-// seul aujourd'hui est « disponible » ; le reste est annoncé comme tel.
+// Offre de services. Tant que Forge Afrika n'est pas immatriculée, les services
+// livrables sont proposés en projet pilote non facturé ; le reste « sur demande ».
 
-export type Disponibilite = "Disponible" | "Sur demande";
+export type Disponibilite = "Projet pilote" | "Sur demande";
 
 export type Service = {
   slug: string;
@@ -22,7 +22,7 @@ export const SERVICES: Service[] = [
       "Adapté aux téléphones et rapide sur connexion lente",
       "Formulaire de contact, référencement de base, mise en ligne",
     ],
-    disponibilite: "Disponible",
+    disponibilite: "Projet pilote",
   },
   {
     slug: "applications-metier",
@@ -34,7 +34,7 @@ export const SERVICES: Service[] = [
       "Fonctionnement hors connexion quand le terrain l'exige",
       "Déploiement cloud et maintenance",
     ],
-    disponibilite: "Disponible",
+    disponibilite: "Projet pilote",
   },
   {
     slug: "integration-ia",
@@ -45,7 +45,7 @@ export const SERVICES: Service[] = [
       "Intégration d'un modèle d'IA dans un outil existant ou un nouvel outil",
       "Limites d'usage et protection des données dès la conception",
     ],
-    disponibilite: "Disponible",
+    disponibilite: "Projet pilote",
     note: "Nous n'avons pas encore livré de projet d'IA pour un client. Le premier projet sera traité comme un pilote.",
   },
   {
@@ -53,7 +53,7 @@ export const SERVICES: Service[] = [
     titre: "Design d'interface",
     pour: "Porteurs de projets qui ont besoin de maquettes, d'une page de lancement ou d'une identité numérique cohérente.",
     inclut: ["Maquettes d'interface (UI/UX)", "Pages de lancement", "Présentations et visuels numériques"],
-    disponibilite: "Disponible",
+    disponibilite: "Projet pilote",
   },
   {
     slug: "video",

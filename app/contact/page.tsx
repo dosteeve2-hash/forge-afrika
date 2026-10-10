@@ -26,7 +26,7 @@ export default async function ContactPage({ searchParams }: Props) {
             <dd><a href={`mailto:${SITE.email}`} className="text-gold hover:underline">{SITE.email}</a></dd>
           </div>
           <div>
-            <dt className="text-gray-400">Basé entre</dt>
+            <dt className="text-gray-400">Basé en</dt>
             <dd className="text-gray-200">{SITE.localisation}</dd>
           </div>
           <div>

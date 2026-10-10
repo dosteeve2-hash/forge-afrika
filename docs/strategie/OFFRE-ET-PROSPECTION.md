@@ -1,13 +1,13 @@
 # Offre commerciale et premiers clients
 
-*Octobre 2026. Préalable : le point 2 de `JURIDIQUE-ET-IDENTITE.md` (droit de facturer). Tant qu'il n'est pas tranché, la prospection se limite à des **projets pilotes non facturés** et à des conversations.*
+*Octobre 2026. Tant que Forge Afrika n'est pas immatriculée, la prospection se limite à des **projets pilotes non facturés** et à des conversations.*
 
 ## 1. Le challenge, une fois
 
-Sept catégories de services pour un fondateur seul, étudiant, sans entité juridique, c'est de la dispersion. Et chaque heure vendue en services est une heure de moins sur le seul produit qui peut devenir une entreprise (LivestockOS). **Recommandation :** vendre **deux** services au départ — ceux que le portefeuille prouve déjà :
+Sept catégories de services pour un fondateur seul, sans entité juridique, c'est de la dispersion. Et chaque heure vendue en services est une heure de moins sur le seul produit qui peut devenir une entreprise (LivestockOS). **Recommandation :** vendre **deux** services au départ — ceux que le portefeuille prouve déjà :
 
 1. **Sites web et pages de présentation** — preuve : ce site, le portfolio, UEEMT-Tokat.
-2. **Applications de gestion / digitalisation** — preuve : les douze produits du dépôt.
+2. **Applications de gestion / digitalisation** — preuve : LivestockOS (MVP) et AgroTrack BF.
 
 IA, design, vidéo/UGC restent visibles sur le site, mais **« IA » est marqué pilote** et **vidéo/UGC est marqué « sur demande »**, avec la mention qu'il n'existe ni équipe ni réseau de créateurs. C'est ce que tu as demandé ; je l'ai fait sans l'exagérer.
 

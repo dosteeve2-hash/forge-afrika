@@ -39,8 +39,8 @@ export default function HomePage() {
               français ou en FCFA.
             </p>
             <p>
-              Nous construisons des outils simples, utilisables sur un téléphone d&apos;entrée de gamme, qui continuent de
-              fonctionner quand le réseau coupe.
+              Nous construisons des outils simples, utilisables sur un téléphone d&apos;entrée de gamme, et conçus pour un
+              réseau intermittent.
             </p>
           </div>
         </div>
@@ -71,7 +71,7 @@ export default function HomePage() {
         <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
           <h2 className="font-display text-2xl font-bold text-white sm:text-3xl">Nos services</h2>
           <p className="mt-2 max-w-2xl text-gray-300">
-            Nous construisons aussi pour d&apos;autres. Les premiers projets sont traités comme des projets pilotes.
+            Nous construisons aussi pour d&apos;autres. Les premiers projets sont des projets pilotes non facturés.
           </p>
           <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {SERVICES.map((s) => (
@@ -96,10 +96,10 @@ export default function HomePage() {
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <h2 className="font-display text-2xl font-bold text-white sm:text-3xl">Comment nous construisons</h2>
         <ul className="mt-6 grid gap-4 text-sm text-gray-300 sm:grid-cols-2 lg:grid-cols-4">
-          <li className="rounded-xl border border-white/10 p-5"><strong className="block text-white">Hors connexion d&apos;abord</strong>L&apos;application fonctionne sans réseau et se synchronise quand il revient.</li>
+          <li className="rounded-xl border border-white/10 p-5"><strong className="block text-white">Pensé pour le hors connexion</strong>Certains produits stockent déjà les données sur l&apos;appareil. La synchronisation avec un serveur n&apos;est pas encore construite.</li>
           <li className="rounded-xl border border-white/10 p-5"><strong className="block text-white">Mobile d&apos;abord</strong>Testé à 375 px de large, pour un téléphone Android d&apos;entrée de gamme.</li>
           <li className="rounded-xl border border-white/10 p-5"><strong className="block text-white">Français et FCFA</strong>Interfaces en français, montants en francs CFA, langues locales prévues.</li>
-          <li className="rounded-xl border border-white/10 p-5"><strong className="block text-white">Outils ouverts</strong>Next.js, TypeScript, PostgreSQL, Vercel. Code versionné et testé.</li>
+          <li className="rounded-xl border border-white/10 p-5"><strong className="block text-white">Outils ouverts</strong>Next.js, TypeScript, PostgreSQL, Vercel. Code versionné ; tests et intégration continue sur la plupart des dépôts.</li>
         </ul>
       </section>
 

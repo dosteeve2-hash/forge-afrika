@@ -30,10 +30,11 @@ Le détail produit par produit est dans [`lib/produits.ts`](./lib/produits.ts) (
 ## Documents stratégiques
 
 - [Audit du site et des produits](./docs/strategie/AUDIT-PRODUITS.md) — ce qui était faux, ce qui a été corrigé
-- [Juridique, identité, domaine, e-mail](./docs/strategie/JURIDIQUE-ET-IDENTITE.md)
+- [Domaine et e-mail professionnel](./docs/strategie/DOMAINE-ET-EMAIL.md)
 - [Offre de services et prospection](./docs/strategie/OFFRE-ET-PROSPECTION.md)
 - [Claude for Startups — conditions et brouillon](./docs/strategie/ANTHROPIC-CANDIDATURE.md)
 - Vision long terme (texte du fondateur) : [`VISION.md`](./VISION.md), [`PROJECT.md`](./PROJECT.md), [`ROADMAP.md`](./ROADMAP.md). Ce sont des ambitions, pas des faits.
+- [`PRD.md`](./PRD.md) décrit le site V1 (« holding », « filiales ») : historique, remplacé par ce README.
 
 ## Le site
 

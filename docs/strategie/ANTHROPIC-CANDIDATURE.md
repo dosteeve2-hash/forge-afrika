@@ -33,7 +33,7 @@
 
 **Problem.** Cooperatives, livestock farmers and small processors in Burkina Faso run their operations on paper notebooks, spreadsheets and WhatsApp. Available software is expensive, English-first, priced in dollars and assumes stable connectivity.
 
-**Solution.** Offline-first, mobile-first web apps in French, priced in FCFA. Current focus: LivestockOS, a herd registry that produces a verifiable, server-timestamped livestock passport a farmer can present to a microfinance institution.
+**Solution.** Mobile-first web apps in French, priced in FCFA, designed for intermittent connectivity (on-device storage in some products today; server sync not built yet). Current focus: LivestockOS, a herd registry that produces a verifiable, server-timestamped livestock passport a farmer can present to a microfinance institution.
 
 **Target market.** Livestock farmers, veterinarians and agricultural cooperatives in Burkina Faso first; small agro-processors next.
 

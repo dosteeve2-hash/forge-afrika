@@ -18,7 +18,7 @@
 
 **Supabase :** le site n'a jamais eu de projet Supabase. L'exemple `.env` parlait d'un « projet FORGE Afrika HQ » qui n'existe pas dans le compte (5 projets : `ueemt-tokat` actif ; `taama`, `mifa-life-db`, `problem to project africa db` et un projet par défaut, tous inactifs). Aucune donnée à nettoyer ici. Le code Supabase mort et la page `/auth/login` ont été retirés. **Rien n'a été supprimé dans une base.**
 
-**Production :** la dernière mise en production date d'août (`d95e692`) ; les fusions sur `master` depuis n'ont pas produit de nouveau déploiement de production. À vérifier dans Vercel après la fusion de cette PR.
+**Production — cause trouvée le 10/10 :** depuis le 27/09, **tout déploiement de production déclenché par git est `BLOCKED`** par Vercel sur les projets du compte (erreur *team-configuration* : l'auteur du commit n'est pas reconnu comme membre de l'équipe). Le build ne démarre même pas. C'est pourquoi les nettoyages « Vitrine honnête » fusionnés le 03/10 sur comptrack, indubot, forja et milltrack ne sont jamais arrivés en ligne, et ce sera pareil pour cette PR. Seul un déploiement lancé par Steve lui-même passe (CLI ou *Redeploy* dans le tableau de bord). Réglage durable, à faire par Steve : relier son compte Vercel au compte GitHub qui fusionne (ou ajouter `docompaore2-star` à l'équipe), puis vérifier qu'une fusion déclenche bien une production `READY`.
 
 ## 2. Hiérarchie retenue
 

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 const ETAPES = [
   { t: "Échange", d: "Vous décrivez votre besoin par e-mail ou via le formulaire. Nous posons les questions qui manquent." },
-  { t: "Proposition écrite", d: "Périmètre, délai et prix fixés par écrit avant tout travail. Pas de surprise." },
+  { t: "Proposition écrite", d: "Périmètre et délai fixés par écrit avant tout travail. Pas de surprise." },
   { t: "Réalisation", d: "Points d'étape réguliers, version de test en ligne pour vous permettre de valider." },
   { t: "Livraison", d: "Mise en ligne, transfert des accès et du code, et maintenance si vous le souhaitez." },
 ];
@@ -21,7 +21,7 @@ export default function ServicesPage() {
       <p className="mt-3 max-w-3xl text-gray-300">
         En plus de ses produits, Forge Afrika construit des outils numériques pour d&apos;autres organisations. Nous
         démarrons : nous n&apos;avons pas encore de client à citer. Les premiers projets sont donc proposés comme des
-        projets pilotes, avec un périmètre volontairement serré.
+        projets pilotes non facturés, avec un périmètre volontairement serré.
       </p>
 
       <div className="mt-10 grid gap-5 md:grid-cols-2">
@@ -29,7 +29,7 @@ export default function ServicesPage() {
           <section key={s.slug} id={s.slug} className="rounded-xl border border-white/10 p-6">
             <div className="flex flex-wrap items-start justify-between gap-2">
               <h2 className="font-display text-lg font-bold text-white">{s.titre}</h2>
-              <span className={`font-mono text-xs ${s.disponibilite === "Disponible" ? "text-emerald-300" : "text-amber-300"}`}>
+              <span className={`font-mono text-xs ${s.disponibilite === "Projet pilote" ? "text-emerald-300" : "text-amber-300"}`}>
                 {s.disponibilite}
               </span>
             </div>
@@ -58,8 +58,8 @@ export default function ServicesPage() {
       <section className="mt-14 rounded-xl border border-white/10 bg-white/[0.02] p-6">
         <h2 className="font-display text-xl font-bold text-white">Tarifs</h2>
         <p className="mt-2 text-gray-300">
-          Sur devis, après un premier échange. Nous préférons un prix fixe sur un périmètre clair plutôt qu&apos;une
-          estimation vague. La facturation se fera via une structure immatriculée, en cours de mise en place.
+          Pour l&apos;instant, aucun : les premiers projets sont des pilotes non facturés, le temps d&apos;immatriculer
+          Forge Afrika. Ensuite, sur devis : un prix fixe sur un périmètre écrit plutôt qu&apos;une estimation vague.
         </p>
       </section>
 
