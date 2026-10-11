@@ -33,6 +33,21 @@ export default async function ProduitPage({ params }: Props) {
       </div>
       <p className="mt-1 text-sm text-gray-400">{p.domaine}</p>
 
+      <section className="mt-8 rounded-xl border border-gold/30 bg-gold/[0.04] p-6">
+        <h2 className="font-mono text-xs uppercase tracking-wider text-gold">Le mal que cet outil traite</h2>
+        <p className="mt-2 text-lg text-white">{p.mal}</p>
+        <dl className="mt-5 grid gap-4 text-sm sm:grid-cols-2">
+          <div>
+            <dt className="text-gray-400">Ce que ça coûte</dt>
+            <dd className="mt-1 text-gray-200">{p.cout}</dd>
+          </div>
+          <div>
+            <dt className="text-gray-400">Qui décide</dt>
+            <dd className="mt-1 text-gray-200">{p.decideur}</dd>
+          </div>
+        </dl>
+      </section>
+
       <dl className="mt-8 space-y-6">
         <div>
           <dt className="font-mono text-xs uppercase tracking-wider text-gold">Le problème</dt>

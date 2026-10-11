@@ -15,7 +15,8 @@ export default function ProduitCarte({ produit }: { produit: Produit }) {
         </div>
         <StatutBadge statut={produit.statut} />
       </div>
-      <p className="mt-3 text-sm text-gray-300">{produit.probleme}</p>
+      <p className="mt-3 text-sm text-gray-300">{produit.mal}</p>
+      <p className="mt-2 text-xs text-gray-400"><span className="text-gray-300">Pour :</span> {produit.decideur}</p>
       <p className="mt-auto pt-4 text-xs text-gray-400">
         <span className="text-gray-300">Prochaine étape :</span> {produit.prochaineEtape}
       </p>
