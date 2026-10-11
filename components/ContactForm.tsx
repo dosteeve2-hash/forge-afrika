@@ -4,22 +4,20 @@ import { useState } from "react";
 import { SITE } from "@/lib/site";
 
 const TYPES = [
-  "Site web",
-  "Application ou outil de gestion",
-  "Intégration d'IA",
-  "Design",
-  "Vidéo / motion design",
+  "Relances, ventes et SAV automatisés",
+  "Diagnostic et solution sur mesure",
+  "Site web B2B",
   "Un produit Forge Afrika",
   "Autre",
 ];
 
 // Pas de serveur ni de base : le formulaire prépare un e-mail dans la
 // messagerie du visiteur. Rien n'est stocké par le site.
-export default function ContactForm({ sujetInitial }: { sujetInitial?: string }) {
+export default function ContactForm({ sujetInitial, typeInitial }: { sujetInitial?: string; typeInitial?: string }) {
   const [form, setForm] = useState({
     nom: "",
     organisation: "",
-    type: sujetInitial ? "Un produit Forge Afrika" : TYPES[0],
+    type: sujetInitial ? "Un produit Forge Afrika" : typeInitial && TYPES.includes(typeInitial) ? typeInitial : TYPES[0],
     message: sujetInitial ? `Au sujet de ${sujetInitial} : ` : "",
   });
   const [ouvert, setOuvert] = useState(false);

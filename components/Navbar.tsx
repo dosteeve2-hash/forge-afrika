@@ -7,8 +7,8 @@ import { Menu, X } from "lucide-react";
 import ForgeLogoSVG from "@/components/ForgeLogoSVG";
 
 const LIENS = [
-  { label: "Produits", href: "/produits" },
   { label: "Services", href: "/services" },
+  { label: "Produits", href: "/produits" },
   { label: "À propos", href: "/a-propos" },
 ];
 
@@ -37,7 +37,7 @@ export default function Navbar() {
             </Link>
           ))}
           <Link href="/contact" className="rounded-lg bg-gold px-4 py-2 text-sm font-bold text-navy transition-opacity hover:opacity-90">
-            Parler d&apos;un projet
+            Échange de 30 min
           </Link>
         </div>
 
@@ -70,7 +70,7 @@ export default function Navbar() {
             onClick={() => setOpen(false)}
             className="mt-3 block rounded-lg bg-gold px-4 py-3 text-center text-sm font-bold text-navy"
           >
-            Parler d&apos;un projet
+            Échange de 30 min
           </Link>
         </div>
       )}

@@ -1,73 +1,90 @@
-// Offre de services. Tant que Forge Afrika n'est pas immatriculée, les services
-// livrables sont proposés en projet pilote non facturé ; le reste « sur demande ».
-
-export type Disponibilite = "Projet pilote" | "Sur demande";
+// Offre de services. Trois offres, chacune formulée en résultat pour le client.
+// Les prix sont des prix de lancement indicatifs en euros, confirmés par devis écrit.
+// Aucun résultat chiffré n'est promis : la valeur se mesure sur les données du client.
 
 export type Service = {
   slug: string;
   titre: string;
+  promesse: string;
   pour: string;
+  probleme: string;
   inclut: string[];
-  disponibilite: Disponibilite;
-  note?: string;
+  livrable: string;
+  prix: string;
+  prixNote: string;
+  sujet: string;
 };
 
 export const SERVICES: Service[] = [
   {
-    slug: "sites-web",
-    titre: "Sites web et pages de présentation",
-    pour: "PME, associations, écoles, commerces et entrepreneurs qui ont besoin d'une présence en ligne sérieuse.",
+    slug: "relances-ia",
+    titre: "Relances, ventes et SAV automatisés par l'IA",
+    promesse: "Plus aucune demande, aucun devis et aucune facture ne reste sans réponse.",
+    pour: "Entreprises qui vendent à d'autres entreprises et gèrent leurs prospects, devis, factures et demandes clients à la main, sur tableur, e-mail ou messagerie.",
+    probleme:
+      "Les prospects ne sont pas relancés au bon moment, les devis restent sans suite, les paiements arrivent en retard et les demandes clients se perdent entre plusieurs outils.",
     inclut: [
-      "Page de présentation ou site vitrine de quelques pages",
-      "Adapté aux téléphones et rapide sur connexion lente",
-      "Formulaire de contact, référencement de base, mise en ligne",
+      "Cartographie de votre parcours devis → vente → encaissement → service après-vente",
+      "Relances automatiques (e-mail, messagerie) avec validation humaine avant envoi sensible",
+      "Assistant IA qui trie, résume et prépare les réponses à vos demandes clients",
+      "Tableau de suivi : devis en attente, factures en retard, demandes ouvertes",
+      "Prise en main de votre équipe et documentation",
     ],
-    disponibilite: "Projet pilote",
+    livrable: "Un système en service, branché sur vos outils existants, et un tableau de suivi lisible par le dirigeant.",
+    prix: "À partir de 1 500 €",
+    prixNote: "Mise en place. Suivi mensuel optionnel à partir de 150 €/mois.",
+    sujet: "Relances, ventes et SAV automatisés",
   },
   {
-    slug: "applications-metier",
-    titre: "Applications web et outils de gestion",
-    pour: "Organisations qui gèrent encore leur activité sur cahiers, tableurs ou WhatsApp.",
+    slug: "conseil-sur-mesure",
+    titre: "Diagnostic et solution sur mesure",
+    promesse: "Nous trouvons où votre entreprise perd du temps ou de l'argent, puis nous construisons la solution.",
+    pour: "Dirigeants qui sentent qu'un processus coûte cher mais ne savent pas lequel, ni quoi automatiser en premier.",
+    probleme:
+      "Les données sont dispersées entre plusieurs outils, des tâches répétitives consomment du temps sans créer de valeur, et personne n'a de vue claire sur ce qui bloque.",
     inclut: [
-      "Tableaux de bord, gestion de stocks, de membres, de réservations ou de facturation",
-      "Base de données, comptes utilisateurs et rôles",
-      "Fonctionnement hors connexion quand le terrain l'exige",
-      "Déploiement cloud et maintenance",
+      "Échange de découverte gratuit de 30 minutes, sans engagement",
+      "Diagnostic payant à périmètre fixe : entretiens, observation des processus, analyse de vos données réelles",
+      "Rapport écrit : constats vérifiables, causes probables, priorités et solutions chiffrées",
+      "Si les preuves sont insuffisantes ou si la solution n'a pas de valeur claire, nous vous le disons",
+      "Conception et mise en œuvre de la solution retenue, sur devis",
     ],
-    disponibilite: "Projet pilote",
+    livrable: "Un rapport de diagnostic écrit, puis, si vous le décidez, la solution déployée et testée.",
+    prix: "Diagnostic à partir de 490 €",
+    prixNote: "Montant déduit du prix de la mise en œuvre si vous poursuivez avec nous. Mise en œuvre sur devis.",
+    sujet: "Diagnostic et solution sur mesure",
   },
   {
-    slug: "integration-ia",
-    titre: "Intégration d'IA et automatisation",
-    pour: "Équipes qui veulent automatiser une tâche précise : tri de documents, réponses types, résumés, extraction de données.",
+    slug: "site-web-b2b",
+    titre: "Site web B2B animé",
+    promesse: "Un site qui présente clairement votre entreprise et qui amène des demandes qualifiées.",
+    pour: "PME, cabinets, industriels et indépendants qui vendent à des entreprises et dont le site actuel est absent, daté ou ne génère aucun contact.",
+    probleme:
+      "Un site lent, flou ou sans appel à l'action ne donne pas confiance à un décideur qui compare trois prestataires en dix minutes.",
     inclut: [
-      "Analyse du processus et du gain attendu avant tout développement",
-      "Intégration d'un modèle d'IA dans un outil existant ou un nouvel outil",
-      "Limites d'usage et protection des données dès la conception",
+      "Message et structure pensés pour un décideur, pas pour un moteur de recherche seul",
+      "Design sur mesure avec animations soignées, qui respectent les préférences de réduction de mouvement",
+      "Rapide sur mobile et sur connexion lente, accessible (WCAG 2.1 AA visé)",
+      "Formulaire de demande relié à votre messagerie, référencement de base, mise en ligne",
     ],
-    disponibilite: "Projet pilote",
-    note: "Nous n'avons pas encore livré de projet d'IA pour un client. Le premier projet sera traité comme un pilote.",
+    livrable: "Un site en ligne, le code et les accès transférés, et une page de présentation de votre offre.",
+    prix: "À partir de 900 €",
+    prixNote: "Site de 5 pages. Page unique à partir de 450 €. Hébergement et domaine refacturés au coût.",
+    sujet: "Site web B2B",
   },
-  {
-    slug: "design",
-    titre: "Design d'interface",
-    pour: "Porteurs de projets qui ont besoin de maquettes, d'une page de lancement ou d'une identité numérique cohérente.",
-    inclut: ["Maquettes d'interface (UI/UX)", "Pages de lancement", "Présentations et visuels numériques"],
-    disponibilite: "Projet pilote",
-  },
-  {
-    slug: "video",
-    titre: "Vidéo, motion design et contenu court",
-    pour: "Marques et entreprises qui ont besoin de vidéos publicitaires, explicatives ou pour les réseaux sociaux.",
-    inclut: ["Montage vidéo", "Motion design et animations", "Formats courts (Reels, TikTok, Shorts)", "Contenu UGC"],
-    disponibilite: "Sur demande",
-    note: "Forge Afrika n'a pas d'équipe de production ni de réseau de créateurs constitué. Ces projets sont étudiés au cas par cas, réalisés par le fondateur ou avec des créateurs partenaires recrutés pour le projet.",
-  },
+];
+
+export const ETAPES = [
+  { t: "Découverte gratuite", d: "30 minutes pour comprendre votre activité et votre problème. Vous recevez un court résumé écrit de ce que nous avons compris." },
+  { t: "Diagnostic ou proposition", d: "Un diagnostic payant à périmètre fixe, ou une proposition écrite pour un site ou une automatisation déjà bien cadrés." },
+  { t: "Réalisation", d: "Points d'étape réguliers et version de test en ligne. Le périmètre et le prix sont fixés par écrit avant tout travail." },
+  { t: "Mesure", d: "Nous relevons un indicateur au départ, puis le comparons sur vos propres données à 60 et 90 jours. Sans promesse de gain." },
 ];
 
 // Ce que nous ne faisons pas — et le disons.
 export const LIMITES = [
-  "Nous ne sommes pas un cabinet d'expertise comptable. Nous construisons des logiciels de gestion financière ; la tenue légale des comptes et les déclarations restent l'affaire d'un professionnel agréé.",
+  "Nous ne promettons ni gain chiffré ni délai avant d'avoir analysé votre situation.",
+  "Nous ne sommes pas un cabinet d'expertise comptable : la tenue légale des comptes et les déclarations restent l'affaire d'un professionnel agréé.",
   "Nous ne collectons ni ne gérons l'argent de tiers.",
-  "Nous ne promettons pas de délai ni de prix avant d'avoir compris votre besoin.",
+  "Nous n'avons pas encore de client à citer : les trois premiers projets bénéficient d'un tarif de lancement en échange d'un avis écrit et signé.",
 ];

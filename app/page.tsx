@@ -15,15 +15,15 @@ export default function HomePage() {
       <section className="mx-auto max-w-6xl px-4 pb-16 pt-16 sm:px-6 sm:pt-24">
         <p className="font-mono text-xs uppercase tracking-[0.25em] text-cyan">Startup technologique africaine · phase de démarrage</p>
         <h1 className="mt-4 max-w-3xl font-display text-4xl font-bold leading-tight text-white sm:text-6xl">
-          Des logiciels pensés pour le <span className="text-gradient-gold">terrain africain</span>.
+          Des processus qui <span className="text-gradient-gold">ne laissent plus rien passer</span>.
         </h1>
         <p className="mt-6 max-w-2xl text-lg text-gray-300">{SITE.phrase}</p>
         <div className="mt-8 flex flex-wrap gap-3">
           <Link href="/contact" className="inline-flex items-center gap-2 rounded-lg bg-gold px-5 py-3 font-bold text-navy hover:opacity-90">
-            Parler d&apos;un projet <ArrowRight size={16} />
+            Échange de 30 minutes <ArrowRight size={16} />
           </Link>
-          <Link href="/produits" className="rounded-lg border border-white/20 px-5 py-3 font-semibold text-white hover:border-gold/60">
-            Voir nos produits
+          <Link href="/services" className="rounded-lg border border-white/20 px-5 py-3 font-semibold text-white hover:border-gold/60">
+            Voir nos services
           </Link>
         </div>
       </section>
@@ -34,15 +34,37 @@ export default function HomePage() {
           <h2 className="font-display text-2xl font-bold text-white sm:text-3xl">Le problème</h2>
           <div className="space-y-4 text-gray-300">
             <p>
-              Coopératives, éleveurs, ateliers de transformation, PME : beaucoup gèrent encore leur activité sur cahiers,
-              tableurs ou WhatsApp. Les logiciels du marché sont chers, pensés pour une connexion stable et rarement en
-              français ou en FCFA.
+              Prospects non relancés, devis sans suite, factures payées en retard, demandes clients perdues entre plusieurs
+              outils : dans beaucoup d&apos;entreprises, ces fuites sont invisibles parce que personne ne les mesure.
             </p>
             <p>
-              Nous construisons des outils simples, utilisables sur un téléphone d&apos;entrée de gamme, et conçus pour un
-              réseau intermittent.
+              Nous commençons par comprendre votre fonctionnement et par mesurer. Nous construisons une solution seulement
+              si les données montrent qu&apos;elle a de la valeur.
             </p>
           </div>
+        </div>
+      </section>
+
+      {/* 3. Services */}
+      <section className="border-y border-white/10 bg-white/[0.02]">
+        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+          <h2 className="font-display text-2xl font-bold text-white sm:text-3xl">Ce que nous faisons</h2>
+          <p className="mt-2 max-w-2xl text-gray-300">
+            Trois offres, décrites par ce que vous obtenez. Prix de lancement en euros, confirmés par devis écrit.
+          </p>
+          <ul className="mt-8 grid gap-4 md:grid-cols-3">
+            {SERVICES.map((s) => (
+              <li key={s.slug} className="flex flex-col rounded-xl border border-white/10 p-5">
+                <h3 className="font-bold text-white">{s.titre}</h3>
+                <p className="mt-2 text-sm text-gold">{s.promesse}</p>
+                <p className="mt-2 text-sm text-gray-300">{s.pour}</p>
+                <p className="mt-auto pt-4 font-mono text-sm text-white">{s.prix}</p>
+              </li>
+            ))}
+          </ul>
+          <Link href="/services" className="mt-6 inline-block text-sm font-semibold text-gold hover:underline">
+            Détail des offres et de la méthode →
+          </Link>
         </div>
       </section>
 
@@ -50,7 +72,7 @@ export default function HomePage() {
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <h2 className="font-display text-2xl font-bold text-white sm:text-3xl">Nos produits</h2>
+            <h2 className="font-display text-2xl font-bold text-white sm:text-3xl">Nos produits en construction</h2>
             <p className="mt-2 max-w-2xl text-gray-300">
               Aucun n&apos;a encore de client. Chacun affiche son statut réel : ce qui fonctionne, et ce qui manque.
             </p>
@@ -63,32 +85,6 @@ export default function HomePage() {
           {[prioritaire, ...enCours].filter((p) => p !== undefined).map((p) => (
             <ProduitCarte key={p.slug} produit={p} />
           ))}
-        </div>
-      </section>
-
-      {/* 5. Services */}
-      <section className="border-y border-white/10 bg-white/[0.02]">
-        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-          <h2 className="font-display text-2xl font-bold text-white sm:text-3xl">Nos services</h2>
-          <p className="mt-2 max-w-2xl text-gray-300">
-            Nous construisons aussi pour d&apos;autres. Les premiers projets sont des projets pilotes non facturés.
-          </p>
-          <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {SERVICES.map((s) => (
-              <li key={s.slug} className="rounded-xl border border-white/10 p-5">
-                <div className="flex items-start justify-between gap-2">
-                  <h3 className="font-bold text-white">{s.titre}</h3>
-                  {s.disponibilite === "Sur demande" && (
-                    <span className="shrink-0 font-mono text-xs text-amber-300">Sur demande</span>
-                  )}
-                </div>
-                <p className="mt-2 text-sm text-gray-300">{s.pour}</p>
-              </li>
-            ))}
-          </ul>
-          <Link href="/services" className="mt-6 inline-block text-sm font-semibold text-gold hover:underline">
-            Détail des services →
-          </Link>
         </div>
       </section>
 
@@ -112,20 +108,20 @@ export default function HomePage() {
               <li>• 0 client payant, 0 revenu, aucun financement externe.</li>
               <li>• Un fondateur : {SITE.fondateur}, étudiant en informatique.</li>
               <li>• Pas encore de société immatriculée.</li>
-              <li>• Un produit en MVP, plusieurs en développement.</li>
+              <li>• Un produit en MVP, plusieurs en développement, trois offres de services.</li>
             </ul>
             <Link href="/a-propos" className="mt-4 inline-block text-sm font-semibold text-gold hover:underline">
               Notre histoire et notre feuille de route →
             </Link>
           </div>
           <div className="rounded-2xl border border-gold/30 p-6">
-            <h2 className="font-display text-xl font-bold text-white">Vous avez un projet ?</h2>
+            <h2 className="font-display text-xl font-bold text-white">Un échange de 30 minutes ?</h2>
             <p className="mt-2 text-gray-300">
-              Décrivez votre besoin. Nous vous répondons avec une proposition claire, ou en vous disant honnêtement si nous
-              ne sommes pas les bonnes personnes.
+              Décrivez votre situation. Nous vous répondons avec une proposition claire, ou en vous disant honnêtement si
+              nous ne sommes pas les bonnes personnes.
             </p>
             <Link href="/contact" className="mt-5 inline-flex items-center gap-2 rounded-lg bg-gold px-5 py-3 font-bold text-navy hover:opacity-90">
-              Nous contacter <ArrowRight size={16} />
+              Demander un échange <ArrowRight size={16} />
             </Link>
           </div>
         </div>

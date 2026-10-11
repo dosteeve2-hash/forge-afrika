@@ -11,7 +11,7 @@ const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-displ
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: "Forge Afrika — Logiciels et services numériques pour l'Afrique",
+    default: "Forge Afrika — Automatisation IA, diagnostic et sites B2B",
     template: "%s — Forge Afrika",
   },
   description: SITE.phrase,

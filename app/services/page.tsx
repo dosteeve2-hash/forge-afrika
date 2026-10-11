@@ -1,49 +1,65 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { LIMITES, SERVICES } from "@/lib/services";
+import { ETAPES, LIMITES, SERVICES } from "@/lib/services";
 
 export const metadata: Metadata = {
   title: "Services",
-  description: "Sites web, applications de gestion, intégration d'IA, design et vidéo pour les organisations africaines.",
+  description:
+    "Automatisation des relances, ventes et service client par l'IA, diagnostic et solution sur mesure, site web B2B. Prix de lancement en euros.",
 };
-
-const ETAPES = [
-  { t: "Échange", d: "Vous décrivez votre besoin par e-mail ou via le formulaire. Nous posons les questions qui manquent." },
-  { t: "Proposition écrite", d: "Périmètre et délai fixés par écrit avant tout travail. Pas de surprise." },
-  { t: "Réalisation", d: "Points d'étape réguliers, version de test en ligne pour vous permettre de valider." },
-  { t: "Livraison", d: "Mise en ligne, transfert des accès et du code, et maintenance si vous le souhaitez." },
-];
 
 export default function ServicesPage() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
       <h1 className="font-display text-3xl font-bold text-white sm:text-4xl">Services</h1>
       <p className="mt-3 max-w-3xl text-gray-300">
-        En plus de ses produits, Forge Afrika construit des outils numériques pour d&apos;autres organisations. Nous
-        démarrons : nous n&apos;avons pas encore de client à citer. Les premiers projets sont donc proposés comme des
-        projets pilotes non facturés, avec un périmètre volontairement serré.
+        Nous partons de votre problème, pas d&apos;une technologie. Chaque offre est décrite par ce que vous obtenez. Nous
+        travaillons à distance, en français et en anglais, avec des entreprises de toute zone.
       </p>
 
-      <div className="mt-10 grid gap-5 md:grid-cols-2">
+      <div className="mt-10 space-y-6">
         {SERVICES.map((s) => (
           <section key={s.slug} id={s.slug} className="rounded-xl border border-white/10 p-6">
-            <div className="flex flex-wrap items-start justify-between gap-2">
-              <h2 className="font-display text-lg font-bold text-white">{s.titre}</h2>
-              <span className={`font-mono text-xs ${s.disponibilite === "Projet pilote" ? "text-emerald-300" : "text-amber-300"}`}>
-                {s.disponibilite}
-              </span>
+            <div className="flex flex-wrap items-start justify-between gap-3">
+              <div className="max-w-3xl">
+                <h2 className="font-display text-xl font-bold text-white">{s.titre}</h2>
+                <p className="mt-2 text-lg text-gold">{s.promesse}</p>
+              </div>
+              <div className="text-right">
+                <p className="font-display text-xl font-bold text-white">{s.prix}</p>
+                <p className="mt-1 max-w-xs text-xs text-gray-400">{s.prixNote}</p>
+              </div>
             </div>
-            <p className="mt-2 text-sm text-gray-300">{s.pour}</p>
-            <ul className="mt-4 list-disc space-y-1 pl-5 text-sm text-gray-200">
-              {s.inclut.map((i) => <li key={i}>{i}</li>)}
-            </ul>
-            {s.note && <p className="mt-4 border-l-2 border-amber-300/60 pl-3 text-xs text-gray-300">{s.note}</p>}
+            <dl className="mt-5 grid gap-5 text-sm md:grid-cols-2">
+              <div>
+                <dt className="font-mono text-xs uppercase tracking-wider text-cyan">Pour qui</dt>
+                <dd className="mt-1 text-gray-300">{s.pour}</dd>
+                <dt className="mt-4 font-mono text-xs uppercase tracking-wider text-cyan">Le problème</dt>
+                <dd className="mt-1 text-gray-300">{s.probleme}</dd>
+              </div>
+              <div>
+                <dt className="font-mono text-xs uppercase tracking-wider text-cyan">Ce que comprend l&apos;offre</dt>
+                <dd>
+                  <ul className="mt-1 list-disc space-y-1 pl-5 text-gray-200">
+                    {s.inclut.map((i) => <li key={i}>{i}</li>)}
+                  </ul>
+                </dd>
+                <dt className="mt-4 font-mono text-xs uppercase tracking-wider text-cyan">Ce que vous recevez</dt>
+                <dd className="mt-1 text-gray-200">{s.livrable}</dd>
+              </div>
+            </dl>
+            <Link
+              href={`/contact?service=${s.slug}`}
+              className="mt-6 inline-block rounded-lg bg-gold px-5 py-2.5 text-sm font-bold text-navy hover:opacity-90"
+            >
+              Demander un échange de 30 minutes
+            </Link>
           </section>
         ))}
       </div>
 
       <section className="mt-14">
-        <h2 className="font-display text-xl font-bold text-white">Comment se passe un projet</h2>
+        <h2 className="font-display text-xl font-bold text-white">Comment se passe une mission</h2>
         <ol className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {ETAPES.map((e, i) => (
             <li key={e.t} className="rounded-xl border border-white/10 p-5">
@@ -58,8 +74,9 @@ export default function ServicesPage() {
       <section className="mt-14 rounded-xl border border-white/10 bg-white/[0.02] p-6">
         <h2 className="font-display text-xl font-bold text-white">Tarifs</h2>
         <p className="mt-2 text-gray-300">
-          Pour l&apos;instant, aucun : les premiers projets sont des pilotes non facturés, le temps d&apos;immatriculer
-          Forge Afrika. Ensuite, sur devis : un prix fixe sur un périmètre écrit plutôt qu&apos;une estimation vague.
+          Les prix affichés sont des prix de lancement indicatifs, en euros. Le montant définitif est fixé par un devis
+          écrit sur un périmètre précis, avant tout travail. Le paiement en ligne n&apos;est pas encore ouvert : nous
+          commençons par un échange.
         </p>
       </section>
 
@@ -69,10 +86,6 @@ export default function ServicesPage() {
           {LIMITES.map((l) => <li key={l}>{l}</li>)}
         </ul>
       </section>
-
-      <Link href="/contact" className="mt-10 inline-block rounded-lg bg-gold px-5 py-3 font-bold text-navy hover:opacity-90">
-        Décrire mon projet
-      </Link>
     </div>
   );
 }
