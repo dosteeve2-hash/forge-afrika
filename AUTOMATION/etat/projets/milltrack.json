@@ -1,7 +1,7 @@
 {
   "projet": "milltrack",
-  "derniere_execution": "2026-10-04",
-  "verdict": "🟡 le tronc est le plus propre du portefeuille — et ses onze pages sont ouvertes a qui connait l URL.",
+  "derniere_execution": "2026-10-12",
+  "verdict": "🟢 L'AUTHENTIFICATION EST SUR LE TRONC. La #15 a ete fusionnee le 12 octobre a 12h52 — les onze pages sont protegees.",
   "tronc": "master — sain : lint 0, 124 tests, build 13 routes, CI presente",
   "pr_ouvertes_du_depot": [
     "4 PR ouvertes au 2026-09-20 (mesure API) : #15 (la mienne), #3, #2, #1. Les #13 et #14 ont ete fusionnees le 16 septembre.",
@@ -65,5 +65,18 @@
     "verifie_au_dela_des_tests_qui_passent": "garde-acces.test.ts ferme les ONZE pages nommement ; refuse qu un prefixe public en ouvre un autre (/authentification-interne reste ferme alors que /auth est public) ; traite /lots/ comme /lots ; garde la page demandee dans la redirection ; et porte une regression explicite contre un matcher /dashboard/:path* qui laissait les onze pages ouvertes. Un garde qui ne garde rien est pire qu un garde absent : il rassure.",
     "pousse": "dd8bc6f",
     "corps_de_pr": "reecrit avec la mesure du jour"
+  },
+  "FUSION_2026_10_12": {
+    "quoi": "#15 fusionnee dans master a 12h52:28 UTC, commit de fusion 1762841",
+    "verifie_sur_le_tronc": "proxy.ts est present a la racine, et c'est le SEUL garde (aucun middleware.ts). Les onze pages existent bien : broyages, clients, commandes, lots, machines, maintenance, production, rapports, stocks, ventes, plus dashboard.",
+    "consequence": "MillTrack est le premier des trois logiciels de gestion sans authentification a en recevoir une. Restent CompTrack main et CompTrack v1.",
+    "conflits_mecaniques": "Les trois PR soeurs #1 #2 #3 — toutes de Steeve, de juillet — sont passees dirty.",
+    "POURQUOI_JE_NE_LES_AI_PAS_RESOLUS": {
+      "principe": "Les rendre fusionnables mecaniquement serait du travail pour rendre fusionnable ce que le tronc a deja depasse — et pour les #1 et #2, la fusion REGRESSERAIT ce qui vient d'atterrir.",
+      "#1 feat/auth-complete-v2": "ajoute middleware.ts a cote du proxy.ts qui vient d'etre fusionne — DEUX gardes — et cree app/(dashboard)/dashboard/production, /rapports, /stocks, /onboarding, qui DOUBLERAIENT les pages top-level existantes a des URL differentes. Verifie : app/(dashboard)/dashboard/ ne contient aujourd'hui que DashboardClient.tsx et page.tsx.",
+      "#2 sprint14-fournisseurs-parametres": "meme middleware.ts, memes pages dashboard/* dupliquees, plus clients/ fournisseurs/ parametres/ production/ que le tronc possede deja.",
+      "#3 quality-improvements": "ajoute app/(dashboard)/error.tsx et loading.tsx — VERIFIE : les deux existent deja sur le tronc. Ne reste qu'un LOVABLE_PROTOCOL.md hors sujet.",
+      "ce_que_je_ne_fais_pas": "Fermer une PR est §3. Ces trois appartiennent a Steeve ; je mesure ce qu'elles apporteraient encore, je ne tranche pas."
+    }
   }
 }

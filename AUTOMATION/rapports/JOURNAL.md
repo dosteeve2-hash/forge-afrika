@@ -372,3 +372,35 @@ garde qui ne garde rien est pire qu'un garde absent : il rassure.**
 Le motif du jour, et il est le même des deux côtés : le travail est fait, vérifié, et attend
 un clic. Quatre PR dans ce cas ce matin — `forja#27`, `milltrack#15`, `Mifa_Life_shop#51`,
 et `comptrack#38` pour sa part réparée.
+
+## 2026-10-12 — La session a dormi HUIT jours, et l'authentification de MillTrack est sur le tronc
+
+**Le trou s'aggrave : 1 jour le 11 septembre, 4 jours fin septembre, 8 jours cette fois**
+(du 4 au 12 octobre). C'est Q24, et le prix est maintenant chiffré sur trois occurrences.
+Le conteneur a aussi été recyclé : `b3.txt` avait disparu, reconstruit depuis le recensement
+et les têtes réelles.
+
+**Ce qui a bougé en huit jours : une seule chose.** `milltrack/master` `9acd188 → 1762841`,
+à **12h52 aujourd'hui** — Steeve a fusionné ma **#15**. Les quinze autres troncs sont
+inchangés.
+
+**Vérifié sur le tronc, pas déduit :** `proxy.ts` est à la racine et c'est le **seul** garde
+(aucun `middleware.ts`), et les onze pages existent bien — broyages, clients, commandes,
+lots, machines, maintenance, production, rapports, stocks, ventes. **MillTrack est le
+premier des trois logiciels de gestion sans authentification à en recevoir une.**
+
+**Les trois PR sœurs sont passées `dirty`** — #1, #2, #3, toutes de Steeve, de juillet. Je ne
+les ai **pas** résolues, et c'est un choix mesuré :
+
+- **#1 `auth-complete-v2`** ajouterait `middleware.ts` à côté du `proxy.ts` qui vient
+  d'atterrir — **deux gardes** — et créerait `app/(dashboard)/dashboard/production`,
+  `/rapports`, `/stocks`, `/onboarding`, qui **doubleraient** les pages top-level à des URL
+  différentes. Vérifié : `app/(dashboard)/dashboard/` ne contient aujourd'hui que
+  `DashboardClient.tsx` et `page.tsx`.
+- **#2** porte le même `middleware.ts` et les mêmes pages dupliquées.
+- **#3** ajoute `error.tsx` et `loading.tsx` — vérifié, **les deux sont déjà sur le tronc**.
+  Ne reste qu'un `LOVABLE_PROTOCOL.md` hors sujet.
+
+Les rendre fusionnables serait du travail pour rendre fusionnable ce que le tronc a déjà
+dépassé — et pour les deux premières, la fusion **régresserait** ce qui vient d'arriver.
+Fermer une PR est `§3` : je mesure, je ne tranche pas.
