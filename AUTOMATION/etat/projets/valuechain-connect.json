@@ -1,6 +1,6 @@
 {
   "projet": "valuechain-connect",
-  "derniere_execution": "2026-09-08",
+  "derniere_execution": "2026-09-16",
   "verdict": "🟢",
   "tronc": "master (2026-09-02 — son correctif CI/lint a ete FUSIONNE, seul du portefeuille)",
   "pr_ouvertes_du_depot": [
@@ -23,5 +23,12 @@
     "Aucune persistance : toutes les pages affichent des constantes MOCK_*.",
     "/livraisons affiche des montants en EUROS sur une place de marche ouest-africaine — question produit."
   ],
-  "lecon": "Number('12,5') vaut NaN. Sur un produit francophone, la virgule decimale n'est pas un cas limite : c'est le cas nominal."
+  "lecon": "Number('12,5') vaut NaN. Sur un produit francophone, la virgule decimale n'est pas un cas limite : c'est le cas nominal.",
+  "fusions_du_16_septembre": "Steeve a fusionne #9 le 16 septembre entre 15h00 et 15h06 UTC, dans un lot de QUINZE PR sur onze depots. Premier deblocage du goulot depuis le 2 septembre.",
+  "pr_restante_apres_le_lot": "#10 — conflit resolu et repousse : check:navigation et les tests de la #9 cohabitent. 12/12, build vert.",
+  "MESURE_2026_09_20": {
+    "tronc_reel": "master @ 1fc6373",
+    "pr_ouvertes": 2,
+    "lesquelles": "#10 (la mienne) et #1"
+  }
 }

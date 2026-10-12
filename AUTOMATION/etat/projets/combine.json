@@ -1,0 +1,33 @@
+{
+  "projet": "combine",
+  "derniere_execution": "2026-09-27",
+  "verdict": "🟢 COMBINE EST VISITABLE — et je l'avais dit impossible. Une previsualisation READY sert l'application depuis le 26 septembre 12h43 UTC.",
+  "url": "https://combine-a4awxupzq-dosteeve2-8163s-projects.vercel.app",
+  "ce_que_l_url_est": {
+    "type": "previsualisation de la branche claude/deployer-vercel, commit d9688fa, PR #3 (draft, CI entierement verte : types/lint/tests/build ET parcours navigateur)",
+    "etat_vercel": "READY, creee le 2026-09-26 a 12h43 UTC",
+    "protection": "Vercel Authentication. /dossiers repond 302 vers vercel.com/sso-api. Steeve, connecte a son compte Vercel, y accede ; un visiteur exterieur non. Lever cette protection est un reglage de projet : production, donc interdit sans son accord (§3 regle 6).",
+    "preuve_que_l_app_est_bien_servie": "une requete sur un chemin inexistant renvoie la page 404 de COMBINE elle-meme, avec ses metadonnees (title « COMBINE — Du prototype au capital. », theme-color #070e1f, polices Playfair/Outfit) et ses en-tetes de securite. Ce n'est pas une page d'erreur Vercel : c'est l'application."
+  },
+  "MA_CORRECTION_2026_09_27": {
+    "ce_que_j_ai_dit_a_steeve": "que COMBINE n'etait pas visitable, que les previsualisations echouaient sur DATABASE_URL absent et que les URL vercel.app ne pouvaient pas etre testees depuis cette session (proxy sortant en 403)",
+    "ce_qui_est_vrai": "le troisieme point etait faux et cachait les deux premiers : le connecteur Vercel (mcp__Vercel__web_fetch_vercel_url) atteint ce que le proxy du conteneur refuse. En le testant, j'ai trouve une previsualisation READY que j'avais moi-meme produite 36 minutes apres l'echec que je citais. Le correctif de lib/db.ts (ne plus exiger le secret pour compiler) a fonctionne.",
+    "ce_qui_reste_vrai": "la PRODUCTION depuis main est BLOCKED au niveau de la configuration d'equipe, sans aucun evenement de build (regle 44). Et DATABASE_URL n'est pose nulle part : tout ce qui interroge la base echouera a l'execution. C'est Q21, et c'est a Steeve.",
+    "lecon": "regle 49 : le refus du proxy du conteneur n'est pas le refus de la session."
+  },
+  "ce_qui_appartient_a_steeve": [
+    "Q21 — poser DATABASE_URL dans Vercel (production : interdit pour moi)",
+    "Debloquer le deploiement de production (configuration d'equipe, errorLink vers troubleshoot-project-collaboration#team-configuration)",
+    "Decider si la previsualisation doit etre ouverte au public (reglage Deployment Protection)",
+    "Fusionner la PR #3, verte depuis le 26 septembre"
+  ],
+  "mes_pr": [
+    {
+      "numero": 3,
+      "branche": "claude/deployer-vercel",
+      "tete": "d9688fa",
+      "etat": "draft ouverte, CI verte (3/3)",
+      "objet": "le build n'exige plus de secret ; script de mise en ligne"
+    }
+  ]
+}

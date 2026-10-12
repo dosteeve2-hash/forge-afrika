@@ -143,6 +143,26 @@ export const FILIALES_FORGE = [
     metriques: { utilisateurs: 3400, transactions: 12000, ca: 78000000 },
     url: "https://mifa-life-shop-9k55.vercel.app",
   },
+  {
+    nom: "COMBINE",
+    slug: "combine",
+    categorie: "Finance",
+    secteur: "Tertiaire" as Secteur,
+    pourquoi:
+      "Des milliers de projets africains fonctionnent et ne trouvent pas un franc. Ce n'est presque jamais la qualité qui bloque, c'est l'absence d'un dossier qu'un financeur puisse ouvrir, comprendre et vérifier.",
+    description:
+      "Du prototype au capital : dossier horodaté et vérifiable, appels à candidatures, portefeuille de participations",
+    statut: "En développement" as Statut,
+    couleur: "#D4AF37",
+    icon: "💠",
+    // Aucun utilisateur réel à ce jour — le KPI de sortie de Phase 1 se compte
+    // en entreprises qui s'en servent, pas en dépôts qui compilent.
+    metriques: { utilisateurs: 0, transactions: 0, ca: 0 },
+    // "#" est la convention du site pour « pas encore de site en ligne »
+    // (`hasSite` dans app/ecosystem/page.tsx). À remplacer par l'URL réelle
+    // le jour de la mise en ligne, pas avant.
+    url: "#",
+  },
   // ─── IMPACT SOCIAL ───────────────────────────────────────────────────────
   {
     nom: "UEEMT-Tokat",

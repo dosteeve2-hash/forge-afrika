@@ -34,5 +34,6 @@
   "defaut_trouve": "Le graphique de cheptel dessinait TROIS courbes ecrites a la main pour QUATRE especes calculees. Les volailles etaient comptees chaque mois et affichees nulle part — y compris les trois volailles des donnees de demonstration. Sur un logiciel d'elevage burkinabe, la volaille n'est pas marginale. Invisible parce que le point de serie etait un Record<string, string|number>, ou toute cle est permise et aucune exigee.",
   "mes_pr": [
     "#3 — les volailles etaient comptees et n'apparaissaient nulle part. Type derive de Espece, graphique qui boucle sur ESPECES, table de traits exhaustive. Plus : lint reanime, 4 erreurs reparees, premiers tests, premiere CI."
-  ]
+  ],
+  "fusions_du_16_septembre": "Steeve a fusionne #3 le 16 septembre entre 15h00 et 15h06 UTC, dans un lot de QUINZE PR sur onze depots. Premier deblocage du goulot depuis le 2 septembre."
 }

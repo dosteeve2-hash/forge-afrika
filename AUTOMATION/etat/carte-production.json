@@ -1,0 +1,124 @@
+{
+  "_doc": "Carte de production du portefeuille, mesuree par le connecteur Vercel le 2026-09-28. Methode : partir du DEPOT (list_projects filtre par repoUrl), jamais du nom du projet (regle 52), puis lire le dernier deploiement target=production.",
+  "mesure_le": "2026-09-28",
+  "BLOCAGE_DES_DEPLOIEMENTS_DE_PRODUCTION": {
+    "constat": "Depuis le 26 septembre vers 12h00 UTC, TOUS les deploiements de production tentes sont BLOCKED. Trois projets, trois dates, meme errorLink : https://vercel.com/docs/deployments/troubleshoot-project-collaboration#team-configuration",
+    "chronologie": [
+      "2026-09-26 10:15 UTC — Mon-Portfolio-2.0 -> production READY (le dernier qui passe)",
+      "2026-09-26 12:07 UTC — combine (main 65f7cbd) -> BLOCKED",
+      "2026-09-26 14:08 UTC — ueemt-tokat (main f9c299e, PR #15 tontine) -> BLOCKED",
+      "2026-09-27 06:04 UTC — comptrack (main e5518e3, le push de Steeve) -> BLOCKED"
+    ],
+    "les_previsualisations_marchent": "Verifie le 27 et le 28 : previews READY sur forge-afrika, Problem-to-Projects-Africa, african-hybrid-agent et combine. Le blocage ne touche que la PRODUCTION.",
+    "consequence_la_plus_importante": "FUSIONNER NE MET PLUS RIEN EN LIGNE. Une PR fusionnee aujourd'hui atterrit sur le tronc, son deploiement de production est BLOCKED, et le site continue de servir l'ancien build. Cela vaut pour duka-boutique#11 : la vente perdue resterait perdue pour les commercants jusqu'a ce que le blocage soit leve.",
+    "cause_exacte": "NON MESUREE. Le lien que Vercel donne lui-meme pointe vers la configuration d'equipe ; get_team n'expose ni le plan ni l'etat de facturation. La raison est lisible sur le tableau de bord de Steeve, pas d'ici. Je n'invente pas la cause.",
+    "ce_qui_m_est_interdit": "Relancer un deploiement de production, changer un reglage de projet ou d'equipe, poser une variable : protocole §3 regle 6."
+  },
+  "carte": {
+    "taama": {
+      "projet_vercel": "taama",
+      "production": "READY",
+      "depuis": "main @ afb5f4c",
+      "a_jour": true
+    },
+    "comptrack": {
+      "projet_vercel": "comptrack",
+      "production": "le dernier est BLOCKED (main @ e5518e3, 27 sept 06h04) ; le site sert encore 5f0a2f3",
+      "a_jour": false
+    },
+    "agrotrack-bf": {
+      "projet_vercel": "agrotrack-bf",
+      "production": "READY",
+      "depuis": "master @ a8f7615",
+      "a_jour": true
+    },
+    "milltrack": {
+      "projet_vercel": "milltrack",
+      "production": "READY",
+      "depuis": "master @ 3b9480b",
+      "a_jour": true
+    },
+    "forja": {
+      "projet_vercel": "forja",
+      "production": "READY",
+      "depuis": "master @ 6e16536",
+      "a_jour": true
+    },
+    "valuechain-connect": {
+      "projet_vercel": "valuechain-connect",
+      "production": "READY",
+      "depuis": "master @ 1fc6373",
+      "a_jour": true
+    },
+    "indubot-afrika": {
+      "projet_vercel": "indubot-afrika",
+      "production": "READY",
+      "depuis": "master @ aaecec1",
+      "a_jour": true
+    },
+    "Mifa_Life_shop": {
+      "projet_vercel": "mifa-life-shop-9k55",
+      "production": "READY",
+      "depuis": "main @ c92ea7b",
+      "a_jour": true
+    },
+    "ueemt-tokat": {
+      "projet_vercel": "ueemt-tokat",
+      "production": "le dernier est BLOCKED (main @ f9c299e, 26 sept 14h08) ; le site sert encore 3c0c098",
+      "a_jour": false
+    },
+    "Mon-Portfolio-2.0": {
+      "projet_vercel": "steeve-portfolio",
+      "production": "READY",
+      "depuis": "master @ cb84b51",
+      "a_jour": true
+    },
+    "Problem-to-Projects-Africa": {
+      "projet_vercel": "problem-to-projects-africa",
+      "production": "READY",
+      "depuis": "main @ 093446f",
+      "a_jour": true
+    },
+    "duka-boutique": {
+      "projet_vercel": "duka",
+      "production": "READY",
+      "depuis": "master @ c10e0e7 du 10 aout",
+      "a_jour": true,
+      "note": "c'est le code qui perd la vente — PR #11 attend"
+    },
+    "african-hybrid-agent": {
+      "projet_vercel": "burkinacollect",
+      "production": "READY",
+      "depuis": "main @ f99cc32",
+      "a_jour": true,
+      "note": "servi sous le nom d'un AUTRE produit, regle 52"
+    },
+    "combine": {
+      "projet_vercel": "combine",
+      "production": "BLOCKED",
+      "a_jour": false,
+      "note": "previsualisation READY et visitable, derriere Vercel Authentication"
+    },
+    "burkinacollect": {
+      "projet_vercel": null,
+      "production": "AUCUN PROJET VERCEL",
+      "a_jour": false
+    },
+    "livestockos": {
+      "projet_vercel": null,
+      "production": "AUCUN PROJET VERCEL",
+      "a_jour": false
+    },
+    "sahel-commerce-ai": {
+      "projet_vercel": null,
+      "production": "AUCUN PROJET VERCEL",
+      "a_jour": false
+    }
+  },
+  "compte": {
+    "produits_servis_et_a_jour": 11,
+    "produits_dont_le_dernier_deploiement_est_BLOCKED": 3,
+    "depots_sans_aucun_projet_vercel": 3,
+    "kpi_phase_1": "toujours 0/3 : servir une page n'est pas etre utilise par une entreprise reelle"
+  }
+}

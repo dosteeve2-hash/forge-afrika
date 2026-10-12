@@ -1,0 +1,50 @@
+{
+  "_doc": "Triage des 18 PR ouvertes de TAAMA. Mesure du 2026-09-23 sur un clone COMPLET (is-shallow-repository = false, 32 commits sur main) — la precaution est la regle 21, et elle existe parce que le 15 septembre un clone superficiel m'a fait recommander de fermer 15 PR « sans rien perdre ». Chaque ligne ci-dessous est mesuree en fusionnant, pas en lisant (regle 27).",
+  "mesure_le": "2026-09-23",
+  "tronc": "main @ afb5f4c, 32 commits, AUCUNE CI",
+  "total_pr_ouvertes": 18,
+  "fusionne_proprement": {
+    "#35": "claude/ci-lint-and-tests — 1 commit d'avance, 2 de retard. LA SEULE des 18. Elle debloque une suite de tests entiere (110 -> 169), corrige 9 erreurs de lint et apporte la PREMIERE CI du depot. A fusionner d'abord : tout ce qui suit serait alors verifie."
+  },
+  "chaine_absorbee_par_la_10": {
+    "_preuve": "git merge-base --is-ancestor, teste maillon par maillon ET de chacune vers la #10, sur clone complet : #3 ⊂ #4 ⊂ #5 ⊂ #6 ⊂ #7 ⊂ #8 ⊂ #9 ⊂ #10. Chaine COMPLETE.",
+    "membres": [
+      "#3 feat/real-content-0629",
+      "#4 feat/pricing-page-0629",
+      "#5 feat/demo-page-0629",
+      "#6 feat/contact-page-0629",
+      "#7 feat/posthog-analytics-0704",
+      "#8 feat/dashboard-analytics-0704",
+      "#9 feat/tarifs-deploy"
+    ],
+    "sur_ensemble": "#10 feat/contact-leads — 9 commits d'avance, 30 de retard, CONFLIT sur 8 fichiers dont package.json et package-lock.json",
+    "NUANCE_CAPITALE": "Ces sept ne sont PAS « fermables sans rien perdre ». Elles sont absorbees par la #10 SI ET SEULEMENT SI la #10 est fusionnee. Si la #10 ne l'est jamais, les fermer perd tout. La decision porte sur la #10, pas sur elles. C'est exactement la nuance qui manquait a ma recommandation du 15 septembre."
+  },
+  "REGRESSION_si_fusionnee": {
+    "#26": {
+      "branche": "fix/quality-improvements — 2 d'avance, 18 de retard, conflit sur 2 fichiers",
+      "ce_qu_elle_apporte": "3 fichiers seulement : LOVABLE_PROTOCOL.md (116 lignes), error.tsx, loading.tsx",
+      "le_probleme": "error.tsx et loading.tsx EXISTENT DEJA sur main, dans des versions PLUS RECENTES. main : error.tsx 49 lignes ; la #26 : 41, et elle renomme « [TAAMA] » en « [Taama] ». main : loading.tsx utilise les composants partages SkeletonStats / SkeletonTableRow ; la #26 les remplace par des div inline en animate-pulse.",
+      "conclusion": "La #26 est PLUS ANCIENNE que le tronc. La fusionner ne dupliquerait pas : elle DEFERAIT du travail deja livre. Seul LOVABLE_PROTOCOL.md est un apport reel.",
+      "ce_que_j_ai_failli_dire": "« doublon, fermable » — le motif de milltrack#3. Faux : ce n'est pas un doublon, c'est une regression."
+    }
+  },
+  "les_autres": {
+    "#18": "feat/maintenance-infra — 6 d'avance, 25 de retard, conflit sur 6 fichiers. 24 fichiers, 3 823 insertions : le plus gros apport reel du lot (alertes, catalogue, global-error, vitest.config).",
+    "#17": "feat/sprint15-rapports-parcelles — 2 / 25, conflit sur 7 fichiers",
+    "#16": "feat/sprint14-parametres-dashboard — 1 / 25, conflit sur 2 fichiers",
+    "#15": "feat/rapports-analytics — 1 / 28, conflit sur 2 fichiers",
+    "#14": "feat/fournisseurs — 1 / 28, conflit sur 3 fichiers",
+    "#13": "feat/certifications — 1 / 28, conflit sur 2 fichiers",
+    "#12": "feat/blog — 1 / 28, conflit sur 1 fichier",
+    "#11": "feat/dashboard-analytics — 1 / 28, conflit sur 5 fichiers"
+  },
+  "ordre_recommande": [
+    "1. #35 — la seule qui fusionne proprement, et elle apporte la CI. Apres elle, chaque fusion est verifiee.",
+    "2. Trancher la #10 : c'est elle qui decide du sort de sept autres. Elle conflicte sur 8 fichiers.",
+    "3. #18 — le plus gros apport reel restant.",
+    "4. Les #11 a #17, une par une, chacune peu en avance mais tres en retard.",
+    "5. #26 — NE PAS fusionner telle quelle. En extraire LOVABLE_PROTOCOL.md si le document sert."
+  ],
+  "ce_qui_n_a_PAS_ete_fait": "Aucun conflit resolu, aucune PR fermee ni reciblee. Ce sont les PR de Steeve, et resoudre 8 fichiers de conflit sur la #10 reviendrait a refaire son travail sans savoir ce qu'il veut garder. Seule ma #35 est a moi."
+}

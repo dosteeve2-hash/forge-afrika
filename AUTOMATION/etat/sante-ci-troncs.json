@@ -1,0 +1,46 @@
+{
+  "_doc": "Etat de la CI sur le TRONC de chaque depot (regle 31 : sur le tronc reel, pas la branche par defaut). Mesure le 2026-09-21 via l'API GitHub Actions, filtre branch=<tronc>. Ne pas deduire d'un statut de PR : une PR verte ne dit rien du tronc.",
+  "mesure_le": "2026-09-21",
+  "pourquoi": "Le 21 septembre j'ai decouvert que la CI de Mifa_Life_shop etait ROUGE depuis cinq jours sans que personne le sache. J'ai alors fait le tour des 17 troncs, au lieu de supposer que les autres allaient bien.",
+  "verts": [
+    "milltrack",
+    "agrotrack-bf",
+    "burkinacollect",
+    "problem-to-projects-africa",
+    "african-hybrid-agent",
+    "ueemt-tokat",
+    "indubot-afrika",
+    "valuechain-connect",
+    "mon-portfolio-2",
+    "sahel-commerce-ai",
+    "phone-showcase"
+  ],
+  "rouges": {
+    "mifa-life-shop": {
+      "depuis": "2026-09-16T15:04Z",
+      "duree": "cinq jours",
+      "cause": "1 erreur de lint : @next/next/no-html-link-for-pages sur ParametresClient.tsx:721",
+      "pourquoi_invisible": "le run de la PR #29, qui a introduit le commit fautif, a ete ANNULE 18 s plus tard par la fusion de la #30 (cancel-in-progress). Le run survivant a echoue, et personne n'a regarde.",
+      "corrige_par": "PR #49, ouverte le 21 — lint 1 erreur -> 0, tests 90/90, build code 0"
+    }
+  },
+  "sans_aucune_ci": {
+    "_constat": "CINQ troncs n'ont AUCUN run de CI. Et chacun a une PR ouverte qui en apporterait une. Toutes non fusionnees.",
+    "forja": "la #27 apporte la CI — fusion a blanc propre verifiee le 19",
+    "taama": "la #35 apporte la CI — fusion a blanc propre verifiee le 19",
+    "livestockos": "la #9 apporte la CI — brouillon, 5 conflits anterieurs a mon travail",
+    "duka-boutique": "la #11 apporte la CI — verte, 80/80, et c'est aussi elle qui livrerait ecrireLocal",
+    "comptrack": "RESOLU CODE, PAS DECISION (2026-09-26). Ma #41 apporte la CI a `main`, le tronc qui LIVRE : lint 6 -> 0 erreurs, tsc 0, 64/64 tests, build 0, trois sabotages rouges. La #38 reste sur feat/comptrack-v1 et n'est pas reciblee (Q15). Il ne manque plus qu'un clic sur la #41."
+  },
+  "ce_que_ca_dit": "Sur 17 troncs : 11 verts, 1 rouge, 5 sans filet. Les cinq sans filet attendent tous le meme clic. Et le seul rouge l'est reste cinq jours parce que rien ne surveille les troncs depuis la mort de la veille quotidienne le 14 septembre — Q20. — Mis a jour le 2026-09-26 : les cinq troncs sans filet ont maintenant tous une PR qui vise le bon tronc ; comptrack etait le seul dont ce n'etait pas le cas. Les cinq attendent un clic.",
+  "CORRECTION_2026_09_26": {
+    "affirmation_refutee": "la #38 apporte la CI, mais elle vise feat/comptrack-v1, pas main. Meme fusionnee, le tronc qui LIVRE resterait sans CI. C'est Q15 qui bloque, pas le code.",
+    "pourquoi_elle_etait_fausse": "Elle concluait « C'est Q15 qui bloque, pas le code ». Vrai pour la #38 — elle vise la mauvaise branche et la recibler est bien Q15. FAUX pour le tronc : rien n'interdisait d'apporter une CI a `main` directement, sans trancher quel tronc est le produit. Proteger ce qui est deja en ligne n'est pas choisir. La phrase a fait passer pour bloque pendant cinq jours ce qui etait faisable le jour meme.",
+    "corrige_le": "2026-09-26",
+    "suite_donnee": {
+      "etat_de_la_pr": "OUVERTE",
+      "verifie_le": "2026-09-26",
+      "quoi": "PR comptrack#41 ouverte vers main. Les 5 troncs sans CI ont desormais tous une PR qui les vise VRAIMENT."
+    }
+  }
+}

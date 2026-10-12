@@ -1,10 +1,10 @@
 {
   "projet": "african-hybrid-agent",
-  "derniere_execution": "2026-09-16",
+  "derniere_execution": "2026-09-19",
   "mode": "TRIAGE (6 PR ouvertes, seuil 5 depasse)",
   "verdict": "🔴 tronc fige + CI structurellement rouge",
   "depot_public": true,
-  "tronc": "main, dernier commit eb2c3f9 du 27 juin — 73 jours d'immobilite",
+  "tronc": "main @ f99cc32 — a bouge le 16 septembre (fusion de la #7 : limite de debit sur /api/chat), et la production a ete redeployee depuis ce commit. Avant cela il etait fige a eb2c3f9 du 27 juin. Mesure le 2026-09-20.",
   "constat_central": "Contrairement a FORJA et MillTrack, le tronc n'a PAS bouge : aucune des 6 PR n'est perimee, les 6 sont a fusionner. La CI de main n'a jamais pu passer — Node 18 alors que Next 16 exige >=20, actions/upload-artifact@v3 desactivee par GitHub depuis janvier 2025, et coverageThreshold a 50% pour une couverture reelle de 19,98%.",
   "pr_ouvertes_du_depot": [
     "#7 (2 sept) rate limit IA + CI reparee + 4 lint — LA PLUS IMPORTANTE, mais noyee sous 39 124 lignes de coverage/ commite",
@@ -46,5 +46,40 @@
     "depot_public": "githubRepoVisibility=public — l'URL et le code sont decouvrables.",
     "consequence": "Q11 demandait « African Hybrid Agent est-il deploye ? » avec l'hypothese « non ». L'HYPOTHESE EST FAUSSE, etablie par la reponse HTTP et par la liste des deploiements. Et le tronc deploye est ANTERIEUR a la PR #7, qui apporte la limite de debit sur /api/chat : l'endpoint public tourne donc SANS limite cote code.",
     "ce_que_je_n_ai_pas_teste": "Je n'ai PAS sollicite /api/chat. Le tester consommerait le credit de Steeve — c'est exactement l'abus contre lequel je le mets en garde. Le commit du 5 juin ordonne Ollama → Claude → OpenAI → synthese locale ; sur Vercel il n'y a pas d'Ollama, donc la facturation depend de la presence des cles API dans ce projet, que je ne peux pas lire."
+  },
+  "fusions_du_16_RECENSEES_LE_19": [
+    "#7 a 15h00:00 UTC — limite de debit sur /api/chat. Q11 CLOSE : la production a ete redeployee depuis ce commit.",
+    "Recensement complet : VINGT-NEUF fusions le 16 septembre sur dix-neuf depots, pas quinze ni seize. Voir rapports/2026-09-19-recensement-fusions.md."
+  ],
+  "MESURE_2026_09_20": {
+    "tronc_reel": "main @ f99cc32",
+    "affirmation_refutee": "73 jours d'immobilite",
+    "la_verite": "main a bouge le 16 septembre : la #7 y a pose la limite de debit, et la production a ete redeployee depuis ce commit. C'est ce qui a ferme Q11.",
+    "pr_ouvertes": 5,
+    "EMPILEE": "#5 a pour base `feat/improvements-0629`, qui est exactement la TETE de la #4 (egalite de SHA 12e94045 verifiee). La fusionner la verserait dans la #4, pas dans main.",
+    "ordre_de_fusion": "fusionner la #4 d'abord, puis la #5 — ou recibler la #5 sur main."
+  },
+  "MESURE_2026_09_27": {
+    "tronc": "main @ f99cc32, inchange",
+    "le_verbe_du_metier": "Repondre avec des sources : /api/chat -> lib/agent/orchestrator -> RAG (embeddings, retrieve, corpus) -> reponse + citations, avec journal d'audit, cache Redis et repli 'local-synthesis' quand aucun modele n'est joignable. C'est le projet le plus complet du portefeuille : 217 fichiers, 55 tests, 5 suites.",
+    "la_limite_de_debit_EST_CONFORME": "AI_RATE_LIMIT = { limit: 20, windowSeconds: 3600 } dans lib/rate-limit.ts, appliquee des la premiere ligne de POST /api/chat, avec un commentaire qui cite la regle CLAUDE.md. Compteur Redis partage quand Redis repond (shared: true), repli en memoire par instance sinon (shared: false) — l'ecart est signale a l'appelant, pas cache. Rien a corriger.",
+    "DEFAUT_TROUVE_ET_CORRIGE": {
+      "ce_que_c_etait": "La cle de cache d'un tour de chat tronquait le base64 du JSON des messages a 32 caracteres. Ces 32 caracteres ne couvrent que 24 octets, soit '[{\"role\":\"user\",\"content' : le texte de la question tombait ENTIEREMENT hors de la cle.",
+      "consequence": "Dans une session donnee, la premiere reponse etait servie a toutes les questions suivantes pendant 24 h (ttl 86400), avec fromCache: true. Sur un agent dont le metier est de repondre avec des sources, c'est la panne la plus grave, et la plus silencieuse : une reponse bien formee arrive quand meme.",
+      "pourquoi_personne_ne_l_a_vue": "Sans Redis, getFromCache renvoie null et setInCache false : le cache est inerte en local et en CI. Le defaut n'existe qu'en production.",
+      "verification": "Calcul de la cle sur deux questions differentes : identiques, W3sicm9sZSI6InVzZXIiLCJjb250ZW50 les deux. Pas un raisonnement, une mesure.",
+      "correctif": "PR draft #8, branche claude/cache-qui-repond-a-cote : condense SHA-256 de la conversation entiere + mode + options, dans lib/cache/chat-cache-key.ts, avec 5 tests dont celui qui verrouille la regression. tsc, lint, 55 tests et build passent.",
+      "api_chat_JAMAIS_SOLLICITE": "Le defaut a ete etabli par lecture et par calcul de la cle. Aucun appel a /api/chat : le tester depenserait le credit que la limite protege."
+    },
+    "reste_a_voir": "lib/cache/redis.ts l.108 et 116 encodent la cle de recherche en base64 sans tronquer : pas de defaut, mais longueur non bornee. Signale dans la PR #8, hors de son perimetre.",
+    "mes_pr": [
+      {
+        "numero": 8,
+        "branche": "claude/cache-qui-repond-a-cote",
+        "tete": "582fe27",
+        "etat": "draft ouverte",
+        "objet": "la cle de cache effacait la question"
+      }
+    ]
   }
 }

@@ -27,8 +27,14 @@ controles = 0
 
 for fichier in sorted(PROJETS.glob('*.json')):
     donnees = json.loads(fichier.read_text(encoding='utf-8'))
+    # Tout bloc CORRECTION* DOIT refuter quelque chose ; mais la verification du
+    # survivant s'applique a TOUT bloc portant `affirmation_refutee`, quel que soit son
+    # nom. Le 20 septembre 2026 j'ai pose quatre affirmations refutees dans des blocs
+    # nommes MESURE_* : l'ancienne version, qui ne regardait que les CORRECTION*, ne les
+    # voyait pas du tout. Un garde-fou qu'on contourne en renommant son bloc n'en est pas
+    # un — et je l'ai contourne sans le vouloir, ce qui est la pire facon de l'apprendre.
     blocs = {k: v for k, v in donnees.items()
-             if k.startswith('CORRECTION') and isinstance(v, dict)}
+             if isinstance(v, dict) and (k.startswith('CORRECTION') or 'affirmation_refutee' in v)}
     if not blocs:
         continue
 

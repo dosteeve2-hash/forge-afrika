@@ -1,14 +1,16 @@
 {
   "projet": "comptrack",
-  "derniere_execution": "2026-09-15",
-  "verdict": "🔴 GitHub et Vercel ne designent pas le meme tronc — et ce qui est livre n'a aucune connexion",
+  "derniere_execution": "2026-10-03",
+  "verdict": "🟠 main (le tronc qui LIVRE) a enfin une PR de CI qui le vise : ma #41. Le tronc GitHub par defaut reste feat/comptrack-v1 — Q15 intacte.",
   "tronc": "INDETERMINE. GitHub : feat/comptrack-v1 (branche par defaut). Vercel : main (branche de production). Q15 doit trancher.",
   "pr_ouvertes_du_depot": [
-    "20 PR ouvertes, la plus ancienne a 69 jours, AUCUNE fusionnee"
+    "21 PR ouvertes au 2026-09-20 (mesure API). DEUX ont ete fusionnees depuis : la #39 le 16 septembre, la #40 le 16 au soir.",
+    "17 visent `main`, la branche qui livre reellement (regle 22).",
+    "4 visent `feat/comptrack-v1`, qui n'a jamais produit de deploiement de production : #38 (la mienne), #36, #30, #8."
   ],
   "mes_pr": [
-    "#38 claude/ci-lint-and-tests → feat/comptrack-v1 — ESLint, 6 tests repares, CI. Verte. Mais sur la branche qui ne va pas en production.",
-    "#39 claude/garde-tableau-de-bord → feat/comptrack-v1 — garde d'acces. Build 0 erreur, 25 routes, 15 tests ajoutes tous verts. Les 6 rouges de la suite sont ceux de la base, repares par #38."
+    "#38 (2 sept) — CI, mais vise feat/comptrack-v1 : meme fusionnee, main resterait sans filet. Ne pas recibler : Q15.",
+    "#41 (26 sept) — CI sur main, le tronc qui livre. lint 6 -> 0 erreurs, tsc 0, 64/64 tests, build 0, 3 sabotages rouges."
   ],
   "sante": {
     "ci": "aucune sur le tronc — la PR #38 en ajoute une",
@@ -17,7 +19,7 @@
     "branches": 34
   },
   "chantier_en_cours": "",
-  "prochain_chantier": "Rien de neuf sur CompTrack tant que Q15 n'a pas de reponse. Construire davantage sur v1 reviendrait a empiler du travail sur une branche qui ne livre rien ; construire sur main sans avoir tranche serait pire. #38 et #39 attendent.",
+  "prochain_chantier": "Ne rien faire de plus sur comptrack sans Q15. Si Steeve fusionne la #41, main a son premier filet et les 20 PR restantes deviennent verifiables une par une.",
   "dette_connue": [
     "21 PR ouvertes, 0 fusionnee, la plus ancienne du 2026-06-29.",
     "17 ciblent main, 4 ciblent feat/comptrack-v1 (#38 #36 #30 #8). Aucune des deux cibles n'est clairement LE tronc : GitHub designe v1 par defaut, Vercel livre main. C'est Q15.",
@@ -45,7 +47,18 @@
     "lint_avec_38": "0 erreur, 4 avertissements",
     "build_avec_38": "passe, 29 pages",
     "base": "feat/comptrack-v1 — la bonne branche",
-    "conclusion": "seule des 21 PR a la fois sur la bonne branche et verifiee verte. A fusionner d'abord."
+    "conclusion": "seule des 21 PR a la fois sur la bonne branche et verifiee verte. A fusionner d'abord.",
+    "SUITE_DONNEE": {
+      "etat_de_la_pr": "OUVERTE",
+      "verifie_le": "2026-09-19",
+      "base": "feat/comptrack-v1",
+      "base_enregistree_dans_la_pr": "dc65248",
+      "tete_de_base_aujourd_hui": "143fdb5",
+      "retard": "2 commits",
+      "fusion_a_blanc": "PROPRE — aucun conflit. Teste le 19 en clone COMPLET (regle 21) : merge --no-commit --no-ff de la base dans la tete de PR. Les fusions du 16 ne l'ont pas cassee.",
+      "MAIS": "elle viserait quand meme une branche qui ne livre rien. feat/comptrack-v1 n'a jamais produit un deploiement target=production ; main si. Mesure du 19 : main a 38 commits absents de v1, v1 en a 14 absents de main. C'est la regle 29 par anticipation — la fusionner ne livrerait pas.",
+      "donc": "verte et fusionnable n'est pas la meme chose qu'utile. Ne pas la presenter comme prete tant que Q15 n'est pas tranchee."
+    }
   },
   "absorbees_par_le_vrai_tronc": {
     "#23 maintenance-infra": "64 fichiers ajoutes, 64 DEJA sur v1 — a fermer",
@@ -63,11 +76,74 @@
     "affirmation_refutee": "main, le mauvais",
     "nettoyage_2026_09_16": "Le bloc de correction existait depuis le 15, mais dette_connue disait encore « 11 PR ciblent main, le mauvais » et la lecon presentait la version refutee comme l'enseignement. Corrige le 16, en meme temps que le meme defaut sur taama.json — c'est ce qui a motive le 16e controle CI."
   },
-  "trou_de_securite": {
-    "constat": "Le tableau de bord de CompTrack s'ouvre a qui connait l'adresse — 21 pages : paie, declarations fiscales, tresorerie, bilan, employes, contrats.",
-    "vrai_des_deux_cotes": "main n'a aucune page de connexion. v1 a /connexion, /inscription et /auth/callback, mais son middleware.ts ne fait que limiter le debit de /api/* : la porte existe, le mur manque.",
-    "verification": "git ls-tree -r origin/main | grep -Ei 'middleware|auth|login|connexion' ne rend rien. Sur v1, middleware.ts lu ligne a ligne : matcher ['/api/:path*'], aucune verification d'utilisateur.",
-    "correctif": "PR #39 sur feat/comptrack-v1 — garde d'acces en liste blanche, getUser() et jamais getSession(), distinction 'pas connecte' / 'pas de Supabase'. 15 tests, 4 sabotages deliberes prouvent qu'ils ne sont pas verts par hasard. Vrai quelle que soit la reponse a Q15.",
-    "non_corrige": "main reste sans authentification, et c'est main qui est livre. Le corriger la-bas suppose d'y porter toute la couche Supabase — donc d'avoir tranche Q15."
+  "fusions_du_16_septembre": "Steeve a fusionne #39 le 16 septembre entre 15h00 et 15h06 UTC, dans un lot de QUINZE PR sur onze depots. Premier deblocage du goulot depuis le 2 septembre.",
+  "CORRECTION_2026_09_17": {
+    "affirmation_refutee": "s'ouvre a qui connait l'adresse",
+    "ou_elle_vivait": "champ trou_de_securite de ce fichier (supprime), et mes rapports des 9 et 15 septembre",
+    "ce_qu_elle_disait": "que le tableau de bord comptable etait expose — « 21 pages : paie, declarations fiscales, tresorerie, bilan, employes, contrats »",
+    "ce_qui_est_vrai": "sur main — la branche EN PRODUCTION — il n'y a aucune donnee a exposer. Aucun fichier n'importe @supabase (alors que la dependance est dans package.json), aucun fetch(, aucun axios, aucun createClient dans app/, lib/ ni components/. Les chiffres des 18 pages sont des tableaux ecrits en dur — 5 rien que dans factures/page.tsx. Aucun .env.example. Il n'y a pas de salaires exposes : il n'y a pas de salaires.",
+    "pourquoi_je_me_suis_trompe": "j'ai lu les NOMS des pages — paie, declarations fiscales, tresorerie — et j'en ai deduit leur contenu. Une dependance installee et jamais appelee ressemble a un trou de securite tant qu'on ne cherche pas qui l'appelle.",
+    "troisieme_fois": "meme motif que SUGU le 15 septembre et AgroTrack le 16 : de l'echafaudage mort pris pour une faille. Les trois fois, la verification a tenu en une commande.",
+    "ce_qui_reste_vrai_de_l_ancien_constat": "main n'a aucune page de connexion. v1 a /connexion, /inscription et /auth/callback, mais son middleware.ts ne fait que limiter le debit de /api/* : la porte existe, le mur manque.",
+    "regle": "regle 19, troisieme application decisive"
+  },
+  "ou_la_39_a_atterri": {
+    "mesure_le": "2026-09-17",
+    "fait": "Steeve a fusionne la #39 le 16 a 15h05. Elle visait feat/comptrack-v1.",
+    "consequence": "le deploiement de cette fusion porte target: null — une PREVISUALISATION. Les CINQ deploiements target: production du projet viennent tous de main, le plus recent du 16 septembre 19h32 (fusion de la #40, par Steeve, sur main). Le garde ne protege donc pas le site servi.",
+    "mais": "et il n'y a rien a y proteger — voir CORRECTION_2026_09_17.",
+    "regle": "regle 22 revérifiée avec des donnees fraiches, et regle 29"
+  },
+  "les_deux_branches": {
+    "main": "EN PRODUCTION. 18 pages. Aucune donnee, aucun appel reseau, aucune authentification. Une VITRINE.",
+    "feat/comptrack-v1": "jamais en production. 21 pages, schema Supabase, tests, page de connexion + garde (#39 fusionnee). Le PRODUIT.",
+    "reformulation": "ce ne sont pas deux troncs concurrents : c'est une demonstration qui tourne et un produit qui ne tourne pas. Q15 reecrite en consequence."
+  },
+  "MESURE_2026_09_20": {
+    "tronc_reel": "main @ 5f0a2f3 — la branche de PRODUCTION (regle 22), pas feat/comptrack-v1 qui est le defaut GitHub",
+    "pr_ouvertes": 21,
+    "affirmation_refutee": "20 PR ouvertes, la plus ancienne a 69 jours, AUCUNE fusionnee",
+    "la_verite": "21 ouvertes, et DEUX ont ete fusionnees depuis : la #39 le 16, la #40 le 16 au soir.",
+    "repartition": "17 visent main (la branche qui livre) · 4 visent feat/comptrack-v1 (qui n'a jamais rien mis en production) : #38, #36, #30, #8",
+    "dont_la_mienne": "#38 est dans les 4 qui ne livreraient rien"
+  },
+  "CI_DU_TRONC_2026_09_21": {
+    "etat": "AUCUNE",
+    "mesure_le": "2026-09-21",
+    "methode": "API GitHub Actions, list_workflow_runs filtre sur le tronc reel — pas sur la branche par defaut (regle 31)",
+    "detail": "AUCUNE CI sur main — zero run mesure le 21 septembre. La #38 en apporte une, mais elle vise feat/comptrack-v1. Meme fusionnee, le tronc qui LIVRE resterait sans filet. Q15."
+  },
+  "MESURE_2026_09_26": {
+    "tronc_github_par_defaut": "feat/comptrack-v1 (git remote show origin) — regle 22, encore",
+    "tronc_qui_livre": "main, 38 commits devant feat/comptrack-v1",
+    "ci_sur_main_avant": "AUCUN fichier .github sur origin/main. Zero run depuis la creation du depot, sur 23 routes en service.",
+    "next_lint_inutilisable": "Sans config ESLint, `next lint` ouvre un questionnaire interactif et attend le clavier. Ce n'est pas un lint qui echoue, c'est un lint qui n'a jamais tourne.",
+    "erreurs_trouvees": "6, toutes dans app/(dashboard)/previsions/page.tsx : 5 `any` (interdits par CLAUDE.md) + 1 apostrophe droite en JSX. Corrigees, aucune regle desactivee.",
+    "defaut_latent_revele": "fcfa(e.value) pouvait recevoir undefined ; les entrees sans valeur numerique sont ecartees, sans `?? 0` (regle apprise sur FORJA le 22 : un chiffre faux est pire qu'un chiffre absent).",
+    "affirmation_refutee": "Le fichier sante-ci-troncs.json disait que le code n'etait pas le blocage de comptrack et que seule Q15 l'etait. C'etait vrai pour la #38 et FAUX pour le tronc : rien n'empechait d'apporter une CI a main sans trancher Q15. Il a fallu cinq jours pour le voir.",
+    "suite_donnee": {
+      "etat_de_la_pr": "OUVERTE",
+      "verifie_le": "2026-09-26",
+      "quoi": "PR #41 ouverte vers main, draft, verte en local (lint 0, tsc 0, 64/64, build 0)."
+    }
+  },
+  "MESURE_2026_09_27": {
+    "tronc_a_bouge": "main 5f0a2f3 -> e5518e3, le 27 a 09h04 heure de Turquie. Ce n'est PAS une fusion de PR : c'est un push direct de Steeve sur son propre tronc — « docs: add Golden Prompt, AI security rules and Karpathy principles », CLAUDE.md et specs/GOLDEN_PROMPT.md, 28 lignes ajoutees.",
+    "ce_que_ca_dit": "Steeve propage sa doctrine (principes Karpathy, regles de securite IA) dans les CLAUDE.md de ses depots, pas seulement dans celui du QG.",
+    "effet_sur_ma_PR_41": "Teste EN FUSIONNANT sur le nouveau tronc (regle 27) : zero conflit, et l'arbre fusionne passe lint, tsc, tests et build. Rien a corriger. Elle attend toujours un clic.",
+    "verifie_le": "2026-09-27"
+  },
+  "MESURE_2026_09_28": {
+    "production_BLOQUEE": "Le dernier deploiement de production (main @ e5518e3, le push de Steeve du 27 sept 09h04 Turquie) est BLOCKED, 27 sept 06h04 UTC, errorLink team-configuration. Le site sert encore le build precedent, 5f0a2f3. Son commit est sur le tronc, la CI est verte, et le site public ne l'a jamais vu.",
+    "ma_PR_41": "toujours ouverte, verte, sans conflit, retestee par fusion le 27 (lint, tsc, test, build OK). Mais a dire honnetement : la fusionner aujourd'hui ameliore le depot, pas le service, puisque le deploiement qui suivrait serait bloque.",
+    "ce_qui_appartient_a_steeve": "Q23 : lever le blocage. La cause n'est pas mesurable d'ici."
+  },
+  "PR38_RESOLUE_2026_10_03": {
+    "conflit": "package.json et le verrou, sur les devDependencies. Ni la base ni la tete n'avaient bouge ce soir : le conflit etait anterieur, pas une consequence des fusions « Vitrine honnete ».",
+    "resolution": "les trois paquets de ma branche conserves, @testing-library/dom pris de la base, jest-dom a la version la plus recente (^7.0.0). Verrou regenere par npm install --package-lock-only.",
+    "DECOUVERTE_59_TESTS": "vitest.config.ts ne declarait aucun setupFiles : vitest.setup.ts n'etait jamais charge, aucun matcher jest-dom enregistre, chaque toBeInTheDocument remontait en « Invalid Chai property ». Mesure : base seule 59 echecs/151, ma branche avant 54, apres 151/151.",
+    "DECOUVERTE_LINT": "npm run lint ne tournait PAS sur la base — Cannot find module '@sentry/nextjs', absent de ses dependances. Ma branche l'apporte, le lint s'execute, et revele 6 erreurs dans previsions/page.tsx, toutes traitees. Lint : 0 erreur, 12 avertissements.",
+    "RESTE_CASSE_ET_NON_TRANCHE": "app/(dashboard)/dashboard/DashboardCharts.tsx:8 importe donneesMensuelles et topCategoriesDepenses que lib/data.ts n'exporte plus — la base a retire ses 7 constantes de donnees simulees. Le defaut est SUR LA BASE, masque par le plantage Sentry plus precoce. Le reparer suppose de savoir si ce tableau de bord doit lire des donnees reelles : decision produit, pas resolution de conflit.",
+    "pousse": "7f6117e"
   }
 }

@@ -14,14 +14,30 @@
 
 ---
 
-## 📋 Les 19 questions en un coup d'œil
+## 📋 Les 23 questions en un coup d'œil
 
-Trois d'entre elles commandent tout le reste : **Q1** (quel tronc fait foi), **Q2**
-(les métriques sont-elles réelles) et **Q19** (quelle architecture d'automatisation).
-Trois urgences techniques : **Q21**, AgroTrack BF répond **500 en production depuis
-vingt-cinq jours** et seul toi peux le remettre en service ; **Q20**, la surveillance de
-production est elle-même en panne, ce qui explique que personne ne l'ait vu ; et **Q15**,
-le CompTrack livré n'a aucune page de connexion. Les autres peuvent attendre sans rien bloquer.
+**Au 3 octobre, trois choses passent devant.** **Q26** d'abord, parce qu'elle concerne un
+défaut servi en production à cette minute et que le correctif est écrit : il lui manque une
+permission, pas du travail. **Q24** ensuite, parce qu'un système qui dort quatre jours ne
+rattrape pas les autres questions. **Q23** enfin : plus aucun déploiement de production
+n'aboutit depuis le 26 septembre, donc fusionner ne met plus rien en ligne — tant qu'elle
+tient, les autres réponses changent le dépôt et pas le service.
+
+**Celle qui compte le plus sur le fond reste Q6** — trois lignes à remplir, et elle décide de tout ce
+que le système fabrique. Le 26 septembre tes huit règles l'ont tranchée : le KPI de sortie
+de Phase 1 est mesuré à **0/3**, et 63 % des PR ouvertes portent sur des produits sans
+acheteur nommé.
+
+Trois autres commandent la mécanique : **Q1** (quel tronc fait foi), **Q2** (les métriques
+sont-elles réelles) et **Q19** (quelle architecture d'automatisation). Deux urgences
+techniques restent : **Q20**, la surveillance de production échoue encore chaque matin
+(vérifié : dernier passage en échec le 25 septembre) ; et **Q15**, le CompTrack livré n'a
+aucune page de connexion. Les autres peuvent attendre sans rien bloquer.
+
+> **Corrigé le 26 septembre.** Ce paragraphe annonçait « AgroTrack BF répond 500 en
+> production depuis vingt-cinq jours ». C'est faux depuis la fusion du 16 septembre :
+> il ne casse plus, il attend seulement deux variables d'environnement. La prose
+> contredisait sa propre ligne de tableau depuis dix jours.
 
 | # | Sujet | Ce qu'elle décide | Hypothèse appliquée en attendant |
 |---|---|---|---|
@@ -30,20 +46,24 @@ le CompTrack livré n'a aucune page de connexion. Les autres peuvent attendre sa
 | Q3 | ⏰ 05h00 Turquie ou Burkina ? | l'heure des 27 routines | Turquie (02h00 UTC) |
 | Q4 | 🐄 `livestockos` vs `livestock-os` | lequel des deux est le produit | `livestockos` — **contredite depuis par Q18** |
 | Q5 | 🤖 Fusionner `LLM-africain-agent-AI` ? | le sort d'un dépôt vide | `african-hybrid-agent` est le vivant |
-| Q6 | 🎯 25 dépôts, une seule personne | concentrer ou tout garder | la rotation couvre tout, l'ordre reste ouvert |
+| **Q6** | 🎯 **Trois produits, trois acheteurs — trois lignes à remplir** | le KPI de sortie de Phase 1, mesuré à **0/3** le 26 septembre | pas de nouvelle fonctionnalité sur un projet sans utilisateur nommé ; rien fermé, rien abandonné |
 | Q7 | 🧹 Construire quand 5 PR attendent déjà ? | le mode triage — **modification du protocole, non appliquée** | seuil à 5, en attente de ton accord |
 | Q10 | ☕ FORJA fait-il encore de l'export de café ? | 11 PR à fermer plutôt qu'à fusionner | le tronc a raison |
-| **Q11** | 🔑 Aisha tourne en public sans limite de débit, sous une URL au nom de BurkinaCollect | un endpoint IA ouvert sur un dépôt public | aucune — **mon hypothèse « non déployé » était fausse** |
-| Q12 | 📄 Le README de BurkinaCollect décrit un produit absent | réécrire le README ou construire le produit | README d'abord, rien modifié |
+| **Q12** | 📄 **BurkinaCollect ne collecte rien** — zéro `<form>`, zéro `<input>`, zéro `fetch` dans tout `src/` | aligner le site sur la réalité, ou construire le produit | site inchangé, rien modifié |
 | **Q13** | 🌿 Problem to Projects Africa : la branche livrée n'a pas l'intelligence | 61 fichiers dormants, dont toute la génération IA et 4 contextes pays | `main` reste le tronc, **rien porté** |
 | Q14 | 🏭 TAAMA : le site public doit-il revenir ? | restaurer `/tarifs` et `/demo` depuis les PR #10/#12 | oui, à restaurer |
-| **Q15** | 🧾 CompTrack : GitHub et Vercel se contredisent | quel tronc fait foi, et où vont 21 PR | aucune — je ne tranche pas |
+| **Q15** | 🧾 CompTrack : une vitrine tourne, le produit non | faire servir `v1`, ou assumer que c'est un prototype | aucune — je ne tranche pas |
 | Q16 | 🔐 Sahel Commerce AI : qui peut modifier le stock ? | l'authentification du seul endpoint qui écrit | démo → limite de débit seule |
-| Q17 | 🎓 UEEMT-Tokat : `dev` est-elle vivante ? | garder ou laisser mourir une branche | `main` fait foi |
+| Q17 | 🎓 UEEMT-Tokat : `dev` est **morte**, mesuré | fermer la #8, recibler la #11, 4 PR en conflit | je ne touche à rien |
 | Q18 | 🐄 Lequel des deux produits d'élevage est le bon ? | le tier de `livestock-os` au registre | `livestock-os`, plus récent et plus complet |
 | **Q19** | ⚙️ Rallumer les 26 loops, ou garder la session vivante ? | le débit réel du système : 2 projets/jour contre 25/semaine | statu quo, rien rallumé |
-| **Q21** | 🌾 AgroTrack BF : `/dashboard` répond 500 en production | remettre en service un tier 1 mort depuis 25 jours | aucune — poser une variable est une action de production |
+| **Q21** | 🌾 AgroTrack BF : il ne casse plus, il n'est pas en service | poser deux variables — et en changer une troisième avant | aucune — poser une variable est une action de production |
 | **Q20** | 🚨 La veille de production échoue chaque matin | la seule surveillance des 13 URLs en production | aucune action — le modèle d'une Routine ne se change pas sans toi |
+| Q22 | 📶 Sahel : ce qui est écrit hors ligne ne remonte jamais | la moitié « se synchronise » de la doctrine | C tant que c'est une démo — se répond avec Q16 |
+| **Q23** | 🚨 Depuis le 26 septembre, rien ne monte en production | si une fusion met quelque chose en ligne, ou rien du tout | réglage de compte à toi ; je ne tente aucun redéploiement |
+| **Q24** | 🚨 La session a dormi 4 jours, 4 matins perdus | le débit réel du système : 2 projets en 9 jours | A, statu quo — B et C sont des actions sur des Routines |
+| **Q25** | 📱 Le QG sert 278 Ko de JS et cache son texte | ce que voit un investisseur sur un Android en 2G | je garde les 3 bibliothèques, je ne touche pas au rendu |
+| **Q26** | 🔑 TAAMA : tu as refusé l'accès, je n'ai pas contourné | un vaccin périmé affiché « ⚠ 24j » en production | le patch attend ; MIFA, lui, est parti en draft `#51` |
 
 > **Q4 et Q18 se contredisent.** Q4 (5 septembre) supposait `livestockos` vivant ; Q18
 > (13 septembre) a établi par lecture du code que `livestock-os` est plus récent, sans
@@ -147,17 +167,63 @@ l'ancien est en tier 3. Une fusion sera proposée en revue du dimanche.
 
 ---
 
-### Q6 — 🎯 STRATÉGIE — 25 dépôts, une seule personne. On concentre ? (2026-09-05)
-**Contexte :** le site du QG annonce 10 filiales dont 6 « Actif ». Le registre compte
-25 dépôts. Le KPI de Phase 1 en demande **3 vraiment finis**.
-**Enjeu :** c'est la décision la plus lourde du projet. Le modèle Dangote comme le modèle
-coréen disent la même chose : concentrer d'abord, répliquer ensuite. Étaler l'effort sur
-13 projets tier 1 risque de n'en finir aucun.
-**Hypothèse retenue :** la rotation couvre tous les tier 1, **mais** l'ordre de priorité
-(`00-protocole-forge.md §5`) fait passer ce qui est cassé ou proche de la production avant
-les nouvelles fonctionnalités. En pratique, les projets les plus avancés avanceront le
-plus vite. La revue du dimanche te proposera une concentration explicite dès que les
-données de terrain le justifieront.
+### Q6 — 🎯 STRATÉGIE — 29 dépôts, une seule personne. On concentre ? (2026-09-05, **réécrite le 26 septembre avec tes huit règles**)
+
+**Ce qui a changé.** Le 5 septembre, cette question disait : « la revue du dimanche te
+proposera une concentration explicite dès que les données de terrain le justifieront ».
+Les données sont là, et tes propres règles la tranchent — « ne construis pas avant de
+savoir à qui tu vends » et « n'insiste pas parce que tu as déjà passé du temps dessus ».
+
+**Les quatre mesures.**
+
+1. **91 PR ouvertes ; 57 (63 %) sur trois dépôts** — comptrack 21, taama 18,
+   mifa-life-shop 18. Aucun des trois n'a d'utilisateur réel nommé.
+2. **Les deux produits réellement publiés ont zéro PR ouverte** — BurkinaCollect et
+   Problem-to-Projects. L'effort est inversement corrélé à l'usage.
+3. **29 dépôts existent ; le registre en décrit 25.** `ambition` a reçu un push le
+   26 septembre à 00h30, `combine` le 23, le dépôt de profil le 26 à 02h12. Trois dépôts
+   apparus ou remués **en quatre jours**, pendant que 91 PR attendaient un clic. Je ne les
+   ai pas lus — ils sont hors du périmètre de cette session et je n'ajoute pas un dépôt que
+   tu n'as pas demandé — et je ne juge pas s'ils sont de bonnes idées. Je constate le nombre.
+4. **Aucun des 25 fichiers d'état ne nomme un premier utilisateur réel.** Cherché le
+   26 septembre sur les 25 fichiers et sur le registre. Le KPI de sortie de Phase 1
+   est à **0/3** — il l'était déjà, rien ne l'affichait. C'est désormais affiché dans
+   `etat/premier-utilisateur.json`.
+
+**Ce que je ne peux pas faire à ta place, et pourquoi.** Nommer l'acheteur, et abandonner
+un projet. Le §3 du protocole m'interdit de fermer une PR, d'abandonner un dépôt ou de
+réécrire la vision — et c'est bien ainsi : ces deux décisions sont irréversibles là où
+tout le reste de mon travail est annulable.
+
+**Ce que je te demande, concrètement — trois lignes à remplir.** Pas un choix de
+stratégie, juste trois noms :
+
+```
+Produit 1 : __________  →  premier utilisateur visé : __________
+Produit 2 : __________  →  premier utilisateur visé : __________
+Produit 3 : __________  →  premier utilisateur visé : __________
+Et pour les 18 autres : gel (rien de neuf, réparations seulement) / abandon / statu quo ?
+```
+
+**Classement par proximité mesurée** — pour t'aider, pas pour décider :
+
+| Projet | Où il en est | Ce qui manque pour un premier utilisateur |
+|---|---|---|
+| **BurkinaCollect** | publié, joignable, 0 PR ouverte | le README promet 9 fonctionnalités pour 2 pages (**Q12**) |
+| **Problem-to-Projects** | publié, 0 PR ouverte | la branche livrée n'a pas l'IA ; celle qui l'a dort (**Q13**) |
+| **AgroTrack BF** | ne casse plus depuis le 16 | deux variables d'environnement — action de production, donc toi (**Q21**) |
+| **TAAMA** | déclaré en production | 18 PR dont une seule fusionnable, et le site public perdu (**Q14**) |
+| CompTrack | 21 PR, tronc contesté | on ne sait pas quel tronc fait foi (**Q15**) |
+
+**Hypothèse retenue** — elle n'abandonne rien et ne gèle aucune réparation :
+
+> Sur tout projet dont `premier_utilisateur_reel` est `null`, je ne descends plus au
+> niveau 6 du §5 (nouvelles fonctionnalités). Je répare, je documente, je mets en CI.
+> Je n'ajoute rien.
+
+Aucune PR n'est fermée, aucun dépôt n'est touché, et le travail en cours continue :
+les niveaux 1 à 5 restent ouverts partout.
+
 **Réponse de Steeve :** _(en attente)_
 
 ---
@@ -195,6 +261,34 @@ attend ton accord — je ne l'ai pas appliquée.
 
 ### Q10 — FORJA fait-il encore de l'export de café ? (2026-09-08)
 
+> **🔬 Mesuré le 2026-09-22 — la question n'est pas celle que je croyais.**
+>
+> Je demandais si FORJA fait *encore* du café. La mesure dit autre chose : **le café va bien, et le dépôt contient un second produit.**
+>
+> **Le café est vivant et cohérent.** `forja-pied.vercel.app` répond **200** avec une page d'accueil complète — traçabilité lot-par-lot, certification EUDR, mise en relation acheteurs, témoignages de coopératives ivoiriennes. Les treize pages du tableau de bord (`clients`, `commandes`, `devis`, `qualite`, `rapports`…) font **3 959 lignes**. Le `DocumentExport` génère des documents d'export en dollars. Rien n'a dérivé.
+>
+> **Mais `src/app/tontine/` existe : 8 fichiers, 1 420 lignes.** Et ce n'est pas du café :
+>
+> | mesure | résultat |
+> |---|---|
+> | provenance | `types/tontine.ts:1` — « **UEEMT** Tontine Groupes Privés » ; `nav.tsx:56` affiche « UEEMT » ; la page dit « Bienvenue dans votre espace tontine **UEEMT** » |
+> | le vrai propriétaire | `ueemt-tokat/main` porte le module complet — **13 fichiers + 2 migrations Supabase** (`20260712_tontine_elections.sql`, `20260718_tontine_groupes_prives.sql`) |
+> | accessible ? | **aucun lien vers `/tontine` dans tout le dépôt** — grep exhaustif, hors du module lui-même |
+> | peut-il fonctionner ? | il interroge `tontine_groups`, `tontine_members`, `tontine_contributions`, `tontine_payouts`. Les migrations de FORJA sont `001_waitlist`, `004_lots`, `005_profils`. **Aucune table tontine.** |
+> | et il redirige vers | `redirect('/connexion')` — **route qui n'existe pas dans FORJA**, elle existe chez UEEMT |
+> | en production | **`forja-pied.vercel.app/tontine` → 500**, `x-matched-path: /tontine` |
+>
+> **Ce que ça ne casse PAS, vérifié :** seuls ces 5 fichiers importent le client Supabase serveur. Le reste du produit café n'en dépend pas — contrairement à AgroTrack le 16 septembre, où le même `process.env.X!` avait emporté seize pages. **Le café n'est pas en panne. Seul le module étranger l'est.**
+>
+> **Ce qui reste à trancher, et qui est à toi :**
+> 1. **Le module part-il ?** C'est du code d'UEEMT, injoignable, non fonctionnel ici. Mais une coopérative de café *peut* légitimement vouloir une tontine — je ne supprime pas 1 420 lignes sur une supposition.
+> 2. **Ou reste-t-il et devient réel ?** Il faudrait alors les deux migrations, une route `/connexion`, et un lien depuis la navigation.
+>
+> **Hypothèse retenue en attendant : on ne touche à rien.** Je n'ai ni supprimé ni masqué le module. Le 500 reste — il est sur une route que rien ne référence, donc personne ne l'atteint sans la taper à la main.
+>
+> **Au passage, `src/lib/supabase/server.ts` porte le motif d'AgroTrack** : `process.env.NEXT_PUBLIC_SUPABASE_URL!` ment au vérificateur de types, et `@supabase/ssr` lève **dans** `createServerClient()`, avant tout garde-fou. Aujourd'hui ça ne touche que la tontine. **Le jour où une page café utilisera ce client, elle tombera de la même façon.**
+
+
 FORJA a douze PR ouvertes. Neuf d'entre elles (#1 à #9, toutes de juillet) construisent un
 produit d'**export de café** : `lots`, `exportations`, `acheteurs`, `finances`, `contrats`,
 avec les migrations `004_lots` → `008_finances`.
@@ -228,77 +322,66 @@ Elle se fusionne sans rien décider d'autre.
 
 ---
 
-### Q11 — African Hybrid Agent tourne en public, sous le nom d'un autre produit (2026-09-08, **hypothèse infirmée le 16**)
+### Q12 — BurkinaCollect ne collecte rien (2026-09-08, **remesurée le 27 septembre**)
 
-⚠️ **Mon hypothèse « non déployé » était fausse.** Vérifié ce matin :
-`https://burkinacollect.vercel.app/` répond **200** et sert **« Aisha — Agent IA Africain »**.
+> **Cette question sous-estimait le problème, et de loin.** Elle parlait du README. Le
+> décalage n'est pas dans le README : il est dans le site lui-même, qui est public.
 
-**Pourquoi cette URL.** Le projet Vercel s'appelait bien `burkinacollect` à l'origine — son
-plus ancien déploiement, du 25 mai, vient du dépôt `burkinacollect`. Il a été **relié au
-dépôt `african-hybrid-agent` le 5 juin**. Tous les déploiements depuis portent
-`githubCommitRepo: african-hybrid-agent`. La production actuelle date du **24 juin**, depuis
-`main @ e20281b6` — le tronc qui n'a plus bougé depuis le 27 juin.
+**Mesuré le 27 septembre sur `main` (a4ec55b), pas supposé :**
 
-**Deux conséquences, et elles vont dans des directions opposées :**
-
-1. **BurkinaCollect n'a aucun déploiement.** L'URL à son nom sert un autre produit. Cela
-   s'ajoute à Q12 : tronc à deux fichiers, application endormie dans la PR #4 en brouillon.
-2. **Le tronc déployé est antérieur à la PR #7**, qui apporte la limite de débit sur
-   `/api/chat`. L'endpoint public tourne donc **sans limite côté code**, et le dépôt est
-   **public**.
-
-**Ce que je n'ai pas fait, volontairement : je n'ai pas sollicité `/api/chat`.** Le tester
-consommerait ton crédit — c'est exactement l'abus contre lequel je te mets en garde. Le commit
-du 5 juin ordonne `Ollama → Claude → OpenAI → synthèse locale` ; sur Vercel il n'y a pas
-d'Ollama, donc la facturation dépend de la présence des clés API dans ce projet, que je ne
-peux pas lire.
-
-| | |
+| Ce que j'ai cherché | Ce que j'ai trouvé |
 |---|---|
-| **A. Fusionner la PR #7** | elle est prête depuis le 2 septembre et pose la limite de débit |
-| **B. Retirer le déploiement public** | si Aisha n'est pas censée être en ligne, le plus simple est de la dépublier |
-| **C. Ne rien faire** | un endpoint IA public et sans limite reste ouvert, sur un dépôt public |
+| `<form>` dans tout `src/` | **aucun** |
+| `<input>`, `<textarea>` | **aucun** |
+| `fetch(` | **aucun** |
+| pages | **deux** — `/` et `/about` |
+| qui importe `useOfflineSync` | **personne** — seulement les tests |
 
-**Hypothèse retenue : je ne touche à rien.** Dépublier est une action de production (§3), et
-fusionner t'appartient. Je n'ai pas réécrit la limite de débit : **elle existe déjà dans la
-PR #7**, et la réécrire aurait été du travail perdu — c'est d'ailleurs ce que ma note de
-rotation m'aurait fait faire ce matin si je n'avais pas vérifié.
+**BurkinaCollect ne collecte rien.** Les deux pages sont une plaquette commerciale. Le
+seul code métier du dépôt, le hook de synchronisation hors-ligne, est testé (8 tests),
+annoncé sur `/about` — « Offline — Hook useOfflineSync maison » — et **branché à rien**.
 
-**Réponse de Steeve :** _(en attente)_
+C'est le motif de la tontine de FORJA, en pire : là-bas le module mort était injoignable
+et personne ne l'annonçait. Ici, la page d'à-propos le présente aux visiteurs.
 
----
+**Les trois chiffres de la page d'accueil.**
 
-### Q12 — Le README de BurkinaCollect décrit un produit qui n'existe pas (2026-09-08)
+```
+500+     Collecteurs formés
+1 200+   Formulaires créés
+35       Régions couvertes
+```
 
-Le dépôt est **public**. Sa branche par défaut contient **deux fichiers** : `README.md` et
-`hooks/useOfflineSync.ts`. Pas de `package.json`, pas d'application.
+Ils sont en dur dans `src/app/page.tsx` et affichés comme des faits sur un site public,
+pour un produit qui n'a **aucun formulaire**. C'est **Q2** (les métriques sont
+illustratives) appliqué non plus à une vitrine interne mais à la promesse publique d'un
+produit.
 
-Ce README présente pourtant un produit fini — badges Next.js 16 / React 19 / TypeScript /
-Tailwind, un lien « 🌍 Voir le site live » vers `burkinacollect.vercel.app`, et six
-fonctionnalités : dashboard opérationnel, form builder, sync queue offline, gestion des agents,
-carte des zones, dashboard superviseur. **Aucune des six n'existe dans aucune branche.** La plus
-avancée (PR #4) a deux routes : `/` et `/about`.
+⚠️ **Un point à vérifier de ton côté :** « 35 régions couvertes » ne correspond à aucun
+découpage administratif du Burkina Faso que je connaisse — le pays compte 13 régions
+(17 depuis la réforme de 2024) et 45 provinces. Je ne peux pas vérifier depuis cette
+session, mais le chiffre semble ne renvoyer à rien.
 
-Ce n'est pas une question technique, c'est une question de parole publique — donc la tienne.
+**Ce que ça change pour la Phase 1.**
+
+BurkinaCollect était, avec Problem-to-Projects, l'un des **deux seuls produits publiés** et
+donc l'un des plus proches du KPI de sortie. La mesure le retire de cette liste : un
+produit qui ne collecte rien n'aura pas d'utilisateur réel, quelle que soit sa vitrine.
 
 | | Quoi | Effet |
 |---|---|---|
-| **A. Corriger le README** | décrire ce qui existe, et déplacer les six fonctionnalités dans une section « feuille de route » | le dépôt redevient honnête tout de suite ; la promesse reste lisible, mais datée |
-| **B. Construire ce que le README annonce** | six fonctionnalités à écrire | c'est un vrai chantier, pas une correction ; entre-temps le décalage reste public |
-| **C. Rendre le dépôt privé le temps de rattraper** | | tu perds la vitrine, qui est peut-être ce à quoi elle sert |
+| **A** | Aligner le site sur ce qui existe, et déplacer les promesses dans une feuille de route datée | honnête tout de suite ; la vision reste lisible |
+| **B** | Construire le formulaire de collecte et brancher `useOfflineSync` | c'est **le produit**, pas une correction. Une semaine de travail au moins |
+| **C** | Rendre le dépôt privé le temps de rattraper | tu perds la vitrine, qui est peut-être son seul rôle aujourd'hui |
 
-**Hypothèse retenue : A**, puis B au rythme des loops. **Je n'ai rien modifié** : réécrire la
-promesse publique d'un projet est ta parole, pas la mienne — même limite que `PROJECT.md` et
-`VISION.md` (`00-protocole-forge.md §3`, règle 10).
+**Hypothèse retenue : A**, et **je n'ai rien modifié**. Réécrire la promesse publique d'un
+produit est ta parole, pas la mienne (`00-protocole-forge.md §3`, règle 10). Les trois
+chiffres et la mention « Offline » sur `/about` sont du contenu public : je les signale,
+je ne les touche pas.
 
-⚠️ **Indépendamment de Q12, deux choses sont urgentes et sans ambiguïté :**
-
-1. Le seul code de `main`, `useOfflineSync.ts`, **perd des soumissions terrain en silence** — un
-   item qui épuise ses `MAX_RETRIES` est effacé de `localStorage` sans avoir été envoyé et sans
-   trace. Pour un outil de collecte offline-first, c'est le pire défaut possible.
-2. La **PR #4** corrige exactement cela, publie l'application et ajoute une CI. Je l'ai vérifiée :
-   lint 0, 6/6 tests, build 3 routes. **Elle est en brouillon depuis le 2 septembre** — c'est
-   probablement la seule raison pour laquelle personne ne l'a regardée.
+**Ce que j'ai corrigé, parce que ce n'est pas du contenu public :** le hook se terminait
+par « `// v1.1 - exponential backoff retry` » alors qu'aucun backoff n'existe. Note
+retirée, pas de fonctionnalité ajoutée — **PR #5**, lint/types/8 tests/build verts.
 
 **Réponse de Steeve :** _(en attente)_
 
@@ -397,60 +480,53 @@ masquaient ce trou), et il n'y a **aucune CI**. La **PR #35** corrige tout : vé
 
 ---
 
-### Q15 — CompTrack : `feat/comptrack-v1` ou `main` ? (2026-09-09, réécrite le 15)
+### Q15 — CompTrack : une vitrine tourne, le produit non (2026-09-09, réécrite le 17)
 
-⚠️ **Ce que je t'ai dit le 9 septembre était incomplet, et l'incomplet penchait du mauvais côté.**
-Je t'avais présenté `feat/comptrack-v1` comme le tronc parce que c'est la branche par défaut sur
-GitHub. Je n'avais pas regardé Vercel. Vercel dit l'inverse.
+> **Cette question a changé de nature le 17 septembre.** Je la posais comme « laquelle
+> des deux branches est le vrai tronc ». La mesure dit autre chose, et la vraie question
+> est plus simple à trancher.
 
-**Les deux réglages se contredisent :**
+**Ce que tu as fusionné hier n'a pas livré.** La **#39** — le garde du tableau de bord —
+visait `feat/comptrack-v1`. Son déploiement porte `target: null` : une **prévisualisation**.
+Les **cinq** déploiements `target: production` du projet viennent tous de `main`, le plus
+récent étant ta propre fusion de la #40, hier à 19h32.
 
-| | GitHub | Vercel |
+**Et je me suis trompé deux fois sur ce dépôt, dans le même sens.** Les 9 et 15 septembre
+j'ai écrit que le tableau de bord comptable « s'ouvre à qui connaît l'adresse — paie,
+déclarations fiscales, trésorerie, bilan ». C'est faux, et la vérification tient en une
+commande :
+
+```
+$ grep -rn "from '@supabase" --include=*.ts --include=*.tsx .   → aucun
+$ grep -rnE "fetch\(|axios|createClient" app lib components     → aucun
+```
+
+`@supabase/ssr` est bien dans `package.json` de `main`, et **rien ne l'importe**. Aucun
+appel réseau nulle part. Les chiffres des 18 pages sont des tableaux écrits en dur.
+**Il n'y a pas de salaires exposés : il n'y a pas de salaires.**
+
+| | `main` | `feat/comptrack-v1` |
 |---|---|---|
-| Branche désignée | `feat/comptrack-v1` (branche par défaut) | `main` (branche de production) |
-| Ce que ça commande | la base par défaut d'une PR, ce qu'un `git clone` récupère | **ce qui est réellement livré** |
+| en production | **oui**, 5 déploiements sur 5 | jamais |
+| pages | 18 | 21 |
+| données | **aucune**, tout en dur | schéma Supabase, tests |
+| authentification | aucune | connexion + garde (#39, fusionnée) |
+| ce que c'est | une **vitrine** | le **produit** |
 
-Les six déploiements `target: "production"` du projet viennent **tous** de `main`, sans exception.
-Tous ceux de `feat/comptrack-v1` sont des previews (`target: null`). Le dernier déploiement en
-production est `69d3ff7` — la pointe actuelle de `main`, du 10 août.
+**La question, donc :** veux-tu que `v1` devienne ce qui est servi ?
 
-**Conséquence sur la pile de PR, exactement à l'envers de ce que j'avais écrit :** les 17 PR qui
-visent `main` visent ce qui est réellement livré. Les 4 qui visent `v1` — dont **ma propre #38** —
-visent une branche qui n'a jamais rien mis en production.
+| | |
+|---|---|
+| **A. Oui** | il faut faire pointer la production de Vercel sur `v1` (ou fusionner `v1` dans `main`), et les 17 PR qui visent `main` deviennent à retrier |
+| **B. Non, `main` reste la vitrine** | alors `v1` est un prototype, et il faut le dire — sinon chaque passage y remettra du travail qui ne sera jamais servi |
 
-**Et le fond du problème, qu'aucun des deux troncs ne résout :**
+**Hypothèse retenue : aucune, et je ne construis rien ici.** Ce dépôt a 20 PR ouvertes,
+au-delà du seuil de triage. Et surtout : **je n'ai pas porté le garde sur `main`** — il
+n'y protégerait rien, et le faire trancherait à ta place. Si ta réponse est A, le chantier
+n'est pas « poser un verrou sur la vitrine », c'est « faire servir le produit ».
 
-| | `feat/comptrack-v1` | `main` ← **en production** |
-|---|---|---|
-| Commits depuis la divergence (`ddf6add`, 27 juin) | 12 | 36 |
-| Pages | 24 | 20 |
-| Page de connexion | oui, `signInWithPassword` réel | **aucune** |
-| Le tableau de bord est-il protégé ? | **non** — `middleware.ts` ne fait que limiter le débit de `/api/*` | **non** |
-
-Autrement dit : un logiciel de comptabilité SYSCOHADA, livré, dont **tout le tableau de bord
-s'ouvre à qui connaît l'adresse** — salaires, déclarations fiscales, trésorerie, bilan. Ce n'est
-pas une conséquence de la question du tronc : c'est vrai des deux côtés. La différence est que
-`v1` a déjà la porte et qu'il n'y manque que le mur ; `main` n'a ni l'un ni l'autre.
-
-| | Pour | Contre |
-|---|---|---|
-| **A. `main` devient le tronc partout** | c'est déjà ce qui est livré ; 36 commits contre 12 ; 17 PR sont déjà bien ciblées | il faut y porter connexion, inscription, paie, déclarations, bilan — et changer la branche par défaut GitHub |
-| **B. `feat/comptrack-v1` devient le tronc partout** | il porte l'authentification, la paie, les déclarations, le bilan : le cœur d'un SaaS de comptabilité | il faut re-cibler ou fermer 17 PR **et** changer la branche de production Vercel, donc toucher à la production |
-| **C. Réconcilier les deux** | rien n'est perdu — la seule option qui garde `catalogue` / `vente-rapide` **et** la paie | 36 et 12 commits divergents sur les mêmes fichiers : un chantier à part entière, pas une manipulation |
-
-**Hypothèse retenue : je ne tranche pas, et j'arrête de construire à l'aveugle sur CompTrack.**
-Changer une branche de production Vercel est une action de production — le protocole me l'interdit
-(§3). Changer la branche par défaut GitHub re-base 17 PR d'un coup. Les deux t'appartiennent.
-En attendant, je continue de baser mes PR sur `feat/comptrack-v1`, parce que c'est la branche par
-défaut et que ma #38 y vit déjà — mais **je sais désormais que cela ne va nulle part en
-production**, et je préfère te le dire que laisser l'ambiguïté travailler pour moi.
-
-Ce que j'ai quand même fait, parce que c'est vrai quelle que soit ta réponse : **PR #39** sur `v1`
-— le tableau de bord ne s'ouvre plus sans connexion. Liste blanche (une page ajoutée demain est
-protégée sans que personne y pense), `getUser()` et jamais `getSession()`, et la distinction entre
-« personne n'est connecté » et « ce déploiement n'a pas de Supabase », que le repli sur
-`http://placeholder.supabase.co` rendait invisible. 15 tests, dont quatre sabotages délibérés du
-garde qui les font bien échouer.
+**Ce que je n'ai pas fait, et qui t'appartient :** repointer la branche de production chez
+l'hébergeur, fusionner `v1` dans `main`, ou fermer des PR.
 
 **Réponse de Steeve :** _(en attente)_
 
@@ -479,33 +555,58 @@ et B suppose de toucher au schéma.
 
 ---
 
-### Q17 — UEEMT-Tokat : `dev` est-elle encore vivante ? (2026-09-12)
+### Q17 — UEEMT-Tokat : `dev` est morte, mesuré (2026-09-12, tranchée par la mesure le 18)
 
-Quatre des sept PR ouvertes — **#8, #7, #6, #5**, toutes de juin-juillet — visent la branche
-`dev`, pas `main`. Les trois autres (#14, #12, #11) visent `main`, qui est la branche par défaut
-et a avancé jusqu'au 29 juillet.
+> **Je posais la question dans le vide : elle se mesure.** Sur un clone **complet** :
+>
+> ```
+> dev est-il contenu dans main ?   OUI — déjà fusionné
+> main a 33 commits que dev n'a pas
+> dev a  0 commits que main n'a pas
+> ```
+>
+> `dev` n'a **rien** en propre. Figée au 26 juillet ; `main` a bougé hier.
 
-C'est le motif déjà rencontré chez CompTrack : des PR qui pointent vers une branche que le
-produit n'utilise peut-être plus.
+**Ce que ça change concrètement : quatre des six PR ouvertes visent cette branche morte.**
 
-| | Si… | Alors |
-|---|---|---|
-| **A. `dev` est un vestige** | `main` est la seule branche vivante | re-cibler les 4 PR sur `main`, ou les fermer si leur contenu y est déjà |
-| **B. `dev` est une branche d'intégration active** | le flux est `feature → dev → main` | les 4 PR sont légitimes ; c'est `main` qui doit recevoir `dev` régulièrement |
+| PR | base | déjà dans `main` ? | fusionnable dans `main` ? |
+|---|---|---|---|
+| **#8** gouvernance | `dev` | **OUI — absorbée par la #9** | propre |
+| **#11** logos archives | `main` | non | **propre** |
+| #5 annonces | `dev` | non | 1 conflit |
+| #6 membres filtres | `dev` | non | 2 conflits |
+| #7 cotisations CSV | `dev` | non | 3 conflits |
+| #12 photo fondateur | `main` | non | 1 conflit |
 
-**Hypothèse retenue : A.** `main` porte les commits les plus récents et c'est la branche par
-défaut. **Je n'ai ni re-ciblé ni fermé** — re-cibler quatre PR est un geste qui t'appartient.
+**Trois gestes, tous à toi :**
 
-⚠️ **Indépendamment de Q17** : `npm run build` **échoue** sur `main` sans `RESEND_API_KEY` —
-`src/lib/email.ts` construisait le client Resend au chargement du module. Aucune CI ne peut donc
-construire ce dépôt. La **PR #14** corrige cela et les 131 erreurs de lint : vérifiée ici,
-0 erreur, build 38 pages.
+1. **Fermer la #8** — sa branche est déjà dans `main` via la #9. Deux PR pour une même branche ; rien à perdre.
+2. **Recibler la #11 sur `main`** — la seule qui passe proprement.
+3. **Supprimer ou repointer `dev`** — zéro commit unique, mesure à l'appui.
+
+Pour **#5, #6, #7, #12** : du travail réel, des conflits réels. **Dis-moi lesquelles comptent encore et je les résous.**
+
+**Hypothèse retenue : je ne touche à rien.** Fermer, recibler ou supprimer une branche sont des gestes du protocole §3 — et ce sont tes PR.
 
 **Réponse de Steeve :** _(en attente)_
 
 ---
 
 ### Q18 — Lequel des deux produits d'élevage est le bon ? (2026-09-13)
+
+> **16 septembre — tu as fusionné dans les DEUX, et ça ne tranche pas.**
+> `livestockos` #10 (réparation des 17 tests) et `livestock-os` #3 (les volailles
+> comptées et jamais affichées) ont été fusionnées à cinq minutes d'intervalle.
+> Je ne le lis pas comme une réponse : réparer un dépôt n'est pas le choisir, et tu as
+> réparé les deux. La question reste posée.
+>
+> Mesuré au passage sur `livestockos` : sa branche par défaut, `feat/animaux-rapports`,
+> est **entièrement contenue dans `main`** — zéro commit unique, `main` a 18 commits
+> qu'elle n'a pas. La repointer sur `main` ne peut donc **rien** faire perdre. C'est un
+> réglage GitHub qui t'appartient (protocole §3), et il vaut quelle que soit ta réponse
+> à Q18.
+>
+> Son `main` est vert : **133/133**, vérifié sur le `main` fusionné et non sur ma branche.
 
 Le registre classe `livestock-os` en **tier 3**, avec la mention *« doublon présumé »*. Le
 contrôle de santé d'aujourd'hui montre que **les deux affirmations sont fausses** :
@@ -621,7 +722,33 @@ la règle sur le modèle des Routines ne me laisse pas d'autre choix.
 
 ---
 
-### Q21 — AgroTrack BF : `/dashboard` répond 500 en production (2026-09-16)
+### Q21 — AgroTrack BF : il ne casse plus, il n'est pas en service (2026-09-16, mis à jour le soir même)
+
+> **Mise à jour du 16 septembre, 18h53 UTC — la panne est terminée.**
+>
+> Tu as fusionné la **#19** à 15h01. La production a été redéployée, et `/dashboard`
+> répond désormais **200** : il redirige vers `/auth/login?raison=non-configure`, la
+> bannière nomme les deux variables manquantes, et le bouton de démo est désactivé.
+> **Vingt-cinq jours de 500, terminés.** Le produit ferme au lieu de casser.
+>
+> **Il n'est pas en service pour autant** — la question ci-dessous reste entière.
+>
+> **⚠️ Et une chose à régler AVANT d'y répondre.**
+>
+> La page de connexion, enfin visible, **imprimait le mot de passe du compte de
+> démonstration en clair**. Aujourd'hui il ne vaut rien : sans Supabase, le compte
+> n'existe pas. Mais à la seconde où tu poseras les deux variables, ce mot de passe
+> devient un **identifiant valide affiché à qui charge l'adresse**.
+>
+> La **PR #20** le retire : les identifiants viennent de `DEMO_EMAIL` et
+> `DEMO_PASSWORD` (sans préfixe `NEXT_PUBLIC_`), le bouton « Accéder à la démo » reste,
+> le mot de passe disparaît. **Fusionne-la avant de poser les variables.**
+>
+> **La valeur qui était affichée est brûlée** : elle a été publique et reste dans
+> l'historique git. `DEMO_PASSWORD` doit recevoir une valeur **neuve**.
+>
+> *Je ne l'avais pas vue parce que la page ne s'affichait pas — elle était derrière le
+> 500. Réparer la panne a rendu le défaut visible.*
 
 `https://agrotrack-bf.vercel.app/dashboard` renvoie **HTTP 500**. Vérifié ce matin à
 02h19 UTC. Le relevé du **22 août** signalait déjà la même panne : **vingt-cinq jours**
@@ -668,7 +795,272 @@ le jour où une variable sera oubliée à nouveau, le produit fermera au lieu de
 
 ---
 
+### Q22 — Sahel Commerce AI : ce qui est écrit hors ligne ne remonte jamais (2026-09-18)
+
+Ma **PR #2** répare le fait que l'application ne **revenait** jamais en ligne après une
+coupure. Elle ne répare pas la moitié suivante.
+
+`VISION.md §4` demande deux choses : *« l'app fonctionne sans connexion »* — c'est fait,
+et bien fait, le mode local persiste dans `localStorage` et le dit honnêtement — *« et
+**se synchronise quand elle revient** »* — **ça, ça n'existe pas.**
+
+Concrètement : un commerçant hors réseau enregistre trois ventes. Elles sont sauvegardées
+**sur son téléphone**. Le réseau revient, l'application se reconnecte (grâce à la #2), et
+les trois ventes **restent sur le téléphone**. Le serveur ne les verra jamais.
+
+Rien ne ment — la bannière dit « les données restent sur cet appareil ». Mais un outil de
+gestion de boutique dont les écritures ne remontent pas n'est pas un outil de gestion.
+
+| | Quoi | Pour / contre |
+|---|---|---|
+| **A. File d'attente locale + rejeu au retour** | chaque écriture hors ligne est empilée, puis rejouée quand le backend répond | le vrai geste ; demande des identifiants stables et une idempotence côté serveur, sinon un rejeu double les ventes |
+| **B. Lecture seule hors ligne** | on consulte hors ligne, on n'écrit que connecté | honnête et simple, mais ampute le produit là où il sert le plus — au marché, sans réseau |
+| **C. Rien de plus, c'est une démonstration** | l'état actuel | tenable tant qu'aucun commerçant réel n'y saisit ses ventes |
+
+**Hypothèse retenue : C tant que c'est une démonstration**, exactement comme **Q16** — et
+les deux se répondent ensemble. A n'a de sens qu'avec l'authentification de Q16 : sans
+savoir **qui** écrit, une file d'attente rejoue des ventes sans propriétaire.
+
+**Ce que je n'ai pas fait :** aucune file, aucun rejeu. C'est une architecture, et elle
+touche au schéma comme Q16.
+
+**Réponse de Steeve :** _(en attente)_
+
+---
+
+### Q23 — 🚨 PRODUCTION — Depuis le 26 septembre, rien ne monte plus en ligne (2026-09-28)
+**Contexte :** les trois derniers déploiements de production tentés dans le portefeuille
+sont tous `BLOCKED`, avec le même lien d'erreur fourni par Vercel
+(`troubleshoot-project-collaboration#team-configuration`) :
+
+| Quand (UTC) | Projet | Ce qui devait monter | État |
+|---|---|---|---|
+| 26 sept 10h15 | portfolio | ta photo sur téléphone | **READY** — le dernier qui passe |
+| 26 sept 12h07 | combine | `main` @ 65f7cbd | **BLOCKED** |
+| 26 sept 14h08 | ueemt-tokat | le module Tontine « La Main » (#15) | **BLOCKED** |
+| 27 sept 06h04 | comptrack | **ton push** Golden Prompt + règles IA | **BLOCKED** |
+
+Les **prévisualisations** fonctionnent normalement — vérifié le 27 et le 28 sur quatre
+dépôts. Le blocage ne touche que la production.
+
+**Enjeu :** il passe devant toute la file de PR. Fusionner aujourd'hui fait atterrir le code
+sur le tronc, mais le déploiement qui suit est bloqué et le site continue de servir l'ancien
+build. Concrètement : fusionner `duka-boutique#11` ne rendrait pas la vente aux commerçants,
+et le module Tontine d'UEEMT reste invisible bien qu'il soit fusionné depuis le 26.
+
+**Ce que je ne peux pas te dire :** la cause. `get_team` n'expose ni le plan ni l'état de
+facturation, et le lien d'erreur pointe vers un réglage d'équipe lisible sur ton tableau de
+bord, pas d'ici. Je préfère l'écrire que d'inventer une cause plausible.
+
+**Hypothèse retenue :** c'est un réglage de compte ou de plan que toi seul peux lever. Je
+continue donc à préparer et vérifier les PR normalement, mais je ne présente plus aucune
+fusion comme « mettant quelque chose en ligne » tant que le blocage tient. Aucune tentative
+de redéploiement de ma part.
+
+**Ce que je n'ai pas fait, et qui t'appartient :** ouvrir le tableau de bord Vercel, lire la
+raison, la lever. Relancer un déploiement de production ou changer un réglage d'équipe est
+interdit par `00-protocole-forge.md §3` règle 6. Dès que le premier déploiement repasse en
+`READY`, je peux vérifier les pages moi-même — le connecteur Vercel me le permet depuis le
+27 septembre (règle 49).
+
+**Réponse de Steeve :** _(en attente)_
+
+---
+
+### Q24 — 🚨 ARCHITECTURE — La session a dormi quatre jours, et quatre matins sont partis avec (2026-10-03)
+
+**Le fait, mesuré au réveil.** Les Routines ont sonné normalement. Le Forge Quotidien du
+**29 septembre, du 30, du 1er et du 2 octobre** est arrivé dans la file et n'a jamais été
+traité : la session dormait. Je ne l'ai vu qu'au tour du 3 octobre, en lisant les
+notifications d'un coup. Même chose pour la veille des troncs, qui a sonné 26 fois.
+
+Ce n'est pas une surprise, c'est la limite écrite dans `CLAUDE.md` : *« il n'y a qu'un seul
+point de défaillance : le 11 septembre la session dormait quand la Routine a sonné, et la
+journée entière a été perdue. »* Elle a coûté **un** jour le 11 septembre. Elle vient d'en
+coûter **quatre**.
+
+**Ce que ça fait au débit réel.** Le système annonce 2 projets par jour, soit un tour du
+portefeuille en deux semaines. Sur les neuf derniers jours il en a traité **deux**. Le tour
+du portefeuille est donc à plus de deux mois, pas deux semaines.
+
+**Ce que je ne peux pas faire.** Créer, rallumer ou reconfigurer une Routine est `§3`. Je ne
+touche à rien — y compris et surtout pas à une Routine de secours que je me serais écrite
+à moi-même.
+
+**Les trois options, et leur prix :**
+
+| | Ce que ça change | Ce que ça coûte |
+|---|---|---|
+| **A. Statu quo** | rien | un trou de 1 à 4 jours à chaque fois que la session dort |
+| **B. Une Routine en session neuve** en secours du Quotidien | plus aucun trou : une session neuve démarre toujours | elle perd le contexte — c'est exactement ce que la session vivante apportait, et pourquoi les 24 loops ont été éteints |
+| **C. Rallumer les 26 loops** (c'est Q19) | 25 projets/semaine au lieu de 2/jour | ils ne peuvent pas attacher de dépôt : paramètre `connectors` indisponible pour l'organisation |
+
+**Mon hypothèse retenue, et je continue dessus : A.** Non pas parce qu'elle est bonne, mais
+parce que B et C sont toutes deux des actions sur des Routines, et qu'aucune ne m'appartient.
+Je note juste que A est la seule des trois dont on connaisse déjà le prix : cinq jours
+perdus en trois semaines.
+
+**Ce que ça te demande :** une ligne. « B » et je prépare la Routine de secours pour que tu
+la crées toi-même, avec son prompt écrit. « A » et je ne reparle plus de ce trou.
+
+**Réponse de Steeve :** _(en attente)_
+
+---
+
+### Q25 — 📱 QG — La landing sert 278 Ko de JavaScript, et cache son texte derrière une animation (2026-10-03)
+
+**Mesuré le 3 octobre**, première application réelle du playbook 05 sur une surface
+d'acheteur. Les deux chiffres sont du premier chargement, gzip, calculés sur le HTML
+prérendu :
+
+| Route | JS gzip au 1er chargement | Seuil du playbook |
+|---|---|---|
+| `/` (la landing) | **278 Ko** | 150 Ko |
+| `/dashboard` | **369 Ko** | 150 Ko |
+| `/ecosystem` | 279 Ko | 150 Ko |
+| `/auth/login` | 321 Ko | 150 Ko |
+
+**Toutes les routes du QG sont au-dessus du seuil**, de 1,7 à 2,5 fois. Sur la landing,
+**94 Ko — un tiers du total — sont des bibliothèques d'animation** : gsap 56 Ko,
+framer-motion 38 Ko. Le QG en embarque trois (gsap, framer-motion, lenis) là où le playbook
+en autorise une. Sur un Android d'entrée de gamme en 2G, 278 Ko gzip, c'est une dizaine de
+secondes de téléchargement avant même l'analyse du script.
+
+**Le second fait est plus gênant que le premier.** La page est rendue par le serveur avec
+**53 éléments en `opacity:0`** en style en ligne : c'est framer-motion qui les révèle à
+l'entrée dans le viewport. Sans JavaScript — et sur un téléphone lent, « sans » veut aussi
+dire « pas encore » — le visiteur voyait **40 blocs de texte invisibles** sur une page de
+15 459 px. C'est la règle 5 du playbook : *le contenu ne dépend jamais d'une animation*.
+
+**Ce que j'ai fait aujourd'hui, et qui est dans la PR :** un filet `<noscript>` qui rend tout
+visible si le JavaScript ne tourne pas. Vérifié au navigateur : **40 blocs invisibles → 0**,
+et la landing est entière et lisible sur un écran de 360 px. Plus `prefers-reduced-motion`
+respecté partout, qui n'existait nulle part dans le dépôt.
+
+**Ce que je n'ai pas fait, parce que ça t'appartient :** retirer la deuxième bibliothèque
+d'animation. Enlever gsap rend 56 Ko sur la landing, mais réécrit le compteur animé, la
+lueur qui suit le curseur, les anneaux de l'écosystème et le défilement inertiel. C'est la
+page que voit un investisseur : je ne change pas sa texture sans te le demander.
+
+**Mon hypothèse retenue, et je continue dessus :** je garde les trois bibliothèques et je ne
+touche pas au rendu. Le chantier « une seule bibliothèque » attend ton accord.
+
+**Ce que ça te demande :** « vas-y » si les 56 Ko valent de perdre la lueur au curseur et le
+défilement inertiel, « non » si la texture actuelle est ce que tu veux montrer.
+
+**Réponse de Steeve :** _(en attente)_
+
+---
+
+### Q26 — 🔑 PERMISSION — Le correctif de TAAMA attend ta décision, pas du travail (2026-10-03)
+
+`add_repo(owner="dosteeve2-hash", repo="taama", access="push")` m'a été **refusé** ce matin
+par le contrôle de permissions de la session. Je n'ai pas cherché à contourner : ni par
+`git push` depuis le clone existant, ni par les outils GitHub. Le correctif existe donc,
+vérifié, et n'est nulle part sur GitHub.
+
+Il est à l'abri dans ce dépôt :
+`AUTOMATION/correctifs-en-attente/taama-peremption-horloge-reelle.patch`.
+
+Ce qu'il corrige est décrit dans `AUTOMATION/rapports/taama/2026-10-03.md` : l'écran
+d'inventaire annonce « ⚠ 24j » à un vaccin périmé depuis 32 jours, en production, à cette
+minute.
+
+**Ce que ça te demande :** soit tu m'accordes l'accès en écriture à `taama` et je pousse la
+branche + la PR draft au prochain tour, soit tu appliques le patch toi-même :
+
+```bash
+git fetch origin main && git checkout -b fix/expiration-horloge-reelle origin/main
+git am < taama-peremption-horloge-reelle.patch
+```
+
+---
+
+**Second patch, trouvé à la veille de 04h05 : `Mifa_Life_shop`.**
+
+La production de MIFA Life est **figée depuis le 16 septembre à 15h02**. Netlify échoue au
+stade « preparing repo », avant même le build :
+
+```
+Error checking out submodules: fatal: No url found for submodule path
+'Mes pages html/.claude/worktrees/charming-neumann-3e17c2' in .gitmodules
+```
+
+Une worktree Claude Code a été commitée comme gitlink, sans `.gitmodules`. **Ce défaut
+avait déjà été corrigé le 2 septembre** (`3e0d92a`) ; il est revenu le 16 septembre par la
+fusion de la #29, qui portait un commit du 12 juillet, antérieur au correctif.
+
+Ce que ça coûte : les fusions des **#23, #29 et #30 ne sont jamais montées en ligne**. Un
+produit tier 1 déclaré « Actif » n'a reçu aucune mise à jour depuis 17 jours, et rien ne
+l'affichait — les contrôles Netlify n'apparaissent que sur les PR, jamais sur le tronc.
+
+Reproduit en première main : `git submodule update --init --recursive` rend **128 sur
+`main`**, avec le message exact de Netlify, et **0 sur la branche corrigée**. Le correctif
+est d'une ligne : `AUTOMATION/correctifs-en-attente/mifa-life-sous-module-fantome.patch`.
+
+**Mon hypothèse retenue :** je garde les deux patchs ici et je les re-vérifie à chaque tour
+tant que les troncs ne bougent pas. S'ils bougent, je rejoue la vérification avant de te les
+proposer encore.
+
+---
+
+**⚠️ Correction du soir : ma prémisse était trop large.**
+
+J'ai écrit ce matin « je ne peux pas pousser ». C'était vrai de `taama` et **faux en
+général**. Ce qui a été refusé, c'est l'outil `add_repo` sur `taama` ; un `git push` sur une
+branche passe, comme l'a montré la résolution de `indubot-afrika#4` ce soir.
+
+**Conséquence appliquée :** le correctif MIFA Life est poussé et ouvert en brouillon —
+**`Mifa_Life_shop#51`**. Branche et PR draft, rien de fusionné, entièrement réversible :
+c'est le schéma standard de ce système, pas une permission élargie.
+
+**Conséquence NON appliquée :** je n'ai rien poussé sur `taama`. Tu as refusé cet accès
+précis ce matin, et un chemin technique qui existe par ailleurs ne transforme pas un refus
+en accord. Le patch reste dans `AUTOMATION/correctifs-en-attente/`.
+
+**Ce que ça te demande :** un mot sur `taama`. Soit « vas-y » et je pousse la branche + la
+PR draft au prochain tour, soit tu appliques le patch toi-même :
+
+```bash
+git fetch origin main && git checkout -b fix/expiration-horloge-reelle origin/main
+git am < taama-peremption-horloge-reelle.patch
+```
+
+**Réponse de Steeve :** _(en attente)_
+
+---
+
+
 ## ✅ Questions résolues
+
+### [2026-09-19] Q11 — African Hybrid Agent : l'endpoint IA public est fermé
+
+**Résolu par toi le 16 septembre, et je ne l'ai vu que trois jours plus tard.**
+
+Ce que je signalais depuis le 8 : `burkinacollect.vercel.app` sert `african-hybrid-agent`,
+dont `/api/chat` tournait **sans limite de débit**, sur un dépôt **public**.
+
+Tu as fusionné la **PR #7 le 16 septembre à 15h00:00 UTC** — la deuxième fusion de ta session.
+
+**Vérifié dans les deux sens, sans solliciter l'endpoint :**
+
+```
+src/lib/rate-limit.ts:4   export const AI_RATE_LIMIT = { limit: 20, windowSeconds: 3600 }
+src/app/api/chat/route.ts:41   logOptional("orchestrator", "rate_limited", …)
+```
+
+Vingt requêtes par heure — exactement la règle de `CLAUDE.md`. Et en production : déploiement
+`target: production`, état `READY`, depuis `main @ f99cc32`, dont le message de commit est
+« Merge pull request #7 — Limite de débit sur l'endpoint IA ».
+
+*Je n'ai pas appelé `/api/chat` : la métadonnée du déploiement et le code source suffisent, et
+l'appeler dépenserait le crédit que la limite protège.*
+
+**Ma faute :** j'ai porté cette question en tête de cinq check-ins comme « urgente, sans
+réponse », alors qu'elle était close. Mon décompte des fusions venait de mes notifications, pas
+des dépôts — **règles 30 et 31**.
+
+---
 
 ### [2026-09-05] REGISTRE — Que sont réellement ComptTrack, Forja, InduBot, Duka, Mifa, UEEMT ?
 **Résolu sans toi**, par lecture de `lib/constants.ts` sur `master` — la source de vérité

@@ -1,7 +1,7 @@
 {
   "projet": "mifa-life-shop",
   "nom": "MIFA Life",
-  "derniere_execution": "2026-09-08",
+  "derniere_execution": "2026-10-03",
   "mode": "TRIAGE (22 PR ouvertes)",
   "verdict": "🔴 le tronc ne s'installe pas",
   "tronc": "main, dernier commit f3991a8 du 10 aout, 38 pages, 30 branches",
@@ -12,14 +12,40 @@
     "lint_avec_46": "0 erreur, 65 avertissements",
     "tests_avec_46": "90 / 90, 4 fichiers",
     "build_avec_46": "passe, 38 pages",
-    "conclusion": "a fusionner AVANT tout le reste — tant que le depot ne s'installe pas, aucune des 21 autres PR ne peut etre validee"
+    "conclusion": "a fusionner AVANT tout le reste — tant que le depot ne s'installe pas, aucune des 21 autres PR ne peut etre validee",
+    "SUITE_DONNEE": {
+      "etat_de_la_pr": "FUSIONNEE",
+      "fusionnee_le": "2026-09-16T14:59:53Z",
+      "fusionnee_par": "dosteeve2-hash",
+      "verifie_le": "2026-09-19",
+      "methode": "API GitHub, champ merged=true et merged_at — pas le tableau du recensement, qui n'est qu'une copie",
+      "ce_que_ca_change": "Le depot s'installe de nouveau (npm ci passait plus). La recommandation « a fusionner AVANT tout le reste » est HONOREE : les 21 autres PR du depot peuvent desormais etre validees.",
+      "pourquoi_ce_champ_existe": "Sans lui, le bloc ci-dessus se lit comme une recommandation EN ATTENTE. Il l'a ete trois jours de trop. Voir regle 32."
+    }
   },
   "chaine_juin_juillet": {
     "_doc": "Verifie avec git merge-base --is-ancestor : chaque branche contient STRICTEMENT la precedente. Seule la pointe #21 compte.",
-    "ordre": ["#13 shop-skeleton-loading", "#14 improvements-0629", "#15 testimonials-newsletter", "#16 collections-page", "#17 posthog-analytics", "#18 product-detail", "#19 cart-panier", "#20 checkout-confirmation", "#21 compte-utilisateur"],
+    "ordre": [
+      "#13 shop-skeleton-loading",
+      "#14 improvements-0629",
+      "#15 testimonials-newsletter",
+      "#16 collections-page",
+      "#17 posthog-analytics",
+      "#18 product-detail",
+      "#19 cart-panier",
+      "#20 checkout-confirmation",
+      "#21 compte-utilisateur"
+    ],
     "retard": "25 commits",
     "obsolescence": "Le tronc a refait ce terrain autrement : src/app/panier/page.tsx que la #19 ajoute EXISTE DEJA, et le commit f046674 du 8 aout (pages panier/checkout/vendeurs refacto + 76 tests) l'a reecrit avec des tests.",
-    "encore_neuf_dans_la_pointe": ["collections/", "compte/", "commande-confirmee/", "produit/[id]/", "lib/products.ts", "integration PostHog"]
+    "encore_neuf_dans_la_pointe": [
+      "collections/",
+      "compte/",
+      "commande-confirmee/",
+      "produit/[id]/",
+      "lib/products.ts",
+      "integration PostHog"
+    ]
   },
   "absorbees_par_le_tronc": {
     "#32 feat/maintenance-infra": "10 fichiers ajoutes, 10 deja au tronc, dont 9 IDENTIQUES au caractere pres. Le seul ecart, vitest.config.ts, est PLUS ANCIEN sur la branche.",
@@ -38,5 +64,64 @@
   },
   "dette_du_tronc": "38 pages dont plusieurs paires quasi identiques : cart ET panier, commandes ET orders, catalogue ET shop ET essentials, profil ET account ET dashboard. Trace probable du meme phenomene — plusieurs sessions qui recreent la meme page faute de fusion.",
   "prochain_chantier": "RIEN CONSTRUIRE tant que la #46 n'est pas fusionnee : le depot ne s'installe pas, donc rien ne peut valider un ajout. Ordre : #46, puis fermer #32 #31 #12 (deja au tronc) et #28 (doublon), puis ne garder que #21 de la chaine.",
-  "lecon": "Un workflow GitHub Actions qui existe n'est pas une CI. Celui de MIFA Life est le modele Azure fourni par GitHub, jamais configure, declenche a chaque push sur main : il echoue depuis toujours. Le depot avait l'apparence d'une verification et n'en avait aucune — d'ou un package-lock.json desynchronise que personne n'a vu. Verifier ce qu'un workflow FAIT, pas qu'il existe."
+  "lecon": "Un workflow GitHub Actions qui existe n'est pas une CI. Celui de MIFA Life est le modele Azure fourni par GitHub, jamais configure, declenche a chaque push sur main : il echoue depuis toujours. Le depot avait l'apparence d'une verification et n'en avait aucune — d'ou un package-lock.json desynchronise que personne n'a vu. Verifier ce qu'un workflow FAIT, pas qu'il existe.",
+  "fusions_du_16_RECENSEES_LE_19": [
+    "#46 a 14h59:52 UTC (le depot s'installe a nouveau), puis #13, #23, #29, #30 — CINQ fusions.",
+    "Recensement complet : VINGT-NEUF fusions le 16 septembre sur dix-neuf depots, pas quinze ni seize. Voir rapports/2026-09-19-recensement-fusions.md."
+  ],
+  "MESURE_2026_09_20": {
+    "tronc_reel": "main @ c92ea7b",
+    "cite_dans_ce_fichier": "f3991a8 du 10 aout — c'etait la base de la #46, fusionnee le 16",
+    "pr_ouvertes": 18,
+    "EMPILEES": "#47 et #48 ont pour base `claude/motion-bklit-kokonut-animations-vthtl6`, qui est exactement la TETE de la #45 (egalite de SHA e90b936 verifiee). Les fusionner les verserait dans la #45, pas dans main — le piege de duka-boutique#12.",
+    "ordre_de_fusion": "fusionner la #45 d'abord ; les #47 et #48 devront ensuite etre reciblees sur main, ou fusionnees AVANT la #45 pour partir avec elle."
+  },
+  "CHANTIER_2026_09_21": {
+    "constat": "La CI de main etait ROUGE depuis le 16 septembre a 15h04. Cinq jours.",
+    "cause": "Une seule erreur de lint : @next/next/no-html-link-for-pages sur ParametresClient.tsx:721 — le lien « Retour au profil » etait une ancre HTML <a href=\"/profil\"> au lieu d'un <Link>.",
+    "unicite_verifiee": "C'est la SEULE ancre HTML vers une route interne des 318 fichiers suivis. Un oubli ponctuel, pas un motif — d'ou un correctif d'une ligne.",
+    "ce_que_ca_cassait": "Une ancre HTML vers une page interne provoque une navigation document complete, la ou <Link> fait une transition cote client. Sur un Android d'entree de gamme en 2G (VISION.md §4), revenir sur une page deja visitee retelechargeait toute la coque de l'application.",
+    "chronologie": {
+      "14:59:57": "run #3, fusion de la #46 (celle qui installe la CI) — SUCCES",
+      "15:02:05": "run #4, fusion de la #13 — annule",
+      "15:02:22": "run #5, fusion de la #23 — annule",
+      "15:02:51": "run #6, fusion de la #29 — ANNULE 18 s plus tard. C'est elle qui apporte le commit fautif 5423b92.",
+      "15:03:08": "run #7, fusion de la #30 — ECHEC. Dernier etat de main, rouge depuis."
+    },
+    "la_ci_a_tenu_quatre_minutes": "Le run vert du 16 a 14h59 est celui de ma #46, la PR qui installe cette CI.",
+    "ce_n_est_PAS_un_defaut_de_config": "cancel-in-progress est correct : quand cinq PR sont fusionnees en 90 s, seul l'etat final merite verification — et il a ete verifie, et il a echoue. Le garde-fou a parfaitement fonctionne. Personne n'a regarde le resultat. Q20.",
+    "verifie": {
+      "lint_avant": "1 erreur, 66 avertissements",
+      "lint_apres": "0 erreur, 66 avertissements",
+      "tests": "90/90 des deux cotes",
+      "build": "passe, code de sortie 0"
+    },
+    "pr": "#49, brouillon, ouverte le 21 septembre",
+    "verification_negative_FCFA": "Avant de chercher, j'ai controle le point le plus probable pour une boutique : le formatage des montants. Partout Intl.NumberFormat('fr-FR') ou toLocaleString('fr-FR'), AUCUNE decimale. Les seuls .toFixed() portent sur une note d'avis (4.3 ★) et des revenus en milliers (128K FCFA) — legitimes. La doctrine XOF est respectee. Ne pas y revenir (regle 23).",
+    "reste_a_faire": "66 avertissements react-hooks/* arrives avec Next 16, passes en avertissement par la #46 avec justification. Chantier a part entiere. Et les #47/#48 restent empilees sur la #45."
+  },
+  "VEILLE_2026_10_03": {
+    "constat": "La production de MIFA Life est FIGEE depuis le 16 septembre 15h02, et personne ne pouvait le voir.",
+    "cause_racine": "Un gitlink (mode 160000) a 'Mes pages html/.claude/worktrees/charming-neumann-3e17c2' — une worktree Claude Code commitee par erreur — sans aucun .gitmodules dans le depot (404 verifie). Netlify echoue au stade « preparing repo », avant le build.",
+    "recidive": "Ce defaut avait DEJA ete corrige le 2 septembre par 3e0d92a. Il est revenu le 16 septembre a 15h02:51 par la fusion de la #29, qui portait le commit 5423b92 date du 12 juillet, anterieur au correctif. Une branche restee ouverte deux mois a reintroduit un defaut repare.",
+    "le_garde_fou_a_echoue": "Le .gitignore du 2 septembre a survecu (ligne 46 : .claude/worktrees/) et n'a servi a rien : un .gitignore n'enleve pas de l'index un chemin deja suivi. Contre la resurrection d'un gitlink par une fusion, .gitignore n'est PAS une protection.",
+    "cout_mesure": {
+      "production_vivante": "deploiement 6aaaaf6d du 16 septembre 15h02, commit 01c6604 — la fusion de la #13",
+      "jamais_montees_en_ligne": "les fusions des #23, #29 et #30, toutes posterieures",
+      "duree": "17 jours au 3 octobre, sur un produit tier 1 declare « Actif »",
+      "pourquoi_invisible": "les controles Netlify n'apparaissent que sur les PR ; main n'en porte aucun. Seul « Lint, tests & build » tourne sur le tronc."
+    },
+    "reproduit_en_premiere_main": "git submodule update --init --recursive : code 128 sur main avec le message EXACT de Netlify, code 0 sur la branche corrigee.",
+    "correctif": "POUSSE le 3 octobre au soir : branche fix/sous-module-fantome-recidive, PR #51 en brouillon. Le patch reste aussi dans AUTOMATION/correctifs-en-attente/ pour trace.",
+    "signal_non_confirme": "Le journal du deploiement vivant porte « Lighthouse was unable to reliably load the page you requested (Status code: 500) » sur '/'. Je n'ai PAS pu le confirmer : le proxy de ma session refuse le tunnel vers mifalife.netlify.app (403), comme vers tout hote hors connecteur. A verifier des que la production se debloque — ne pas l'affirmer avant.",
+    "lien_avec_mes_pr": "Mes PR #49 et #45 sont rouges UNIQUEMENT a cause de ce defaut du tronc : leur controle de code « Lint, tests & build » est vert. La #12, plus ancienne que 5423b92, passe les trois controles Netlify — c'est ce qui prouve qu'ils ne sont pas casses globalement.",
+    "RESULTAT_VERIFIE": {
+      "pr": "#51, brouillon, tete f1daf7f",
+      "avant_sur_976436d": "Lint tests & build ECHEC (erreur de lint heritee de main) ; Redirect/Header/Pages rules ECHEC (le sous-module)",
+      "apres_sur_f1daf7f": "Lint tests & build SUCCES · Redirect rules SUCCES · Header rules SUCCES · Pages changed NEUTRE · Vercel SUCCES",
+      "preuve": "La preversion Netlify deploy-preview-51--mifalife.netlify.app se construit et repasse READY. C'est exactement l'etape qui echouait depuis le 16 septembre.",
+      "second_correctif": "L'erreur de lint n'etait pas de ce diff — elle est sur main et c'est ma #49 qui la corrige. Correctif PORTE ici plutot qu'attendre la #49 : il deviendra sans effet des que la #49 atterrira.",
+      "ce_qui_reste": "La fusion appartient a Steeve. Tant que la #51 n'est pas fusionnee, la production de MIFA reste figee au 16 septembre."
+    }
+  }
 }

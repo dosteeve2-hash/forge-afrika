@@ -55,3 +55,25 @@ body {
     display: none;
   }
 }
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Moins de mouvement — règle 3 du playbook 05.
+
+   Une seule media query, en fin de feuille, pour tout ce qui est animé en CSS.
+   Les animations pilotées par framer-motion sont couvertes ailleurs, par
+   `MotionConfig reducedMotion="user"` dans le layout : le JavaScript écrit des
+   styles en ligne, que le CSS ne peut pas arrêter.
+
+   `0.01ms` plutôt que `0` : une durée nulle supprime l'événement `transitionend`,
+   sur lequel du code peut attendre.
+   ──────────────────────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

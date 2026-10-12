@@ -1,0 +1,58 @@
+From 976436dd8eec75a2472c02d6fa7fda397f697f99 Mon Sep 17 00:00:00 2001
+From: Claude <claude@anthropic.com>
+Date: Sat, 3 Oct 2026 04:10:42 +0000
+Subject: [PATCH] =?UTF-8?q?Le=20sous-module=20fant=C3=B4me=20est=20revenu,?=
+ =?UTF-8?q?=20et=20il=20g=C3=A8le=20la=20production=20depuis=20le=2016=20s?=
+ =?UTF-8?q?eptembre?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Netlify échoue au stade « preparing repo », avant même le build :
+
+  Error checking out submodules: fatal: No url found for submodule path
+  'Mes pages html/.claude/worktrees/charming-neumann-3e17c2' in .gitmodules
+
+C'est exactement le défaut que `3e0d92a` avait corrigé le 2 septembre. Il est
+revenu le 16 septembre à 15h02:51 par la fusion de la #29, qui portait le commit
+`5423b92` daté du 12 juillet — antérieur au correctif. Une branche restée
+ouverte deux mois a donc réintroduit un défaut déjà réparé.
+
+Le garde-fou posé le 2 septembre a survécu : `.gitignore` ligne 46 contient bien
+`.claude/worktrees/`. Il n'a servi à rien, parce qu'un `.gitignore` n'enlève pas
+de l'index un chemin déjà suivi. C'est le point à retenir : contre la résurrection
+d'un gitlink par une fusion, `.gitignore` n'est pas une protection.
+
+Ce que ça coûte, mesuré :
+
+- La production de `mifalife` est figée au déploiement `6aaaaf6d` du 16 septembre
+  15h02, commit `01c6604` — la fusion de la #13. Les fusions des #23, #29 et #30,
+  toutes postérieures, ne sont JAMAIS montées en ligne.
+- Dix-sept jours pendant lesquels un produit tier 1 déclaré « Actif » n'a reçu
+  aucune mise à jour, sans que rien ne l'affiche : les contrôles Netlify
+  n'apparaissent que sur les PR, et `main` n'en porte aucun.
+- Toute PR ouverte depuis échoue sur les trois mêmes contrôles Netlify
+  (`Redirect rules`, `Header rules`, `Pages changed`), qui ne sont que trois
+  facettes du même déploiement raté.
+
+Le gitlink est retiré de l'index. Aucun fichier applicatif touché, `.gitignore`
+est déjà correct et n'est pas modifié.
+
+Co-authored-by: Claude <claude@anthropic.com>
+Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01KRdisdKYV8j7GJRg3w6BdU
+---
+ Mes pages html/.claude/worktrees/charming-neumann-3e17c2 | 1 -
+ 1 file changed, 1 deletion(-)
+ delete mode 160000 Mes pages html/.claude/worktrees/charming-neumann-3e17c2
+
+diff --git a/Mes pages html/.claude/worktrees/charming-neumann-3e17c2 b/Mes pages html/.claude/worktrees/charming-neumann-3e17c2
+deleted file mode 160000
+index a048866..0000000
+--- a/Mes pages html/.claude/worktrees/charming-neumann-3e17c2	
++++ /dev/null
+@@ -1 +0,0 @@
+-Subproject commit a048866fc45e2c10550f690d8b6d9af5e14cdc72
+-- 
+2.43.0
+

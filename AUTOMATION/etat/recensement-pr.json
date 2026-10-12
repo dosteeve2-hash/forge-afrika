@@ -1,0 +1,261 @@
+{
+  "_doc": "Recensement des PR ouvertes du portefeuille, mesure le 2026-09-20 via l'API GitHub (list_pull_requests, state=open). Ecrit pour que la session suivante n'ait pas a le refaire, et pour que les fichiers etat/projets/*.json cessent d'annoncer des compteurs perimes. Regle 30 : compter dans les depots. Regle 31 : sur le tronc reel.",
+  "mesure_le": "2026-09-20",
+  "methode": "mcp github list_pull_requests state=open perPage=100, champs number/draft/base/head. Les tetes de tronc viennent de git ls-remote sur la branche nommee par le champ `tronc` du fichier d'etat.",
+  "total_pr_ouvertes": 91,
+  "total_depots": 17,
+  "depots": {
+    "comptrack": {
+      "tronc": "main",
+      "tete_du_tronc": "5f0a2f3",
+      "pr_ouvertes": 21,
+      "par_base": {
+        "feat/comptrack-v1": [
+          38,
+          36,
+          30,
+          8
+        ],
+        "main": [
+          23,
+          22,
+          21,
+          18,
+          17,
+          16,
+          15,
+          14,
+          13,
+          12,
+          11,
+          10,
+          9,
+          7,
+          6,
+          5,
+          4
+        ]
+      },
+      "NOTE_TRONC": "Piege a repetition. GitHub designe `feat/comptrack-v1` comme branche par DEFAUT ; Vercel designe `main` comme branche de PRODUCTION — les 6 deploiements target=production en viennent tous, aucun de v1 (mesure le 15 septembre, regle 22). C'est `main` qui livre, donc c'est `main` le tronc. Le 20 septembre mon propre script a d'abord repris `feat/comptrack-v1` depuis le champ `tronc` du fichier d'etat et a declare que les 17 PR visant `main` « ne livreraient rien » : l'exact contraire. Corrige avant publication. Q15 reste ouverte sur ce qu'il faut FAIRE des deux branches.",
+      "tronc_qui_livre": "main (38 commits devant feat/comptrack-v1, qui est le HEAD GitHub) — tete au 2026-09-26 : 5f0a2f3",
+      "ma_pr_ci": "#41 vers main (26 sept). La #38 vise feat/comptrack-v1 et n'est pas reciblee (Q15)."
+    },
+    "taama": {
+      "tronc": "main",
+      "tete_du_tronc": "afb5f4c",
+      "pr_ouvertes": 18,
+      "par_base": {
+        "main": [
+          35,
+          26,
+          18,
+          17,
+          16,
+          15,
+          14,
+          13,
+          12,
+          11,
+          10,
+          9,
+          8,
+          7,
+          6,
+          5,
+          4,
+          3
+        ]
+      }
+    },
+    "mifa-life-shop": {
+      "tronc": "main",
+      "tete_du_tronc": "c92ea7b",
+      "pr_ouvertes": 18,
+      "par_base": {
+        "main": [
+          45,
+          35,
+          32,
+          31,
+          24,
+          22,
+          21,
+          20,
+          19,
+          18,
+          17,
+          16,
+          15,
+          14,
+          12,
+          3
+        ],
+        "claude/motion-bklit-kokonut-animations-vthtl6": [
+          48,
+          47
+        ]
+      },
+      "tetes": {
+        "claude/motion-bklit-kokonut-animations-vthtl6": 45
+      }
+    },
+    "forja": {
+      "tronc": "master",
+      "tete_du_tronc": "6e16536",
+      "pr_ouvertes": 8,
+      "par_base": {
+        "master": [
+          27,
+          12,
+          10,
+          8,
+          7,
+          6,
+          3,
+          1
+        ]
+      }
+    },
+    "ueemt-tokat": {
+      "tronc": "main",
+      "tete_du_tronc": "3c0c098",
+      "pr_ouvertes": 6,
+      "par_base": {
+        "main": [
+          12,
+          11
+        ],
+        "dev": [
+          8,
+          7,
+          6,
+          5
+        ]
+      }
+    },
+    "african-hybrid-agent": {
+      "tronc": "main",
+      "tete_du_tronc": "f99cc32",
+      "pr_ouvertes": 5,
+      "par_base": {
+        "main": [
+          6,
+          4,
+          3,
+          2
+        ],
+        "feat/improvements-0629": [
+          5
+        ]
+      },
+      "tetes": {
+        "feat/improvements-0629": 4
+      }
+    },
+    "milltrack": {
+      "tronc": "master",
+      "tete_du_tronc": "3b9480b",
+      "pr_ouvertes": 4,
+      "par_base": {
+        "master": [
+          15,
+          3,
+          2,
+          1
+        ]
+      }
+    },
+    "duka-boutique": {
+      "tronc": "master",
+      "tete_du_tronc": "c10e0e7",
+      "pr_ouvertes": 2,
+      "par_base": {
+        "master": [
+          11,
+          1
+        ]
+      }
+    },
+    "agrotrack-bf": {
+      "tronc": "master",
+      "tete_du_tronc": "a8f7615",
+      "pr_ouvertes": 2,
+      "par_base": {
+        "master": [
+          20,
+          15
+        ]
+      }
+    },
+    "indubot-afrika": {
+      "tronc": "master",
+      "tete_du_tronc": "aaecec1",
+      "pr_ouvertes": 2,
+      "par_base": {
+        "master": [
+          5,
+          4
+        ]
+      }
+    },
+    "valuechain-connect": {
+      "tronc": "master",
+      "tete_du_tronc": "1fc6373",
+      "pr_ouvertes": 2,
+      "par_base": {
+        "master": [
+          10,
+          1
+        ]
+      }
+    },
+    "livestockos": {
+      "tronc": "main",
+      "tete_du_tronc": "23d2c9f",
+      "pr_ouvertes": 1,
+      "par_base": {
+        "main": [
+          9
+        ]
+      }
+    },
+    "mon-portfolio-2": {
+      "tronc": "master",
+      "tete_du_tronc": "ddf59cc",
+      "pr_ouvertes": 1,
+      "par_base": {
+        "master": [
+          11
+        ]
+      }
+    },
+    "sahel-commerce-ai": {
+      "tronc": "main",
+      "tete_du_tronc": "f626ac5",
+      "pr_ouvertes": 1,
+      "par_base": {
+        "main": [
+          2
+        ]
+      }
+    },
+    "problem-to-projects-africa": {
+      "tronc": "main",
+      "tete_du_tronc": "093446f",
+      "pr_ouvertes": 0,
+      "par_base": {}
+    },
+    "burkinacollect": {
+      "tronc": "main",
+      "tete_du_tronc": "a4ec55b",
+      "pr_ouvertes": 0,
+      "par_base": {}
+    },
+    "phone-showcase": {
+      "tronc": "master",
+      "tete_du_tronc": "c426bbe",
+      "pr_ouvertes": 0,
+      "par_base": {}
+    }
+  }
+}

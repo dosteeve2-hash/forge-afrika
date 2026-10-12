@@ -1,6 +1,6 @@
 {
   "projet": "problem-to-projects-africa",
-  "derniere_execution": "2026-09-16",
+  "derniere_execution": "2026-09-19",
   "verdict": "🔴 la branche qui tourne en production n'a aucune intelligence artificielle, et celle qui l'a n'a jamais ete livree",
   "tronc": "main (branche par defaut ET branche de production), 32 commits, dernier 94d1962 du 25 juillet",
   "constat_central": "PPA est un generateur de projets : on decrit un probleme, il propose un projet. Sur main — la branche qui sert les visiteurs — cette generation n'existe pas. src/lib/ai/ y est un echafaudage mort : aucun fichier n'importe @/lib/ai, registerProvider n'est jamais appele, et package.json ne contient aucun SDK d'IA. La vraie couche de generation est sur master, avec le SDK Anthropic, quatre contextes pays, une limite de debit et une validation Zod — et master n'a jamais ete deployee en production, seulement en previsualisation. Les deux branches n'ont aucun ancetre commun : ce sont deux applications construites separement dans le meme depot, verifie en clone COMPLET (git rev-parse --is-shallow-repository = false).",
@@ -49,13 +49,31 @@
     "tsc_avec_10": "passe",
     "tests_avec_10": "30 / 30, 2 fichiers (rien a lancer avant)",
     "build_avec_10": "passe, 18 routes",
-    "conclusion": "fusionnable en l'etat, base = HEAD de main"
+    "conclusion": "fusionnable en l'etat, base = HEAD de main",
+    "SUITE_DONNEE": {
+      "etat_de_la_pr": "FUSIONNEE",
+      "fusionnee_le": "2026-09-16T15:03:28Z",
+      "fusionnee_par": "dosteeve2-hash",
+      "verifie_le": "2026-09-19",
+      "methode": "API GitHub, champ merged=true et merged_at — pas le tableau du recensement, qui n'est qu'une copie",
+      "ce_que_ca_change": "La recommandation « fusionnable en l'etat, base = HEAD de main » est HONOREE : tsc passe sur main, les deux @ts-nocheck sont partis, premiere CI en place.",
+      "pourquoi_ce_champ_existe": "Sans lui, le bloc ci-dessus se lit comme une recommandation EN ATTENTE. Il l'a ete trois jours de trop. Voir regle 32."
+    }
   },
   "pr_ouvertes_du_depot": [
     "#10 (2 sept) supprime les 2 @ts-nocheck et les 31 any, fait tourner les tests, ajoute la CI — vise MAIN, verifiee verte",
     "#9 (10 aout) palette FORGE v3 — vise MASTER, donc suspendue a Q13"
   ],
-  "mes_pr": [],
+  "mes_pr": [
+    {
+      "numero": 11,
+      "depot": "Problem-to-Projects-Africa",
+      "branche": "claude/verite-des-chemins-morts",
+      "tete": "bddce7f",
+      "etat": "draft ouverte, CI a verifier",
+      "objet": "annoter les trois chemins morts, sans rien supprimer"
+    }
+  ],
   "prochain_chantier": "RIEN CONSTRUIRE tant que Q13 n'est pas tranchee. Porter src/lib/ai/ et src/lib/context/ de master vers main, c'est precisement la decision que Q13 pose a Steeve : le faire sans sa reponse serait trancher a sa place. Ce que j'ai fait, c'est mesurer, pour que la decision tienne en une minute. Une fois tranchee : si main fait foi, fusionner la #10 puis porter les 10 fichiers de generation depuis master avant tout archivage, et fermer la #9. Ne jamais supprimer master (protocole §3 regle 4) — elle detient 61 fichiers uniques.",
   "dette_connue": [
     "La branche en production ne sait pas generer de projet.",
@@ -65,5 +83,33 @@
     "Aucune CI.",
     "main n'a pas de CLAUDE.md — il est sur master."
   ],
-  "lecon": "Deux lecons. (1) Cinquieme depot de la serie du 2 septembre : MillTrack #12 (fusionnee), FORJA #27, African Hybrid Agent #7, BurkinaCollect #4 (brouillon), et celui-ci #10. Meme correctif ecrit le meme jour sur cinq depots, UNE seule fusion. (2) Mesurer l'ampleur d'une divergence, pas l'echantillonner : le 8 septembre j'ai regarde ce que master avait de visible en propre et j'ai pris cet echantillon pour le total, ce qui a fait passer une moitie de produit pour de la decoration. Une divergence se compte avec git diff --name-status, jamais a l'oeil."
+  "lecon": "Deux lecons. (1) Cinquieme depot de la serie du 2 septembre : MillTrack #12 (fusionnee), FORJA #27, African Hybrid Agent #7, BurkinaCollect #4 (brouillon), et celui-ci #10. Meme correctif ecrit le meme jour sur cinq depots, UNE seule fusion. (2) Mesurer l'ampleur d'une divergence, pas l'echantillonner : le 8 septembre j'ai regarde ce que master avait de visible en propre et j'ai pris cet echantillon pour le total, ce qui a fait passer une moitie de produit pour de la decoration. Une divergence se compte avec git diff --name-status, jamais a l'oeil.",
+  "fusions_du_16_RECENSEES_LE_19": [
+    "#10 a 15h03:27 UTC — tsc passe sur main, les deux @ts-nocheck partis, premiere CI.",
+    "Recensement complet : VINGT-NEUF fusions le 16 septembre sur dix-neuf depots, pas quinze ni seize. Voir rapports/2026-09-19-recensement-fusions.md."
+  ],
+  "MESURE_2026_09_20": {
+    "tronc_reel": "main @ 093446f",
+    "cite_dans_ce_fichier": "94d1962 du 25 juillet — base de la #10, fusionnee le 16",
+    "pr_ouvertes": 0,
+    "consequence": "ZERO PR ouverte. Ce depot n'attend plus aucun clic — il attend une DECISION, Q13, sur le portage des 61 fichiers de master."
+  },
+  "MESURE_2026_09_27": {
+    "nom_canonique_du_depot": "Problem-to-Projects-Africa — renomme. L'ancien nom 'problem-to-projects-africa' redirige, git push repond 'This repository moved'. Rien n'est casse, mais le registre et b3.txt portaient l'ancien.",
+    "tronc": "main @ 093446f, inchange depuis le 20 septembre",
+    "le_verbe_du_metier_EST_LA": "/intake -> POST /api/recommend -> lib/recommendation/engine.ts (catalogue deterministe de 709 lignes) -> /results, avec persistance Supabase dans recommendation_sessions, project_recommendations et project_alternatives quand l'utilisateur est connecte, getUser() cote serveur. Ce parcours n'a rien a corriger. Premier produit du portefeuille dont je peux dire ca sans reserve.",
+    "trois_chemins_morts": {
+      "lib/sync/sync-service.ts": "200 lignes, aucun importeur dans src/, et aucune des 9 routes qu'il appelle n'existe. La seule est /api/sync sans segment imbrique, dont le POST se decrit lui-meme comme un bouchon. API_BASE retombe sur http://localhost:3000. L'offline-first est dans l'intention, pas dans le code.",
+      "lib/ai/": "aucun importeur sur main, aucun SDK dans package.json. Mais la couche reelle existe sur master (voir la_couche_ia_de_master).",
+      "app/results-enhanced/page.tsx": "page orpheline, aucun lien n'y mene. handleSave poste vers /api/projects/save qui n'existe pas. handleRefine pousse vers /intake-enhanced qui n'existe pas."
+    },
+    "ce_que_j_ai_fait": "PR draft #11, branche claude/verite-des-chemins-morts, deux commits. Trois commentaires, zero ligne de logique touchee, rien supprime (protocole §3 regle 4). lint + typecheck + test + build passent sur les deux commits.",
+    "MON_ERREUR_ET_SA_CORRECTION": {
+      "ce_que_j_ai_ecrit_d_abord": "que lib/ai/ attendait d'etre branche et qu'aucune des deux regles CLAUDE.md (rate limit, delimiteurs XML) n'existait dans ce depot",
+      "pourquoi_c_est_faux": "master detient deja le SDK Anthropic, 4 contextes pays, Zod, une limite de debit de 5 requetes/minute par IP et un system prompt constant. C'est ecrit dans CE fichier, champ la_couche_ia_de_master, depuis le 16 septembre. Je ne l'avais pas relu avant d'ecrire.",
+      "corrige": "commit bddce7f, le commentaire dit maintenant que la couche existe sur master et que la decision est Q13",
+      "lecon": "regle 47 : avant d'ecrire qu'une chose manque, chercher si elle existe sur une autre lignee du meme depot."
+    },
+    "ce_que_ca_change_pour_Q13": "Le parcours deterministe de main FONCTIONNE. Q13 n'est donc pas 'sauver un produit mort' mais 'ajouter la generation par modele a un produit qui tourne deja sans elle'. Moins urgent et moins risque que ce que ce fichier laissait croire depuis le 16."
+  }
 }
