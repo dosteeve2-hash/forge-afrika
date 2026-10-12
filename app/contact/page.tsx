@@ -2,33 +2,32 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, MapPin, Linkedin, Github, Send, ArrowLeft, CheckCircle } from "lucide-react";
+import { Mail, MapPin, Github, Send, ArrowLeft } from "lucide-react";
 import Link from "next/link";
+import { CONTACT_EMAIL } from "@/lib/constants";
 
 const SUJETS = [
-  "Investissement / Partenariat",
+  "Partenaire pilote",
+  "Partenariat / Investissement",
   "Collaboration technique",
-  "Intégrer une filiale",
   "Presse / Média",
   "Autre",
 ];
 
 export default function ContactPage() {
   const [form, setForm] = useState({ nom: "", email: "", sujet: SUJETS[0], message: "" });
-  const [sent, setSent] = useState(false);
-  const [loading, setLoading] = useState(false);
 
   function patch(k: keyof typeof form, v: string) {
     setForm(f => ({ ...f, [k]: v }));
   }
 
-  async function handleSubmit(e: React.FormEvent) {
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setLoading(true);
-    // Simulation d'envoi — à brancher sur une API réelle
-    await new Promise(r => setTimeout(r, 1200));
-    setSent(true);
-    setLoading(false);
+    const body = `${form.message}
+
+— ${form.nom} (${form.email})`;
+    const subject = `FORGE Afrika — ${form.sujet}`;
+    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   }
 
   return (
@@ -57,14 +56,14 @@ export default function ContactPage() {
         >
           <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold mb-6"
             style={{ background: "rgba(212,175,55,0.12)", border: "1px solid rgba(212,175,55,0.25)", color: "#D4AF37" }}>
-            ✉️ Contact & Partenariats
+            ✉️ Contact & Partenaires pilotes
           </span>
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4"
             style={{ fontFamily: "var(--font-display)" }}>
             Échangeons
           </h1>
           <p className="text-gray-400 text-lg max-w-xl mx-auto">
-            Investisseur, partenaire, ou simplement curieux — chaque message est lu personnellement par Steeve.
+            Coopérative, éleveur, PME, partenaire ou simplement curieux : chaque message est lu par Steeve.
           </p>
         </motion.div>
 
@@ -83,10 +82,10 @@ export default function ContactPage() {
                 style={{ background: "linear-gradient(135deg, #D4AF37, #F5D76E)", color: "#0A1628" }}>
                 S
               </div>
-              <h3 className="text-white font-bold text-lg mb-1">Steeve Donald Compaore</h3>
-              <p className="text-sm mb-4" style={{ color: "#00BCD4" }}>Fondateur & PDG, FORGE Afrika</p>
+              <h3 className="text-white font-bold text-lg mb-1">Steeve Donald Compaoré</h3>
+              <p className="text-sm mb-4" style={{ color: "#00BCD4" }}>Fondateur, FORGE Afrika</p>
               <p className="text-gray-400 text-sm leading-relaxed">
-                Ingénieur, entrepreneur, et bâtisseur d&apos;infrastructure africaine. Basé entre Ouagadougou et Paris.
+                Burkinabè, étudiant en informatique à l&apos;Université de Tokat Gaziosmanpaşa (Turquie). Il construit des outils pour les filières africaines.
               </p>
             </div>
 
@@ -94,9 +93,8 @@ export default function ContactPage() {
             <div className="rounded-2xl p-6 space-y-4"
               style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)" }}>
               {[
-                { icon: Mail, label: "Email", value: "docompaore2@gmail.com", href: "mailto:docompaore2@gmail.com" },
-                { icon: MapPin, label: "Localisation", value: "Ouagadougou · Paris", href: null },
-                { icon: Linkedin, label: "LinkedIn", value: "steeve-donald-compaore", href: "https://linkedin.com/in/steeve-donald-compaore" },
+                { icon: Mail, label: "Email", value: CONTACT_EMAIL, href: `mailto:${CONTACT_EMAIL}` },
+                { icon: MapPin, label: "Localisation", value: "Burkina Faso · Tokat, Turquie", href: null },
                 { icon: Github, label: "GitHub", value: "dosteeve2-hash", href: "https://github.com/dosteeve2-hash" },
               ].map((c) => (
                 <div key={c.label} className="flex items-start gap-3">
@@ -120,12 +118,6 @@ export default function ContactPage() {
               ))}
             </div>
 
-            {/* Délai de réponse */}
-            <div className="rounded-xl px-4 py-3 flex items-center gap-3"
-              style={{ background: "rgba(16,185,129,0.08)", border: "1px solid rgba(16,185,129,0.2)" }}>
-              <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: "#10B981" }} />
-              <p className="text-sm" style={{ color: "#10B981" }}>Répond généralement en moins de 48h</p>
-            </div>
           </motion.div>
 
           {/* Formulaire */}
@@ -135,23 +127,6 @@ export default function ContactPage() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ type: "spring" as const, delay: 0.15 }}
           >
-            {sent ? (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="rounded-2xl p-10 text-center h-full flex flex-col items-center justify-center min-h-[400px]"
-                style={{ background: "rgba(16,185,129,0.06)", border: "1px solid rgba(16,185,129,0.2)" }}
-              >
-                <CheckCircle className="w-14 h-14 mb-4" style={{ color: "#10B981" }} />
-                <h3 className="text-white font-bold text-2xl mb-2">Message envoyé !</h3>
-                <p className="text-gray-400 mb-6">Steeve te répondra dans les 48 heures.</p>
-                <button onClick={() => setSent(false)}
-                  className="px-6 py-2.5 rounded-xl text-sm font-semibold transition-all hover:opacity-80"
-                  style={{ background: "rgba(255,255,255,0.08)", color: "white" }}>
-                  Envoyer un autre message
-                </button>
-              </motion.div>
-            ) : (
               <form onSubmit={handleSubmit}
                 className="rounded-2xl p-8 space-y-5"
                 style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)" }}>
@@ -189,28 +164,23 @@ export default function ContactPage() {
                 <div>
                   <label className="block text-xs font-medium text-gray-400 mb-1.5">Message *</label>
                   <textarea value={form.message} onChange={e => patch("message", e.target.value)} required
-                    rows={5} placeholder="Décris ton projet, ta proposition, ou ta question…"
+                    rows={5} placeholder="Décrivez votre activité, votre besoin ou votre question…"
                     className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm placeholder-white/20 focus:outline-none focus:border-yellow-500/50 transition-colors resize-none" />
                 </div>
 
-                <button type="submit" disabled={loading}
-                  className="w-full py-4 rounded-xl font-bold text-base flex items-center justify-center gap-2 transition-all hover:scale-[1.01] disabled:opacity-60"
+                <button type="submit"
+                  className="w-full py-4 rounded-xl font-bold text-base flex items-center justify-center gap-2 transition-all hover:scale-[1.01]"
                   style={{ background: "linear-gradient(135deg, #D4AF37, #F5D76E)", color: "#0A1628" }}>
-                  {loading ? (
-                    <><span className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" /> Envoi…</>
-                  ) : (
-                    <><Send className="w-4 h-4" /> Envoyer le message</>
-                  )}
+                  <Send className="w-4 h-4" /> Ouvrir mon e-mail
                 </button>
 
                 <p className="text-xs text-center" style={{ color: "#475569" }}>
-                  Ou écris directement à{" "}
+                  Le bouton ouvre votre application e-mail avec le message prêt à envoyer. Ou écrivez directement à{" "}
                   <a href="mailto:docompaore2@gmail.com" className="hover:text-yellow-400 transition-colors" style={{ color: "#D4AF37" }}>
                     docompaore2@gmail.com
                   </a>
                 </p>
               </form>
-            )}
           </motion.div>
         </div>
       </div>

@@ -7,7 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
-import { FILIALES_FORGE } from "@/lib/constants";
+import { FILIALES_FORGE, NB_OUTILS, NB_DISPONIBLES, NB_EN_DEV } from "@/lib/constants";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -42,10 +42,10 @@ export default function FiliaresSection() {
           viewport={{ once: true }}
         >
           <h2 className="text-4xl font-bold text-white mb-4" style={{ fontFamily: "var(--font-display)" }}>
-            Nos Filiales
+            Nos outils
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            {FILIALES_FORGE.length} entreprises opérationnelles, chacune souveraine sur son secteur, toutes gouvernées depuis le QG.
+            {NB_OUTILS} outils : {NB_DISPONIBLES} disponibles en ligne en version pilote, {NB_EN_DEV} en développement. Chacun s&apos;attaque à un maillon précis d&apos;une filière.
           </p>
         </motion.div>
 
@@ -53,9 +53,9 @@ export default function FiliaresSection() {
           {FILIALES_FORGE.map((filiale) => (
             <motion.a
               key={filiale.slug}
-              href={filiale.url !== "#" ? filiale.url : "/ecosystem"}
-              target={filiale.url !== "#" ? "_blank" : undefined}
-              rel={filiale.url !== "#" ? "noopener noreferrer" : undefined}
+              href={filiale.url}
+              target="_blank"
+              rel="noopener noreferrer"
               className="filiale-card rounded-xl p-5 cursor-pointer group relative overflow-hidden block"
               style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)" }}
               whileHover={{ y: -6, borderColor: filiale.couleur, boxShadow: `0 12px 40px ${filiale.couleur}22` }}
@@ -68,8 +68,8 @@ export default function FiliaresSection() {
                 <span
                   className="text-xs px-2 py-0.5 rounded-full ml-2 shrink-0"
                   style={{
-                    background: filiale.statut === "Actif" ? "rgba(34,197,94,0.15)" : "rgba(212,175,55,0.15)",
-                    color: filiale.statut === "Actif" ? "#22C55E" : "#D4AF37",
+                    background: filiale.statut === "Disponible" ? "rgba(34,197,94,0.15)" : "rgba(212,175,55,0.15)",
+                    color: filiale.statut === "Disponible" ? "#22C55E" : "#D4AF37",
                   }}
                 >
                   {filiale.statut}
@@ -90,7 +90,7 @@ export default function FiliaresSection() {
             className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all hover:scale-105"
             style={{ border: "1px solid rgba(212,175,55,0.4)", color: "#D4AF37" }}
           >
-            Voir tous les détails et accéder aux filiales →
+            Voir le détail de chaque outil →
           </Link>
         </div>
       </div>

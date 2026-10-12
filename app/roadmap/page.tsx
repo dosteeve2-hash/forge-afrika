@@ -2,14 +2,9 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, CheckCircle2, Circle, Flag, Target, TrendingUp, Users, Zap } from "lucide-react";
-import { FILIALES_FORGE, PHASES_ROADMAP, formatFCFA } from "@/lib/constants";
+import { ArrowRight, CheckCircle2, Circle, Flag, Target, Wrench, Hammer, type LucideIcon } from "lucide-react";
+import { PHASES_ROADMAP, NB_OUTILS, NB_DISPONIBLES, NB_EN_DEV } from "@/lib/constants";
 
-// ─── Calculs live depuis constants ──────────────────────────────────────────
-const totalUsers = FILIALES_FORGE.reduce((s, f) => s + f.metriques.utilisateurs, 0);
-const totalCA    = FILIALES_FORGE.reduce((s, f) => s + f.metriques.ca, 0);
-const activeCount = FILIALES_FORGE.filter(f => f.statut === "Actif").length;
-const totalCount  = FILIALES_FORGE.length;
 
 const CURRENT_PHASE = 1; // à mettre à jour manuellement chaque sprint
 
@@ -38,7 +33,7 @@ const PHASE_BORDER = [
 
 // ─── Composants ──────────────────────────────────────────────────────────────
 
-function StatChip({ icon: Icon, value, label, color }: { icon: any; value: string; label: string; color: string }) {
+function StatChip({ icon: Icon, value, label, color }: { icon: LucideIcon; value: string; label: string; color: string }) {
   return (
     <motion.div
       className="rounded-2xl p-5 flex items-start gap-4"
@@ -97,10 +92,10 @@ export default function RoadmapPage() {
           <span className="font-bold text-white">FORGE Afrika</span>
         </Link>
         <div className="flex items-center gap-6">
-          <Link href="/ecosystem" className="text-sm text-gray-400 hover:text-white transition-colors">Filiales</Link>
+          <Link href="/ecosystem" className="text-sm text-gray-400 hover:text-white transition-colors">Outils</Link>
           <Link href="/contact" className="text-sm text-gray-400 hover:text-white transition-colors">Contact</Link>
-          <Link href="/dashboard" className="text-sm px-4 py-2 rounded-lg font-medium transition-all hover:scale-105"
-            style={{ background: `linear-gradient(135deg, ${GOLD}, #F5D76E)`, color: BG }}>QG</Link>
+          <Link href="/ecosystem" className="text-sm px-4 py-2 rounded-lg font-medium transition-all hover:scale-105"
+            style={{ background: `linear-gradient(135deg, ${GOLD}, #F5D76E)`, color: BG }}>Outils</Link>
         </div>
       </nav>
 
@@ -112,7 +107,7 @@ export default function RoadmapPage() {
           transition={{ duration: 0.6, type: "spring" as const }}>
           <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold mb-6"
             style={{ background: "rgba(0,188,212,0.12)", border: "1px solid rgba(0,188,212,0.25)", color: CYAN }}>
-            🗺️ Vision 2026–2030+
+            🗺️ Objectifs 2026–2030+
           </span>
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
             La route vers le{" "}
@@ -121,17 +116,15 @@ export default function RoadmapPage() {
             </span>
           </h1>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            De la startup burkinabè à l'infrastructure économique panafricaine.
-            Chaque phase est irréversible — c'est la stratégie pioche.
+            Les objectifs que nous nous fixons, présentés comme tels : une feuille de route, pas un bilan. Seules les cases cochées sont réalisées.
           </p>
         </motion.div>
 
-        {/* KPIs actuels */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
-          <StatChip icon={Zap}       value={`${activeCount}/${totalCount}`} label="Filiales actives"  color={GOLD} />
-          <StatChip icon={Users}     value={totalUsers.toLocaleString("fr")} label="Utilisateurs"     color={CYAN} />
-          <StatChip icon={TrendingUp} value={formatFCFA(totalCA)}            label="CA consolidé"     color={GREEN} />
-          <StatChip icon={Target}    value={`Phase ${CURRENT_PHASE}`}        label="Phase actuelle"   color="#8B5CF6" />
+        {/* État actuel */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-16">
+          <StatChip icon={Wrench} value={`${NB_DISPONIBLES}/${NB_OUTILS}`} label="Outils disponibles (pilote)" color={GOLD} />
+          <StatChip icon={Hammer} value={`${NB_EN_DEV}`} label="Outils en développement" color={CYAN} />
+          <StatChip icon={Target} value={`Phase ${CURRENT_PHASE}`} label="Phase actuelle" color="#8B5CF6" />
         </div>
 
         {/* Barre de progression globale */}
@@ -141,7 +134,7 @@ export default function RoadmapPage() {
           transition={{ duration: 0.5, delay: 0.15, type: "spring" as const }}>
           <div className="flex flex-col md:flex-row md:items-center gap-4">
             <div className="flex-1">
-              <p className="text-sm font-semibold text-white mb-3">Progression globale — Plan 2026–2030+</p>
+              <p className="text-sm font-semibold text-white mb-3">Progression — objectifs 2026–2030+</p>
               <div className="flex gap-1 h-3">
                 {PHASES_ROADMAP.map((ph, i) => {
                   const done  = ph.milestones.filter(m => m.done).length;
@@ -176,7 +169,7 @@ export default function RoadmapPage() {
                 {PHASES_ROADMAP.reduce((s, ph) => s + ph.milestones.filter(m => m.done).length, 0)}/
                 {PHASES_ROADMAP.reduce((s, ph) => s + ph.milestones.length, 0)}
               </p>
-              <p className="text-xs text-gray-400">milestones atteints</p>
+              <p className="text-xs text-gray-400">objectifs atteints</p>
             </div>
           </div>
         </motion.div>
@@ -301,29 +294,28 @@ export default function RoadmapPage() {
             </div>
           </div>
 
-          <p className="text-white/50 text-xs font-mono mb-2 uppercase tracking-widest">Seed Round · 2026</p>
+          <p className="text-white/50 text-xs font-mono mb-2 uppercase tracking-widest">Phase 1 · 2026</p>
           <h2 className="text-3xl font-bold text-white mb-3">
-            La Phase 1 est là.{" "}
+            Aidez-nous à valider la{" "}
             <span style={{ background: `linear-gradient(135deg, ${GOLD}, #F5D76E)`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
-              La Phase 2 commence.
+              Phase 1
             </span>
           </h2>
           <p className="text-gray-400 max-w-xl mx-auto mb-8">
-            {activeCount} filiales actives, {totalUsers.toLocaleString("fr")} utilisateurs.
-            Nous levons pour financer l'expansion dans 3 pays d'Afrique de l'Ouest en 2027.
+            {NB_DISPONIBLES} outils disponibles en version pilote, {NB_EN_DEV} en développement. Nous cherchons nos premiers partenaires pilotes pour tester sur le terrain.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/contact"
               className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-semibold text-base transition-all hover:scale-105"
               style={{ background: `linear-gradient(135deg, ${GOLD}, #F5D76E)`, color: BG }}>
-              Investir dans FORGE Afrika
+              Devenir partenaire pilote
               <ArrowRight className="w-4 h-4" />
             </Link>
             <Link href="/ecosystem"
               className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-semibold text-base transition-all hover:scale-105"
               style={{ border: `1px solid rgba(212,175,55,0.3)`, color: GOLD, background: "rgba(212,175,55,0.05)" }}>
-              Voir les filiales
+              Voir les outils
             </Link>
           </div>
         </motion.div>

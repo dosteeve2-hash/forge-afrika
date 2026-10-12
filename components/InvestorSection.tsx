@@ -1,39 +1,39 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { TrendingUp, Globe, Shield, Zap, Mail, ArrowUpRight } from "lucide-react";
+import { Target, Wrench, Handshake, ShieldCheck, Mail, ArrowUpRight } from "lucide-react";
+import { CONTACT_EMAIL, GITHUB_URL } from "@/lib/constants";
 
-const ATOUTS = [
+const POINTS = [
   {
-    icon: Globe,
-    titre: "Marché continental",
-    desc: "1,4 milliard d'Africains, 60% sous-bancarisés, 30-40% de pertes post-récolte. Le besoin est massif, urgent, non-servi.",
+    icon: Target,
+    titre: "Un problème réel",
+    desc: "Dans beaucoup de coopératives, d'élevages et de PME de transformation, le suivi se fait encore sur cahier ou sur tableur. C'est là que nous travaillons.",
     color: "#00BCD4",
   },
   {
-    icon: TrendingUp,
-    titre: "Croissance prouvée",
-    desc: "10 filiales fondées, 6 en production, 5 000+ utilisateurs actifs. Chaque vertical génère des revenus récurrents dès le lancement.",
+    icon: Wrench,
+    titre: "Des outils déjà en ligne",
+    desc: "Plusieurs outils sont disponibles en version pilote. Vous pouvez les ouvrir, les essayer et nous dire ce qui manque.",
     color: "#D4AF37",
   },
   {
-    icon: Shield,
-    titre: "Avantage structurel",
-    desc: "Conçu pour le terrain africain : offline-first, mobile-first, SYSCOHADA, FCFA, langues locales. Impossible à dupliquer depuis l'extérieur.",
+    icon: Handshake,
+    titre: "Partenaires pilotes",
+    desc: "Nous cherchons des coopératives, éleveurs, transformateurs et PME prêts à tester un outil et à nous faire des retours francs.",
     color: "#10B981",
   },
   {
-    icon: Zap,
-    titre: "Stratégie pioche",
-    desc: "FORGE ne choisit pas un secteur — elle équipe tous les acteurs. Comme Levi Strauss pendant la ruée vers l'or : on vend les outils, pas l'or.",
+    icon: ShieldCheck,
+    titre: "Transparence",
+    desc: "Nous indiquons ce qui est disponible et ce qui est encore en développement. Le code du site est public.",
     color: "#8B5CF6",
   },
 ];
 
 export default function InvestorSection() {
   return (
-    <section id="investisseurs" className="py-24 px-4 relative overflow-hidden">
-      {/* Halo de fond */}
+    <section id="partenaires" className="py-24 px-4 relative overflow-hidden">
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -54,23 +54,19 @@ export default function InvestorSection() {
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold mb-6"
             style={{ background: "rgba(212,175,55,0.12)", border: "1px solid rgba(212,175,55,0.25)", color: "#D4AF37" }}
           >
-            💼 Opportunité d&apos;investissement
+            🤝 Partenaires pilotes
           </span>
-          <h2
-            className="text-4xl font-bold text-white mb-4"
-            style={{ fontFamily: "var(--font-display)" }}
-          >
-            Rejoindre FORGE Afrika
+          <h2 className="text-4xl font-bold text-white mb-4" style={{ fontFamily: "var(--font-display)" }}>
+            Testez un outil avec nous
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Nous recherchons des partenaires qui comprennent que l&apos;Afrique n&apos;est pas un marché
-            émergent — c&apos;est le <em style={{ color: "#D4AF37" }}>marché du siècle</em>.
+            Vous gérez une coopérative, un élevage, une unité de transformation ou une PME ? Utilisez nos outils
+            et aidez-nous à les rendre vraiment utiles.
           </p>
         </motion.div>
 
-        {/* Grille des atouts */}
         <div className="grid sm:grid-cols-2 gap-5 mb-16">
-          {ATOUTS.map((a, i) => (
+          {POINTS.map((a, i) => (
             <motion.div
               key={a.titre}
               className="rounded-2xl p-6"
@@ -93,7 +89,6 @@ export default function InvestorSection() {
           ))}
         </div>
 
-        {/* CTA investissement */}
         <motion.div
           className="rounded-2xl p-8 md:p-12 text-center"
           style={{
@@ -105,9 +100,8 @@ export default function InvestorSection() {
           transition={{ duration: 0.6, type: "spring" as const }}
           viewport={{ once: true }}
         >
-          <p className="text-white/60 text-sm font-mono mb-2 uppercase tracking-widest">Seed Round — 2026</p>
           <h3 className="text-3xl font-bold text-white mb-4">
-            On bâtit le{" "}
+            Devenez{" "}
             <span
               style={{
                 background: "linear-gradient(135deg, #D4AF37, #F5D76E)",
@@ -116,28 +110,25 @@ export default function InvestorSection() {
                 backgroundClip: "text",
               }}
             >
-              conglomérat africain
-            </span>{" "}
-            de demain.
+              partenaire pilote
+            </span>
           </h3>
           <p className="text-gray-400 mb-8 max-w-xl mx-auto">
-            Deck disponible sur demande. Échangeons — pour les investisseurs qui pensent à 10 ans, pas à 10 trimestres.
+            Écrivez-nous en quelques lignes : votre activité, votre problème du moment, l&apos;outil qui vous intéresse.
+            Nous vous répondons personnellement. Investisseurs et partenaires institutionnels sont aussi les bienvenus pour échanger.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="mailto:docompaore2@gmail.com?subject=FORGE%20Afrika%20%E2%80%94%20Investissement"
+              href={`mailto:${CONTACT_EMAIL}?subject=FORGE%20Afrika%20%E2%80%94%20Partenaire%20pilote`}
               className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-semibold text-base transition-all hover:scale-105"
-              style={{
-                background: "linear-gradient(135deg, #D4AF37, #F5D76E)",
-                color: "#0A1628",
-              }}
+              style={{ background: "linear-gradient(135deg, #D4AF37, #F5D76E)", color: "#0A1628" }}
             >
               <Mail className="w-4 h-4" />
               Contacter Steeve
             </a>
             <a
-              href="https://linkedin.com/in/steeve-donald-compaore"
+              href={GITHUB_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-semibold text-base transition-all hover:scale-105"
@@ -147,12 +138,12 @@ export default function InvestorSection() {
                 background: "rgba(212,175,55,0.06)",
               }}
             >
-              LinkedIn <ArrowUpRight className="w-4 h-4" />
+              Voir le code sur GitHub <ArrowUpRight className="w-4 h-4" />
             </a>
           </div>
 
           <p className="text-xs text-gray-600 mt-6">
-            docompaore2@gmail.com · Ouagadougou, Burkina Faso · Paris, France
+            {CONTACT_EMAIL} · Burkina Faso · Tokat, Turquie
           </p>
         </motion.div>
       </div>

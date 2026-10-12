@@ -5,37 +5,28 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion } from "framer-motion";
-import { FILIALES_FORGE } from "@/lib/constants";
-import Counter from "./Counter";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const PILIERS = [
   {
     step: "01",
-    titre: "Production",
-    description: "Chaque filiale résout un problème réel, sur le terrain, dans un secteur réel — agriculture, retail, industrie.",
+    titre: "Comprendre",
+    description: "Partir d'un problème réel de terrain : cahiers perdus, stocks mal suivis, traçabilité impossible à prouver.",
     icon: "🌱",
   },
   {
     step: "02",
-    titre: "Industrie",
-    description: "Les filiales matures se connectent entre elles, standardisent leurs données et deviennent des infrastructures sectorielles.",
-    icon: "🏭",
+    titre: "Construire",
+    description: "Des outils simples, utilisables sur un téléphone d'entrée de gamme et avec une connexion instable.",
+    icon: "🛠️",
   },
   {
     step: "03",
-    titre: "Monopole",
-    description: "FORGE Afrika devient l'infrastructure économique critique de son secteur — impossible à déloger, dans chaque pays où elle opère.",
-    icon: "👑",
+    titre: "Prouver",
+    description: "Tester avec des partenaires pilotes, mesurer le résultat, et n'étendre que ce qui marche.",
+    icon: "📏",
   },
-];
-
-const STATS = [
-  { target: FILIALES_FORGE.length, suffix: "", label: "Filiales fondées" },
-  { target: 3, suffix: "", label: "Pays pilotes" },
-  { target: 1, suffix: "Md", label: "FCFA ARR ciblé" },
-  { target: 2030, suffix: "", label: "Horizon conglomérat" },
 ];
 
 export default function MissionSection() {
@@ -70,10 +61,10 @@ export default function MissionSection() {
           <h2 className="text-4xl font-bold text-white mb-4" style={{ fontFamily: "var(--font-display)" }}>
             Notre Mission
           </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">Bâtir le Rockefeller africain, une filiale à la fois.</p>
+          <p className="text-gray-400 text-lg max-w-2xl mx-auto">Construire, outil après outil, les logiciels qui manquent aux filières africaines.</p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-0">
           {PILIERS.map((pilier, i) => (
             <motion.div
               key={pilier.step}
@@ -99,26 +90,6 @@ export default function MissionSection() {
         </div>
 
         <motion.div
-          className="grid grid-cols-2 md:grid-cols-4 gap-8"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, type: "spring" as const }}
-          viewport={{ once: true }}
-        >
-          {STATS.map((stat) => (
-            <div key={stat.label} className="text-center">
-              <div
-                className="text-4xl font-bold mb-2"
-                style={{ background: "linear-gradient(135deg, #D4AF37, #F5D76E)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}
-              >
-                <Counter target={stat.target} suffix={stat.suffix} />
-              </div>
-              <div className="text-gray-400 text-sm font-medium">{stat.label}</div>
-            </div>
-          ))}
-        </motion.div>
-
-        <motion.div
           className="mt-20 rounded-2xl p-8 md:p-12 space-y-6 text-gray-300 leading-relaxed text-lg"
           style={{ background: "rgba(212,175,55,0.04)", border: "1px solid rgba(212,175,55,0.15)" }}
           initial={{ opacity: 0, y: 30 }}
@@ -132,12 +103,13 @@ export default function MissionSection() {
             propres entrepreneurs construisent, possèdent et gouvernent.
           </p>
           <p>
-            FORGE Afrika n&apos;est pas une startup. C&apos;est une <strong style={{ color: "#D4AF37" }}>entreprise mère</strong> :
-            chaque filiale résout un problème réel dans un secteur réel — le commerce informel, la mode, l&apos;industrie,
-            la finance, l&apos;agriculture, l&apos;élevage, la communauté. Chacune est autonome. Toutes sont connectées.
+            FORGE Afrika est un projet jeune, fondé par Steeve Donald Compaoré, étudiant en informatique.
+            Plusieurs outils sont déjà en ligne en version pilote : ils couvrent l&apos;agriculture, l&apos;élevage,
+            la transformation, la comptabilité et le commerce. Le projet démarre : nous
+            cherchons nos premiers partenaires pilotes pour les améliorer avec de vrais usages.
           </p>
           <p className="italic" style={{ color: "#00BCD4" }}>
-            Le Burkina Faso comme point de départ. L&apos;Afrique comme terrain de jeu. Un siècle comme horizon.
+            Le Burkina Faso comme point de départ, l&apos;Afrique de l&apos;Ouest comme horizon.
           </p>
         </motion.div>
       </div>

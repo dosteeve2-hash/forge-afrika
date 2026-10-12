@@ -106,10 +106,8 @@ export default function ProduitPage({ params }: Props) {
                 {data.ctaText} <ArrowUpRight className="w-5 h-5" />
               </a>
               {data.ctaSecondText && (
-                <a
-                  href={data.ctaSecondUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  href={data.ctaSecondUrl ?? "/contact"}
                   className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold text-lg transition-all hover:scale-105"
                   style={{
                     border: `1px solid ${c}50`,
@@ -118,7 +116,7 @@ export default function ProduitPage({ params }: Props) {
                   }}
                 >
                   {data.ctaSecondText}
-                </a>
+                </Link>
               )}
             </div>
           </motion.div>
@@ -178,12 +176,12 @@ export default function ProduitPage({ params }: Props) {
         >
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-white mb-3">
-              Tout ce que{" "}
+              Ce que{" "}
               <span style={{ color: c }}>{data.nom}</span>{" "}
-              fait pour vous
+              vise à faire
             </h2>
             <p className="text-gray-400 max-w-xl mx-auto">
-              Des fonctionnalités conçues pour votre réalité, pas pour un marché occidental.
+              Des fonctionnalités pensées pour la réalité du terrain, en cours de déploiement.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -235,7 +233,7 @@ export default function ProduitPage({ params }: Props) {
             style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.08)" }}
           >
             <h2 className="text-2xl font-bold text-white mb-7">
-              {data.nom} est fait pour vous si…
+              {data.nom} peut vous intéresser si…
             </h2>
             <div className="grid md:grid-cols-2 gap-3">
               {data.audiences.map((a) => (
@@ -248,76 +246,25 @@ export default function ProduitPage({ params }: Props) {
           </div>
         </motion.section>
 
-        {/* TÉMOIGNAGES */}
-        {data.testimonials.length > 0 && (
-          <motion.section
-            className="mb-20"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
+        {/* STATUT */}
+        <motion.section
+          className="mb-20"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+        >
+          <div
+            className="rounded-2xl p-8 text-center"
+            style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)" }}
           >
-            <h2 className="text-2xl font-bold text-white mb-8 text-center">
-              Ce que disent nos utilisateurs
-            </h2>
-            <div className="grid md:grid-cols-2 gap-5">
-              {data.testimonials.map((t, i) => (
-                <motion.div
-                  key={i}
-                  className="rounded-2xl p-7"
-                  style={{ background: `${c}08`, border: `1px solid ${c}20` }}
-                  initial={{ opacity: 0, x: i % 2 === 0 ? -20 : 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: i * 0.1 }}
-                  viewport={{ once: true }}
-                >
-                  <p className="text-gray-200 text-base italic mb-5 leading-relaxed">
-                    &ldquo;{t.texte}&rdquo;
-                  </p>
-                  <div className="flex items-center gap-3">
-                    <div
-                      className="w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm"
-                      style={{ background: c, color: "#0A1628" }}
-                    >
-                      {t.auteur[0]}
-                    </div>
-                    <div>
-                      <p className="text-white text-sm font-semibold">{t.auteur}</p>
-                      <p className="text-gray-500 text-xs">{t.role}</p>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.section>
-        )}
-
-        {/* MÉTRIQUES de la filiale */}
-        {filiale.metriques.utilisateurs > 0 && (
-          <motion.section
-            className="mb-20"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-          >
-            <div
-              className="grid grid-cols-3 gap-4 rounded-2xl p-8"
-              style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)" }}
-            >
-              {[
-                { v: filiale.metriques.utilisateurs.toLocaleString("fr"), l: "Utilisateurs actifs" },
-                { v: filiale.metriques.transactions.toLocaleString("fr"), l: "Transactions" },
-                { v: `${(filiale.metriques.ca / 1_000_000).toFixed(0)}M FCFA`, l: "Chiffre d'affaires" },
-              ].map((s) => (
-                <div key={s.l} className="text-center">
-                  <p className="text-3xl font-black mb-1" style={{ color: c }}>{s.v}</p>
-                  <p className="text-xs text-gray-500">{s.l}</p>
-                </div>
-              ))}
-            </div>
-          </motion.section>
-        )}
+            <p className="text-xs uppercase tracking-widest text-gray-500 mb-2">État actuel</p>
+            <p className="text-xl font-bold mb-2" style={{ color: c }}>{filiale.statut}</p>
+            <p className="text-gray-400 text-sm max-w-xl mx-auto">
+              Version pilote : certaines fonctionnalités décrites ci-dessus sont encore en cours de développement. Nous cherchons des partenaires pilotes pour l'améliorer avec de vrais usages.
+            </p>
+          </div>
+        </motion.section>
 
         {/* CTA FINAL */}
         <motion.section
@@ -333,10 +280,10 @@ export default function ProduitPage({ params }: Props) {
         >
           <span className="text-5xl mb-5 block">{filiale.icon}</span>
           <h2 className="text-3xl font-black text-white mb-4">
-            Prêt à transformer votre activité avec {data.nom} ?
+            Envie de tester {data.nom} sur votre terrain ?
           </h2>
           <p className="text-gray-300 mb-8 max-w-xl mx-auto">
-            Rejoignez des centaines d&apos;entreprises africaines qui ont choisi de se digitaliser avec FORGE Afrika.
+            Nous cherchons des partenaires pilotes pour construire l&apos;outil avec eux. Essayez-le, puis dites-nous ce qui manque.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a

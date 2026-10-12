@@ -1,96 +1,26 @@
-# FORGE Afrika — L'Empire Technologique Africain en Construction
+# FORGE Afrika — Message public
 
-## 🌍 "Une vision. Dix filiales. Un continent à transformer."
+## En une phrase
 
----
+Des logiciels simples, utilisables hors ligne, pour les coopératives, éleveurs et PME de transformation d'Afrique de l'Ouest.
 
-## Le Problème
+## Le problème
 
-L'Afrique regorge d'entrepreneurs brillants, de producteurs courageux, de commerçants tenaces.
-Mais ils travaillent en silos — sans données, sans outils, sans infrastructure commune.
-Pendant ce temps, les solutions venues d'ailleurs ne comprennent ni leurs langues, ni leurs monnaies, ni leurs réalités.
+Beaucoup d'acteurs des filières agricoles et industrielles tiennent encore leurs données sur cahier ou sur tableur : membres, récoltes, stocks, lots, comptabilité. Les logiciels venus d'ailleurs ne sont pas toujours adaptés à la connexion, aux monnaies, aux référentiels (SYSCOHADA) ni aux langues locales.
 
-**FORGE Afrika change ça.**
+## Ce que nous faisons
 
----
+Dix outils, chacun sur un maillon précis d'une filière. Sept sont en ligne en version pilote (AgroTrack BF, LivestockOS, FORJA, TAAMA, MillTrack, ValueChain Connect, CompTrack), trois sont en développement (BurkinaCollect, Indubot Afrika, SUGU). Liens et détails : https://forge-afrika.vercel.app
 
-## Ce Qu'est FORGE Afrika
+## État réel
 
-FORGE Afrika est le **groupe technologique panafricain** qui conçoit, finance et opère
-un écosystème de logiciels SaaS pensés exclusivement pour les entreprises africaines.
+Projet jeune, fondé par Steeve Donald Compaoré. Pas encore d'utilisateurs établis : nous cherchons nos premiers partenaires pilotes. Aucun chiffre d'usage, de chiffre d'affaires ou de croissance ne doit être affiché tant qu'il n'est pas mesuré.
 
-Pas des copies d'outils occidentaux. Des solutions nées des contraintes africaines :
-connectivité limitée, paiements mobiles, monnaies locales, filières agricoles spécifiques,
-industries artisanales puissantes.
+## Pour qui
 
-> FORGE Afrika, c'est le holding qui fait de chaque PME africaine une entreprise du 21e siècle.
+- Coopératives, éleveurs, transformateurs et PME prêts à tester un outil et à donner des retours francs
+- Partenaires et investisseurs qui souhaitent échanger sur la démarche
 
----
+## Contact
 
-## L'Écosystème FORGE : 10 Filiales, 1 Mission
-
-| Filiale | Secteur | Ce qu'elle fait |
-|---|---|---|
-| **CompTrack** | Finance | Comptabilité SaaS OHADA pour PME |
-| **SUGU** | Commerce | Caisse digitale multi-boutiques |
-| **AgroTrack BF** | Agriculture | Gestion de coopératives agricoles |
-| **LivestockOS** | Élevage | Suivi de cheptel et production |
-| **ValueChain Connect** | B2B | Marketplace CEDEAO pour producteurs |
-| **MIFA Life** | E-commerce | Boutique africaine premium |
-| **TAAMA** | Industrie | Traçabilité industrielle et certification |
-| **MillTrack** | Transformation | Suivi de production pour usines |
-| **InduBot Afrika** | IA | Automatisation industrielle africaine |
-| **FORJA** | Finance | Microfinance et fintech africaine |
-
----
-
-## Pourquoi FORGE Afrika Gagne
-
-### 🔗 L'effet réseau de l'écosystème
-Chaque filiale alimente les autres. AgroTrack fournit les données à ValueChain.
-SUGU se connecte à CompTrack. TAAMA certifie ce que MillTrack produit.
-C'est une **chaîne de valeur numérique complète** — de la graine à l'export.
-
-### 🌐 Offline-first, Africa-first
-Nos outils fonctionnent sans internet stable. En FCFA. En mooré, en dioula, en français.
-Parce que l'Afrique mérite des outils qui la comprennent.
-
-### 📊 Data souveraine
-Les données de vos entreprises restent en Afrique, sous votre contrôle.
-Pas de dépendance à des serveurs étrangers. Pas de frais cachés en dollars.
-
-### 🚀 Vitesse d'exécution
-Là où une startup étrangère met 3 ans à comprendre le marché africain,
-FORGE Afrika déploie en semaines — parce que nous **sommes** ce marché.
-
----
-
-## Pour Qui ?
-
-- **Investisseurs** cherchant un portefeuille tech africain cohérent et intégré
-- **Partenaires institutionnels** (bailleurs, fondations, États) voulant digitaliser des filières
-- **Entreprises africaines** cherchant à rejoindre l'écosystème en tant que client ou partenaire
-- **Talents tech africains** qui veulent construire quelque chose de grand sur leur continent
-
----
-
-## La Vision
-
-> *"Être le Rockefeller africain du numérique. Construire l'infrastructure logicielle
-> qui fait tourner l'économie africaine du 21e siècle."*
->
-> — Steeve Donald Compaoré, Fondateur & PDG
-
----
-
-## Rejoindre FORGE Afrika
-
-**Vous êtes investisseur ?** → Contactez-nous pour le deck investisseur
-**Vous êtes une entreprise ?** → Essayez l'une de nos filiales gratuitement
-**Vous êtes un talent ?** → Construisons l'Afrique ensemble
-
-**🌐 [forge-afrika.vercel.app](https://forge-afrika.vercel.app)**
-
----
-
-*FORGE Afrika — Bâtir. Certifier. Exporter. Dominer.*
+docompaore2@gmail.com — https://forge-afrika.vercel.app/contact

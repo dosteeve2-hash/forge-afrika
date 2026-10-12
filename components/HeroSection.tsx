@@ -5,21 +5,16 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
 import { motion } from "framer-motion";
-import { FILIALES_FORGE } from "@/lib/constants";
-import Counter from "./Counter";
+import { NB_OUTILS, NB_DISPONIBLES, NB_EN_DEV } from "@/lib/constants";
 import MagneticButton from "./MagneticButton";
 import ForgeLogoSVG from "./ForgeLogoSVG";
 
 gsap.registerPlugin(SplitText);
 
-const NB_ACTIVES = FILIALES_FORGE.filter((f) => f.statut === "Actif").length;
-const CA_CONSOLIDE = FILIALES_FORGE.reduce((s, f) => s + f.metriques.ca, 0);
-
 const STATS = [
-  { target: FILIALES_FORGE.length, suffix: "", label: "Filiales du groupe" },
-  { target: NB_ACTIVES, suffix: "", label: "En production" },
-  { target: Math.round(CA_CONSOLIDE / 1_000_000), suffix: "M", label: "FCFA de CA consolidé" },
-  { target: 8, suffix: "", label: "Pays UEMOA ciblés" },
+  { value: NB_OUTILS, label: "Outils conçus" },
+  { value: NB_DISPONIBLES, label: "Disponibles en ligne" },
+  { value: NB_EN_DEV, label: "En développement" },
 ];
 
 const PARTICLES = Array.from({ length: 24 }, (_, i) => ({
@@ -124,7 +119,7 @@ export default function HeroSection() {
           className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium mb-8"
           style={{ background: "rgba(0,188,212,0.15)", border: "1px solid rgba(0,188,212,0.3)", color: "#00BCD4" }}
         >
-          🏛️ Entreprise Mère · Groupe Panafricain
+          🛠️ Logiciels pour les filières africaines · Phase pilote
         </motion.span>
 
         <h1
@@ -148,7 +143,7 @@ export default function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 1.1, type: "spring" as const }}
         >
-          L&apos;écosystème africain de demain
+          Les logiciels ennuyeux et indispensables de l&apos;industrialisation africaine
         </motion.p>
 
         <motion.blockquote
@@ -158,7 +153,7 @@ export default function HeroSection() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 1.25 }}
         >
-          « Nous ne construisons pas des outils. Nous forgeons l&apos;Afrique. »
+          Des outils simples, pensés pour le terrain et la connexion instable, pour que coopératives, éleveurs et PME de transformation travaillent avec des données fiables.
         </motion.blockquote>
 
         <motion.div
@@ -173,19 +168,19 @@ export default function HeroSection() {
             className="px-8 py-4 rounded-xl font-semibold text-lg inline-block"
             style={{ background: "linear-gradient(135deg, #D4AF37, #F5D76E)", color: "#0A1628" }}
           >
-            Découvrir nos filiales
+            Découvrir nos outils
           </MagneticButton>
           <MagneticButton
-            href="/dashboard"
+            href="/contact"
             className="px-8 py-4 rounded-xl font-semibold text-lg border inline-block"
             style={{ border: "1px solid rgba(212,175,55,0.4)", color: "#D4AF37", background: "rgba(212,175,55,0.08)" }}
           >
-            Accéder au QG →
+            Devenir partenaire pilote →
           </MagneticButton>
         </motion.div>
 
         <motion.div
-          className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto"
+          className="grid grid-cols-3 gap-6 max-w-xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 1.5 }}
@@ -196,7 +191,7 @@ export default function HeroSection() {
                 className="text-3xl md:text-4xl font-bold mb-1"
                 style={{ background: "linear-gradient(135deg, #D4AF37, #F5D76E)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}
               >
-                <Counter target={stat.target} suffix={stat.suffix} />
+                {stat.value}
               </div>
               <div className="text-gray-500 text-xs font-medium uppercase tracking-wide">{stat.label}</div>
             </div>

@@ -10,39 +10,39 @@ gsap.registerPlugin(ScrollTrigger);
 
 const FEATURES = [
   {
-    icon: "🏛️",
-    titre: "Gouvernance Centralisée",
-    desc: "Un QG unique pilote la stratégie, le capital et les priorités de toutes les filiales.",
+    icon: "📡",
+    titre: "Pensé pour le hors ligne",
+    desc: "Des outils conçus pour continuer à fonctionner avec une connexion faible ou coupée, puis se synchroniser.",
     couleur: "#D4AF37",
   },
   {
-    icon: "📊",
-    titre: "Dashboard Temps Réel",
-    desc: "CA, utilisateurs et croissance de chaque filiale consolidés sur un seul tableau de bord.",
+    icon: "🎯",
+    titre: "Un problème à la fois",
+    desc: "Chaque outil traite un maillon précis d'une filière, plutôt que de promettre un logiciel qui fait tout.",
     couleur: "#00BCD4",
   },
   {
-    icon: "🔐",
-    titre: "Infrastructure Partagée",
-    desc: "Auth, sécurité et données mutualisées entre filiales — chaque nouveau projet démarre plus vite.",
+    icon: "💱",
+    titre: "Réalité locale",
+    desc: "FCFA, référentiel SYSCOHADA, mobile d'abord, et des langues locales là où c'est pertinent.",
     couleur: "#22C55E",
   },
   {
-    icon: "🌍",
-    titre: "Expansion Systématique",
-    desc: "Burkina Faso → UEMOA → CEDEAO → Continent. Chaque marché conquis devient la base du suivant.",
+    icon: "🔗",
+    titre: "Des outils qui se parlent",
+    desc: "L'objectif : qu'une donnée saisie dans un outil serve aux autres, de la collecte à la comptabilité et à l'export.",
     couleur: "#F97316",
   },
   {
-    icon: "💰",
-    titre: "Financement Inter-Filiales",
-    desc: "Le capital circule vers la filiale qui a la meilleure traction, au bon moment.",
+    icon: "🔐",
+    titre: "Base technique commune",
+    desc: "Une même pile technique moderne et des règles de sécurité communes à tous les outils.",
     couleur: "#8B5CF6",
   },
   {
-    icon: "🤝",
-    titre: "Écosystème Connecté",
-    desc: "Chaque filiale bénéficie du réseau, de la marque et des utilisateurs des autres.",
+    icon: "🔎",
+    titre: "Code ouvert à la lecture",
+    desc: "Le code du site FORGE Afrika est public sur GitHub : vous pouvez vérifier ce que nous construisons.",
     couleur: "#EF4444",
   },
 ];
@@ -87,13 +87,13 @@ export default function FeaturesSection() {
           viewport={{ once: true }}
         >
           <span className="text-xs uppercase tracking-[0.3em] font-bold mb-4 block" style={{ color: "#00BCD4" }}>
-            Ce que le QG apporte
+            Notre approche
           </span>
           <h2 className="text-4xl font-bold text-white mb-4" style={{ fontFamily: "var(--font-display)" }}>
-            L&apos;Arsenal du Groupe
+            Comment nous construisons
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Une infrastructure commune qui rend chaque filiale plus forte que si elle était seule.
+            Des principes simples, appliqués à chaque outil.
           </p>
         </motion.div>
 

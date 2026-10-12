@@ -9,11 +9,10 @@ import Link from "next/link";
 import ForgeLogoSVG from "@/components/ForgeLogoSVG";
 
 const NAV_LINKS = [
-  { label: "Projets",    href: "#filiales",    scroll: true  },
+  { label: "Outils",    href: "#filiales",    scroll: true  },
   { label: "Écosystème", href: "#ecosysteme",  scroll: true  },
   { label: "Mission",    href: "#mission",     scroll: true  },
   { label: "Roadmap",    href: "/roadmap",     scroll: false },
-  { label: "Contact",    href: "/contact",     scroll: false },
 ];
 
 export default function Navbar() {
@@ -77,11 +76,11 @@ export default function Navbar() {
           )
         )}
         <Link
-          href="/dashboard"
+          href="/contact"
           className="text-sm px-4 py-2 rounded-lg font-bold transition-all hover:scale-105"
           style={{ background: "linear-gradient(135deg, #D4AF37, #F5D76E)", color: "#0A1628" }}
         >
-          ⌘ QG
+          Partenaire pilote
         </Link>
       </div>
 
@@ -125,11 +124,11 @@ export default function Navbar() {
               )
             )}
             <Link
-              href="/dashboard"
+              href="/contact"
               className="mt-3 text-center text-sm px-4 py-3 rounded-lg font-bold"
               style={{ background: "linear-gradient(135deg, #D4AF37, #F5D76E)", color: "#0A1628" }}
             >
-              Accéder au QG
+              Devenir partenaire pilote
             </Link>
           </motion.div>
         )}

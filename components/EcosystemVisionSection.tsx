@@ -5,12 +5,9 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { FILIALES_FORGE, SECTEUR_META, type Secteur } from "@/lib/constants";
 
-const SECTEURS: Secteur[] = ["Primaire", "Secondaire", "Tertiaire", "Social"];
+const SECTEURS: Secteur[] = ["Primaire", "Secondaire", "Tertiaire"];
 
 export default function EcosystemVisionSection() {
-  const totalUsers = FILIALES_FORGE.reduce((s, f) => s + f.metriques.utilisateurs, 0);
-  const totalCA    = FILIALES_FORGE.reduce((s, f) => s + f.metriques.ca, 0);
-
   return (
     <section id="ecosysteme" className="py-24 px-4 relative overflow-hidden">
       {/* Halo fond */}
@@ -25,15 +22,15 @@ export default function EcosystemVisionSection() {
           transition={{ duration: 0.6, type: "spring" as const }} viewport={{ once: true }}>
           <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold mb-6"
             style={{ background: "rgba(0,188,212,0.12)", border: "1px solid rgba(0,188,212,0.25)", color: "#00BCD4" }}>
-            🌍 Écosystème Panafricain
+            🌍 Du champ à l&apos;usine
           </span>
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Tout connecté. Tout digital.
+            Un maillon à la fois.
           </h2>
           <p className="text-gray-400 text-lg max-w-3xl mx-auto leading-relaxed">
-            FORGE Afrika ne fait pas qu'un logiciel. Elle construit{" "}
-            <span style={{ color: "#D4AF37" }}>l'infrastructure numérique complète</span>{" "}
-            de l'Afrique — du champ à l'usine, de la boutique au marché mondial.
+            FORGE Afrika vise à construire{" "}
+            <span style={{ color: "#D4AF37" }}>l&apos;infrastructure numérique</span>{" "}
+            des filières africaines — du champ à l&apos;usine, de la boutique à l&apos;export. Chaque outil est indépendant et utilisable seul.
           </p>
         </motion.div>
 
@@ -89,28 +86,18 @@ export default function EcosystemVisionSection() {
                         <span className="font-bold text-sm text-white">{f.nom}</span>
                         <span className="ml-auto text-xs px-1.5 py-0.5 rounded-full"
                           style={{
-                            background: f.statut === "Actif" ? "rgba(16,185,129,0.12)" : f.statut === "Planifié" ? "rgba(139,92,246,0.12)" : "rgba(255,165,0,0.10)",
-                            color: f.statut === "Actif" ? "#10B981" : f.statut === "Planifié" ? "#8B5CF6" : "#F59E0B",
+                            background: f.statut === "Disponible" ? "rgba(16,185,129,0.12)" : "rgba(255,165,0,0.10)",
+                            color: f.statut === "Disponible" ? "#10B981" : "#F59E0B",
                           }}>
-                          {f.statut === "Actif" ? "● Actif" : f.statut === "Planifié" ? "◈ Planifié" : "◐ Dev"}
+                          {f.statut === "Disponible" ? "● Disponible" : "◐ En développement"}
                         </span>
                       </div>
                       <p className="text-xs leading-relaxed text-gray-400 mb-3">{f.pourquoi}</p>
-                      {f.metriques.utilisateurs > 0 && (
-                        <div className="flex gap-3 text-xs" style={{ color: "#6B7280" }}>
-                          <span style={{ color: f.couleur }}>{f.metriques.utilisateurs.toLocaleString("fr")} users</span>
-                          {f.metriques.ca > 0 && (
-                            <span>{(f.metriques.ca / 1_000_000).toFixed(1)}M FCFA CA</span>
-                          )}
-                        </div>
-                      )}
-                      {f.url !== "#" && (
-                        <a href={f.url} target="_blank" rel="noopener noreferrer"
+                      <a href={f.url} target="_blank" rel="noopener noreferrer"
                           className="mt-2 text-xs flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity"
                           style={{ color: f.couleur }}>
                           Voir le projet <ArrowRight className="w-3 h-3" />
-                        </a>
-                      )}
+                      </a>
                     </motion.div>
                   ))}
                 </div>
@@ -119,30 +106,6 @@ export default function EcosystemVisionSection() {
           })}
         </div>
 
-        {/* Stats consolidées */}
-        <motion.div
-          className="rounded-2xl p-8 grid grid-cols-2 md:grid-cols-4 gap-6 text-center"
-          style={{ background: "rgba(255,255,255,0.025)", border: "1px solid rgba(212,175,55,0.15)" }}
-          initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, type: "spring" as const }} viewport={{ once: true }}>
-          {[
-            { value: `${FILIALES_FORGE.length}`, label: "Filiales fondées" },
-            { value: `${FILIALES_FORGE.filter(f => f.statut === "Actif").length}`, label: "En production" },
-            { value: totalUsers.toLocaleString("fr"), label: "Utilisateurs actifs" },
-            { value: (totalCA / 1_000_000).toFixed(0) + "M FCFA", label: "CA consolidé" },
-          ].map((s, i) => (
-            <div key={i}>
-              <p className="text-3xl font-black mb-1" style={{
-                background: "linear-gradient(135deg, #D4AF37, #F5D76E)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}>{s.value}</p>
-              <p className="text-sm text-gray-400">{s.label}</p>
-            </div>
-          ))}
-        </motion.div>
-
         {/* CTA */}
         <motion.div className="text-center mt-10"
           initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}
@@ -150,7 +113,7 @@ export default function EcosystemVisionSection() {
           <Link href="/ecosystem"
             className="inline-flex items-center gap-2 text-sm font-semibold transition-all hover:gap-3"
             style={{ color: "#D4AF37" }}>
-            Explorer toutes les filiales <ArrowRight className="w-4 h-4" />
+            Explorer tous les outils <ArrowRight className="w-4 h-4" />
           </Link>
         </motion.div>
       </div>

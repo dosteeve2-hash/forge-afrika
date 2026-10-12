@@ -53,10 +53,10 @@ export default function EcosystemSection() {
           viewport={{ once: true }}
         >
           <h2 className="text-4xl font-bold text-white mb-4" style={{ fontFamily: "var(--font-display)" }}>
-            L&apos;Écosystème
+            La carte des outils
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            FORGE Afrika au centre. Chaque filiale, une ramification autonome, connectée au QG.
+            FORGE Afrika au centre, un outil par maillon de la filière. Les liens entre outils sont un objectif de conception.
           </p>
         </motion.div>
 
@@ -118,9 +118,9 @@ export default function EcosystemSection() {
             return (
               <motion.a
                 key={f.slug}
-                href={f.url !== "#" ? f.url : "/ecosystem"}
-                target={f.url !== "#" ? "_blank" : undefined}
-                rel={f.url !== "#" ? "noopener noreferrer" : undefined}
+                href={f.url}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="absolute flex flex-col items-center gap-1 group"
                 style={{ left: `${x}%`, top: `${y}%`, transform: "translate(-50%,-50%)", width: "68px" }}
                 initial={{ opacity: 0, scale: 0.4 }}

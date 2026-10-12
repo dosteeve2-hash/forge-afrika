@@ -20,7 +20,6 @@ export type ProductMarketing = {
   solution: string;
   features: Feature[];
   audiences: string[];
-  testimonials: { texte: string; auteur: string; role: string }[];
   ctaText: string;
   ctaUrl: string;
   ctaSecondText?: string;
@@ -38,7 +37,7 @@ export const MARKETING_DATA: Record<string, ProductMarketing> = {
     problemTitle: "Vous perdez de l'argent sans le savoir",
     problem: "Chaque mois, des milliers de PME africaines gèrent leurs finances dans des cahiers, des WhatsApp et des Excel approximatifs. Des factures oubliées, des dépenses non comptées, des impôts mal calculés — c'est de l'argent qui s'évapore. Et quand la banque ou un investisseur demande vos états financiers, vous ne savez pas quoi montrer.",
     solutionTitle: "CompTrack fait votre comptabilité à votre place",
-    solution: "CompTrack est le premier logiciel de comptabilité conçu pour les PME africaines : en FCFA, conforme SYSCOHADA, mobile-first. Pas besoin d'être comptable. Pas besoin de formation longue. En 10 minutes, vous avez une vue complète de votre trésorerie, vos factures et vos marges.",
+    solution: "CompTrack est un logiciel de comptabilité conçu pour les PME africaines : en FCFA, conforme SYSCOHADA, mobile-first. Pas besoin d'être comptable. Pas besoin de formation longue. En 10 minutes, vous avez une vue complète de votre trésorerie, vos factures et vos marges.",
     features: [
       { icon: "📄", titre: "Facturation Professionnelle", description: "Créez et envoyez des factures aux couleurs de votre entreprise en 30 secondes. Suivi des paiements, relances automatiques, reçus WhatsApp. Fini les factures oubliées et les impayés qui traînent." },
       { icon: "💰", titre: "Suivi des Dépenses Sans Effort", description: "Enregistrez chaque dépense depuis votre téléphone. CompTrack catégorise automatiquement, vous alerte quand vous dépassez votre budget, et vous montre exactement où va chaque franc." },
@@ -54,14 +53,10 @@ export const MARKETING_DATA: Record<string, ProductMarketing> = {
       "Associations et ONG ayant besoin de reporting financier",
       "Gérants de boutiques avec plusieurs points de vente",
     ],
-    testimonials: [
-      { texte: "Avant CompTrack, je passais 2 jours par mois sur ma comptabilité. Maintenant, 20 minutes.", auteur: "Aminata K.", role: "Gérante boutique textile, Ouagadougou" },
-      { texte: "Mon banquier a dit que mes états financiers étaient parmi les mieux préparés qu'il avait vus.", auteur: "Ibrahim D.", role: "Prestataire IT, Abidjan" },
-    ],
-    ctaText: "Essayer Gratuitement — 30 jours",
-    ctaUrl: "https://comptrack.vercel.app",
-    ctaSecondText: "Voir une démo",
-    ctaSecondUrl: "https://comptrack.vercel.app/demo",
+    ctaText: "Découvrir l'outil",
+    ctaUrl: "https://comptrack-chi.vercel.app",
+    ctaSecondText: "Devenir partenaire pilote",
+    ctaSecondUrl: "/contact",
   },
 
   "sugu": {
@@ -90,12 +85,8 @@ export const MARKETING_DATA: Record<string, ProductMarketing> = {
       "Pharmacies et para-pharmacies",
       "Tout commerçant qui veut savoir où va son argent",
     ],
-    testimonials: [
-      { texte: "Je savais jamais combien j'avais vraiment vendu dans la journée. Maintenant c'est affiché direct.", auteur: "Mariam S.", role: "Épicerie de quartier, Bobo-Dioulasso" },
-      { texte: "J'ai ouvert une deuxième boutique. Sans SUGU, j'aurais pas pu gérer les deux.", auteur: "Moussa T.", role: "Boutique téléphonie, Ouagadougou" },
-    ],
-    ctaText: "Essayer SUGU Gratuitement",
-    ctaUrl: "https://duka.vercel.app",
+    ctaText: "Découvrir SUGU",
+    ctaUrl: "https://duka-kappa.vercel.app",
   },
 
   "agrotrack-bf": {
@@ -115,7 +106,7 @@ export const MARKETING_DATA: Record<string, ProductMarketing> = {
       { icon: "📋", titre: "Rapports Bailleurs Instantanés", description: "Production totale, superficie cultivée, membres actifs, taux de collecte — générés en quelques secondes. Prêts pour la SFD, la SOFITEX, les ONG, les certifications bio ou commerce équitable." },
       { icon: "📡", titre: "Offline-First — Conçu pour le Terrain", description: "Pas de WiFi dans les champs ? Aucun problème. AgroTrack stocke tout localement et synchronise quand vous avez du réseau. Les agents saisissent depuis le village, le responsable voit tout au bureau." },
       { icon: "📊", titre: "Tableaux de Bord Décisionnels", description: "Quelles cultures sont les plus rentables ? Quels membres décrochent ? Quel village produit le plus ? AgroTrack répond visuellement pour que vos décisions soient basées sur des faits, pas des impressions." },
-      { icon: "🔐", titre: "Données Sécurisées et Souveraines", description: "Vos données n'appartiennent qu'à vous. Hébergées en Afrique. Accès par rôles : le directeur voit tout, l'agent de terrain saisit ses villages. Pas de partage avec des tiers sans votre accord." },
+      { icon: "🔐", titre: "Données Sécurisées et Souveraines", description: "Vos données n'appartiennent qu'à vous. Accès par rôles : le directeur voit tout, l'agent de terrain saisit ses villages. Pas de partage avec des tiers sans votre accord." },
     ],
     audiences: [
       "Coopératives coton, maïs, sésame, karité, anacarde, niébé",
@@ -124,11 +115,7 @@ export const MARKETING_DATA: Record<string, ProductMarketing> = {
       "Bailleurs finançant des filières agricoles",
       "Toute organisation gérant des agriculteurs et leurs productions",
     ],
-    testimonials: [
-      { texte: "On pouvait enfin répondre aux questions de l'auditeur de certification sans chercher pendant une heure.", auteur: "Responsable coopérative sésame", role: "Province du Houet, Burkina Faso" },
-      { texte: "L'application a remplacé 4 cahiers et un classeur entier.", auteur: "Agent de terrain", role: "Coopérative maraîchage, Ouagadougou" },
-    ],
-    ctaText: "Démarrer la Démo Gratuite",
+    ctaText: "Découvrir l'outil",
     ctaUrl: "https://agrotrack-bf.vercel.app",
   },
 
@@ -158,12 +145,8 @@ export const MARKETING_DATA: Record<string, ProductMarketing> = {
       "Vétérinaires gérant plusieurs élevages clients",
       "Coopératives d'éleveurs cherchant à se structurer",
     ],
-    testimonials: [
-      { texte: "Je savais mon rendement à ±5 %. Avec LivestockOS, c'est au kilo près. Ça change tout pour les achats.", auteur: "Éleveur bovin", role: "Région des Hauts-Bassins, Burkina Faso" },
-      { texte: "J'ai réduit les maladies de 60 % en suivant les rappels de vaccination dans l'app.", auteur: "Gérant de ranch", role: "Région du Centre-Ouest" },
-    ],
-    ctaText: "Commencer le Suivi de Mon Troupeau",
-    ctaUrl: "https://livestock-os.vercel.app",
+    ctaText: "Découvrir LivestockOS",
+    ctaUrl: "https://livestock-os-ashy.vercel.app",
   },
 
   "taama": {
@@ -192,11 +175,7 @@ export const MARKETING_DATA: Record<string, ProductMarketing> = {
       "PME cherchant à exporter vers l'Europe ou l'Asie",
       "Toute industrie soumise à des exigences de traçabilité",
     ],
-    testimonials: [
-      { texte: "On a décroché un contrat en Allemagne parce qu'on était les seuls à fournir une traçabilité EUDR complète.", auteur: "Directeur export", role: "Huilerie de sésame, Burkina Faso" },
-      { texte: "Nos audits de certification bio durent maintenant 2 heures au lieu de 2 jours.", auteur: "Responsable qualité", role: "Unité de transformation, Bobo-Dioulasso" },
-    ],
-    ctaText: "Demander une Démo TAAMA",
+    ctaText: "Découvrir TAAMA",
     ctaUrl: "https://taama.vercel.app",
   },
 
@@ -210,14 +189,14 @@ export const MARKETING_DATA: Record<string, ProductMarketing> = {
     problemTitle: "Vous vendez sous-évalué à cause d'intermédiaires opaques",
     problem: "Vous produisez du coton, du sésame, du karité, de l'anacarde. Vous travaillez dur. Votre qualité est là. Mais vos débouchés dépendent d'intermédiaires opaques qui fixent les prix sans vous expliquer pourquoi. De l'autre côté, les transformateurs et exportateurs cherchent des fournisseurs fiables mais n'ont aucune visibilité sur qui produit quoi. ValueChain Connect ferme ce fossé.",
     solutionTitle: "ValueChain Connect : l'offre rencontre la demande directement",
-    solution: "ValueChain Connect est la marketplace B2B panafricaine qui connecte producteurs agricoles, transformateurs et acheteurs commerciaux dans l'espace CEDEAO. Plus d'intermédiaires qui mangent la marge. Une plateforme transparente où vous publiez votre production, recevez des offres d'acheteurs vérifiés et négociez directement.",
+    solution: "ValueChain Connect est la marketplace B2B panafricaine qui connecte producteurs agricoles, transformateurs et acheteurs commerciaux dans l'espace CEDEAO. Plus d'intermédiaires qui mangent la marge. Une plateforme transparente où vous publiez votre production, recevez des offres d'acheteurs et négociez directement.",
     features: [
-      { icon: "🏪", titre: "Vitrine Commerciale Permanente", description: "Créez le profil de votre production : cultures, volumes, qualité, certifications. Visibles par des centaines d'acheteurs dans toute la CEDEAO. Votre production est commercialisée 24h/24." },
+      { icon: "🏪", titre: "Vitrine Commerciale Permanente", description: "Créez le profil de votre production : cultures, volumes, qualité, certifications. Votre production est commercialisée 24h/24." },
       { icon: "💹", titre: "Accès aux Prix de Marché Réels", description: "Consultez les cours en temps réel pour vos produits. Ne vendez plus sous-évalué par manque d'information. Négociez depuis une position de force avec des données objectives." },
       { icon: "🔍", titre: "Sourcing Sécurisé pour les Acheteurs", description: "Transformateurs et exportateurs : trouvez vos fournisseurs en quelques clics. Filtrez par produit, région, volume, certification. Sécurisez vos approvisionnements toute l'année." },
-      { icon: "🤝", titre: "Contrats Digitaux et Traçabilité", description: "Formalisez vos transactions sur la plateforme. Chaque lot est tracé de la production à la livraison. Conformité EUDR pour l'export vers l'Europe. Certification origine garantie." },
+      { icon: "🤝", titre: "Contrats Digitaux et Traçabilité", description: "Formalisez vos transactions sur la plateforme. Chaque lot est tracé de la production à la livraison. Conformité EUDR pour l'export vers l'Europe." },
       { icon: "📊", titre: "Intelligence de Filière", description: "Visualisez les flux de votre filière : qui produit quoi, où, en quelle quantité. Identifiez les opportunités de marché. Anticipez les déficits d'offre avant vos concurrents." },
-      { icon: "🌍", titre: "Réseau CEDEAO Intégré", description: "Burkina Faso, Côte d'Ivoire, Sénégal, Ghana, Mali, Niger — une seule plateforme. Vos débouchés ne sont plus limités à votre région. L'Afrique de l'Ouest est votre marché." },
+      { icon: "🌍", titre: "Réseau CEDEAO Intégré", description: "Une seule plateforme pour élargir vos débouchés au-delà de votre région, à terme à toute l'Afrique de l'Ouest." },
     ],
     audiences: [
       "Coopératives et unions de producteurs agricoles",
@@ -226,46 +205,8 @@ export const MARKETING_DATA: Record<string, ProductMarketing> = {
       "Exportateurs et traders CEDEAO",
       "Structures d'appui aux filières (ONG, projets agricoles)",
     ],
-    testimonials: [
-      { texte: "J'ai vendu 40 tonnes de sésame à un acheteur sénégalais. Jamais j'aurais eu ce contact sans ValueChain.", auteur: "Responsable coopérative", role: "Région Centre-Ouest, Burkina Faso" },
-      { texte: "En tant que transformateur, je sécurise mes approvisionnements 6 mois à l'avance maintenant.", auteur: "Directeur commercial", role: "Huilerie, Abidjan" },
-    ],
-    ctaText: "Rejoindre la Plateforme",
+    ctaText: "Découvrir la plateforme",
     ctaUrl: "https://valuechain-connect.vercel.app",
-  },
-
-  "mifa-life": {
-    slug: "mifa-life",
-    nom: "MIFA Life",
-    headline: "Le Meilleur de la Mode et de l'Artisanat Africain",
-    tagline: "L'Afrique crée. Le monde entier peut maintenant l'acheter.",
-    couleur: "#EC4899",
-    bgGradient: "linear-gradient(135deg, #4A1942, #831843)",
-    problemTitle: "L'artisanat africain exceptionnel reste invisible et sous-valorisé",
-    problem: "L'Afrique est une mine de créativité : bogolan du Mali, kente du Ghana, wax ivoirien, bijoux touaregs, maroquinerie burkinabè. Des artisans extraordinaires, des créateurs de talent, des savoir-faire millénaires. Mais trouver ces produits ? Acheter en confiance ? Se faire livrer rapidement ? C'est là que ça se complique — pour les acheteurs locaux comme pour la diaspora.",
-    solutionTitle: "MIFA Life : le luxe africain accessible partout",
-    solution: "MIFA Life est la boutique e-commerce premium dédiée à la mode et à l'artisanat africain. Une sélection rigoureuse de créations authentiques, livrées partout en Afrique avec la qualité de service qu'elles méritent. Chaque produit est sélectionné à la main. Chaque créateur est vérifié.",
-    features: [
-      { icon: "👑", titre: "Sélection Premium, Authenticité Garantie", description: "Pas de contrefaçon. Pas d'articles 'inspirés de'. Chaque pièce MIFA Life est authentique, sourcée directement chez des artisans et créateurs vérifiés. Notre équipe certifie chaque partenaire." },
-      { icon: "📱", titre: "Paiement Mobile Africain", description: "Orange Money, Wave, Moov Money — payez comme vous vivez. Aucune carte bancaire nécessaire. Paiement sécurisé en quelques secondes. Adapté aux réalités financières africaines." },
-      { icon: "🚚", titre: "Livraison Rapide et Suivie", description: "Livraison express à Bamako, Ouagadougou, Dakar, Abidjan. Suivi en temps réel de votre commande. Livraison à domicile ou en point relais. Vos achats arrivent intacts, emballés avec soin." },
-      { icon: "🌍", titre: "Pour la Diaspora Africaine", description: "Vous vivez en France, au Canada, aux États-Unis ? Envoyez des cadeaux authentiques à vos proches restés au pays. MIFA Life livre directement en Afrique. Envoyez du style. Envoyez de l'amour." },
-      { icon: "💎", titre: "Collections Exclusives et Limitées", description: "Nouvelles collections chaque saison. Éditions limitées avec les meilleurs créateurs. Abonnez-vous aux alertes pour ne rien manquer des pièces les plus convoitées." },
-      { icon: "🛍️", titre: "Expérience d'Achat Fluide", description: "Navigation intuitive. Fiches produits détaillées avec photos HD. Avis vérifiés. Retours facilités. Service client humain, disponible et réactif. Vous achetez en confiance." },
-    ],
-    audiences: [
-      "Amateurs de mode africaine authentique",
-      "Diaspora africaine cherchant des produits du continent",
-      "Acheteurs de cadeaux haut de gamme africains",
-      "Professionnels cherchant des pièces d'artisanat pour décoration",
-      "Créateurs et artisans africains voulant vendre en ligne",
-    ],
-    testimonials: [
-      { texte: "J'ai offert un ensemble bogolan à ma mère pour son anniversaire. Elle a pleuré de joie. Merci MIFA.", auteur: "Fatou D.", role: "Cliente diaspora, Paris" },
-      { texte: "Je commande chaque mois. Qualité toujours au rendez-vous, livraison rapide.", auteur: "Bintou K.", role: "Cadre, Bamako" },
-    ],
-    ctaText: "Découvrir la Boutique",
-    ctaUrl: "https://mifa-life-shop-9k55.vercel.app",
   },
 
   "milltrack": {
@@ -294,11 +235,7 @@ export const MARKETING_DATA: Record<string, ProductMarketing> = {
       "Usines d'égrenage et de conditionnement",
       "Tout dirigeant d'usine qui veut piloter au lieu de deviner",
     ],
-    testimonials: [
-      { texte: "Avant, je savais mon rendement à ±5 %. Avec MillTrack, c'est au kilo près. Ça change tout pour les achats.", auteur: "Directeur technique", role: "Minoterie, Bobo-Dioulasso" },
-      { texte: "J'ai réduit les arrêts machines de 40 % en 3 mois juste en suivant les données de maintenance.", auteur: "Responsable production", role: "Huilerie industrielle, Ouagadougou" },
-    ],
-    ctaText: "Planifier une Démo en Usine",
+    ctaText: "Découvrir MillTrack",
     ctaUrl: "https://milltrack.vercel.app",
   },
 
@@ -328,12 +265,7 @@ export const MARKETING_DATA: Record<string, ProductMarketing> = {
       "Responsables maintenance voulant passer du curatif au préventif",
       "Groupes industriels gérant plusieurs sites de production",
     ],
-    testimonials: [
-      { texte: "On a réduit nos arrêts machine non planifiés de moitié en trois mois avec les alertes d'Indubot.", auteur: "Directeur d'usine", role: "Unité de transformation, Ouagadougou" },
-      { texte: "Enfin un tableau de bord qui me montre l'état réel de mes lignes, pas des rapports du lendemain.", auteur: "Responsable maintenance", role: "Groupe industriel, Abidjan" },
-      { texte: "Nos équipes anticipent les pannes au lieu de les subir. Ça a changé notre façon de gérer la production.", auteur: "Chef de production", role: "Usine de conditionnement, Bobo-Dioulasso" },
-    ],
-    ctaText: "Demander une Démo Indubot",
+    ctaText: "Découvrir Indubot Afrika",
     ctaUrl: "https://indubot-afrika.vercel.app",
   },
 };

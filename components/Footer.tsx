@@ -1,14 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Github, Linkedin, Mail } from "lucide-react";
+import { Github, Mail } from "lucide-react";
 import Link from "next/link";
 import { FILIALES_FORGE } from "@/lib/constants";
 
 const SOCIALS = [
   { icon: Mail, href: "mailto:docompaore2@gmail.com", label: "Email" },
   { icon: Github, href: "https://github.com/dosteeve2-hash/forge-afrika", label: "Code source sur GitHub" },
-  { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
 ];
 
 export default function Footer() {
@@ -33,7 +32,7 @@ export default function Footer() {
               FORGE Afrika
             </span>
           </div>
-          <p className="text-gray-500 text-sm mb-6">© 2026 FORGE Afrika. Bâtir l&apos;Afrique de demain.</p>
+          <p className="text-gray-500 text-sm mb-6">© 2026 FORGE Afrika · Steeve Donald Compaoré</p>
 
           <div className="flex items-center gap-4">
             {SOCIALS.map((social) => (
@@ -55,20 +54,20 @@ export default function Footer() {
         </motion.div>
 
         <div className="flex flex-wrap justify-center gap-x-8 gap-y-2 mb-10">
-          <Link href="/ecosystem" className="text-xs text-gray-500 hover:text-gray-300 transition-colors">Nos Filiales</Link>
+          <Link href="/ecosystem" className="text-xs text-gray-500 hover:text-gray-300 transition-colors">Nos outils</Link>
           <Link href="/roadmap" className="text-xs text-gray-500 hover:text-gray-300 transition-colors">Roadmap</Link>
-          <Link href="/dashboard" className="text-xs text-gray-500 hover:text-gray-300 transition-colors">QG</Link>
+          <Link href="/contact" className="text-xs text-gray-500 hover:text-gray-300 transition-colors">Contact</Link>
         </div>
 
         <div className="pt-8" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
-          <p className="text-center text-xs text-gray-600 uppercase tracking-wider mb-4">Toutes les filiales</p>
+          <p className="text-center text-xs text-gray-600 uppercase tracking-wider mb-4">Tous les outils</p>
           <div className="flex flex-wrap justify-center gap-2">
             {FILIALES_FORGE.map((f) => (
               <a
                 key={f.slug}
-                href={f.url !== "#" ? f.url : "/ecosystem"}
-                target={f.url !== "#" ? "_blank" : undefined}
-                rel={f.url !== "#" ? "noopener noreferrer" : undefined}
+                href={f.url}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="px-3 py-1.5 rounded-full text-xs font-medium transition-colors"
                 style={{ background: `${f.couleur}15`, color: f.couleur, border: `1px solid ${f.couleur}30` }}
               >

@@ -7,13 +7,13 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-body" });
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-display" });
 
 export const metadata: Metadata = {
-  title: "FORGE Afrika — L'Entreprise Mère de l'Écosystème Panafricain",
+  title: "FORGE Afrika — Logiciels pour les filières africaines",
   description:
-    "FORGE Afrika est la maison mère qui gouverne 10 filiales technologiques africaines — retail, agriculture, industrie, finance et commerce.",
-  keywords: ["FORGE Afrika", "Afrique", "holding", "industrie", "agriculture", "technologie"],
+    "FORGE Afrika développe des outils logiciels pour l'agriculture, l'élevage, la transformation, la comptabilité et le commerce en Afrique de l'Ouest. Projet en phase pilote, partenaires pilotes recherchés.",
+  keywords: ["FORGE Afrika", "Afrique", "industrie", "agriculture", "technologie"],
   openGraph: {
-    title: "FORGE Afrika — QG du Groupe",
-    description: "Le centre de commande de toutes les filiales FORGE Afrika",
+    title: "FORGE Afrika — Logiciels pour les filières africaines",
+    description: "Des outils pour coopératives, éleveurs et PME de transformation. Projet en phase pilote.",
     type: "website",
   },
   icons: {
