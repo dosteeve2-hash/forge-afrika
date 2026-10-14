@@ -13,9 +13,9 @@ FORGE Afrika développe des outils simples, pensés pour le terrain et la connex
 |-------|------|------|------|
 | AgroTrack BF | Membres et récoltes de coopératives agricoles | Disponible (pilote) | https://agrotrack-bf.vercel.app |
 | LivestockOS | Suivi du cheptel, santé animale, ventes | Disponible (pilote) | https://livestock-os-ashy.vercel.app |
-| FORJA | Traçabilité export, de la parcelle au conteneur | Disponible (pilote) | https://forja.vercel.app |
-| TAAMA | ERP de traçabilité pour PME de transformation | Disponible (pilote) | https://taama.vercel.app |
-| MillTrack | Suivi de production minoteries et huileries | Disponible (pilote) | https://milltrack.vercel.app |
+| FORJA | Traçabilité export, de la parcelle au conteneur | Disponible (pilote) | https://forja-pied.vercel.app |
+| TAAMA | ERP de traçabilité pour PME de transformation | Disponible (pilote) | https://taama-mu.vercel.app |
+| MillTrack | Suivi de production minoteries et huileries | Disponible (pilote) | https://milltrack-two.vercel.app |
 | ValueChain Connect | Marketplace B2B producteurs et transformateurs | Disponible (pilote) | https://valuechain-connect.vercel.app |
 | CompTrack | Comptabilité PME SYSCOHADA | Disponible (pilote) | https://comptrack-chi.vercel.app |
 | BurkinaCollect | Collecte de données terrain hors ligne | En développement | https://burkinacollect-bf.vercel.app |

@@ -45,7 +45,7 @@ export const FILIALES_FORGE = [
     statut: "Disponible" as Statut,
     couleur: "#A16207",
     icon: "☕",
-    url: "https://forja.vercel.app",
+    url: "https://forja-pied.vercel.app",
   },
   {
     nom: "BurkinaCollect",
@@ -69,7 +69,7 @@ export const FILIALES_FORGE = [
     statut: "Disponible" as Statut,
     couleur: "#22C55E",
     icon: "🏭",
-    url: "https://taama.vercel.app",
+    url: "https://taama-mu.vercel.app",
   },
   {
     nom: "MillTrack",
@@ -81,7 +81,7 @@ export const FILIALES_FORGE = [
     statut: "Disponible" as Statut,
     couleur: "#EAB308",
     icon: "⚙️",
-    url: "https://milltrack.vercel.app",
+    url: "https://milltrack-two.vercel.app",
   },
   {
     nom: "ValueChain Connect",

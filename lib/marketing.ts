@@ -176,7 +176,7 @@ export const MARKETING_DATA: Record<string, ProductMarketing> = {
       "Toute industrie soumise à des exigences de traçabilité",
     ],
     ctaText: "Découvrir TAAMA",
-    ctaUrl: "https://taama.vercel.app",
+    ctaUrl: "https://taama-mu.vercel.app",
   },
 
   "valuechain-connect": {
@@ -236,7 +236,7 @@ export const MARKETING_DATA: Record<string, ProductMarketing> = {
       "Tout dirigeant d'usine qui veut piloter au lieu de deviner",
     ],
     ctaText: "Découvrir MillTrack",
-    ctaUrl: "https://milltrack.vercel.app",
+    ctaUrl: "https://milltrack-two.vercel.app",
   },
 
   "indubot-afrika": {
