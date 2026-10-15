@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import CursorGlow from "@/components/CursorGlow";
 import HeroSection from "@/components/HeroSection";
+import HomeVideoSection from "@/components/HomeVideoSection";
 import FeaturesSection from "@/components/FeaturesSection";
 import FiliaresSection from "@/components/FiliaresSection";
 import EcosystemVisionSection from "@/components/EcosystemVisionSection";
@@ -15,6 +16,7 @@ export default function HomePage() {
       <CursorGlow />
       <Navbar />
       <HeroSection />
+      <HomeVideoSection />
       <FeaturesSection />
       <FiliaresSection />
       <EcosystemVisionSection />
