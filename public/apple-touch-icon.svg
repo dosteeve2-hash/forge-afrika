@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="180" height="180" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="180" height="180" rx="36" fill="#0A1628"/>
+  
+  <!-- Decorative accent ring -->
+  <rect x="8" y="8" width="164" height="164" rx="32" fill="none" stroke="#D4AF37" stroke-width="2" opacity="0.4"/>
+  
+  <!-- Accent corner marks -->
+  <line x1="20" y1="20" x2="40" y2="20" stroke="#D4AF37" stroke-width="3" stroke-linecap="round"/>
+  <line x1="20" y1="20" x2="20" y2="40" stroke="#D4AF37" stroke-width="3" stroke-linecap="round"/>
+  <line x1="160" y1="160" x2="140" y2="160" stroke="#D4AF37" stroke-width="3" stroke-linecap="round"/>
+  <line x1="160" y1="160" x2="160" y2="140" stroke="#D4AF37" stroke-width="3" stroke-linecap="round"/>
+  
+  <!-- Initials -->
+  <text 
+    x="90" 
+    y="92" 
+    font-family="'SF Pro Display', 'Helvetica Neue', Arial, sans-serif" 
+    font-size="52" 
+    font-weight="800"
+    fill="#D4AF37"
+    text-anchor="middle" 
+    dominant-baseline="middle"
+    letter-spacing="2"
+  >FA</text>
+
+  <!-- App name label at bottom -->
+  <text 
+    x="90" 
+    y="158" 
+    font-family="'SF Pro Display', 'Helvetica Neue', Arial, sans-serif" 
+    font-size="14" 
+    font-weight="600"
+    fill="#D4AF37"
+    text-anchor="middle"
+    opacity="0.9"
+  >FORGE Af</text>
+</svg>

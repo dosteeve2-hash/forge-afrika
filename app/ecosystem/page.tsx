@@ -3,154 +3,365 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { FILIALES_FORGE, CATEGORIES } from "@/lib/constants";
+import { ArrowUpRight, ArrowRight, ExternalLink, ChevronRight } from "lucide-react";
+import { FILIALES_FORGE, SECTEUR_META, NB_OUTILS, NB_DISPONIBLES, NB_EN_DEV, type Secteur } from "@/lib/constants";
+import { MARKETING_DATA } from "@/lib/marketing";
+import ForgeLogoSVG from "@/components/ForgeLogoSVG";
 
+const SECTEURS: Secteur[] = ["Primaire", "Secondaire", "Tertiaire"];
+
+const SECTEUR_ANGLES: Record<Secteur, number> = {
+  Primaire: -150,
+  Secondaire: -30,
+  Tertiaire: 90,
+};
+
+function polar(angleDeg: number, radiusPct: number) {
+  const rad = (angleDeg * Math.PI) / 180;
+  return { x: 50 + radiusPct * Math.cos(rad), y: 50 + radiusPct * Math.sin(rad) };
+}
+
+/* ── Diagramme SVG ── */
+function EcosystemDiagram() {
+  const R_SECTEUR = 27;
+  const R_FILIALE = 46;
+
+  const nodes = SECTEURS.map((secteur) => {
+    const meta = SECTEUR_META[secteur];
+    const angle = SECTEUR_ANGLES[secteur];
+    const secteurPos = polar(angle, R_SECTEUR);
+    const filiales = FILIALES_FORGE.filter((f) => f.secteur === secteur);
+    const span = filiales.length > 1 ? 56 : 0;
+    const filialesPos = filiales.map((f, i) => {
+      const a = filiales.length === 1 ? angle : angle - span / 2 + (span / (filiales.length - 1)) * i;
+      return { f, pos: polar(a, R_FILIALE) };
+    });
+    return { secteur, meta, angle, secteurPos, filialesPos };
+  });
+
+  return (
+    <motion.div
+      className="mb-16 rounded-3xl p-6 md:p-10"
+      style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(212,175,55,0.15)" }}
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, type: "spring" as const }}
+      viewport={{ once: true }}
+    >
+      <div className="text-center mb-8">
+        <span
+          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold mb-4"
+          style={{ background: "rgba(212,175,55,0.1)", border: "1px solid rgba(212,175,55,0.2)", color: "#D4AF37" }}
+        >
+          🗺️ Vue d&apos;ensemble
+        </span>
+        <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">Les outils, en un coup d&apos;œil</h2>
+        <p className="text-gray-400 text-sm max-w-xl mx-auto">
+          FORGE Afrika au centre, trois secteurs, {NB_OUTILS} outils.
+        </p>
+      </div>
+
+      <div className="relative mx-auto" style={{ width: "100%", maxWidth: 640, aspectRatio: "1 / 1" }}>
+        <svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid meet">
+          {nodes.map(({ secteur, meta, secteurPos, filialesPos }) => (
+            <g key={secteur}>
+              <line x1={50} y1={50} x2={secteurPos.x} y2={secteurPos.y} stroke={meta.color} strokeWidth={0.4} strokeOpacity={0.45} />
+              {filialesPos.map(({ f, pos }) => (
+                <line key={f.slug} x1={secteurPos.x} y1={secteurPos.y} x2={pos.x} y2={pos.y} stroke={f.couleur} strokeWidth={0.25} strokeOpacity={0.35} />
+              ))}
+            </g>
+          ))}
+        </svg>
+
+        <motion.div
+          className="absolute flex flex-col items-center gap-1.5"
+          style={{ left: "50%", top: "50%", transform: "translate(-50%,-50%)" }}
+          initial={{ opacity: 0, scale: 0.5 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, type: "spring" as const }}
+          viewport={{ once: true }}
+        >
+          <div className="rounded-2xl p-2 flex items-center justify-center" style={{ background: "rgba(212,175,55,0.1)", border: "1px solid rgba(212,175,55,0.4)", boxShadow: "0 0 40px rgba(212,175,55,0.25)" }}>
+            <ForgeLogoSVG size={44} variant="icon" />
+          </div>
+          <span className="text-[10px] md:text-xs font-bold text-white">FORGE</span>
+        </motion.div>
+
+        {nodes.map(({ secteur, meta, secteurPos, filialesPos }, si) => (
+          <div key={secteur}>
+            <motion.div
+              className="absolute flex flex-col items-center gap-1"
+              style={{ left: `${secteurPos.x}%`, top: `${secteurPos.y}%`, transform: "translate(-50%,-50%)" }}
+              initial={{ opacity: 0, scale: 0.5 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.4, delay: 0.15 + si * 0.08, type: "spring" as const }}
+              viewport={{ once: true }}
+            >
+              <div className="w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center text-lg md:text-xl" style={{ background: `${meta.color}18`, border: `1.5px solid ${meta.color}` }}>
+                {meta.icon}
+              </div>
+              <span className="text-[9px] md:text-[10px] font-semibold whitespace-nowrap" style={{ color: meta.color }}>{secteur}</span>
+            </motion.div>
+
+            {filialesPos.map(({ f, pos }, fi) => (
+              <motion.div
+                key={f.slug}
+                className="absolute flex flex-col items-center group"
+                style={{ left: `${pos.x}%`, top: `${pos.y}%`, transform: "translate(-50%,-50%)" }}
+                initial={{ opacity: 0, scale: 0.4 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.35, delay: 0.3 + si * 0.08 + fi * 0.05, type: "spring" as const }}
+                viewport={{ once: true }}
+              >
+                <div
+                  className="w-7 h-7 md:w-9 md:h-9 rounded-full flex items-center justify-center text-sm md:text-base cursor-default transition-transform group-hover:scale-125"
+                  style={{ background: "#0A1628", border: `1.5px solid ${f.couleur}` }}
+                  title={f.nom}
+                >
+                  {f.icon}
+                </div>
+                <span className="mt-1 text-[7px] md:text-[8px] text-gray-400 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity absolute top-full">
+                  {f.nom}
+                </span>
+              </motion.div>
+            ))}
+          </div>
+        ))}
+      </div>
+    </motion.div>
+  );
+}
+
+/* ── Flux ── */
+const FLUX = [
+  { de: "AgroTrack BF", vers: "ValueChain Connect", label: "Données collectes agricoles", couleur: "#10B981" },
+  { de: "ValueChain Connect", vers: "MillTrack", label: "Commandes matières premières", couleur: "#3B82F6" },
+  { de: "MillTrack", vers: "TAAMA", label: "Lots de production tracés", couleur: "#EAB308" },
+  { de: "TAAMA", vers: "FORJA", label: "Produits certifiés à l'export", couleur: "#22C55E" },
+  { de: "SUGU", vers: "CompTrack", label: "Transactions boutiques → comptabilité", couleur: "#F97316" },
+  { de: "Indubot Afrika", vers: "TAAMA", label: "Données capteurs robots → QC", couleur: "#00BCD4" },
+];
+
+/* ── Filiale card ── */
+function FilialeCard({ f, i }: { f: (typeof FILIALES_FORGE)[0]; i: number }) {
+  const hasSite = true;
+  const hasProductPage = !!MARKETING_DATA[f.slug];
+  const statutColor = f.statut === "Disponible" ? "#10B981" : "#F59E0B";
+
+  return (
+    <motion.div
+      key={f.slug}
+      initial={{ opacity: 0, y: 18 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, delay: i * 0.05, type: "spring" as const }}
+      viewport={{ once: true, margin: "-30px" }}
+      className="rounded-2xl p-6 group relative overflow-hidden flex flex-col"
+      style={{
+        background: "rgba(255,255,255,0.025)",
+        border: `1px solid ${f.couleur}25`,
+        transition: "border-color 0.2s, box-shadow 0.2s",
+      }}
+      onMouseEnter={(e) => {
+        (e.currentTarget as HTMLDivElement).style.borderColor = f.couleur + "55";
+        (e.currentTarget as HTMLDivElement).style.boxShadow = `0 0 32px ${f.couleur}18`;
+      }}
+      onMouseLeave={(e) => {
+        (e.currentTarget as HTMLDivElement).style.borderColor = f.couleur + "25";
+        (e.currentTarget as HTMLDivElement).style.boxShadow = "none";
+      }}
+    >
+      <div className="absolute top-0 left-0 right-0 h-0.5" style={{ background: `linear-gradient(90deg, ${f.couleur}, transparent)` }} />
+
+      {/* Header */}
+      <div className="flex items-start justify-between mb-3">
+        <div className="flex items-center gap-3">
+          <span className="text-3xl">{f.icon}</span>
+          <div>
+            <h3 className="font-bold text-white text-base">{f.nom}</h3>
+            <span className="text-xs" style={{ color: f.couleur }}>{f.categorie}</span>
+          </div>
+        </div>
+        <span className="text-xs px-2 py-0.5 rounded-full shrink-0 ml-2" style={{ background: `${statutColor}18`, color: statutColor }}>
+          {f.statut === "Disponible" ? "● Disponible" : "◐ En développement"}
+        </span>
+      </div>
+
+      <p className="text-xs text-gray-400 leading-relaxed mb-3 italic">{f.pourquoi}</p>
+      <p className="text-sm text-gray-300 leading-relaxed mb-4 flex-1">{f.description}</p>
+
+      {/* CTAs */}
+      <div className="flex gap-2">
+        {/* Bouton Découvrir → page produit */}
+        {hasProductPage && (
+          <Link
+            href={`/produits/${f.slug}`}
+            className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl text-sm font-semibold transition-all hover:scale-[1.02]"
+            style={{ background: `${f.couleur}18`, color: f.couleur, border: `1px solid ${f.couleur}35` }}
+          >
+            Découvrir <ChevronRight className="w-3.5 h-3.5" />
+          </Link>
+        )}
+        {/* Bouton accès au site */}
+        {hasSite ? (
+          <a
+            href={f.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-sm transition-all hover:scale-[1.02]"
+            style={{ background: "rgba(255,255,255,0.05)", color: "#9CA3AF", border: "1px solid rgba(255,255,255,0.1)" }}
+          >
+            <ExternalLink className="w-3.5 h-3.5" />
+          </a>
+        ) : !hasProductPage ? (
+          <div className="flex-1 flex items-center justify-center gap-2 py-2 rounded-xl text-sm" style={{ background: "rgba(255,255,255,0.03)", color: "#4B5563" }}>
+            Bientôt disponible
+          </div>
+        ) : null}
+      </div>
+    </motion.div>
+  );
+}
+
+/* ── Page principale ── */
 export default function EcosystemPage() {
-  const [activeCategory, setActiveCategory] = useState<string>("Tous");
+  const [activeFilter, setActiveFilter] = useState<"all" | Secteur>("all");
 
-  const filtered = activeCategory === "Tous"
-    ? FILIALES_FORGE
-    : FILIALES_FORGE.filter((f) => f.categorie === activeCategory);
-
-  const nbSecteurs = new Set(FILIALES_FORGE.map((f) => f.categorie)).size;
 
   return (
     <main className="min-h-screen" style={{ background: "#0A1628" }}>
-      {/* Nav */}
-      <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-4"
-        style={{ background: "rgba(10,22,40,0.9)", backdropFilter: "blur(12px)", borderBottom: "1px solid rgba(212,175,55,0.1)" }}>
+      {/* NAV */}
+      <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4" style={{ background: "rgba(10,22,40,0.92)", backdropFilter: "blur(14px)", borderBottom: "1px solid rgba(212,175,55,0.1)" }}>
         <Link href="/" className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-lg flex items-center justify-center font-bold"
-            style={{ background: "linear-gradient(135deg, #D4AF37, #F5D76E)", color: "#0A1628" }}>F</div>
-          <span className="font-bold text-white">FORGE Afrika</span>
+          <div className="w-9 h-9 rounded-lg flex items-center justify-center font-bold text-sm" style={{ background: "linear-gradient(135deg, #D4AF37, #F5D76E)", color: "#0A1628" }}>F</div>
+          <span className="font-bold text-white text-sm">FORGE Afrika</span>
         </Link>
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-4">
           <Link href="/roadmap" className="text-sm text-gray-400 hover:text-white transition-colors">Roadmap</Link>
-          <Link href="/dashboard" className="text-sm px-4 py-2 rounded-lg font-medium"
-            style={{ background: "linear-gradient(135deg, #D4AF37, #F5D76E)", color: "#0A1628" }}>QG</Link>
+          <Link href="/contact" className="text-sm px-4 py-2 rounded-lg font-semibold transition-all hover:scale-105" style={{ background: "linear-gradient(135deg, #D4AF37, #F5D76E)", color: "#0A1628" }}>Partenaire pilote</Link>
+          
         </div>
       </nav>
 
-      <div className="pt-28 pb-20 px-4 max-w-7xl mx-auto">
-        {/* Header */}
-        <motion.div className="text-center mb-12"
-          initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, type: "spring" as const }}>
-          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium mb-6"
-            style={{ background: "rgba(0,188,212,0.15)", border: "1px solid rgba(0,188,212,0.3)", color: "#00BCD4" }}>
-            {FILIALES_FORGE.length} filiales · {nbSecteurs} secteurs · entreprise mère
+      {/* HERO */}
+      <div className="pt-28 pb-12 px-4 max-w-7xl mx-auto">
+        <motion.div className="text-center mb-12" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, type: "spring" as const }}>
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold mb-6" style={{ background: "rgba(0,188,212,0.12)", border: "1px solid rgba(0,188,212,0.25)", color: "#00BCD4" }}>
+            🌍 {NB_OUTILS} outils · 3 secteurs
           </span>
-          <h1 className="text-5xl font-bold text-white mb-4">Nos Filiales</h1>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            FORGE Afrika est l'entreprise mère. Chaque filiale ci-dessous est une ramification autonome,
-            gouvernée depuis le QG, qui forge l'infrastructure économique de l'Afrique de demain.
+          <h1 className="text-5xl md:text-6xl font-bold text-white mb-5">
+            L&apos;Écosystème{" "}
+            <span style={{ background: "linear-gradient(135deg, #D4AF37, #F5D76E)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>FORGE</span>
+          </h1>
+          <p className="text-gray-400 text-lg max-w-3xl mx-auto leading-relaxed">
+            Du champ à l&apos;usine, de la boutique à l&apos;export : des outils pour les filières africaines, chacun utilisable seul.
           </p>
         </motion.div>
 
-        {/* Filtres */}
-        <motion.div className="flex flex-wrap justify-center gap-3 mb-12"
-          initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}>
-          {CATEGORIES.map((cat) => (
-            <button key={cat} onClick={() => setActiveCategory(cat)}
-              className="px-4 py-2 rounded-full text-sm font-medium transition-all"
-              style={activeCategory === cat
-                ? { background: "#D4AF37", color: "#0A1628" }
-                : { background: "rgba(255,255,255,0.05)", color: "#9CA3AF", border: "1px solid rgba(255,255,255,0.1)" }}>
-              {cat}
-            </button>
+        {/* Stats */}
+        <motion.div className="grid grid-cols-3 gap-4 mb-16 max-w-2xl mx-auto" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }}>
+          {[
+            { v: `${NB_OUTILS}`, l: "Outils conçus" },
+            { v: `${NB_DISPONIBLES}`, l: "Disponibles (pilote)" },
+            { v: `${NB_EN_DEV}`, l: "En développement" },
+          ].map((s) => (
+            <div key={s.l} className="text-center py-4 px-3 rounded-2xl" style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)" }}>
+              <p className="text-3xl font-black mb-1" style={{ background: "linear-gradient(135deg, #D4AF37, #F5D76E)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>{s.v}</p>
+              <p className="text-xs text-gray-500">{s.l}</p>
+            </div>
           ))}
         </motion.div>
 
-        {/* Grid filiales */}
+        <EcosystemDiagram />
+
+        {/* Filtres secteur */}
+        <motion.div className="flex flex-wrap justify-center gap-3 mb-12" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.35 }}>
+          <button onClick={() => setActiveFilter("all")} className="px-5 py-2 rounded-full text-sm font-semibold transition-all" style={activeFilter === "all" ? { background: "#D4AF37", color: "#0A1628" } : { background: "rgba(255,255,255,0.05)", color: "#9CA3AF", border: "1px solid rgba(255,255,255,0.1)" }}>
+            🌍 Tous les secteurs
+          </button>
+          {SECTEURS.map((s) => {
+            const meta = SECTEUR_META[s];
+            return (
+              <button key={s} onClick={() => setActiveFilter(s)} className="px-5 py-2 rounded-full text-sm font-semibold transition-all" style={activeFilter === s ? { background: meta.color, color: "#0A1628" } : { background: `${meta.color}12`, color: meta.color, border: `1px solid ${meta.color}30` }}>
+                {meta.icon} {meta.label}
+              </button>
+            );
+          })}
+        </motion.div>
+
+        {/* Grille par secteur */}
         <AnimatePresence mode="wait">
-          <motion.div key={activeCategory}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}>
-            {filtered.map((filiale, i) => {
-              const hasSite = filiale.url !== "#";
+          <motion.div key={activeFilter} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }}>
+            {(activeFilter === "all" ? SECTEURS : [activeFilter as Secteur]).map((secteur) => {
+              const meta = SECTEUR_META[secteur];
+              const filiales = FILIALES_FORGE.filter((f) => f.secteur === secteur);
+              if (!filiales.length) return null;
               return (
-                <motion.div key={filiale.slug}
-                  className="rounded-2xl p-6 relative overflow-hidden group"
-                  style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)" }}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: i * 0.06, type: "spring" as const }}
-                  whileHover={{ borderColor: "#D4AF37", boxShadow: "0 0 40px rgba(212,175,55,0.1)" }}>
-                  {/* Top accent */}
-                  <div className="absolute top-0 left-0 right-0 h-1 rounded-t-2xl" style={{ background: filiale.couleur }} />
-
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="text-4xl">{filiale.icon}</div>
-                    <span className="text-xs px-2 py-1 rounded-full"
-                      style={{
-                        background: filiale.statut === "Actif" ? "rgba(34,197,94,0.15)" : "rgba(212,175,55,0.15)",
-                        color: filiale.statut === "Actif" ? "#22C55E" : "#D4AF37",
-                      }}>
-                      {filiale.statut}
-                    </span>
-                  </div>
-
-                  <h3 className="text-xl font-bold text-white mb-1">{filiale.nom}</h3>
-                  <span className="text-xs font-semibold mb-3 block" style={{ color: filiale.couleur }}>{filiale.categorie}</span>
-                  <p className="text-gray-400 text-sm mb-5 leading-relaxed">{filiale.description}</p>
-
-                  {/* Métriques */}
-                  {filiale.metriques.utilisateurs > 0 && (
-                    <div className="grid grid-cols-3 gap-3 mb-5 py-4 rounded-xl"
-                      style={{ background: "rgba(255,255,255,0.04)", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
-                      <div className="text-center">
-                        <div className="text-white font-bold text-sm">{filiale.metriques.utilisateurs.toLocaleString("fr-FR")}</div>
-                        <div className="text-gray-500 text-xs">Utilisateurs</div>
-                      </div>
-                      <div className="text-center" style={{ borderLeft: "1px solid rgba(255,255,255,0.06)", borderRight: "1px solid rgba(255,255,255,0.06)" }}>
-                        <div className="text-white font-bold text-sm">{filiale.metriques.transactions.toLocaleString("fr-FR")}</div>
-                        <div className="text-gray-500 text-xs">Transactions</div>
-                      </div>
-                      <div className="text-center">
-                        <div className="text-white font-bold text-sm">{(filiale.metriques.ca / 1000000).toFixed(0)}M</div>
-                        <div className="text-gray-500 text-xs">CA FCFA</div>
-                      </div>
+                <div key={secteur} className="mb-16">
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl" style={{ background: `${meta.color}15`, border: `1px solid ${meta.color}30` }}>{meta.icon}</div>
+                    <div className="flex-1">
+                      <h2 className="text-xl font-bold" style={{ color: meta.color }}>{meta.label}</h2>
+                      <p className="text-sm text-gray-500">{meta.description}</p>
                     </div>
-                  )}
-
-                  {hasSite ? (
-                    <a href={filiale.url} target="_blank" rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl text-sm font-medium transition-all hover:scale-[1.02]"
-                      style={{ background: "rgba(212,175,55,0.1)", color: "#D4AF37", border: "1px solid rgba(212,175,55,0.2)" }}>
-                      Accéder au site ↗
-                    </a>
-                  ) : (
-                    <span className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl text-sm font-medium cursor-not-allowed"
-                      style={{ background: "rgba(255,255,255,0.03)", color: "#6B7280", border: "1px solid rgba(255,255,255,0.08)" }}>
-                      Bientôt disponible
-                    </span>
-                  )}
-                </motion.div>
+                    <div className="h-px flex-1" style={{ background: `linear-gradient(to right, ${meta.color}40, transparent)` }} />
+                    <span className="text-xs px-3 py-1 rounded-full font-semibold" style={{ background: `${meta.color}12`, color: meta.color }}>{filiales.length} outil{filiales.length > 1 ? "s" : ""}</span>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                    {filiales.map((f, i) => <FilialeCard key={f.slug} f={f} i={i} />)}
+                  </div>
+                </div>
               );
             })}
           </motion.div>
         </AnimatePresence>
 
-        {/* Section Synergie */}
-        <motion.div className="mt-24 rounded-2xl p-10 text-center"
-          style={{ background: "rgba(212,175,55,0.05)", border: "1px solid rgba(212,175,55,0.15)" }}
-          initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, type: "spring" as const }} viewport={{ once: true }}>
-          <h2 className="text-3xl font-bold text-white mb-4">La Synergie FORGE</h2>
-          <p className="text-gray-400 max-w-3xl mx-auto mb-8">
-            SUGU digitalise le commerce informel → TAAMA trace la qualité industrielle → AgroTrack BF gère les coopératives
-            → ValueChain Connect connecte acheteurs et vendeurs → MillTrack transforme les matières →
-            CompTrack tient la comptabilité → FORJA exporte les produits finis. Un écosystème complet, bout-en-bout,
-            gouverné depuis un seul QG.
-          </p>
-          <div className="flex flex-wrap justify-center gap-3">
-            {FILIALES_FORGE.map((f) => (
-              <span key={f.slug} className="px-3 py-1.5 rounded-full text-xs font-medium"
-                style={{ background: `${f.couleur}20`, color: f.couleur, border: `1px solid ${f.couleur}40` }}>
-                {f.icon} {f.nom}
-              </span>
+        {/* Interconnexions */}
+        <motion.div className="mt-8 rounded-3xl p-10" style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(0,188,212,0.15)" }} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, type: "spring" as const }} viewport={{ once: true }}>
+          <div className="text-center mb-10">
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold mb-4" style={{ background: "rgba(0,188,212,0.1)", border: "1px solid rgba(0,188,212,0.2)", color: "#00BCD4" }}>⚡ Liens envisagés entre outils</span>
+            <h2 className="text-3xl font-bold text-white mb-3">Comment ils pourraient s&apos;interconnecter</h2>
+            <p className="text-gray-400 max-w-2xl mx-auto">Chaque outil fonctionne seul. L&apos;objectif est qu&apos;à terme, une donnée saisie dans l&apos;un serve aux autres. Ces liens sont un objectif de conception, pas encore une réalité pour tous.</p>
+          </div>
+          <div className="space-y-3 max-w-2xl mx-auto">
+            {FLUX.map((flux, i) => (
+              <motion.div key={i} className="flex items-center gap-4 px-5 py-4 rounded-2xl" style={{ background: "rgba(255,255,255,0.025)", border: `1px solid ${flux.couleur}20` }} initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.06, type: "spring" as const }} viewport={{ once: true }}>
+                <span className="text-sm font-bold shrink-0" style={{ color: flux.couleur, minWidth: 130 }}>{flux.de}</span>
+                <ChevronRight className="w-4 h-4 text-gray-600 shrink-0" />
+                <span className="text-xs text-gray-400 flex-1">{flux.label}</span>
+                <ChevronRight className="w-4 h-4 text-gray-600 shrink-0" />
+                <span className="text-sm font-bold shrink-0" style={{ color: flux.couleur, minWidth: 130, textAlign: "right" }}>{flux.vers}</span>
+              </motion.div>
             ))}
+          </div>
+          <div className="mt-10 pt-8" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+            <p className="text-center text-sm text-gray-500 mb-4">Tous les outils</p>
+            <div className="flex flex-wrap justify-center gap-2">
+              {FILIALES_FORGE.map((f) => (
+                <Link key={f.slug} href={MARKETING_DATA[f.slug] ? `/produits/${f.slug}` : f.url} target={MARKETING_DATA[f.slug] ? undefined : "_blank"} rel="noopener noreferrer"
+                  className="px-3 py-1.5 rounded-full text-xs font-medium transition-all hover:scale-105"
+                  style={{ background: `${f.couleur}18`, color: f.couleur, border: `1px solid ${f.couleur}30` }}
+                >
+                  {f.icon} {f.nom}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </motion.div>
+
+        {/* CTA final */}
+        <motion.div className="mt-12 rounded-2xl p-8 md:p-12 text-center" style={{ background: "linear-gradient(135deg, rgba(212,175,55,0.06), rgba(0,188,212,0.04))", border: "1px solid rgba(212,175,55,0.2)" }} initial={{ opacity: 0, scale: 0.97 }} whileInView={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6, type: "spring" as const }} viewport={{ once: true }}>
+          <h2 className="text-3xl font-bold text-white mb-4">
+            Devenir{" "}
+            <span style={{ background: "linear-gradient(135deg, #D4AF37, #F5D76E)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>partenaire pilote</span>
+          </h2>
+          <p className="text-gray-400 mb-8 max-w-xl mx-auto">Coopératives, éleveurs, transformateurs, PME : essayez un outil et dites-nous ce qui manque. Partenaires et investisseurs, échangeons.</p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href="/contact" className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-semibold transition-all hover:scale-105" style={{ background: "linear-gradient(135deg, #D4AF37, #F5D76E)", color: "#0A1628" }}>
+              Contacter Steeve <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link href="/roadmap" className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-semibold transition-all hover:scale-105" style={{ border: "1px solid rgba(212,175,55,0.35)", color: "#D4AF37", background: "rgba(212,175,55,0.06)" }}>
+              Voir la feuille de route <ArrowUpRight className="w-4 h-4" />
+            </Link>
           </div>
         </motion.div>
       </div>
